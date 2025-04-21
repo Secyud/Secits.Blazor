@@ -18,7 +18,7 @@
         box-shadow: 0 0 4px 2px var(--e-border-focus-color), 0 0 1px 1px var(--e-border-focus-color) inset;
     }
 
-    > input {
+    > input, > textarea {
         margin: 0;
         width: 100%;
         height: 100%;
