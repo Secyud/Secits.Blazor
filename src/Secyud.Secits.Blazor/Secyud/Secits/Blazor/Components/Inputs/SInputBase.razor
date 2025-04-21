@@ -14,12 +14,6 @@
 
 @code
 {
-    private string? _currentString;
-    private string? _originString;
-    private string? _maskedString;
-    private TValue? _currentValue;
-    private bool _parsingFailed;
-    private bool _isMasked;
 
     protected override RenderFragment GenerateChildContent() => __builder => { @GenerateInputField() };
 
@@ -31,56 +25,4 @@
                @onchange="OnChange"
         />
     };
-
-    protected virtual void OnInput(ChangeEventArgs args)
-    {
-        var text = args.Value?.ToString();
-        ResetCurrentString(text);
-        ResetCurrentValue();
-        if (ChangeMode == InputChangeMode.OnInput)
-        {
-            SubmitChange();
-        }
-    }
-
-    protected virtual void OnChange(ChangeEventArgs args)
-    {
-        var text = args.Value?.ToString();
-        ResetCurrentString(text);
-        ResetCurrentValue();
-        SubmitChange();
-    }
-
-    protected virtual void SubmitChange()
-    {
-        _delayer?.Update(_currentValue);
-    }
-
-    protected void ResetCurrentString(string? text)
-    {
-        _originString = text;
-        _isMasked = InputMask is not null &&
-                    InputMask.TryMaskValue(text, out _maskedString);
-        _currentString = _isMasked ? _maskedString : _originString;
-    }
-
-    protected void ResetCurrentValue()
-    {
-        string? value;
-        if (_isMasked && InputMask is not null)
-        {
-            InputMask.TryUnmaskValue(_maskedString, out value);
-        }
-        else
-        {
-            value = _originString;
-        }
-
-        _parsingFailed = !TryConvertToValue(value, out var output);
-
-        if (!_parsingFailed)
-        {
-            _currentValue = output;
-        }
-    }
 }

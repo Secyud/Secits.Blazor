@@ -2,5 +2,5 @@
 
 public interface IValueDelegateComponent<TValue> : IValueComponent<TValue>
 {
-    Action<TValue?>? ValueSetAction { get; set; }
+    Action<TValue?>? OnValueParameterSet { get; set; }
 }

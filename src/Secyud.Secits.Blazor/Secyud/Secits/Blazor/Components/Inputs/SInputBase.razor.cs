@@ -23,33 +23,26 @@ public abstract partial class SInputBase<TValue> :
     [Parameter]
     public EventCallback<TValue?> ValueChanged { get; set; }
 
-    [CascadingParameter]
-    public IInputMask? InputMask { get; set; }
-
     #endregion
 
-    #region DelegateValueComponent
+    #region DelegateValue
 
     [CascadingParameter]
-    public IValueDelegateComponent<TValue>? DelegateValue { get; set; }
+    public IValueDelegateComponent<TValue>? ValueDelegate { get; set; }
 
     private void UnbindValueComponentDelegate()
     {
-        if (DelegateValue is not null)
-        {
-            DelegateValue.ValueSetAction = null;
-        }
+        if (ValueDelegate is not null)
+            ValueDelegate.OnValueParameterSet = null;
     }
 
     private void BindValueComponentDelegate(IValueDelegateComponent<TValue>? component)
     {
         UnbindValueComponentDelegate();
         if (component is not null)
-        {
-            component.ValueSetAction = OnParameterChanged;
-        }
+            component.OnValueParameterSet = OnValueParameterSet;
 
-        DelegateValue = component;
+        ValueDelegate = component;
     }
 
     #endregion
@@ -81,8 +74,8 @@ public abstract partial class SInputBase<TValue> :
         InvokeAsync(async () =>
         {
             await ValueChanged.InvokeAsync(value);
-            if (DelegateValue is not null)
-                await DelegateValue.ValueChanged.InvokeAsync(value);
+            if (ValueDelegate is not null)
+                await ValueDelegate.ValueChanged.InvokeAsync(value);
         });
     }
 
@@ -99,7 +92,7 @@ public abstract partial class SInputBase<TValue> :
     public override async Task SetParametersAsync(ParameterView parameters)
     {
         if (parameters.TryGetValue<IValueDelegateComponent<TValue>>(
-                nameof(DelegateValue), out var component))
+                nameof(ValueDelegate), out var component))
             BindValueComponentDelegate(component);
 
         if (parameters.TryGetValue<int>(nameof(DelayInterval), out var delayInterval))
@@ -109,12 +102,10 @@ public abstract partial class SInputBase<TValue> :
 
         if (parameters.TryGetValue<TValue?>(
                 nameof(Value), out var parameter))
-        {
-            OnParameterChanged(parameter);
-        }
+            OnValueParameterSet(parameter);
     }
 
-    private void OnParameterChanged(TValue? value)
+    private void OnValueParameterSet(TValue? value)
     {
         _currentValue = value;
 
@@ -126,8 +117,8 @@ public abstract partial class SInputBase<TValue> :
 
         ResetCurrentString(output);
         Value = _currentValue;
-        if (DelegateValue is null) return;
-        DelegateValue.Value = _currentValue;
+        if (ValueDelegate is null) return;
+        ValueDelegate.Value = _currentValue;
     }
 
     protected override ValueTask HandleDisposeAsync()
@@ -147,6 +138,83 @@ public abstract partial class SInputBase<TValue> :
     {
         output = value?.ToString();
         return true;
+    }
+
+    #endregion
+
+    #region Mask
+
+    [CascadingParameter]
+    public IInputMask? InputMask { get; set; }
+
+    private bool _isMasked;
+    private string? _maskedString;
+
+    private bool TrySetMaskedString(string? text)
+    {
+        if (InputMask is null) return false;
+        return InputMask.TryMaskValue(text,
+            out _maskedString);
+    }
+
+    #endregion
+
+    #region ValueHandle
+
+    private string? _currentString;
+    private string? _originString;
+    private TValue? _currentValue;
+    private bool _parsingFailed;
+
+    protected void OnInput(ChangeEventArgs args)
+    {
+        var text = args.Value?.ToString();
+        ResetCurrentString(text);
+        ResetCurrentValue();
+        if (ChangeMode == InputChangeMode.OnInput)
+        {
+            SubmitChange();
+        }
+    }
+
+    protected void OnChange(ChangeEventArgs args)
+    {
+        var text = args.Value?.ToString();
+        ResetCurrentString(text);
+        ResetCurrentValue();
+        SubmitChange();
+    }
+
+    protected void SubmitChange()
+    {
+        _delayer?.Update(_currentValue);
+    }
+
+    protected void ResetCurrentString(string? text)
+    {
+        _originString = text;
+        _isMasked = TrySetMaskedString(text);
+        _currentString = _isMasked ? _maskedString : _originString;
+    }
+
+    protected void ResetCurrentValue()
+    {
+        string? value;
+        if (_isMasked && InputMask is not null)
+        {
+            InputMask.TryUnmaskValue(_maskedString, out value);
+        }
+        else
+        {
+            value = _originString;
+        }
+
+        _parsingFailed = !TryConvertToValue(value, out var output);
+
+        if (!_parsingFailed)
+        {
+            _currentValue = output;
+        }
     }
 
     #endregion
