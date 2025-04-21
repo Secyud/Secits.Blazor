@@ -1,0 +1,12 @@
+﻿@page "/input"
+
+
+
+<SInputText @bind-Value="_text" 
+            Title="InputText"></SInputText>
+<span>@_text</span>
+
+@code
+{
+    string _text = "aaaa";
+}

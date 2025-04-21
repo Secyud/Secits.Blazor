@@ -1,0 +1,8 @@
+﻿:root{
+    --s-primary: var(--bs-primary);
+    --s-primary-rgb: var(--bs-primary-rgb);
+    --s-secondary: var(--bs-secondary);
+    --s-secondary-rgb: var(--bs-secondary-rgb);
+    --s-primary-border-subtle: var(--bs-primary-border-subtle);
+    --s-border-color: var(--bs-border-color);
+}
