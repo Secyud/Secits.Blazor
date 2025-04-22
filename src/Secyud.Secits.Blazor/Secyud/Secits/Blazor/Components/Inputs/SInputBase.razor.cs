@@ -109,13 +109,15 @@ public abstract partial class SInputBase<TValue> :
     {
         _currentValue = value;
 
+        // ensure value can be cast to string
         if (!TryConvertToField(value, out var output))
         {
             throw new InvalidCastException(
                 $"Type {typeof(TValue)} value {_currentValue} cast to string failed!");
         }
 
-        ResetCurrentString(output);
+        ResetCurrentStringFromValue(output);
+        _parsingFailed = false;
         Value = _currentValue;
         if (ValueDelegate is null) return;
         ValueDelegate.Value = _currentValue;
@@ -150,10 +152,29 @@ public abstract partial class SInputBase<TValue> :
     private bool _isMasked;
     private string? _maskedString;
 
-    private bool TrySetMaskedString(string? text)
+    private bool TryParseMask(string? text)
+    {
+        _originString = text;
+        if (InputMask is null) return false;
+        var res = InputMask.TryParseMask(text, out _maskedString);
+
+        // ensure input mask worked for masked string to value
+        if (!InputMask.TryConvertMaskToText(_maskedString, out var origin))
+        {
+            throw new InvalidCastException(
+                $"Please chack mask: {InputMask}, TryConvertMaskToText failed!" +
+                $"\r\nmasked string: {_maskedString}.");
+        }
+
+        _originString = origin;
+
+        return res;
+    }
+
+    private bool TryConvertTextToMask(string? text)
     {
         if (InputMask is null) return false;
-        return InputMask.TryMaskValue(text,
+        return InputMask.TryConvertTextToMask(text,
             out _maskedString);
     }
 
@@ -169,18 +190,16 @@ public abstract partial class SInputBase<TValue> :
     protected void OnInput(ChangeEventArgs args)
     {
         var text = args.Value?.ToString();
-        ResetCurrentString(text);
+        ResetCurrentStringFromInput(text);
         ResetCurrentValue();
         if (ChangeMode == InputChangeMode.OnInput)
-        {
             SubmitChange();
-        }
     }
 
     protected void OnChange(ChangeEventArgs args)
     {
         var text = args.Value?.ToString();
-        ResetCurrentString(text);
+        ResetCurrentStringFromInput(text);
         ResetCurrentValue();
         SubmitChange();
     }
@@ -190,10 +209,17 @@ public abstract partial class SInputBase<TValue> :
         _delayer?.Update(_currentValue);
     }
 
-    protected void ResetCurrentString(string? text)
+    protected void ResetCurrentStringFromInput(string? inputText)
     {
-        _originString = text;
-        _isMasked = TrySetMaskedString(text);
+        _originString = inputText;
+        _isMasked = TryParseMask(inputText);
+        _currentString = _isMasked ? _maskedString : _originString;
+    }
+
+    protected void ResetCurrentStringFromValue(string? value)
+    {
+        _originString = value;
+        _isMasked = TryConvertTextToMask(value);
         _currentString = _isMasked ? _maskedString : _originString;
     }
 
@@ -201,20 +227,13 @@ public abstract partial class SInputBase<TValue> :
     {
         string? value;
         if (_isMasked && InputMask is not null)
-        {
-            InputMask.TryUnmaskValue(_maskedString, out value);
-        }
+            InputMask.TryConvertMaskToText(_maskedString, out value);
         else
-        {
             value = _originString;
-        }
 
         _parsingFailed = !TryConvertToValue(value, out var output);
 
-        if (!_parsingFailed)
-        {
-            _currentValue = output;
-        }
+        if (!_parsingFailed) _currentValue = output;
     }
 
     #endregion

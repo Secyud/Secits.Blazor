@@ -2,6 +2,7 @@
 
 public interface IInputMask
 {
-    public bool TryMaskValue(string? origin, out string? target);
-    public bool TryUnmaskValue(string? origin, out string? target);
+    public bool TryParseMask(string? origin, out string? target);
+    public bool TryConvertMaskToText(string? mask, out string? origin);
+    public bool TryConvertTextToMask(string? mask, out string? origin);
 }
