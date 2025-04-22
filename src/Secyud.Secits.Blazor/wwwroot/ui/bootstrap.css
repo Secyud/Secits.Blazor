@@ -1,8 +1,115 @@
-﻿:root{
-    --s-primary: var(--bs-primary);
-    --s-primary-rgb: var(--bs-primary-rgb);
-    --s-secondary: var(--bs-secondary);
-    --s-secondary-rgb: var(--bs-secondary-rgb);
-    --s-primary-border-subtle: var(--bs-primary-border-subtle);
-    --s-border-color: var(--bs-border-color);
+﻿.primary {
+    &.bd {
+        --e-bd-c: var(--bs-border-color);
+        --e-bd-c-hover: var(--bs-primary);
+        --e-bd-c-active: var(--bs-primary-border-subtle);
+        --e-bd-c-focus: var(--bs-primary-border-subtle);
+    }
+
+    &.bg {
+        --e-bg-c: var(--bs-primary-bg-subtle);
+        --e-bg-c-hover: var(--bs-primary);
+        --e-txt-c: var(--bs-primary-text-emphasis)
+    }
+}
+
+.bd {
+    border-radius: var(--bs-border-radius);
+    border: var(--bs-border-width) var(--bs-border-style) var(--e-bd-c);
+
+    &.s-ipt, &.s-btn {
+        transition: box-shadow 50ms linear, border-color 50ms linear;
+
+        &:hover {
+            border-color: var(--e-bd-c-hover);
+            box-shadow: 0 0 1px 1px var(--e-bd-c-hover);
+        }
+
+        &:has(input:focus) {
+            border-color: var(--e-bd-c-focus);
+            box-shadow: 0 0 1px 1px var(--e-bd-c-focus);
+        }
+    }
+
+    &.s-btn {
+        &:active {
+            border-color: var(--e-bd-c-active);
+            box-shadow: 0 0 1px 1px var(--e-bd-c-active);
+        }
+    }
+}
+
+.bg {
+    border-radius: var(--bs-border-radius);
+    background-color: var(--e-bg-c);
+
+    &.s-ipt, &.s-btn, &.s-btn-close {
+        transition: box-shadow 50ms linear, border-color 50ms linear;
+
+        &:hover {
+            background-color: var(--e-bg-c-hover);
+        }
+
+        &:active {
+            opacity: 0.75;
+        }
+
+        &:has(input:focus) {
+            opacity: 0.75;
+        }
+    }
+}
+
+.s-ipt {
+    display: flex;
+}
+
+.s-btn-close {
+    --bs-btn-close-bg: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23000'%3e%3cpath d='M.293.293a1 1 0 0 1 1.414 0L8 6.586 14.293.293a1 1 0 1 1 1.414 1.414L9.414 8l6.293 6.293a1 1 0 0 1-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 0 1-1.414-1.414L6.586 8 .293 1.707a1 1 0 0 1 0-1.414z'/%3e%3c/svg%3e");
+
+    width: 1em;
+    height: 1em;
+    border-radius: 50%;
+    margin: auto 0.125rem;
+    background: transparent var(--bs-btn-close-bg) center/1em 0.6rem no-repeat;
+    opacity: 0;
+    transition: opacity 50ms linear;
+
+    &:hover {
+        opacity: 0.75;
+    }
+
+    &:active {
+        opacity: 0.1;
+    }
+}
+
+.s-btn {
+
+}
+
+.s-grp {
+    .m {
+        border-radius: 0;
+    }
+
+    .l {
+        border-bottom-right-radius: 0;
+        border-top-right-radius: 0;
+    }
+
+    .r {
+        border-bottom-left-radius: 0;
+        border-top-left-radius: 0;
+    }
+
+    .t {
+        border-bottom-right-radius: 0;
+        border-bottom-left-radius: 0;
+    }
+
+    .b {
+        border-top-right-radius: 0;
+        border-top-left-radius: 0;
+    }
 }

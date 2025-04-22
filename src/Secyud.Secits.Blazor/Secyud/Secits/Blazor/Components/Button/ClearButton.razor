@@ -1,0 +1,7 @@
+﻿@namespace Secyud.Secits.Blazor.Components
+@inherits SComponentBase
+
+<span class="@GetClass()" style="@GetStyle()"
+        @onclick="Click" @attributes="Attributes">
+    @GenerateChildContent()
+</span>

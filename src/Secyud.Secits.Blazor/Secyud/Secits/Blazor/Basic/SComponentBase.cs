@@ -9,16 +9,6 @@ public abstract class SComponentBase : ComponentBase, IAsyncDisposable
 
     protected virtual string ElementName => "div";
 
-    #region Identify
-
-    [Parameter]
-    public string? Name { get; set; }
-
-    [Parameter]
-    public string? Id { get; set; }
-
-    #endregion
-
     #region Parameters
 
     [Parameter(CaptureUnmatchedValues = true)]
@@ -42,12 +32,10 @@ public abstract class SComponentBase : ComponentBase, IAsyncDisposable
     protected override void BuildRenderTree(RenderTreeBuilder builder)
     {
         builder.OpenElement(0, ElementName);
-        builder.AddMultipleAttributes(1, Attributes);
-        builder.AddAttribute(2, "class", GetClass());
-        builder.AddAttribute(3, "style", GetStyle());
-        builder.AddAttribute(4, "id", Id);
-        builder.AddAttribute(5, "name", Name);
-        builder.AddContent(6, GenerateChildContent());
+        builder.AddAttribute(1, "class", GetClass());
+        builder.AddAttribute(2, "style", GetStyle());
+        builder.AddMultipleAttributes(3, Attributes);
+        builder.AddContent(4, GenerateChildContent());
         builder.CloseElement();
     }
 

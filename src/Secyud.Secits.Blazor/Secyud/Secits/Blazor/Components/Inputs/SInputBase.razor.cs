@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Secyud.Secits.Blazor.Basic;
 using Secyud.Secits.Blazor.Parameters;
 using Secyud.Secits.Utils;
 
@@ -7,7 +8,7 @@ namespace Secyud.Secits.Blazor.Components;
 public abstract partial class SInputBase<TValue> :
     IValueComponent<TValue>, IColorComponent
 {
-    protected override string ComponentName => "input";
+    protected override string ComponentName => "ipt";
 
     #region Parameters
 
@@ -18,10 +19,15 @@ public abstract partial class SInputBase<TValue> :
     public InputChangeMode ChangeMode { get; set; } = InputChangeMode.OnInput;
 
     [Parameter]
-    public TValue? Value { get; set; }
+    public TValue Value { get; set; } = default!;
 
     [Parameter]
-    public EventCallback<TValue?> ValueChanged { get; set; }
+    public EventCallback<TValue> ValueChanged { get; set; }
+
+    protected override void BuildInitialClassStyle(ClassStyleBuilderContext context)
+    {
+        context.AppendClass("bd");
+    }
 
     #endregion
 
@@ -100,12 +106,12 @@ public abstract partial class SInputBase<TValue> :
 
         await base.SetParametersAsync(parameters);
 
-        if (parameters.TryGetValue<TValue?>(
+        if (parameters.TryGetValue<TValue>(
                 nameof(Value), out var parameter))
             OnValueParameterSet(parameter);
     }
 
-    private void OnValueParameterSet(TValue? value)
+    private void OnValueParameterSet(TValue value)
     {
         _currentValue = value;
 
@@ -134,9 +140,9 @@ public abstract partial class SInputBase<TValue> :
 
     #region Converter
 
-    protected abstract bool TryConvertToValue(string? value, out TValue? output);
+    protected abstract bool TryConvertToValue(string? value, out TValue output);
 
-    protected virtual bool TryConvertToField(TValue? value, out string? output)
+    protected virtual bool TryConvertToField(TValue value, out string? output)
     {
         output = value?.ToString();
         return true;
@@ -146,7 +152,6 @@ public abstract partial class SInputBase<TValue> :
 
     #region Mask
 
-    [CascadingParameter]
     public IInputMask? InputMask { get; set; }
 
     private bool _isMasked;
@@ -184,7 +189,7 @@ public abstract partial class SInputBase<TValue> :
 
     private string? _currentString;
     private string? _originString;
-    private TValue? _currentValue;
+    private TValue _currentValue = default!;
     private bool _parsingFailed;
 
     protected void OnInput(ChangeEventArgs args)
@@ -236,5 +241,18 @@ public abstract partial class SInputBase<TValue> :
         if (!_parsingFailed) _currentValue = output;
     }
 
+    #endregion
+
+    #region Clear
+
+    [Parameter]
+    public bool ClearButtonVisible { get; set; } = true;
+
+    protected void ClearValue()
+    {
+        OnValueParameterSet(default!);
+        SubmitChange();
+    }
+    
     #endregion
 }

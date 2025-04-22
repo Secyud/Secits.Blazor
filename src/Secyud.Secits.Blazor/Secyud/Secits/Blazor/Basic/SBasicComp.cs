@@ -53,10 +53,19 @@ public abstract class SBasicComp : SComponentBase
 
     private ClassStyleBuilder ClassStyleBuilder { get; }
 
-
-    private void BuildClassStyle(ClassStyleBuilderContext context)
+    protected virtual void BuildInitialClassStyle(ClassStyleBuilderContext context)
     {
-        context.Class.Append(ComponentName);
+    }
+
+    protected void BuildClassStyle(ClassStyleBuilderContext context)
+    {
+        if (!string.IsNullOrEmpty(ComponentName))
+        {
+            context.Class.Append("s-");
+            context.Class.Append(ComponentName);
+        }
+
+        BuildInitialClassStyle(context);
         context.AppendClass(Class);
         context.Style.Append(Style);
         DirtyParameter.BuildDirtyClassStyle(this, context);

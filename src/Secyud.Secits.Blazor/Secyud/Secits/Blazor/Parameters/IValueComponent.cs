@@ -4,7 +4,7 @@ namespace Secyud.Secits.Blazor.Parameters;
 
 public interface IValueComponent<TValue>
 {
-    TValue? Value { get; set; }
+    TValue Value { get; set; }
 
-    EventCallback<TValue?> ValueChanged { get; set; }
+    EventCallback<TValue> ValueChanged { get; set; }
 }

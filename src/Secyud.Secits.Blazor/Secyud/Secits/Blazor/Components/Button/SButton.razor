@@ -1,0 +1,7 @@
+﻿@namespace Secyud.Secits.Blazor.Components
+@inherits SContainerComp
+
+<button class="@GetClass()" style="@GetStyle()"
+        @onclick="Click" @attributes="Attributes">
+    @GenerateChildContent()
+</button>

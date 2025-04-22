@@ -6,8 +6,6 @@
     __builder.OpenElement(0, ElementName);
     __builder.AddAttribute(1, "class", GetClass());
     __builder.AddAttribute(2, "style", GetStyle());
-    __builder.AddAttribute(3, "id", Id);
-    __builder.AddAttribute(4, "name", Name);
     __builder.AddContent(5, GenerateChildContent());
     __builder.CloseElement();
 }
@@ -15,12 +13,19 @@
 @code
 {
 
-    protected override RenderFragment GenerateChildContent() => __builder => { @GenerateInputField() };
+    protected override RenderFragment GenerateChildContent() => __builder =>
+    {
+        @GenerateInputField()
+        if (ClearButtonVisible)
+        {
+            <ClearButton Click="ClearValue"/>
+        }
+    };
 
     protected RenderFragment GenerateInputField() => __builder =>
     {
         <input value="@_currentString"
-               attributes="@Attributes"
+               @attributes="Attributes"
                @oninput="OnInput"
                @onchange="OnChange"
         />
