@@ -1,0 +1,21 @@
+﻿@using System.Numerics
+@namespace Secyud.Secits.Blazor
+@inherits SMaskableInputBase<TValue>
+@typeparam TValue where TValue : struct, INumber<TValue>
+
+@{
+    base.BuildRenderTree(__builder);
+}
+
+@code
+{
+    protected override RenderFragment GenerateChildContent() => __builder =>
+    {
+        @GenerateInputField()
+        // TODO Icon button
+        <span class="grp wol flex-column">
+            <SButton></SButton>
+        </span>
+        @GenerateClearButton()
+    };
+}

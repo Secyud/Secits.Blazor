@@ -2,7 +2,7 @@
     <Import Project="../../common.props"/>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="9.0.0"/>
+        <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="$(DotNetVersion)"/>
     </ItemGroup>
 
 </Project>

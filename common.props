@@ -1,3 +1,7 @@
 <Project>
-    <Import Project="../secyud.props"/>    
+    <Import Project="../secyud.props"/>
+
+    <PropertyGroup>
+        <RootNamespace>Secyud.Secits.Blazor</RootNamespace>
+    </PropertyGroup>
 </Project>

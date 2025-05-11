@@ -1,0 +1,24 @@
+﻿@namespace Secyud.Secits.Blazor
+@inherits SBasicComp
+@typeparam TValue
+
+@this.GenerateSettingContent()
+
+@GenerateChildContent();
+
+@code
+{
+    protected override RenderFragment GenerateChildContent() => __builder => { @GenerateInputField() };
+
+    protected virtual RenderFragment GenerateInputField() => __builder =>
+    {
+        <input value="@Value"
+               type="@InputType"
+               class="@GetClass()"
+               style="@GetStyle()"
+               @attributes="Attributes"
+               @oninput="OnInput"
+               @onchange="OnChange"
+        />
+    };
+}

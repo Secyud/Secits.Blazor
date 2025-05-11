@@ -1,0 +1,66 @@
+﻿@namespace Secyud.Secits.Blazor
+@inherits SContainerComp
+@typeparam TItem
+
+@this.GenerateSettingContent()
+
+@{
+    base.BuildRenderTree(__builder);
+}
+
+@code
+{
+    protected override RenderFragment GenerateChildContent() => __builder =>
+    {
+        <table>
+            @GenerateHeader()
+            @GenerateBody()
+        </table>
+    };
+
+    private RenderFragment GenerateHeader() => __builder =>
+    {
+        <thead>
+        @if (RenderHeader())
+        {
+            <tr>
+                @foreach (var column in Columns)
+                {
+                    <th>
+                        @column.GenerateHeader()
+                    </th>
+                }
+            </tr>
+        }
+        @if (RenderFilter())
+        {
+            <tr>
+                @foreach (var column in Columns)
+                {
+                    <th>
+                        @column.GenerateFilter()
+                    </th>
+                }
+            </tr>
+        }
+        </thead>
+    };
+
+    private RenderFragment GenerateBody() => __builder =>
+    {
+        if (Data is null || !Data.Any()) return;
+        <tbody>
+        @foreach (var item in Data)
+        {
+            <tr>
+                @foreach (var column in Columns)
+                {
+                    <td>
+                        @column.GenerateBody(item)
+                    </td>
+                }
+            </tr>
+        }
+        </tbody>
+    };
+}

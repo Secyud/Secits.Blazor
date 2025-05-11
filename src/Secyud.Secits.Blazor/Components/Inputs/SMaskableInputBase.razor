@@ -1,0 +1,37 @@
+﻿@namespace Secyud.Secits.Blazor
+@inherits SInputBase<TValue>
+@typeparam TValue
+
+@{
+    __builder.OpenElement(0, ElementName);
+    __builder.AddAttribute(1, "class", GetClass());
+    __builder.AddAttribute(2, "style", GetStyle());
+    __builder.AddContent(3, GenerateChildContent());
+    __builder.CloseElement();
+}
+
+@code
+{
+    protected override RenderFragment GenerateChildContent() => __builder =>
+    {
+        @GenerateInputField()
+        @GenerateClearButton()
+    };
+
+    protected virtual RenderFragment GenerateClearButton() => __builder =>
+    {
+        if (ClearButtonVisible)
+        {
+            <CloseButton Click="ClearValue"/>
+        }
+    };
+
+    protected override RenderFragment GenerateInputField() => __builder =>
+    {
+        <input value="@_currentString"
+               @attributes="Attributes"
+               @oninput="OnInput"
+               @onchange="OnChange"
+        />
+    };
+}
