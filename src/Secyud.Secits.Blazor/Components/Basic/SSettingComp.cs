@@ -10,10 +10,7 @@ public abstract class SSettingComp<TComponent> : ComponentBase, IAsyncDisposable
 
     public override async Task SetParametersAsync(ParameterView parameters)
     {
-        if (parameters.TryGetValue(nameof(MasterComponent), out TComponent? component))
-        {
-            ApplySetting(component);
-        }
+        parameters.UseParameter<TComponent>(nameof(MasterComponent), ApplySetting);
 
         await base.SetParametersAsync(parameters);
     }

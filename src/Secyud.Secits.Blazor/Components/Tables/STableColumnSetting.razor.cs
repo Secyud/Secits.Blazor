@@ -22,33 +22,16 @@ public partial class STableColumnSetting<TItem, TValue> :
     [Parameter]
     public bool? EnableHeader { get; set; }
 
-    protected Type? FieldType { get; private set; }
-
     #region LifeCycle
 
     public override async Task SetParametersAsync(ParameterView parameters)
     {
-        if (parameters.TryGetValue(nameof(Field),
-                out Expression<Func<TItem, object?>>? field))
+        parameters.UseParameter<Expression<Func<TItem, TValue>>?>(nameof(Field), field =>
         {
-            if (field?.Body is MemberExpression me)
-            {
-                Filter.Field = me.Member.Name;
-                Sorter.Field = me.Member.Name;
-                FieldType = me.Member switch
-                {
-                    FieldInfo fi => fi.FieldType,
-                    PropertyInfo pi => pi.PropertyType,
-                    _ => FieldType
-                };
-            }
-            else
-            {
-                Filter.Field = null;
-                Sorter.Field = null;
-                FieldType = null;
-            }
-        }
+            var name = field?.GetBodyName();
+            Filter.Field = name;
+            Sorter.Field = name;
+        });
 
         await base.SetParametersAsync(parameters);
     }
@@ -58,7 +41,7 @@ public partial class STableColumnSetting<TItem, TValue> :
         MasterComponent?.AddColumn(this);
     }
 
-    protected void UnsetTable()
+    protected override void ForgoSetting()
     {
         MasterComponent?.RemoveColumn(this);
     }
