@@ -3,8 +3,16 @@
 namespace Secyud.Secits.Blazor;
 
 [CascadingTypeParameter(nameof(TItem))]
-public partial class STable<TItem> : IDataComponent<TItem>, IFilteredComponent
+public partial class STable<TItem> : IThemeComponent,
+    IDataComponent<TItem>, IFilteredComponent, ISelectComponent<TItem>
 {
+    private ISelectComponent<TItem> SelectComponent { get; }
+
+    public STable()
+    {
+        SelectComponent = this;
+    }
+
     protected override string ComponentName => "table";
 
     [Parameter]
@@ -61,4 +69,40 @@ public partial class STable<TItem> : IDataComponent<TItem>, IFilteredComponent
     }
 
     #endregion
+
+    [Parameter]
+    public EventCallback<IEnumerable<TItem>> SelectedValuesChanged { get; set; }
+
+    [Parameter]
+    public IEnumerable<TItem> SelectedValues { get; set; } = [];
+
+    [Parameter]
+    public EventCallback<TItem?> SelectedValueChanged { get; set; }
+
+    [Parameter]
+    public TItem? SelectedValue { get; set; }
+
+    [Parameter]
+    public bool MultiSelectEnabled { get; set; }
+
+    [Parameter]
+    public Theme Theme { get; set; }
+
+    [Parameter]
+    public Size Size { get; set; }
+
+    [Parameter]
+    public bool Borderless { get; set; }
+
+    [Parameter]
+    public bool Shadow { get; set; }
+
+    [Parameter]
+    public bool Background { get; set; }
+
+    [Parameter]
+    public bool Angular { get; set; }
+
+    [Parameter]
+    public bool Rounded { get; set; }
 }

@@ -1,4 +1,19 @@
 ﻿@namespace Secyud.Secits.Blazor
-@inherits SContainerComp
-@typeparam TItem
-@typeparam TValue
+@inherits SInputText
+
+@{
+    base.BuildRenderTree(__builder);
+}
+
+@code
+{
+
+    protected override RenderFragment GenerateChildContent() => __builder =>
+    {
+        @base.GenerateChildContent()
+        @GenerateDropdownButton()
+    };
+
+    private RenderFragment GenerateDropdownButton() => __builder => { <button></button> };
+}
+

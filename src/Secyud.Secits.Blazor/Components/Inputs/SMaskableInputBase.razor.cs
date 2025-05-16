@@ -21,6 +21,7 @@ public abstract partial class SMaskableInputBase<TValue>
 
     #region Mask
 
+    [Parameter]
     public IInputMask? InputMask { get; set; }
 
     private bool _isMasked;
@@ -92,7 +93,7 @@ public abstract partial class SMaskableInputBase<TValue>
     #region Clear
 
     [Parameter]
-    public bool ClearButtonVisible { get; set; } = true;
+    public bool ShowClearButton { get; set; } = true;
 
     protected void ClearValue()
     {

@@ -52,7 +52,9 @@
         <tbody>
         @foreach (var item in Data)
         {
-            <tr>
+            var @class = SelectComponent.IsSelected(item) ? "selected" : null;
+
+            <tr class="@(@class)">
                 @foreach (var column in Columns)
                 {
                     <td>

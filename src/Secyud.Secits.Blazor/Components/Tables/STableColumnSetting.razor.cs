@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Components;
 namespace Secyud.Secits.Blazor;
 
 public partial class STableColumnSetting<TItem, TValue> :
-    ITableColumnSetting<TItem>, IFilteredComponent, IFieldComponent<TItem, TValue>
+    ITableColumnSetting<TItem>, IFilteredComponent, IValueFieldComponent<TItem, TValue>
 {
     [Parameter]
     public string? Caption { get; set; }
@@ -14,7 +14,7 @@ public partial class STableColumnSetting<TItem, TValue> :
     public string? Format { get; set; }
 
     [Parameter]
-    public Expression<Func<TItem, TValue>>? Field { get; set; }
+    public Expression<Func<TItem, TValue>>? ValueField { get; set; }
 
     [Parameter]
     public bool? EnableFilter { get; set; }
@@ -29,7 +29,7 @@ public partial class STableColumnSetting<TItem, TValue> :
 
     public override async Task SetParametersAsync(ParameterView parameters)
     {
-        parameters.UseParameter<Expression<Func<TItem, TValue>>?>(nameof(Field), field =>
+        parameters.UseParameter<Expression<Func<TItem, TValue>>?>(nameof(ValueField), field =>
         {
             var name = field?.GetBodyName();
             Filter.Field = name;
@@ -81,7 +81,7 @@ public partial class STableColumnSetting<TItem, TValue> :
 
     protected TValue? GetField(TItem item)
     {
-        var de = Field?.Compile();
+        var de = ValueField?.Compile();
         return de is null ? default : de(item);
     }
 

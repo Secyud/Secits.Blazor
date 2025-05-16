@@ -68,7 +68,7 @@
 
     public virtual RenderFragment GenerateBody(TItem item) => __builder =>
     {
-        if (Field is null) return;
+        if (ValueField is null) return;
         var value = GetField(item);
         if (Format is null)
         {

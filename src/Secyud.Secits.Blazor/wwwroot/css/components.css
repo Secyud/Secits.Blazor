@@ -3,37 +3,6 @@
 @import './component/button.css';
 @import './component/group.css';
 
-:root {
-    --s-color-1: rgba(var(--s-color-rgb), 0.1);
-    --s-color-2: rgba(var(--s-color-rgb), 0.2);
-    --s-color-3: rgba(var(--s-color-rgb), 0.3);
-    --s-color-4: rgba(var(--s-color-rgb), 0.4);
-    --s-color-5: rgba(var(--s-color-rgb), 0.5);
-    --s-color-6: rgba(var(--s-color-rgb), 0.6);
-    --s-color-7: rgba(var(--s-color-rgb), 0.7);
-    --s-color-8: rgba(var(--s-color-rgb), 0.8);
-    --s-color-9: rgba(var(--s-color-rgb), 0.9);
-
-    --s-color-text-1: rgba(var(--s-color-text-rgb), 0.1);
-    --s-color-text-2: rgba(var(--s-color-text-rgb), 0.2);
-    --s-color-text-3: rgba(var(--s-color-text-rgb), 0.3);
-    --s-color-text-4: rgba(var(--s-color-text-rgb), 0.4);
-    --s-color-text-5: rgba(var(--s-color-text-rgb), 0.5);
-    --s-color-text-6: rgba(var(--s-color-text-rgb), 0.6);
-    --s-color-text-7: rgba(var(--s-color-text-rgb), 0.7);
-    --s-color-text-8: rgba(var(--s-color-text-rgb), 0.8);
-    --s-color-text-9: rgba(var(--s-color-text-rgb), 0.9);
-
-    --s-color-blend-1: rgba(var(--s-color-blend-rgb), 0.1);
-    --s-color-blend-2: rgba(var(--s-color-blend-rgb), 0.2);
-    --s-color-blend-3: rgba(var(--s-color-blend-rgb), 0.3);
-    --s-color-blend-4: rgba(var(--s-color-blend-rgb), 0.4);
-    --s-color-blend-5: rgba(var(--s-color-blend-rgb), 0.5);
-    --s-color-blend-6: rgba(var(--s-color-blend-rgb), 0.6);
-    --s-color-blend-7: rgba(var(--s-color-blend-rgb), 0.7);
-    --s-color-blend-8: rgba(var(--s-color-blend-rgb), 0.8);
-    --s-color-blend-9: rgba(var(--s-color-blend-rgb), 0.9);
-}
 
 .x-small {
     --size: 0.75rem;

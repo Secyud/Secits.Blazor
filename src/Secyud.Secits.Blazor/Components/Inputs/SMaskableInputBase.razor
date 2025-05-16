@@ -20,7 +20,7 @@
 
     protected virtual RenderFragment GenerateClearButton() => __builder =>
     {
-        if (ClearButtonVisible)
+        if (ShowClearButton)
         {
             <CloseButton Click="ClearValue"/>
         }

@@ -141,7 +141,7 @@ public abstract partial class SInputBase<TValue> :
         _delayer.Update(CurrentValue);
     }
 
-    private void OnValueChanged(TValue? value)
+    protected virtual void OnValueChanged(TValue? value)
     {
         ValueChanged.InvokeAsync(value);
     }
