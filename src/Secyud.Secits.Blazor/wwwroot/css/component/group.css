@@ -1,0 +1,36 @@
+
+.s-group {
+    > .l, > > .l {
+        width: 100%;
+        height: 100%;
+        border-bottom-right-radius: 0;
+        border-top-right-radius: 0;
+    }
+
+    > .r, > > .r {
+        width: 100%;
+        height: 100%;
+        border-bottom-left-radius: 0;
+        border-top-left-radius: 0;
+    }
+
+    > .t, > > .t {
+        width: 100%;
+        height: 100%;
+        border-bottom-right-radius: 0;
+        border-bottom-left-radius: 0;
+    }
+
+    > .b, > > .b {
+        width: 100%;
+        height: 100%;
+        border-top-right-radius: 0;
+        border-top-left-radius: 0;
+    }
+
+    > .m, > > .m {
+        width: 100%;
+        height: 100%;
+        border-radius: 0;
+    }
+}

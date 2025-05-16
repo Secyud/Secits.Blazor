@@ -1,0 +1,23 @@
+﻿@using Secyud.Secits.Blazor.Options
+@inject IOptionsSnapshot<SecitsOptions> Options
+
+@if (IsWebAssemblyOnly)
+{
+    foreach (var cssPath in Options.Value.GetCssPaths())
+    {
+        <link rel="stylesheet" href="@cssPath"/>
+    }
+}
+else
+{
+    foreach (var cssPath in Options.Value.GetCssPaths())
+    {
+        <link rel="stylesheet" href="@Assets[cssPath] "/>
+    }
+}
+
+@code
+{
+    [Parameter]
+    public bool IsWebAssemblyOnly { get; set; }
+}

@@ -9,6 +9,9 @@ public partial class STableColumnSetting<TItem, TValue> :
 {
     [Parameter]
     public string? Caption { get; set; }
+    
+    [Parameter]
+    public string? Format { get; set; }
 
     [Parameter]
     public Expression<Func<TItem, TValue>>? Field { get; set; }

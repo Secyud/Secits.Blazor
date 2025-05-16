@@ -1,0 +1,23 @@
+.s-card {
+    margin: 0.5rem;
+    padding:0.25rem;
+    
+    background-color: var(--s-color-light);
+    border-radius: 0.5rem;
+    border: 1px solid var(--s-color-dark-1);
+    
+    > .s-card-header {
+        margin: 0.5rem;
+        padding:0.25rem;
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: var(--s-color-dark-7);
+    }
+
+    > .s-card-body {
+        margin: 0.5rem;
+        padding:0.25rem;
+        font-size: 1rem;
+        color: var(--s-color-dark-5);
+    }
+}

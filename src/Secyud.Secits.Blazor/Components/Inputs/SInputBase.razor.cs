@@ -4,9 +4,9 @@ using Secyud.Secits.Blazor.Utils;
 namespace Secyud.Secits.Blazor;
 
 public abstract partial class SInputBase<TValue> :
-    IValueComponent<TValue>, IColorComponent, IChildContentComponent
+    IValueComponent<TValue>, IThemeComponent, IChildContentComponent
 {
-    protected override string ComponentName => "ipt";
+    protected override string ComponentName => "input";
 
     protected virtual string? InputType => null;
 
@@ -28,7 +28,7 @@ public abstract partial class SInputBase<TValue> :
     public EventCallback<TValue> ValueChanged { get; set; }
 
     [Parameter]
-    public ColorType Color { get; set; }
+    public STheme Theme { get; set; }
 
     [Parameter]
     public InputChangeMode ChangeMode { get; set; } = InputChangeMode.OnInput;

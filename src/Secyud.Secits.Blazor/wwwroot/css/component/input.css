@@ -1,0 +1,30 @@
+
+input, textarea, button {
+    margin: 0;
+    outline: none;
+    border: none;
+    background: none;
+}
+
+input, textarea {
+    width: 100%;
+    height: 100%;
+}
+
+.s-input {
+    border-radius: 0.25rem;
+    border: 2px solid var(--s-color-5);
+
+    display: flex;
+    transition: box-shadow 50ms linear, border-color 50ms linear;
+
+    &:hover {
+        border-color: var(--s-color);
+        box-shadow: 0 0 1px 1px var(--s-color);
+    }
+
+    &:has(input:focus) {
+        border-color: var(--s-color-7);
+        box-shadow: 0 0 1px 1px var(--s-color);
+    }
+}

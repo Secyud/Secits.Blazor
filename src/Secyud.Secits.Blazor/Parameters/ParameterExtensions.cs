@@ -23,19 +23,56 @@ public static class ParameterExtensions
         }
     }
 
-    public static void AppendColor(this IColorComponent c, ClassStyleBuilderContext context)
+    public static void AppendTheme(this IThemeComponent c, ClassStyleBuilderContext context)
     {
-        context.AppendClass(c.Color switch
+        var color = STheme.Color & c.Theme;
+
+        context.AppendClass(color switch
         {
-            ColorType.Primary => "primary",
-            ColorType.Secondary => "secondary",
-            ColorType.Success => "success",
-            ColorType.Info => "info",
-            ColorType.Warning => "warning",
-            ColorType.Danger => "danger",
-            ColorType.Light => "light",
-            ColorType.Dark => "dark",
+            STheme.Primary => "primary",
+            STheme.Secondary => "secondary",
+            STheme.Success => "success",
+            STheme.Info => "info",
+            STheme.Warning => "warning",
+            STheme.Danger => "danger",
+            STheme.Light => "light",
+            STheme.Dark => "dark",
             _ => null
         });
+
+        var style = STheme.Style & c.Theme;
+
+        context.AppendClass(style switch
+        {
+            STheme.Outlined => "outlined",
+            STheme.NoBorder => "no-border",
+            _ => null
+        });
+
+        var size = STheme.Size & c.Theme;
+
+        context.AppendClass(size switch
+        {
+            STheme.XSmall => "x-small",
+            STheme.Small => "small",
+            STheme.Large => "large",
+            STheme.XLarge => "x-large",
+            _ => null
+        });
+
+        if (c.Theme.HasFlag(STheme.Shadow))
+        {
+            context.AppendClass("shadow");
+        }
+
+        if (c.Theme.HasFlag(STheme.Angular))
+        {
+            context.AppendClass("angular");
+        }
+
+        if (c.Theme.HasFlag(STheme.Rounded))
+        {
+            context.AppendClass("rounded");
+        }
     }
 }

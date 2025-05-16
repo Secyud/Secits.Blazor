@@ -29,13 +29,16 @@ public abstract class SComponentBase : ComponentBase, IAsyncDisposable
 
     #region Render
 
+    protected ElementReference Ref { get; set; }
+
     protected override void BuildRenderTree(RenderTreeBuilder builder)
     {
         builder.OpenElement(0, ElementName);
         builder.AddAttribute(1, "class", GetClass());
         builder.AddAttribute(2, "style", GetStyle());
         builder.AddMultipleAttributes(3, Attributes);
-        builder.AddContent(4, GenerateChildContent());
+        builder.AddElementReferenceCapture(4, r => Ref = r);
+        builder.AddContent(5, GenerateChildContent());
         builder.CloseElement();
     }
 

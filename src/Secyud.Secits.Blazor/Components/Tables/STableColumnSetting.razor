@@ -69,6 +69,14 @@
     public virtual RenderFragment GenerateBody(TItem item) => __builder =>
     {
         if (Field is null) return;
-        @GetField(item)
+        var value = GetField(item);
+        if (Format is null)
+        {
+            @value
+        }
+        else
+        {
+            @string.Format($"{{0:{Format}}}", value)
+        }
     };
 }

@@ -38,7 +38,7 @@ public readonly struct SValue(string value, bool isClass = false) :
 
     public override int GetHashCode()
     {
-        return IsClass.GetHashCode();
+        return Value.GetHashCode();
     }
 
     public static bool operator ==(SValue left, SValue right)

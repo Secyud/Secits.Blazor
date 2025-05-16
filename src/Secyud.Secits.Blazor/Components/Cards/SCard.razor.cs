@@ -7,8 +7,8 @@ public partial class SCard
     protected override string ComponentName => "card";
 
     [Parameter]
-    public RenderFragment? Header { get; set; }
+    public string? Title { get; set; }
 
     [Parameter]
-    public RenderFragment? Body { get; set; }
+    public string? Text { get; set; }
 }

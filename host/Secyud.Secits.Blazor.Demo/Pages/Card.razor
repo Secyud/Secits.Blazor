@@ -1,0 +1,12 @@
+﻿@attribute [Route(Menu.Card)]
+
+<SCard Title="@Title" Text="@Content"/>
+
+
+
+@code
+{
+    string Title { get; } = Utils.GetRandomString(20);
+
+    string Content { get; } = Utils.GetRandomString(1000);
+}

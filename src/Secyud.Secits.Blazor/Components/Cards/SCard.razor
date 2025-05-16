@@ -9,21 +9,25 @@
 {
     protected override RenderFragment GenerateChildContent() => __builder =>
     {
-        if (Header is not null)
-        {
-            <SCardHeader>
-                @Header
-            </SCardHeader>
-        }
+        @GenerateTitle()
+        @GenerateText()
+    };
 
-        if (Body is not null)
+    private RenderFragment GenerateTitle() => __builder =>
+    {
+        @if (!string.IsNullOrEmpty(Title))
         {
-            <SCardBody>
-                @Body
-            </SCardBody>
+            <SCardHeader>@Title</SCardHeader>
         }
+    };
 
-        if (ChildContent is not null)
+    private RenderFragment GenerateText() => __builder =>
+    {
+        if (!string.IsNullOrEmpty(Text))
+        {
+            <SCardBody>@Text</SCardBody>
+        }
+        else
         {
             @ChildContent
         }

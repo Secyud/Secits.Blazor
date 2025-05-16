@@ -5,4 +5,8 @@
         <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="$(DotNetVersion)"/>
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="wwwroot\images\svg\" />
+    </ItemGroup>
+
 </Project>

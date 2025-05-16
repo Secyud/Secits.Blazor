@@ -2,14 +2,14 @@
 
 namespace Secyud.Secits.Blazor;
 
-public partial class SButton : IClickComponent,IColorComponent
+public partial class SButton : IClickComponent,IThemeComponent
 {
-    protected override string ComponentName => "btn";
+    protected override string ComponentName => "button";
     protected override string ElementName => "button";
 
     [Parameter]
     public EventCallback Click { get; set; }
 
     [Parameter]
-    public ColorType Color { get; set; }
+    public STheme Theme { get; set; }
 }

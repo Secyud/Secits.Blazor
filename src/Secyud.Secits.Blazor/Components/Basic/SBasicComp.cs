@@ -41,9 +41,9 @@ public abstract class SBasicComp : SComponentBase
                 nameof(IWidthComponent.Width));
         }
 
-        dp.AddIfIs<IColorComponent>(this,
-            ParameterExtensions.AppendColor,
-            nameof(IColorComponent.Color));
+        dp.AddIfIs<IThemeComponent>(this,
+            ParameterExtensions.AppendTheme,
+            nameof(IThemeComponent.Theme));
     }
 
     #endregion
