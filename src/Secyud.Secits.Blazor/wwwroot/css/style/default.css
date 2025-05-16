@@ -1,95 +1,84 @@
 :root {
-    --s-color-text: rgb(0, 0, 0);
-    --s-color-text-rgb: 0, 0, 0;
+    --s-color-body-text: rgb(64, 64, 64);
+    --s-color-body-text-rgb: 64, 64, 64;
     --s-color-body: rgb(255, 255, 255);
     --s-color-body-rgb: 255, 255, 255;
+    --s-color-light: rgb(255, 255, 255);
+    --s-color-light-rgb: 255, 255, 255;
+    --s-color-dark: rgb(0, 0, 0);
+    --s-color-dark-rgb: 0, 0, 0;
+    --size: 1rem;
 }
 
 :root, .primary {
     --s-color: rgb(39, 128, 227);
     --s-color-rgb: 39, 128, 227;
-    --s-color-dark: rgb(0, 0, 0);
-    --s-color-dark-rgb: 0, 0, 0;
-    --s-color-light: rgb(255, 255, 255);
-    --s-color-light-rgb: 255, 255, 255;
-    --s-color-back: var(--s-color-dark);
-    --s-color-back-rgb: var(--s-color-dark-rgb);
+    --s-color-text: rgb(255, 255, 255);
+    --s-color-text-rgb: 255, 255, 255;
+    --s-color-blend: rgb(255, 255, 255);
+    --s-color-blend-rgb: 255, 255, 255;
 }
 
 
 .secondary {
     --s-color: rgb(55, 58, 60);
     --s-color-rgb: 55, 58, 60;
-    --s-color-dark: rgb(0, 0, 0);
-    --s-color-dark-rgb: 0, 0, 0;
-    --s-color-light: rgb(255, 255, 255);
-    --s-color-light-rgb: 255, 255, 255;
-    --s-color-back: var(--s-color-light);
-    --s-color-back-rgb: var(--s-color-light-rgb);
+    --s-color-text: rgb(255, 255, 255);
+    --s-color-text-rgb: 255, 255, 255;
+    --s-color-blend: rgb(255, 255, 255);
+    --s-color-blend-rgb: 255, 255, 255;
 }
 
 .success {
     --s-color: rgb(63, 182, 24);
     --s-color-rgb: 63, 182, 24;
-    --s-color-dark: rgb(0, 0, 0);
-    --s-color-dark-rgb: 0, 0, 0;
-    --s-color-light: rgb(255, 255, 255);
-    --s-color-light-rgb: 255, 255, 255;
-    --s-color-back: var(--s-color-light);
-    --s-color-back-rgb: var(--s-color-light-rgb);
+    --s-color-text: rgb(255, 255, 255);
+    --s-color-text-rgb: 255, 255, 255;
+    --s-color-blend: rgb(255, 255, 255);
+    --s-color-blend-rgb: 255, 255, 255;
 }
 
 .info {
     --s-color: rgb(153, 84, 187);
     --s-color-rgb: 153, 84, 187;
-    --s-color-dark: rgb(0, 0, 0);
-    --s-color-dark-rgb: 0, 0, 0;
-    --s-color-light: rgb(255, 255, 255);
-    --s-color-light-rgb: 255, 255, 255;
-    --s-color-back: var(--s-color-light);
-    --s-color-back-rgb: var(--s-color-light-rgb);
+    --s-color-text: rgb(255, 255, 255);
+    --s-color-text-rgb: 255, 255, 255;
+    --s-color-blend: rgb(255, 255, 255);
+    --s-color-blend-rgb: 255, 255, 255;
 }
 
 .warning {
     --s-color: rgb(255, 117, 24);
     --s-color-rgb: 255, 117, 24;
-    --s-color-dark: rgb(0, 0, 0);
-    --s-color-dark-rgb: 0, 0, 0;
-    --s-color-light: rgb(255, 255, 255);
-    --s-color-light-rgb: 255, 255, 255;
-    --s-color-back: var(--s-color-light);
-    --s-color-back-rgb: var(--s-color-light-rgb);
+    --s-color-text: rgb(255, 255, 255);
+    --s-color-text-rgb: 255, 255, 255;
+    --s-color-blend: rgb(255, 255, 255);
+    --s-color-blend-rgb: 255, 255, 255;
 }
 
 .danger {
     --s-color: rgb(255, 0, 57);
     --s-color-rgb: 255, 0, 57;
-    --s-color-dark: rgb(0, 0, 0);
-    --s-color-dark-rgb: 0, 0, 0;
-    --s-color-light: rgb(255, 255, 255);
-    --s-color-light-rgb: 255, 255, 255;
-    --s-color-back: var(--s-color-light);
-    --s-color-back-rgb: var(--s-color-light-rgb);
+    --s-color-text: rgb(255, 255, 255);
+    --s-color-text-rgb: 255, 255, 255;
+    --s-color-blend: rgb(255, 255, 255);
+    --s-color-blend-rgb: 255, 255, 255;
 }
 
 .light {
     --s-color: rgb(248, 249, 250);
     --s-color-rgb: 248, 249, 250;
-    --s-color-dark: rgb(255, 255, 255);
-    --s-color-dark-rgb: 255, 255, 255;
-    --s-color-light: rgb(0, 0, 0);
-    --s-color-light-rgb: 0, 0, 0;
-    --s-color-back: var(--s-color-light);
-    --s-color-back-rgb: var(--s-color-light-rgb);
+    --s-color-text: rgb(64, 64, 64);
+    --s-color-text-rgb: 64, 64, 64;
+    --s-color-blend: rgb(240, 240, 240);
+    --s-color-blend-rgb: 240, 240, 240;
 }
 
 .dark {
     --s-color: rgb(55, 58, 60);
     --s-color-rgb: 55, 58, 60;
-    --s-color-dark: rgb(0, 0, 0);
-    --s-color-dark-rgb: 0, 0, 0;
-    --s-color-light: rgb(255, 255, 255);
-    --s-color-light-rgb: 255, 255, 255;
-    --s-color-back: var(--s-color-light);
-    --s-color-back-rgb: var(--s-color-light-rgb);
+    --s-color-text: rgb(255, 255, 255);
+    --s-color-text-rgb: 255, 255, 255;
+    --s-color-blend: rgb(255, 255, 255);
+    --s-color-blend-rgb: 255, 255, 255;
 }

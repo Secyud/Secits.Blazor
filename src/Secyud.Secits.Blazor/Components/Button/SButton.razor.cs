@@ -2,7 +2,7 @@
 
 namespace Secyud.Secits.Blazor;
 
-public partial class SButton : IClickComponent,IThemeComponent
+public partial class SButton : IClickComponent, IThemeComponent
 {
     protected override string ComponentName => "button";
     protected override string ElementName => "button";
@@ -11,5 +11,23 @@ public partial class SButton : IClickComponent,IThemeComponent
     public EventCallback Click { get; set; }
 
     [Parameter]
-    public STheme Theme { get; set; }
+    public Theme Theme { get; set; }
+
+    [Parameter]
+    public Size Size { get; set; }
+
+    [Parameter]
+    public bool Borderless { get; set; }
+
+    [Parameter]
+    public bool Shadow { get; set; }
+
+    [Parameter]
+    public bool Background { get; set; }
+
+    [Parameter]
+    public bool Angular { get; set; }
+
+    [Parameter]
+    public bool Rounded { get; set; }
 }

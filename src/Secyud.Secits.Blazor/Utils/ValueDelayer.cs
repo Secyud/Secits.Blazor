@@ -9,29 +9,49 @@ namespace Secyud.Secits.Blazor.Utils;
 public class ValueDelayer<TValue> : IDisposable
 {
     /// <summary>
-    /// Internal timer used to delay the value.
-    /// </summary>
-    private Timer? _timer;
-
-    /// <summary>
     /// Holds the last updated value.
     /// </summary>
     private TValue? _value;
+
+    private Timer? _timer;
+    private int _delayInterval;
 
     /// <summary>
     /// Event raised after the interval has passed and with new updated value.
     /// </summary>
     public event EventHandler<TValue?>? Delayed;
 
+    public int DelayInterval
+    {
+        get => _delayInterval;
+        set
+        {
+            if (_timer is not null)
+            {
+                _timer.Stop();
+                _timer.Elapsed -= OnElapsed;
+            }
+
+            _delayInterval = value;
+
+            if (_delayInterval > 0)
+            {
+                _timer = new Timer(_delayInterval);
+                _timer.AutoReset = false;
+                _timer.Elapsed += OnElapsed;
+            }
+            else
+            {
+                _timer = null;
+            }
+        }
+    }
+
     /// <summary>
     /// Default constructor.
     /// </summary>
-    /// <param name="interval">Interval by which the value will be delayed.</param>
-    public ValueDelayer(int interval)
+    public ValueDelayer()
     {
-        _timer = new Timer(interval);
-        _timer.Elapsed += OnElapsed;
-        _timer.AutoReset = false;
     }
 
     private void OnElapsed(object? source, ElapsedEventArgs e)
@@ -45,12 +65,14 @@ public class ValueDelayer<TValue> : IDisposable
     /// <param name="value">New value.</param>
     public void Update(TValue? value)
     {
-        if (_timer is null) return;
-        
+        if (_timer is null)
+        {
+            Delayed?.Invoke(this, _value);
+            return;
+        }
+
         _timer.Stop();
-
         _value = value;
-
         _timer.Start();
     }
 

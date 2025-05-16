@@ -1,64 +1,53 @@
 ﻿@attribute [Route(Menu.Button)]
 @{
-    foreach (var shadow in Shadow)
-    foreach (var angular in Angular)
-    foreach (var rounded in Rounded)
+    foreach (var shadow in Bool)
+    foreach (var angular in Bool)
+    foreach (var rounded in Bool)
+    foreach (var borderless in Bool)
+    foreach (var backless in Bool)
     {
-        foreach (var style in Styles)
-        {
-            <SCard>
-                <SCardHeader>
-                    @(shadow == STheme.Default ? "无阴影" : "有阴影")
-                    @(angular == STheme.Default ? "圆角" : "直角")
-                    @(rounded == STheme.Default ? "按钮" : "图标")
-
-                </SCardHeader>
-                <SCardBody>
-                    @foreach (var size in Sizes)
+        <SCard>
+            <SCardHeader>
+                @(shadow ? "有阴影" : "无阴影")
+                @(angular ? "直角" : "圆角")
+                @(rounded ? "图标" : "按钮")
+                @(borderless ? "无边" : "有边")
+                @(backless ? "无背景" : "有背景")
+            </SCardHeader>
+            <SCardBody>
+                @foreach (var size in Sizes)
+                {
+                    <br/>
+                    <label>@size</label>
+                    <br/>
+                    foreach (var theme in Themes)
                     {
-                        <br/>
-                        foreach (var color in Colors)
-                        {
-                            var theme = shadow | angular | rounded | style | color | size;
-                            <SButton Theme="@theme">@color</SButton>
-                        }
+                        <SButton Theme="theme" Size="size" Shadow="shadow" Angular="angular"
+                                 Rounded="rounded" Borderless="borderless" Background="backless">
+                            @theme
+                        </SButton>
                     }
-                </SCardBody>
-            </SCard>
-        }
+                }
+            </SCardBody>
+        </SCard>
     }
 }
 
 @code
 {
-    STheme[] Colors { get; } =
+    Theme[] Themes { get; } =
     [
-        STheme.Primary, STheme.Secondary, STheme.Success, STheme.Info,
-        STheme.Warning, STheme.Danger, STheme.Light, STheme.Dark
+        Theme.Primary, Theme.Secondary, Theme.Success, Theme.Info,
+        Theme.Warning, Theme.Danger, Theme.Light, Theme.Dark
     ];
 
-    STheme[] Styles { get; } =
+    Size[] Sizes { get; } =
     [
-        STheme.Default, STheme.Outlined, STheme.NoBorder
+        Size.XSmall, Size.Small, Size.Default, Size.Large, Size.XLarge
     ];
 
-    STheme[] Sizes { get; } =
+    bool[] Bool { get; } =
     [
-        STheme.XSmall, STheme.Small, STheme.Default, STheme.Large, STheme.XLarge
-    ];
-
-    STheme[] Angular { get; } =
-    [
-        STheme.Default, STheme.Angular
-    ];
-
-    STheme[] Shadow { get; } =
-    [
-        STheme.Default, STheme.Shadow
-    ];
-
-    STheme[] Rounded { get; } =
-    [
-        STheme.Default, STheme.Rounded
+        false, true
     ];
 }

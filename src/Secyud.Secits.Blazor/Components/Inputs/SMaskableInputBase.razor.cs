@@ -36,7 +36,7 @@ public abstract partial class SMaskableInputBase<TValue>
         if (!InputMask.TryConvertMaskToText(_maskedString, out var origin))
         {
             throw new InvalidCastException(
-                $"Please chack mask: {InputMask}, TryConvertMaskToText failed!" +
+                $"Please check mask: {InputMask}, TryConvertMaskToText failed!" +
                 $"\r\nmasked string: {_maskedString}.");
         }
 

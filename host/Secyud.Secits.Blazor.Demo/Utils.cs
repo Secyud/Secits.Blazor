@@ -4,7 +4,7 @@ namespace Secyud.Secits.Blazor.Demo;
 
 public class Utils
 {
-    private const string Chars = " abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    private const string Chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 
     private static readonly Random Random = new();
     private static readonly StringBuilder Sb = new();
@@ -25,8 +25,10 @@ public class Utils
 
         for (var i = 0; i < length; i++)
         {
-            var c = Chars[Random.Next(Chars.Length)];
-            Sb.Append(c);
+            var random = Random.Next(Chars.Length * 4 / 3);
+            Sb.Append(random >= Chars.Length
+                ? ' '
+                : Chars[random]);
         }
 
         return Sb.ToString();

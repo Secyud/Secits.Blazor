@@ -1,7 +1,8 @@
 
 .s-button {
     --mix-value: 100%;
-    --size: 1rem;
+    --text-mix-value: 100%;
+    --s-button-text-rgb: var(--s-color-text-rgb);
 
     overflow: hidden;
 
@@ -14,84 +15,73 @@
     border-radius: 0.25rem;
     border: 1px solid var(--s-color);
 
+    color: rgba(var(--s-button-text-rgb), var(--text-mix-value));
+    background-color: color-mix(in lch, var(--s-color) var(--mix-value), var(--s-color-blend));
 
-    color: var(--s-color-back);
-    background-color: color-mix(in lch, var(--s-color) var(--mix-value), var(--s-color-light));
-
-    transition: --mix-value 50ms linear;
-
+    --transition-time: 50ms;
+    transition: color var(--transition-time) linear, border var(--transition-time) linear, background-color var(--transition-time) linear;
 
     &:hover {
-        --mix-value: 50%;
-    }
-
-    &:focus {
         --mix-value: 90%;
+        --text-mix-value: 75%;
     }
 
     &:active {
         --mix-value: 70%;
+        --text-mix-value: 100%;
     }
-}
 
-.s-button.outlined, .s-button.no-border {
-    --mix-value: 0;
-    color: var(--s-color-text);
-    background-color: color-mix(in lch, var(--s-color) var(--mix-value), var(--s-color-body));
+    &.background {
+        --mix-value: 0;
+        --text-mix-value: 75%;
+        --s-button-text-rgb: var(--s-color-body-text-rgb);
 
-    &:hover {
+        &:hover {
+            --mix-value: 10%;
+            --text-mix-value: 100%;
+        }
+
+        &:active {
+            --mix-value: 50%;
+            --text-mix-value: 75%;
+        }
+    }
+
+    &.rounded {
+        border-radius: 50%;
+
+        padding: calc(var(--size) / 2);
+        height: calc(var(--size) * 2.5);
+        width: calc(var(--size) * 2.5);
+    }
+
+    &.readonly {
+        --mix-value: 100%;
+        --text-mix-value: 100%;
+
+        &:hover {
+            --mix-value: 100%;
+            --text-mix-value: 100%;
+        }
+
+        &:active {
+            --mix-value: 100%;
+            --text-mix-value: 100%;
+        }
+    }
+
+    &.disabled {
         --mix-value: 50%;
+        --text-mix-value: 50%;
+
+        &:hover {
+            --mix-value: 50%;
+            --text-mix-value: 50%;
+        }
+
+        &:active {
+            --mix-value: 50%;
+            --text-mix-value: 50%;
+        }
     }
-
-    &:focus {
-        --mix-value: 10%;
-    }
-
-    &:active {
-        --mix-value: 30%;
-    }
-}
-
-.s-button.no-border {
-    border-color: transparent;
-}
-
-.s-button.rounded {
-    border-radius: 50%;
-
-    padding: calc(var(--size) / 2);
-    height: calc(var(--size) * 2.5);
-    width: calc(var(--size) * 2.5);
-}
-
-.s-button.angular {
-    border-radius: 0;
-}
-
-.s-button.shadow {
-
-    box-shadow: 0 0.25rem 0.25rem rgba(var(--s-color-text-rgb), 0.1);
-
-    transition: box-shadow 50ms linear;
-
-    &:active {
-        box-shadow: 0 0.5rem 0.5rem rgba(var(--s-color-text-rgb), 0.2);
-    }
-}
-
-
-.s-button.x-small {
-    --size: 0.75rem;
-}
-
-.s-button.small {
-    --size: 0.875rem;
-}
-
-.s-button.large {
-    --size: 1.125rem;
-}
-
-.s-button.x-large {
-    --size: 1.25rem;
 }

@@ -25,54 +25,37 @@ public static class ParameterExtensions
 
     public static void AppendTheme(this IThemeComponent c, ClassStyleBuilderContext context)
     {
-        var color = STheme.Color & c.Theme;
-
-        context.AppendClass(color switch
+        context.AppendClass(c.Theme switch
         {
-            STheme.Primary => "primary",
-            STheme.Secondary => "secondary",
-            STheme.Success => "success",
-            STheme.Info => "info",
-            STheme.Warning => "warning",
-            STheme.Danger => "danger",
-            STheme.Light => "light",
-            STheme.Dark => "dark",
+            Theme.Secondary => "secondary",
+            Theme.Success => "success",
+            Theme.Info => "info",
+            Theme.Warning => "warning",
+            Theme.Danger => "danger",
+            Theme.Light => "light",
+            Theme.Dark => "dark",
             _ => null
         });
 
-        var style = STheme.Style & c.Theme;
-
-        context.AppendClass(style switch
+        context.AppendClass(c.Size switch
         {
-            STheme.Outlined => "outlined",
-            STheme.NoBorder => "no-border",
+            Size.XSmall => "x-small",
+            Size.Small => "small",
+            Size.Large => "large",
+            Size.XLarge => "x-large",
             _ => null
         });
 
-        var size = STheme.Size & c.Theme;
+        if (c.Background) context.AppendClass("background");
+        if (c.Borderless) context.AppendClass("borderless");
+        if (c.Shadow) context.AppendClass("shadow");
+        if (c.Angular) context.AppendClass("angular");
+        if (c.Rounded) context.AppendClass("rounded");
+    }
 
-        context.AppendClass(size switch
-        {
-            STheme.XSmall => "x-small",
-            STheme.Small => "small",
-            STheme.Large => "large",
-            STheme.XLarge => "x-large",
-            _ => null
-        });
-
-        if (c.Theme.HasFlag(STheme.Shadow))
-        {
-            context.AppendClass("shadow");
-        }
-
-        if (c.Theme.HasFlag(STheme.Angular))
-        {
-            context.AppendClass("angular");
-        }
-
-        if (c.Theme.HasFlag(STheme.Rounded))
-        {
-            context.AppendClass("rounded");
-        }
+    public static void AppendActivable(this IActivableComponent c, ClassStyleBuilderContext context)
+    {
+        if (c.Disabled) context.AppendClass("disabled");
+        if (c.Readonly) context.AppendClass("readonly");
     }
 }

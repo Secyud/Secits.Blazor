@@ -1,30 +1,96 @@
 
-input, textarea, button {
-    margin: 0;
-    outline: none;
-    border: none;
-    background: none;
-}
-
-input, textarea {
-    width: 100%;
-    height: 100%;
-}
-
 .s-input {
-    border-radius: 0.25rem;
-    border: 2px solid var(--s-color-5);
+    > input, > textarea, > button, & input, & textarea, & button {
+        font-size: var(--size);
+        margin: 0;
+        outline: none;
+        border: none;
+        background: none;
+    }
 
-    display: flex;
-    transition: box-shadow 50ms linear, border-color 50ms linear;
+    > input, > textarea, > button {
+        --distance: -0.25rem;
+        position: absolute;
+        color: inherit;
+        border-radius: inherit;
+
+        left: 0;
+        right: 0;
+        top: var(--distance);
+        bottom: var(--distance);
+    }
+
+    --mix-value: 0%;
+    --border-mix-value: 50%;
+    --text-mix-value: 50%;
+
+    position: relative;
+
+    margin: 0.25rem;
+    padding: 0.25rem;
+
+    border-radius: 0.25rem;
+    border: 0.125rem solid color-mix(in lch, var(--s-color) var(--border-mix-value), var(--s-color-blend));
+
+    color: rgba(var(--s-color-body-text-rgb), var(--text-mix-value));
+    background-color: color-mix(in lch, var(--s-color) var(--mix-value), var(--s-color-body));
+
+    --transition-time: 50ms;
+    transition: color var(--transition-time) linear, border var(--transition-time) linear, background-color var(--transition-time) linear;
 
     &:hover {
-        border-color: var(--s-color);
-        box-shadow: 0 0 1px 1px var(--s-color);
+        --mix-value: 4%;
+        --border-mix-value: 100%;
+        --text-mix-value: 75%;
     }
 
     &:has(input:focus) {
-        border-color: var(--s-color-7);
-        box-shadow: 0 0 1px 1px var(--s-color);
+        --mix-value: 2%;
+        --border-mix-value: 75%;
+        --text-mix-value: 100%;
+    }
+
+    &.background {
+        color: rgba(var(--s-color-text-rgb), var(--text-mix-value));
+        background-color: color-mix(in lch, var(--s-color) var(--mix-value), var(--s-color-blend));
+
+        --mix-value: 100%;
+        --text-mix-value: 75%;
+
+        &:hover {
+            --mix-value: 90%;
+            --text-mix-value: 75%;
+        }
+
+        &:has(input:focus) {
+            --mix-value: 70%;
+            --text-mix-value: 100%;
+        }
+    }
+
+    &.rounded {
+        border-radius: calc(var(--size));
+
+        > input, > textarea {
+            padding: 0 calc(var(--size) / 2);
+        }
+    }
+
+    &.readonly, &.disabled {
+        --mix-value: 0%;
+        --border-mix-value: 50%;
+        --text-mix-value: 50%;
+
+        &:hover {
+            --mix-value: 0%;
+            --border-mix-value: 50%;
+            --text-mix-value: 50%;
+        }
+
+        &:active {
+            --mix-value: 0%;
+            --border-mix-value: 50%;
+            --text-mix-value: 50%;
+        }
     }
 }

@@ -1,11 +1,58 @@
 ﻿@attribute [Route(Menu.Input)]
+<style>
+    .group {
+        display: grid;
+        grid-template-columns: repeat(9, 1fr); /* 自适应列数 */
+        grid-gap: 0.5rem;        
+    }
+</style>
 
-
-
-<SInputText @bind-Value="Text"></SInputText>
-
+@{
+    foreach (var shadow in Bool)
+    foreach (var angular in Bool)
+    foreach (var rounded in Bool)
+    foreach (var borderless in Bool)
+    foreach (var backless in Bool)
+    {
+        <SCard>
+            <SCardHeader>
+                @(shadow ? "有阴影" : "无阴影")
+                @(angular ? "直角" : "圆角")
+                @(rounded ? "图标" : "按钮")
+                @(borderless ? "无边" : "有边")
+                @(backless ? "无背景" : "有背景")
+            </SCardHeader>
+            <SCardBody Class="group">
+                @foreach (var size in Sizes)
+                {
+                    <label>@size</label>
+                    foreach (var theme in Themes)
+                    {
+                        <SInputText Value="@(theme.ToString())"
+                                    Theme="theme" Size="size" Shadow="shadow" Angular="angular"
+                                    Rounded="rounded" Borderless="borderless" Background="backless"/>
+                    }
+                }
+            </SCardBody>
+        </SCard>
+    }
+}
 
 @code
 {
-    string Text { get; set; } = "";
+    Theme[] Themes { get; } =
+    [
+        Theme.Primary, Theme.Secondary, Theme.Success, Theme.Info,
+        Theme.Warning, Theme.Danger, Theme.Light, Theme.Dark
+    ];
+
+    Size[] Sizes { get; } =
+    [
+        Size.XSmall, Size.Small, Size.Default, Size.Large, Size.XLarge
+    ];
+
+    bool[] Bool { get; } =
+    [
+        false, true
+    ];
 }

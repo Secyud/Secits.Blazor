@@ -29,6 +29,8 @@
     protected override RenderFragment GenerateInputField() => __builder =>
     {
         <input value="@_currentString"
+               readonly="@(Readonly ? "readonly" : null)"
+               disabled="@(Disabled ? "disabled" : null)"
                @attributes="Attributes"
                @oninput="OnInput"
                @onchange="OnChange"

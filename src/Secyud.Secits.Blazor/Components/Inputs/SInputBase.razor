@@ -16,6 +16,8 @@
                type="@InputType"
                class="@GetClass()"
                style="@GetStyle()"
+               readonly="@(Readonly ? "readonly" : null)"
+               disabled="@(Disabled ? "disabled" : null)"
                @attributes="Attributes"
                @oninput="OnInput"
                @onchange="OnChange"

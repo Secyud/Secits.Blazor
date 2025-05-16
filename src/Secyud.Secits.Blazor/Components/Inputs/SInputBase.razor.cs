@@ -4,7 +4,7 @@ using Secyud.Secits.Blazor.Utils;
 namespace Secyud.Secits.Blazor;
 
 public abstract partial class SInputBase<TValue> :
-    IValueComponent<TValue>, IThemeComponent, IChildContentComponent
+    IValueComponent<TValue>, IThemeComponent, IChildContentComponent, IActivableComponent
 {
     protected override string ComponentName => "input";
 
@@ -28,7 +28,25 @@ public abstract partial class SInputBase<TValue> :
     public EventCallback<TValue> ValueChanged { get; set; }
 
     [Parameter]
-    public STheme Theme { get; set; }
+    public Theme Theme { get; set; }
+
+    [Parameter]
+    public Size Size { get; set; }
+
+    [Parameter]
+    public bool Borderless { get; set; }
+
+    [Parameter]
+    public bool Shadow { get; set; }
+
+    [Parameter]
+    public bool Background { get; set; }
+
+    [Parameter]
+    public bool Angular { get; set; }
+
+    [Parameter]
+    public bool Rounded { get; set; }
 
     [Parameter]
     public InputChangeMode ChangeMode { get; set; } = InputChangeMode.OnInput;
@@ -39,87 +57,36 @@ public abstract partial class SInputBase<TValue> :
 
     protected override void OnInitialized()
     {
-        BindValueDelayer(DelayInterval);
+        _delayer.Delayed += OnSubmitInvoke;
         base.OnInitialized();
     }
 
     public override async Task SetParametersAsync(ParameterView parameters)
     {
-        parameters.UseParameter<IValueDelegateComponent<TValue>>(
-            nameof(ValueDelegate), BindValueComponentDelegate);
-        
-        parameters.UseParameter<int>(nameof(DelayInterval), BindValueDelayer);
+        parameters.UseParameter<int>(nameof(DelayInterval), interval =>
+        {
+            _delayer.DelayInterval = interval;
+        });
 
         await base.SetParametersAsync(parameters);
-        
+
         parameters.UseParameter<TValue>(nameof(Value), OnValueParameterSet);
     }
 
     protected override ValueTask HandleDisposeAsync()
     {
-        UnbindValueComponentDelegate();
-        UnbindValueDelayer();
+        _delayer.Dispose();
         return base.HandleDisposeAsync();
-    }
-
-    #endregion
-
-    #region DelegateValue
-
-    [CascadingParameter]
-    public IValueDelegateComponent<TValue>? ValueDelegate { get; set; }
-
-    private void UnbindValueComponentDelegate()
-    {
-        if (ValueDelegate is not null)
-            ValueDelegate.OnValueParameterSet = null;
-    }
-
-    private void BindValueComponentDelegate(IValueDelegateComponent<TValue>? component)
-    {
-        UnbindValueComponentDelegate();
-        if (component is not null)
-            component.OnValueParameterSet = OnValueParameterSet;
-
-        ValueDelegate = component;
     }
 
     #endregion
 
     #region Delayer
 
-    private ValueDelayer<TValue>? _delayer;
+    private readonly ValueDelayer<TValue> _delayer = new();
 
     [Parameter]
     public int DelayInterval { get; set; } = 200;
-
-    /// <summary>
-    /// Unbinds and disposes the current value delayer instance.
-    /// This method ensures that any delayed event subscriptions are removed
-    /// and resources associated with the delayer are properly released.
-    /// If no delayer is currently assigned, this method performs no action.
-    /// </summary>
-    private void UnbindValueDelayer()
-    {
-        if (_delayer is null) return;
-        _delayer.Delayed -= OnSubmitInvoke;
-        _delayer.Dispose();
-        _delayer = null;
-    }
-
-    /// <summary>
-    /// Binds a new value delayer instance with the specified time interval.
-    /// This method first unbinds and disposes of any existing value delayer to ensure proper resource management.
-    /// A new value delayer is then created and configured with the provided time interval.
-    /// The <see cref="ValueDelayer{TValue}.Delayed"/> event is subscribed to invoke the <see cref="OnSubmitInvoke"/> method.
-    /// </summary>
-    /// <param name="timeInterval">The delay interval in milliseconds for the value delayer.</param>
-    private void BindValueDelayer(int timeInterval)
-    {
-        UnbindValueDelayer();
-        _delayer = new ValueDelayer<TValue>(timeInterval);
-        _delayer.Delayed += OnSubmitInvoke;
-    }
 
     /// <summary>
     /// Invokes the value change handling logic when a delayed event is triggered.
@@ -143,8 +110,6 @@ public abstract partial class SInputBase<TValue> :
     {
         CurrentValue = value;
         Value = CurrentValue;
-        if (ValueDelegate is null) return;
-        ValueDelegate.Value = CurrentValue;
     }
 
     protected virtual void OnInputValueHandle(object? obj)
@@ -173,24 +138,12 @@ public abstract partial class SInputBase<TValue> :
     /// </summary>
     protected void SubmitChange()
     {
-        if (_delayer is null)
-        {
-            OnValueChanged(CurrentValue);
-        }
-        else
-        {
-            _delayer.Update(CurrentValue);
-        }
+        _delayer.Update(CurrentValue);
     }
 
     private void OnValueChanged(TValue? value)
     {
-        InvokeAsync(async () =>
-        {
-            await ValueChanged.InvokeAsync(value);
-            if (ValueDelegate is not null)
-                await ValueDelegate.ValueChanged.InvokeAsync(value);
-        });
+        ValueChanged.InvokeAsync(value);
     }
 
     #endregion

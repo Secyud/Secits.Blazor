@@ -43,7 +43,18 @@ public abstract class SBasicComp : SComponentBase
 
         dp.AddIfIs<IThemeComponent>(this,
             ParameterExtensions.AppendTheme,
-            nameof(IThemeComponent.Theme));
+            nameof(IThemeComponent.Theme),
+            nameof(IThemeComponent.Size),
+            nameof(IThemeComponent.Shadow),
+            nameof(IThemeComponent.Rounded),
+            nameof(IThemeComponent.Background),
+            nameof(IThemeComponent.Borderless),
+            nameof(IThemeComponent.Angular));
+
+        dp.AddIfIs<IActivableComponent>(this,
+            ParameterExtensions.AppendActivable,
+            nameof(IActivableComponent.Disabled),
+            nameof(IActivableComponent.Readonly));
     }
 
     #endregion
