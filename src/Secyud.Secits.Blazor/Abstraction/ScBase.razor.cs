@@ -53,7 +53,7 @@ public abstract partial class ScBase : IAsyncDisposable
         builder.OpenElement(0, ElementName);
         builder.AddAttribute(1, "class", GetClass());
         builder.AddAttribute(2, "style", GetStyle());
-        builder.AddAttribute(3, "secits");
+        builder.AddAttribute(3, "s");
         builder.AddMultipleAttributes(4, Attributes);
         var sequence = BuildContentExtra(builder, 4);
         builder.AddElementReferenceCapture(sequence + 1, r => Ref = r);

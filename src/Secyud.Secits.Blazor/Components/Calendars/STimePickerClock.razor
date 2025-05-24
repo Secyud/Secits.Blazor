@@ -1,7 +1,107 @@
 ﻿@namespace Secyud.Secits.Blazor.Components
-
-@inherits ScBase
+@inherits STimePickerBase
 
 @{
     base.BuildRenderTree(__builder);
+}
+
+@code
+{
+    protected override RenderFragment GenerateChildContent() => __builder =>
+    {
+        @GenerateHands()
+        @GenerateNumbers()
+    };
+
+    private RenderFragment GenerateHands() => __builder =>
+    {
+        string? hour = Hour < 12 ? "inner" : null;
+        string? minute = null;
+        string? second = null;
+
+        switch (_clockState)
+        {
+            case ClockState.Default:
+                break;
+            case ClockState.Hour:
+                hour = Hour is <= 12 and > 0 ? "active inner" : "active";
+                break;
+            case ClockState.Minute:
+                minute = "active";
+                break;
+            case ClockState.Second:
+                second = "active";
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
+
+        <div class="hour hand @hour" style="--position: @(Hour * 5)">
+            <div class="handle"
+                 @onmousedown="@OnMouseDownHour"
+                 @onmousedown:preventDefault></div>
+        </div>
+        <div class="minute hand @minute" style="--position: @Minute">
+            <div class="handle"
+                 @onmousedown="@OnMouseDownMinute"
+                 @onmousedown:preventDefault></div>
+        </div>
+        <div class="second hand @second" style="--position: @Second">
+            <div class="handle"
+                 @onmousedown="@OnMouseDownSecond"
+                 @onmousedown:preventDefault></div>
+        </div>
+    };
+
+    private RenderFragment GenerateNumbers() => __builder =>
+    {
+        switch (_clockState)
+        {
+            case ClockState.Default:
+                for (var i = 1; i <= 12; i++)
+                {
+                    @GenerateNumber(i, i, false, false)
+                }
+
+                break;
+            case ClockState.Hour:
+                for (var i = 1; i <= 12; i++)
+                {
+                    @GenerateNumber(i, i, true, Hour == i)
+                }
+
+                for (var i = 13; i <= 24; i++)
+                {
+                    @GenerateNumber(i - 12, i, false, Hour == i % 24)
+                }
+
+                break;
+            case ClockState.Minute:
+                for (var i = 0; i < 12; i++)
+                {
+                    @GenerateNumber(i, $"{i * 5: 00}", false, Minute == i * 5)
+                }
+
+                break;
+            case ClockState.Second:
+                for (var i = 0; i < 12; i++)
+                {
+                    @GenerateNumber(i, $"{i * 5: 00}", false, Second == i * 5)
+                }
+
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
+    };
+
+    public RenderFragment GenerateNumber(int position,
+        object number, bool inner, bool selected) => __builder =>
+    {
+        <div class="number @(selected ? "selected" : null) @(inner ? "inner" : null)"
+             style="--position: @position">
+            @number
+        </div>
+    };
+
 }

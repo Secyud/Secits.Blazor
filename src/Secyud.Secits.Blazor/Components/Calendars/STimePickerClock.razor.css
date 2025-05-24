@@ -1,0 +1,90 @@
+﻿.s-pkr-t-clock {
+    margin: 0.25rem;
+    width: calc(12 * var(--size));
+    height: calc(12 * var(--size));
+    overflow: hidden;
+    position: relative;
+    border-radius: 50%;
+
+    background-color: rgba(var(--s-color-rgb), 0.05);
+
+    > div {
+        --distance: 5;
+        --position: 0;
+        position: absolute;
+
+        > .handle {
+            position: absolute;
+            width: calc(var(--size) / 2);
+            height: calc(var(--size) / 2);
+            border-radius: 50%;
+            left: calc((-0.25 + 0.5 * var(--width)) * var(--size));
+            top: calc(-0.25 * var(--size));
+            background-color: var(--s-color);
+            pointer-events: auto;
+            transition: all 50ms;
+
+            &:hover {
+                width: var(--size);
+                height: var(--size);
+                top: calc(-0.5 * var(--size));
+                left: calc((-0.5 + 0.5 * var(--width)) * var(--size));
+            }
+        }
+    }
+
+    > .number {
+        position: absolute;
+        border-radius: 50%;
+        width: var(--size);
+        height: var(--size);
+        line-height: var(--size);
+        font-size: calc(var(--size) * 0.75);
+        text-align: center;
+        user-select: none;
+        left: calc(var(--size) * (5.5 + var(--distance) * sin(30deg * var(--position))));
+        top: calc(var(--size) * (5.5 - var(--distance) * cos(30deg * var(--position))));
+
+        color: var(--s-color-body-text);
+
+        &.inner {
+            --distance: 3;
+        }
+    }
+
+    > .hand {
+        --distance: 2;
+
+        transform-origin: bottom;
+        transform: rotate(calc(6deg * var(--position)));
+        border-radius: 0.25rem;
+        height: calc(var(--size) * var(--length));
+        top: calc(var(--size) * (6 - var(--length)));
+        width: calc(var(--width) * var(--size));
+        left: calc((12 - var(--width)) * var(--size) / 2);
+        pointer-events: none;
+
+        &.hour {
+            --length: 4;
+            --width: 0.3;
+            background-color: rgba(var(--s-color-rgb), 0.2);
+
+            &.inner {
+                --length: 1;
+                background-color: rgba(var(--s-color-rgb), 0.8);
+            }
+        }
+
+        &.minute {
+            --length: 2;
+            --width: 0.2;
+            background-color: rgba(var(--s-color-rgb), 0.6);
+        }
+
+        &.second {
+            --length: 3;
+            --width: 0.1;
+            background-color: rgba(var(--s-color-rgb), 0.4);
+        }
+    }
+}

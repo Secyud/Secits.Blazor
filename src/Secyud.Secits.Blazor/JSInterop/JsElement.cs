@@ -9,7 +9,7 @@ public abstract class JsElement(IJSRuntime js)
     {
         try
         {
-            await js.InvokeVoidAsync("invokeElementMethod", element, identifier, args);
+            await js.InvokeVoidAsync("invokeElementMethodVoid", element, identifier, args);
         }
         catch (JSDisconnectedException)
         {
@@ -22,7 +22,7 @@ public abstract class JsElement(IJSRuntime js)
     {
         try
         {
-            return await js.InvokeAsync<T>("invokeElementMethodVoid", element, identifier, args);
+            return await js.InvokeAsync<T>("invokeElementMethod", element, identifier, args);
         }
         catch (JSDisconnectedException)
         {

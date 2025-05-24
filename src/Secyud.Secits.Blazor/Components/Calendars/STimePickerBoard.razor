@@ -9,8 +9,11 @@
 {
     protected override RenderFragment GenerateChildContent() => __builder =>
     {
-        <SIntegerSlider Cycle Max="23" @bind-Value="Hour"/>
-        <SIntegerSlider Cycle Max="59" @bind-Value="Minute"/>
-        <SIntegerSlider Cycle Max="59" @bind-Value="Second"/>
+        <SIntegerSlider Disabled="@Pression.Disable(DateTimePrecisionKind.Hour)"
+                        Cycle Format="00" DelayInterval="0" Max="23" @bind-Value="Hour"/>
+        <SIntegerSlider Disabled="@Pression.Disable(DateTimePrecisionKind.Minute)"
+                        Cycle Format="00" DelayInterval="0" Max="59" @bind-Value="Minute"/>
+        <SIntegerSlider Disabled="@Pression.Disable(DateTimePrecisionKind.Second)"
+                        Cycle Format="00" DelayInterval="0" Max="59" @bind-Value="Second"/>
     };
 }

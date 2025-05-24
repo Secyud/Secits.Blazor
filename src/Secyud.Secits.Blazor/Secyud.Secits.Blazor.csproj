@@ -7,6 +7,6 @@
     </ItemGroup>
 
     <ItemGroup>
-        <None Update="**/*.razor.css" CssScope="secits"/>
+        <None Update="**/*.razor.css" CssScope="s"/>
     </ItemGroup>
 </Project>

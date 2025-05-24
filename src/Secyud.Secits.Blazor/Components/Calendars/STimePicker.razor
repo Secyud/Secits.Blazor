@@ -1,0 +1,20 @@
+﻿@namespace Secyud.Secits.Blazor.Components
+@inherits STimePickerBase
+
+@{
+    base.BuildRenderTree(__builder);
+}
+
+@code
+{
+
+    protected override RenderFragment GenerateChildContent() => __builder =>
+    {
+        <STimePickerBoard Value="Value" ValueChanged="OnInputInvoke"
+                          DelayInterval="0" Pression="Pression"
+                          ChangeMode="ChangeMode"/>
+        <STimePickerClock Value="Value" ValueChanged="OnInputInvoke"
+                          DelayInterval="0" Pression="Pression"
+                          ChangeMode="ChangeMode"/>
+    };
+}

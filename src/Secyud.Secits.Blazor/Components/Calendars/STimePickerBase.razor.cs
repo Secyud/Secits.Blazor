@@ -1,25 +1,42 @@
-﻿namespace Secyud.Secits.Blazor.Components;
+﻿using Microsoft.AspNetCore.Components;
+
+namespace Secyud.Secits.Blazor.Components;
 
 public abstract partial class STimePickerBase
 {
+    [Parameter]
+    public TimePrecision Pression { get; set; }
+
     protected TimeOnly ValueOrDefault => Value ?? default;
 
     protected int Hour
     {
         get => ValueOrDefault.Hour;
-        set => OnTimeChanged(hour: value);
+        set
+        {
+            value = (value + 24) % 24;
+            OnTimeChanged(hour: value);
+        }
     }
 
     protected int Minute
     {
         get => ValueOrDefault.Minute;
-        set => OnTimeChanged(minute: value);
+        set
+        {
+            value = (value + 60) % 60;
+            OnTimeChanged(minute: value);
+        }
     }
 
     protected int Second
     {
         get => ValueOrDefault.Second;
-        set => OnTimeChanged(second: value);
+        set
+        {
+            value = (value + 60) % 60;
+            OnTimeChanged(second: value);
+        }
     }
 
     protected void OnTimeChanged(

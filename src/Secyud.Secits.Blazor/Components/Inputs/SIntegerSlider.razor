@@ -10,7 +10,7 @@
     protected override RenderFragment GenerateContent() => GenerateDefaultContent();
 
     protected override RenderFragment GenerateChildContent() => __builder =>
-    { 
+    {
         @for (var offset = -CacheElement; offset < CacheElement; offset++)
         {
             var value = Value + offset;
@@ -29,7 +29,7 @@
         var size = $"s{Math.Abs(offset)}";
         <span class="element @size" style="--offset: @offset;"
               @onclick="() => OnInputInvoke(value)">
-            @value
+            @(string.IsNullOrEmpty(Format) ? value : value.ToString(Format))
         </span>
     };
 }

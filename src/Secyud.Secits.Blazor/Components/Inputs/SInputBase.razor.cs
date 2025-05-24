@@ -1,6 +1,4 @@
 ﻿using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Forms;
-using Microsoft.AspNetCore.Components.Rendering;
 using Secyud.Secits.Blazor.Abstraction;
 using Secyud.Secits.Blazor.Arguments;
 using Secyud.Secits.Blazor.Utils;
@@ -48,6 +46,9 @@ public abstract partial class SInputBase<TValue> :
 
     [Parameter]
     public bool Rounded { get; set; }
+
+    [Parameter]
+    public string? Format { get; set; }
 
     [Parameter]
     public InputChangeMode ChangeMode { get; set; } = InputChangeMode.OnInput;
@@ -121,6 +122,7 @@ public abstract partial class SInputBase<TValue> :
 
     protected void OnInputInvoke(object? value, bool submit = true)
     {
+        if (Readonly || Disabled) return;
         OnInputValueHandle(value);
         if (submit) SubmitChange();
     }

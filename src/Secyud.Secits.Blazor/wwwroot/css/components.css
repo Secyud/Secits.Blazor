@@ -28,7 +28,7 @@
 .shadow {
     box-shadow: 0 0.25rem 0.25rem rgba(var(--s-color-dark-rgb), 0.1);
     transition: box-shadow 50ms linear;
-    
+
     &:active {
         box-shadow: 0 0.5rem 0.5rem rgba(var(--s-color-dark-rgb), 0.2);
     }
@@ -45,3 +45,4 @@
 .angular {
     border-radius: 0;
 }
+

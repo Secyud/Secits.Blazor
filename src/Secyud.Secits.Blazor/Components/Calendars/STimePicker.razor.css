@@ -1,0 +1,6 @@
+
+.s-pkr-t {
+    display: flex;
+    flex-direction: column;
+    width: calc(12 * var(--size));
+}
