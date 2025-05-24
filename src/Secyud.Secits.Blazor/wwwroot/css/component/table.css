@@ -1,0 +1,60 @@
+﻿.s-table {
+    --mix-value: 0%;
+    --border-mix-value: 50%;
+    --text-mix-value: 50%;
+    --text-color-current-rgb: var(--s-color-body-text-rgb);
+
+    border-radius: 0.25rem;
+    border: 0.125rem solid rgba(var(--s-color-rgb), 0.5);
+    color: var(--s-color-body-text);
+    background-color: var(--s-color-body);
+    margin: 0.25rem;
+
+    > table {
+        border-spacing: 0;
+        border-collapse: collapse;
+
+        > thead {
+            > tr {
+                border-bottom: 0.125rem solid rgba(var(--s-color-rgb), 0.5);
+
+                > th:not(:first-child) {
+                    border-left: 0.125rem solid rgba(var(--s-color-rgb), 0.5);
+                }
+            }
+        }
+
+        > tbody {
+            > tr {
+                border-top: 1px solid rgba(var(--s-color-rgb), 0.5);
+
+                > td:not(:first-child) {
+                    border-left: 1px solid rgba(var(--s-color-rgb), 0.5);
+                }
+
+                > td {
+                    padding: 0.25rem;
+                }
+
+                --mix-value: 0;
+                --text-mix-value: 100%;
+
+                color: rgba(var(--text-color-current-rgb), var(--text-mix-value));
+                background-color: color-mix(in lch, var(--s-color) var(--mix-value), var(--s-color-body));
+
+                --transition-time: 50ms;
+                transition: color var(--transition-time) linear, border var(--transition-time) linear, background-color var(--transition-time) linear;
+
+                &:hover {
+                    --mix-value: 4%;
+                    --text-mix-value: 75%;
+                }
+
+                &.selected {
+                    --mix-value: 8%;
+                    --text-mix-value: 100%;
+                }
+            }
+        }
+    }
+}

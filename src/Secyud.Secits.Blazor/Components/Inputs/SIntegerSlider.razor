@@ -1,0 +1,35 @@
+﻿@namespace Secyud.Secits.Blazor.Components
+@inherits SInputBase<int>
+
+@{
+    base.BuildRenderTree(__builder);
+}
+
+@code
+{
+    protected override RenderFragment GenerateContent() => GenerateDefaultContent();
+
+    protected override RenderFragment GenerateChildContent() => __builder =>
+    { 
+        @for (var offset = -CacheElement; offset < CacheElement; offset++)
+        {
+            var value = Value + offset;
+
+            if (Cycle)
+                value = GetCycleValue(value);
+            else if ((offset < 0 && Value < Min - offset) ||
+                     (offset > 0 && Value > Max - offset))
+                continue;
+            __builder.AddContent(value, GenerateOffset(offset, value));
+        }
+    };
+
+    protected RenderFragment GenerateOffset(int offset, int value) => __builder =>
+    {
+        var size = $"s{Math.Abs(offset)}";
+        <span class="element @size" style="--offset: @offset;"
+              @onclick="() => OnInputInvoke(value)">
+            @value
+        </span>
+    };
+}

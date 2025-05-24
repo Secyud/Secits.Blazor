@@ -1,7 +1,7 @@
 ﻿using System.Globalization;
 using System.Numerics;
 
-namespace Secyud.Secits.Blazor;
+namespace Secyud.Secits.Blazor.Components;
 
 public partial class SInputNumber<TValue> where TValue : struct, INumber<TValue>
 {

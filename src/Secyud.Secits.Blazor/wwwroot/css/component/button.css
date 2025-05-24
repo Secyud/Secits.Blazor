@@ -4,6 +4,8 @@
     --text-mix-value: 100%;
     --s-button-text-rgb: var(--s-color-text-rgb);
 
+    cursor: pointer;
+    
     overflow: hidden;
 
     text-align: center;

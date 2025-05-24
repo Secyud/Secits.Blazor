@@ -67,7 +67,7 @@ public class ValueDelayer<TValue> : IDisposable
     {
         if (_timer is null)
         {
-            Delayed?.Invoke(this, _value);
+            Delayed?.Invoke(this, value);
             return;
         }
 

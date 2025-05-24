@@ -1,0 +1,16 @@
+﻿@namespace Secyud.Secits.Blazor.Components
+@inherits STimePickerBase
+
+@{
+    base.BuildRenderTree(__builder);
+}
+
+@code
+{
+    protected override RenderFragment GenerateChildContent() => __builder =>
+    {
+        <SIntegerSlider Cycle Max="23" @bind-Value="Hour"/>
+        <SIntegerSlider Cycle Max="59" @bind-Value="Minute"/>
+        <SIntegerSlider Cycle Max="59" @bind-Value="Second"/>
+    };
+}

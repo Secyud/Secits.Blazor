@@ -1,8 +1,12 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Forms;
+using Microsoft.AspNetCore.Components.Rendering;
+using Secyud.Secits.Blazor.Abstraction;
+using Secyud.Secits.Blazor.Arguments;
 
-namespace Secyud.Secits.Blazor;
+namespace Secyud.Secits.Blazor.Components;
 
-public partial class SButton : IClickComponent, IThemeComponent
+public partial class SButton : ISccClick, IScsTheme
 {
     protected override string ComponentName => "button";
     protected override string ElementName => "button";
@@ -30,4 +34,10 @@ public partial class SButton : IClickComponent, IThemeComponent
 
     [Parameter]
     public bool Rounded { get; set; }
+
+    protected override int BuildContentExtra(RenderTreeBuilder builder, int sequence)
+    {
+        builder.AddAttribute(sequence + 1, "onclick", Click);
+        return sequence + 1;
+    }
 }

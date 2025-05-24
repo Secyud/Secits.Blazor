@@ -1,26 +1,36 @@
-﻿@namespace Secyud.Secits.Blazor
-@inherits SBasicComp
+﻿@namespace Secyud.Secits.Blazor.Components
+@inherits ScContainerBase
 @typeparam TValue
 
-@this.GenerateSettingContent()
+@GenerateSettingContent()
 
-@GenerateChildContent();
+@{
+    base.BuildRenderTree(__builder);
+}
 
 @code
 {
-    protected override RenderFragment GenerateChildContent() => __builder => { @GenerateInputField() };
 
-    protected virtual RenderFragment GenerateInputField() => __builder =>
+    protected virtual RenderFragment GenerateSettingContent() =>
+        GenerateSettingContent<SInputBase<TValue>>();
+
+    protected override RenderFragment GenerateContent() => GenerateChildContent();
+
+    protected override RenderFragment GenerateChildContent() => __builder =>
     {
-        <input value="@Value"
-               type="@InputType"
-               class="@GetClass()"
-               style="@GetStyle()"
+        <input value="@Value" class="@GetClass()" style="@GetStyle()"
                readonly="@(Readonly ? "readonly" : null)"
                disabled="@(Disabled ? "disabled" : null)"
+               @oninput="OnInput" @onchange="@OnChange"
                @attributes="Attributes"
-               @oninput="OnInput"
-               @onchange="OnChange"
         />
+    };
+
+    protected virtual RenderFragment GenerateClearButton() => __builder =>
+    {
+        if (ShowClearButton)
+        {
+            <CloseButton Click="ClearValue"/>
+        }
     };
 }

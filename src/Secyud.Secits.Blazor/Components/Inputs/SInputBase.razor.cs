@@ -1,19 +1,20 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Forms;
+using Microsoft.AspNetCore.Components.Rendering;
+using Secyud.Secits.Blazor.Abstraction;
+using Secyud.Secits.Blazor.Arguments;
 using Secyud.Secits.Blazor.Utils;
 
-namespace Secyud.Secits.Blazor;
+namespace Secyud.Secits.Blazor.Components;
 
 public abstract partial class SInputBase<TValue> :
-    IValueComponent<TValue>, IThemeComponent, IChildContentComponent, IActivableComponent
+    ISchValue<TValue>, IScsTheme, IScsActive
 {
     protected override string ComponentName => "input";
 
     protected virtual string? InputType => null;
 
     #region Parameter
-
-    [Parameter]
-    public RenderFragment? ChildContent { get; set; }
 
     [Parameter]
     public bool Readonly { get; set; }
@@ -58,19 +59,17 @@ public abstract partial class SInputBase<TValue> :
     protected override void OnInitialized()
     {
         _delayer.Delayed += OnSubmitInvoke;
+        _delayer.DelayInterval = DelayInterval;
         base.OnInitialized();
     }
 
     public override async Task SetParametersAsync(ParameterView parameters)
     {
-        parameters.UseParameter<int>(nameof(DelayInterval), interval =>
-        {
-            _delayer.DelayInterval = interval;
-        });
+        parameters.UseParameter(DelayInterval, nameof(DelayInterval),
+            interval => _delayer.DelayInterval = interval);
+        parameters.UseParameter(Value, nameof(Value), OnValueParameterSet);
 
         await base.SetParametersAsync(parameters);
-
-        parameters.UseParameter<TValue>(nameof(Value), OnValueParameterSet);
     }
 
     protected override ValueTask HandleDisposeAsync()
@@ -104,30 +103,26 @@ public abstract partial class SInputBase<TValue> :
 
     #region ValueHandle
 
-    protected TValue CurrentValue { get; set; } = default!;
-
-    protected virtual void OnValueParameterSet(TValue value)
-    {
-        CurrentValue = value;
-        Value = CurrentValue;
-    }
-
     protected virtual void OnInputValueHandle(object? obj)
     {
-        CurrentValue = (TValue)Convert.ChangeType(obj, typeof(TValue))!;
+        Value = (TValue)obj!;
     }
 
     protected void OnInput(ChangeEventArgs args)
     {
-        OnInputValueHandle(args.Value);
-        if (ChangeMode == InputChangeMode.OnInput)
-            SubmitChange();
+        OnInputInvoke(args.Value,
+            ChangeMode == InputChangeMode.OnInput);
     }
 
     protected void OnChange(ChangeEventArgs args)
     {
-        OnInputValueHandle(args.Value);
-        SubmitChange();
+        OnInputInvoke(args.Value);
+    }
+
+    protected void OnInputInvoke(object? value, bool submit = true)
+    {
+        OnInputValueHandle(value);
+        if (submit) SubmitChange();
     }
 
     /// <summary>
@@ -136,14 +131,31 @@ public abstract partial class SInputBase<TValue> :
     /// to update its state with the latest value. If no delayer is assigned,
     /// this method performs no action.
     /// </summary>
-    protected void SubmitChange()
+    protected virtual void SubmitChange()
     {
-        _delayer.Update(CurrentValue);
+        _delayer.Update(Value);
     }
 
     protected virtual void OnValueChanged(TValue? value)
     {
-        ValueChanged.InvokeAsync(value);
+        InvokeAsync(() => ValueChanged.InvokeAsync(value));
+    }
+
+    #endregion
+
+    #region Clear
+
+    [Parameter]
+    public bool ShowClearButton { get; set; }
+
+    protected void ClearValue()
+    {
+        OnValueParameterSet(default!);
+        SubmitChange();
+    }
+
+    protected virtual void OnValueParameterSet(TValue value)
+    {
     }
 
     #endregion

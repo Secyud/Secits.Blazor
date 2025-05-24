@@ -1,6 +1,8 @@
-﻿namespace Secyud.Secits.Blazor;
+﻿using Secyud.Secits.Blazor.Abstraction;
 
-public class SCardHeader : SContainerComp
+namespace Secyud.Secits.Blazor.Components;
+
+public class SCardHeader : ScContainerBase
 {
     protected override string ComponentName => "card-header";
 }

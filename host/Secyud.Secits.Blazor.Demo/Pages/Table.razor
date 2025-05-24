@@ -1,17 +1,18 @@
-﻿@using Secyud.Secits.Blazor.Demo.Data
-@attribute [Route(Menu.Table)]
+﻿@attribute [Route(Menu.Table)]
 
-<STable Data="Items">
+<STable Items="Items" ValueField="u => u.Id">
     <STableColumnSetting Caption="@nameof(ListItem.Id)"
                          ValueField="@(item => item.Id)"/>
-    <STableColumnSetting Caption="@nameof(ListItem.Name)" 
+    <STableColumnSetting Caption="@nameof(ListItem.Name)"
                          ValueField="@(item => item.Name)"/>
-    <STableColumnSetting Caption="@nameof(ListItem.Description)" 
+    <STableColumnSetting Caption="@nameof(ListItem.Description)"
                          ValueField="@(item => item.Description)"/>
-    <STableColumnSetting Caption="@nameof(ListItem.Sequence)" 
-                         ValueField="@(item => item.Sequence)"/>
-    <STableColumnSetting Caption="@nameof(ListItem.CreateTime)" 
-                         ValueField="@(item => item.CreateTime)"
+    <STableColumnSetting Caption="@nameof(ListItem.PhoneNumber)"
+                         ValueField="@(item => item.PhoneNumber)"/>
+    <STableColumnSetting Caption="@nameof(ListItem.Age)"
+                         ValueField="@(item => item.Age)"/>
+    <STableColumnSetting Caption="@nameof(ListItem.BirthDate)"
+                         ValueField="@(item => item.BirthDate)"
                          Format="yyyy MM dd hh mm ss"/>
 </STable>
 

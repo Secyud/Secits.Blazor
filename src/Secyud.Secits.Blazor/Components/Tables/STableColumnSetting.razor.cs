@@ -1,11 +1,12 @@
 ﻿using System.Linq.Expressions;
-using System.Reflection;
 using Microsoft.AspNetCore.Components;
+using Secyud.Secits.Blazor.Abstraction;
+using Secyud.Secits.Blazor.Arguments;
 
-namespace Secyud.Secits.Blazor;
+namespace Secyud.Secits.Blazor.Components;
 
 public partial class STableColumnSetting<TItem, TValue> :
-    ITableColumnSetting<TItem>, IFilteredComponent, IValueFieldComponent<TItem, TValue>
+    ITableColumnSetting<TItem>, ISchFilter, ISchValueField<TItem, TValue>
 {
     [Parameter]
     public string? Caption { get; set; }
@@ -29,7 +30,7 @@ public partial class STableColumnSetting<TItem, TValue> :
 
     public override async Task SetParametersAsync(ParameterView parameters)
     {
-        parameters.UseParameter<Expression<Func<TItem, TValue>>?>(nameof(ValueField), field =>
+        parameters.UseParameter(ValueField,nameof(ValueField), field =>
         {
             var name = field?.GetBodyName();
             Filter.Field = name;

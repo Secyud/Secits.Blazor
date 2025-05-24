@@ -1,4 +1,4 @@
 ﻿<svg width="64" height="64" xmlns="http://www.w3.org/2000/svg">
-    <path d="M6 10 L54 58 L58 54 L10 6"/>
-    <path d="M58 10 L10 58 L6 54 L54 6"/>
+    <path d="M4 12 L52 60 L60 52 L12 4"/>
+    <path d="M60 12 L12 60 L4 52 L52 4"/>
 </svg>

@@ -1,3 +1,4 @@
+using Secyud.Secits.Blazor;
 using Secyud.Secits.Blazor.Demo.Layout;
 using Secyud.Secits.Blazor.Server.Demo.Components;
 
@@ -6,6 +7,8 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
+
+builder.Services.AddSecitsBlazor();
 
 var app = builder.Build();
 

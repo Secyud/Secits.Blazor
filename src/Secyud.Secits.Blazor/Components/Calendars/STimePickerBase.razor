@@ -1,0 +1,11 @@
+﻿@namespace Secyud.Secits.Blazor.Components
+@inherits SInputBase<TimeOnly?>
+
+@{
+    base.BuildRenderTree(__builder);
+}
+
+@code
+{
+    protected override RenderFragment GenerateContent() => GenerateDefaultContent();
+}

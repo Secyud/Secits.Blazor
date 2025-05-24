@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 
-namespace Secyud.Secits.Blazor;
+namespace Secyud.Secits.Blazor.Components;
 
 public abstract partial class SMaskableInputBase<TValue>
 {
@@ -73,12 +73,12 @@ public abstract partial class SMaskableInputBase<TValue>
         string? value;
         if (_isMasked && InputMask is not null)
             InputMask.TryConvertMaskToText(_maskedString, out value);
-        else
+        else 
             value = _originString;
 
         _parsingFailed = !TryParseValueFromString(value, out var output);
 
-        if (!_parsingFailed) CurrentValue = output;
+        if (!_parsingFailed) Value = output;
     }
 
     protected void ResetCurrentStringFromValue(string? value)
@@ -86,19 +86,6 @@ public abstract partial class SMaskableInputBase<TValue>
         _originString = value;
         _isMasked = TryConvertTextToMask(value);
         _currentString = _isMasked ? _maskedString : _originString;
-    }
-
-    #endregion
-
-    #region Clear
-
-    [Parameter]
-    public bool ShowClearButton { get; set; } = true;
-
-    protected void ClearValue()
-    {
-        OnValueParameterSet(default!);
-        SubmitChange();
     }
 
     #endregion

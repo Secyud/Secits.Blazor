@@ -1,6 +1,8 @@
-﻿namespace Secyud.Secits.Blazor;
+﻿using Secyud.Secits.Blazor.Abstraction;
 
-public class SGroup:SContainerComp
+namespace Secyud.Secits.Blazor.Components;
+
+public class SGroup:ScContainerBase
 {
     protected override string ComponentName => "group";
 }

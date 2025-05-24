@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Secyud.Secits.Blazor.Arguments;
 
-namespace Secyud.Secits.Blazor;
+namespace Secyud.Secits.Blazor.Components;
 
 public interface ITableColumnSetting<TItem> 
 {

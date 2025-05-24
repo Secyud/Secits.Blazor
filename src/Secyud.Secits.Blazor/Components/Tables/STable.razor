@@ -1,8 +1,9 @@
-﻿@namespace Secyud.Secits.Blazor
-@inherits SContainerComp
+﻿@namespace Secyud.Secits.Blazor.Components
+@inherits ScSelectableBase<TItem, TValue>
 @typeparam TItem
+@typeparam TValue
 
-@this.GenerateSettingContent()
+@(GenerateSettingContent<ITable<TItem>>())
 
 @{
     base.BuildRenderTree(__builder);
@@ -48,13 +49,14 @@
 
     private RenderFragment GenerateBody() => __builder =>
     {
-        if (Data is null || !Data.Any()) return;
+        if (Items is null || !Items.Any()) return;
         <tbody>
-        @foreach (var item in Data)
+        @foreach (var item in Items)
         {
-            var @class = SelectComponent.IsSelected(item) ? "selected" : null;
+            var currentItem = item;
+            var @class = IsItemSelected(item) ? "selected" : null;
 
-            <tr class="@(@class)">
+            <tr class="@(@class)" @onclick="()=>OnItemActivateChangedAsync(currentItem)">
                 @foreach (var column in Columns)
                 {
                     <td>

@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Secyud.Secits.Blazor.JSInterop;
-using Secyud.Secits.Blazor.Localization;
 using Secyud.Secits.Blazor.Options;
+using Secyud.Secits.Blazor.Services;
 
 namespace Secyud.Secits.Blazor;
 
@@ -11,7 +11,8 @@ public static class SecitsExtensions
         Action<SecitsOptions>? optionAction = null)
     {
         services.AddTransient<ILocalizationService, DefaultLocalizationService>();
-        services.AddTransient<IElementService, SecitsElementService>();
+        services.AddTransient<IJsElementService, SecitsJsElementService>();
+        services.AddTransient<IJsWindowService, SecitsJsWindowService>();
 
 
         if (optionAction is not null)

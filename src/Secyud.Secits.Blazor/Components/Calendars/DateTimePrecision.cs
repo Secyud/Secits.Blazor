@@ -1,40 +1,40 @@
-﻿namespace Secyud.Secits.Blazor;
+﻿namespace Secyud.Secits.Blazor.Components;
 
 public readonly struct DateTimePrecision
 {
-    internal DateTimePrecision(EDateTimePrecision precision)
+    internal DateTimePrecision(DateTimePrecisionKind precisionKind)
     {
-        Precision = precision;
+        PrecisionKind = precisionKind;
     }
 
-    public EDateTimePrecision Precision { get; }
+    public DateTimePrecisionKind PrecisionKind { get; }
 
     public static implicit operator DatePrecision(DateTimePrecision value)
     {
-        if (value.Precision
-            is EDateTimePrecision.Second
-            or EDateTimePrecision.Minute
-            or EDateTimePrecision.Hour)
+        if (value.PrecisionKind
+            is DateTimePrecisionKind.Second
+            or DateTimePrecisionKind.Minute
+            or DateTimePrecisionKind.Hour)
             return Default;
 
-        return new DatePrecision(value.Precision);
+        return new DatePrecision(value.PrecisionKind);
     }
 
     public static implicit operator TimePrecision(DateTimePrecision value)
     {
-        if (value.Precision
-            is EDateTimePrecision.Day
-            or EDateTimePrecision.Month
-            or EDateTimePrecision.Year)
+        if (value.PrecisionKind
+            is DateTimePrecisionKind.Day
+            or DateTimePrecisionKind.Month
+            or DateTimePrecisionKind.Year)
             return Default;
-        return new TimePrecision(value.Precision);
+        return new TimePrecision(value.PrecisionKind);
     }
 
-    public static DateTimePrecision Default => new(EDateTimePrecision.Default);
-    public static DateTimePrecision Second => new(EDateTimePrecision.Second);
-    public static DateTimePrecision Minute => new(EDateTimePrecision.Minute);
-    public static DateTimePrecision Hour => new(EDateTimePrecision.Hour);
-    public static DateTimePrecision Day => new(EDateTimePrecision.Day);
-    public static DateTimePrecision Month => new(EDateTimePrecision.Month);
-    public static DateTimePrecision Year => new(EDateTimePrecision.Year);
+    public static DateTimePrecision Default => new(DateTimePrecisionKind.Default);
+    public static DateTimePrecision Second => new(DateTimePrecisionKind.Second);
+    public static DateTimePrecision Minute => new(DateTimePrecisionKind.Minute);
+    public static DateTimePrecision Hour => new(DateTimePrecisionKind.Hour);
+    public static DateTimePrecision Day => new(DateTimePrecisionKind.Day);
+    public static DateTimePrecision Month => new(DateTimePrecisionKind.Month);
+    public static DateTimePrecision Year => new(DateTimePrecisionKind.Year);
 }

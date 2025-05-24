@@ -1,5 +1,5 @@
 ﻿@using System.Numerics
-@namespace Secyud.Secits.Blazor
+@namespace Secyud.Secits.Blazor.Components
 @inherits SMaskableInputBase<TValue>
 @typeparam TValue where TValue : struct, INumber<TValue>
 
@@ -11,7 +11,7 @@
 {
     protected override RenderFragment GenerateChildContent() => __builder =>
     {
-        @GenerateInputField()
+        @base.GenerateChildContent()
         // TODO Icon button
         <span class="s-group">
             <SButton></SButton>

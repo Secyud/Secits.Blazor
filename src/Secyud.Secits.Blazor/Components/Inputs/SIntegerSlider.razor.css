@@ -1,0 +1,32 @@
+﻿
+.integer-slider {
+    height: calc(var(--size) * 1.9);
+    position: relative;
+    text-align: center;
+    overflow: hidden;
+    flex: auto;
+
+    > .element {
+        --offset: 0;
+        position: absolute;
+        line-height: calc(var(--size));
+        left: 0;
+        right: 0;
+        top: calc(var(--size) * (0.7 + var(--offset)));
+        transition: top 100ms, bottom 100ms, font-size 100ms;
+        user-select: none;
+        cursor: pointer;
+        font-size: 0;
+        overflow-y: scroll;
+        scrollbar-width: none;
+        overscroll-behavior-y: none;
+
+        &.s0 {
+            font-size: var(--size);
+        }
+
+        &.s1 {
+            font-size: calc(var(--size) * 0.5);
+        }
+    }
+}

@@ -1,6 +1,8 @@
-﻿namespace Secyud.Secits.Blazor;
+﻿using Secyud.Secits.Blazor.Abstraction;
 
-public class SCardBody : SContainerComp
+namespace Secyud.Secits.Blazor.Components;
+
+public class SCardBody : ScContainerBase
 {
     protected override string ComponentName => "card-body";
 }

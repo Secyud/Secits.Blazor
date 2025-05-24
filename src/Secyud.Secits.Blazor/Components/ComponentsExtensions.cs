@@ -1,7 +1,7 @@
 ﻿using System.Linq.Expressions;
 using Microsoft.AspNetCore.Components;
 
-namespace Secyud.Secits.Blazor;
+namespace Secyud.Secits.Blazor.Components;
 
 public static class ComponentsExtensions
 {
@@ -13,25 +13,10 @@ public static class ComponentsExtensions
     }
 
     public static void UseParameter<TParameter>(this ParameterView view,
-        string name, Action<TParameter> action)
+        TParameter previous, string name, Action<TParameter> action)
     {
-        if (view.TryGetValue<TParameter>(name, out var value))
-            action(value);
+        if (!view.TryGetValue<TParameter>(name, out var value)) return;
+        if (Equals(previous, value)) return;
+        action(value);
     }
-
-    public static RenderFragment GenerateSettingContent<TComponent>(this TComponent c)
-        where TComponent : SComponentBase, IChildContentComponent => builder =>
-    {
-        builder.OpenComponent<CascadingValue<TComponent>>(0);
-        builder.AddComponentParameter(1,
-            nameof(CascadingValue<TComponent>.Value), c);
-        builder.AddComponentParameter(2,
-            nameof(CascadingValue<TComponent>.Name),
-            nameof(SSettingComp<TComponent>.MasterComponent));
-        builder.AddComponentParameter(3,
-            nameof(CascadingValue<TComponent>.IsFixed), true);
-        builder.AddComponentParameter(4,
-            nameof(CascadingValue<TComponent>.ChildContent), c.ChildContent);
-        builder.CloseComponent();
-    };
 }

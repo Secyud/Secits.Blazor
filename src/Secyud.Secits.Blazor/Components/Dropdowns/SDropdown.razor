@@ -1,5 +1,5 @@
-﻿@namespace Secyud.Secits.Blazor
-@inherits SInputText
+﻿@namespace Secyud.Secits.Blazor.Components
+@inherits ScBase
 
 @{
     base.BuildRenderTree(__builder);
@@ -7,13 +7,15 @@
 
 @code
 {
-
     protected override RenderFragment GenerateChildContent() => __builder =>
     {
-        @base.GenerateChildContent()
         @GenerateDropdownButton()
     };
 
-    private RenderFragment GenerateDropdownButton() => __builder => { <button></button> };
+    private RenderFragment GenerateDropdownButton() => __builder =>
+    {
+        // TODO
+        <button></button>
+    };
 }
 

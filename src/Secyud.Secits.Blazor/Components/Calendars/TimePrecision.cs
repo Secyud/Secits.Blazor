@@ -1,21 +1,21 @@
-﻿namespace Secyud.Secits.Blazor;
+﻿namespace Secyud.Secits.Blazor.Components;
 
 public readonly struct TimePrecision
 {
-    internal TimePrecision(EDateTimePrecision precision)
+    internal TimePrecision(DateTimePrecisionKind precisionKind)
     {
-        Precision = precision;
+        PrecisionKind = precisionKind;
     }
 
-    public EDateTimePrecision Precision { get; }
+    public DateTimePrecisionKind PrecisionKind { get; }
     
     public static implicit operator DateTimePrecision(TimePrecision value)
     {
-        return new DateTimePrecision(value.Precision);
+        return new DateTimePrecision(value.PrecisionKind);
     }
 
-    public static TimePrecision Default => new(EDateTimePrecision.Default);
-    public static TimePrecision Second => new(EDateTimePrecision.Second);
-    public static TimePrecision Minute => new(EDateTimePrecision.Minute);
-    public static TimePrecision Hour => new(EDateTimePrecision.Hour);
+    public static TimePrecision Default => new(DateTimePrecisionKind.Default);
+    public static TimePrecision Second => new(DateTimePrecisionKind.Second);
+    public static TimePrecision Minute => new(DateTimePrecisionKind.Minute);
+    public static TimePrecision Hour => new(DateTimePrecisionKind.Hour);
 }

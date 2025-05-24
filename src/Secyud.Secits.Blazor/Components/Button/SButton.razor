@@ -1,7 +1,6 @@
-﻿@namespace Secyud.Secits.Blazor
-@inherits SContainerComp
+﻿@namespace Secyud.Secits.Blazor.Components
+@inherits ScContainerBase
 
-<button class="@GetClass()" style="@GetStyle()"
-        @onclick="Click" @attributes="Attributes">
-    @GenerateChildContent()
-</button>
+@{
+    base.BuildRenderTree(__builder);
+}
