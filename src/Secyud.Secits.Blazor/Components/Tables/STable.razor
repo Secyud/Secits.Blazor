@@ -1,6 +1,7 @@
 ﻿@namespace Secyud.Secits.Blazor.Components
 @inherits ScSelectableBase<TItem, TValue>
 @typeparam TItem
+@using Secyud.Secits.Blazor.Arguments
 @typeparam TValue
 
 @(GenerateSettingContent<ITable<TItem>>())
@@ -68,3 +69,6 @@
         </tbody>
     };
 }
+@code {
+}
+

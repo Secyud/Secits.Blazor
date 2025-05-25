@@ -2,13 +2,12 @@
 
 public enum Theme : byte
 {
-    Primary = 0,
-    Secondary = 1,
-    Success = 2,
-    Info = 3,
-    Warning = 4,
-    Danger = 5,
-    Light = 6,
-    Dark = 7,
-    Default = Primary,
+    Default = 0,
+    Primary = 1,
+    Secondary = 2,
+    Naive = 3,
+    Success = 4,
+    Info = 5,
+    Warning = 6,
+    Danger = 7,
 }

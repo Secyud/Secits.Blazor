@@ -1,6 +1,6 @@
 
-.s-pkr-t {
+.pkr-t.panel {
     display: flex;
     flex-direction: column;
-    width: calc(12 * var(--size));
+    width: calc(var(--wh-size) + 0.5rem);
 }

@@ -1,46 +1,31 @@
-﻿@using Secyud.Secits.Blazor.Arguments
-@using Secyud.Secits.Blazor.Components
-@attribute [Route(Menu.Button)]
+﻿@attribute [Route(Menu.Button)]
 @{
-    foreach (var shadow in Bool)
-    foreach (var angular in Bool)
-    foreach (var rounded in Bool)
-    foreach (var borderless in Bool)
-    foreach (var backless in Bool)
-    {
-        <SCard>
-            <SCardHeader>
-                @(shadow ? "有阴影" : "无阴影")
-                @(angular ? "直角" : "圆角")
-                @(rounded ? "图标" : "按钮")
-                @(borderless ? "无边" : "有边")
-                @(backless ? "无背景" : "有背景")
-            </SCardHeader>
-            <SCardBody>
-                @foreach (var size in Sizes)
+    <SCard>
+        <SCardHeader>
+        </SCardHeader>
+        <SCardBody>
+            @foreach (var size in Sizes)
+            {
+                <br/>
+                <label>@size</label>
+                <br/>
+                foreach (var theme in Themes)
                 {
-                    <br/>
-                    <label>@size</label>
-                    <br/>
-                    foreach (var theme in Themes)
-                    {
-                        <SButton Theme="theme" Size="size" Shadow="shadow" Angular="angular"
-                                 Rounded="rounded" Borderless="borderless" Background="backless">
-                            @theme
-                        </SButton>
-                    }
+                    <SButton Theme="theme" Size="size" StyleOption="Style.Plain">
+                        @theme
+                    </SButton>
                 }
-            </SCardBody>
-        </SCard>
-    }
+            }
+        </SCardBody>
+    </SCard>
 }
 
 @code
 {
     Theme[] Themes { get; } =
     [
-        Theme.Primary, Theme.Secondary, Theme.Success, Theme.Info,
-        Theme.Warning, Theme.Danger, Theme.Light, Theme.Dark
+        Theme.Default, Theme.Primary, Theme.Secondary, Theme.Naive,
+        Theme.Success, Theme.Info, Theme.Warning, Theme.Danger
     ];
 
     Size[] Sizes { get; } =

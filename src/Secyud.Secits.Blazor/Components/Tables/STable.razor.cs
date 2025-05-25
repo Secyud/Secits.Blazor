@@ -12,7 +12,7 @@ namespace Secyud.Secits.Blazor.Components;
 /// <typeparam name="TItem"></typeparam>
 /// <typeparam name="TValue"></typeparam>
 [CascadingTypeParameter(nameof(TItem))]
-public partial class STable<TItem, TValue> : IScsTheme, ISchFilter,ITable<TItem>
+public partial class STable<TItem, TValue> : IScsTheme, ISchFilter, ITable<TItem>
 {
     protected override string ComponentName => "table";
 
@@ -82,17 +82,5 @@ public partial class STable<TItem, TValue> : IScsTheme, ISchFilter,ITable<TItem>
     public Size Size { get; set; }
 
     [Parameter]
-    public bool Borderless { get; set; }
-
-    [Parameter]
-    public bool Shadow { get; set; }
-
-    [Parameter]
-    public bool Background { get; set; }
-
-    [Parameter]
-    public bool Angular { get; set; }
-
-    [Parameter]
-    public bool Rounded { get; set; }
+    public Style StyleOption { get; set; }
 }

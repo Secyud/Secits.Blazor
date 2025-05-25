@@ -6,7 +6,7 @@ namespace Secyud.Secits.Blazor.Components;
 
 public partial class CloseButton : ISccClick
 {
-    protected override string ComponentName => "close-button";
+    protected override string ComponentName => "button-close";
     protected override string ElementName => "span";
 
     [Parameter]

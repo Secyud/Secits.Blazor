@@ -1,5 +1,5 @@
-﻿.s-pkr-t-board {
+﻿.pkr-t.board {
     display: flex;
-    width: calc(var(--size) * 12);
+    width: var(--wh-size);
     margin: auto;
 }

@@ -1,4 +1,4 @@
-.s-card {    
+.card {    
     --mix-value: 0%;
     --border-mix-value: 50%;
     --text-mix-value: 50%;
@@ -35,12 +35,12 @@
         --text-mix-value: 50%;
     }
     
-    .s-card-header{
+    .card-header{
         padding: 0.5rem;
         font-weight: 600;
     }
 
-    .s-card-body{
+    .card-body{
         padding: 0.5rem;
         font-size: calc(var(--size) * 0.875);
     }

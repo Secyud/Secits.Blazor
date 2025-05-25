@@ -30,13 +30,13 @@ public static class ParameterExtensions
     {
         context.AppendClass(c.Theme switch
         {
+            Theme.Primary => "primary",
             Theme.Secondary => "secondary",
+            Theme.Naive => "naive",
             Theme.Success => "success",
             Theme.Info => "info",
             Theme.Warning => "warning",
             Theme.Danger => "danger",
-            Theme.Light => "light",
-            Theme.Dark => "dark",
             _ => null
         });
 
@@ -49,11 +49,12 @@ public static class ParameterExtensions
             _ => null
         });
 
-        if (c.Background) context.AppendClass("background");
-        if (c.Borderless) context.AppendClass("borderless");
-        if (c.Shadow) context.AppendClass("shadow");
-        if (c.Angular) context.AppendClass("angular");
-        if (c.Rounded) context.AppendClass("rounded");
+        if (c.StyleOption.HasFlag(Style.Background)) context.AppendClass("bg");
+        if (c.StyleOption.HasFlag(Style.Borderless)) context.AppendClass("bl");
+        if (c.StyleOption.HasFlag(Style.Shadow)) context.AppendClass("sd");
+        if (c.StyleOption.HasFlag(Style.Angular)) context.AppendClass("ag");
+        if (c.StyleOption.HasFlag(Style.Rounded)) context.AppendClass("rd");
+        if (c.StyleOption.HasFlag(Style.Plain)) context.AppendClass("pl");
     }
 
     public static void AppendActivable(this IScsActive c, ClassStyleBuilderContext context)

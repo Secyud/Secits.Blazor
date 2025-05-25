@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using System.Text;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.AspNetCore.Components.Web;
 using Secyud.Secits.Blazor.JSInterop;
@@ -7,7 +8,7 @@ namespace Secyud.Secits.Blazor.Components;
 
 public partial class STimePickerClock
 {
-    protected override string ComponentName => "pkr-t-clock";
+    protected override string ComponentName => "pkr-t clock";
 
     private ClockState _clockState = ClockState.Default;
 
@@ -18,10 +19,10 @@ public partial class STimePickerClock
     {
         builder.AddAttribute(sequence + 1, "onmouseup", OnMouseUp);
         builder.AddAttribute(sequence + 2, "onmouseleave", OnMouseUp);
-        builder.AddAttribute(sequence + 2, "ontouchend", OnMouseUp);
-        builder.AddAttribute(sequence + 2, "onmousemove", OnMouseMove);
+        builder.AddAttribute(sequence + 3, "ontouchend", OnMouseUp);
+        builder.AddAttribute(sequence + 4, "onmousemove", OnMouseMove);
 
-        return sequence + 2;
+        return sequence + 4;
     }
 
     private async Task<(double, double)> GetPointer(MouseEventArgs e)
@@ -43,8 +44,8 @@ public partial class STimePickerClock
     private bool GetMouseDistance((double, double) pointer)
     {
         var (x, y) = pointer;
-        var distance = Math.Sqrt(x * x + y * y);
-        return distance < 48;
+        var distance = x * x + y * y;
+        return distance < 48 * 48;
     }
 
     private async Task OnMouseMove(MouseEventArgs e)
@@ -100,6 +101,39 @@ public partial class STimePickerClock
     private void OnMouseUp(MouseEventArgs e)
     {
         _clockState = ClockState.Default;
+    }
+
+    private bool HoverInner => Hour is <= 12 and > 0;
+
+    private (string, string, string) GetCssClass()
+    {
+        var h = new StringBuilder();
+        var m = new StringBuilder();
+        var s = new StringBuilder();
+        h.Append("hour hand");
+        m.Append("minute hand");
+        s.Append("second hand");
+
+        if (HoverInner) h.Append(" inner");
+
+        switch (_clockState)
+        {
+            case ClockState.Default:
+                break;
+            case ClockState.Hour:
+                h.Append(" active");
+                break;
+            case ClockState.Minute:
+                m.Append(" active");
+                break;
+            case ClockState.Second:
+                s.Append(" active");
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
+
+        return (h.ToString(), m.ToString(), s.ToString());
     }
 
 

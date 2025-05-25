@@ -33,19 +33,7 @@ public abstract partial class SInputBase<TValue> :
     public Size Size { get; set; }
 
     [Parameter]
-    public bool Borderless { get; set; }
-
-    [Parameter]
-    public bool Shadow { get; set; }
-
-    [Parameter]
-    public bool Background { get; set; }
-
-    [Parameter]
-    public bool Angular { get; set; }
-
-    [Parameter]
-    public bool Rounded { get; set; }
+    public Style StyleOption { get; set; }
 
     [Parameter]
     public string? Format { get; set; }

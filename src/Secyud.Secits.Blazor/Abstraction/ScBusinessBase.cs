@@ -53,11 +53,7 @@ public abstract class ScBusinessBase : ScBase
             ParameterExtensions.AppendTheme,
             nameof(IScsTheme.Theme),
             nameof(IScsTheme.Size),
-            nameof(IScsTheme.Shadow),
-            nameof(IScsTheme.Rounded),
-            nameof(IScsTheme.Background),
-            nameof(IScsTheme.Borderless),
-            nameof(IScsTheme.Angular));
+            nameof(IScsTheme.StyleOption));
 
         dp.AddIfIs<IScsActive>(this,
             ParameterExtensions.AppendActivable,
@@ -78,10 +74,7 @@ public abstract class ScBusinessBase : ScBase
     protected void BuildClassStyle(ClassStyleBuilderContext context)
     {
         if (!string.IsNullOrEmpty(ComponentName))
-        {
-            context.Class.Append("s-");
             context.Class.Append(ComponentName);
-        }
 
         BuildInitialClassStyle(context);
         context.AppendClass(Class);

@@ -1,43 +1,39 @@
-﻿.close-button {
-    &:hover {
-        &::before {
-            --mix-value: 5%;
-            --text-mix-value: 60%;
-        }
-    }
-
-    &:active {
-        &::before {
-            --mix-value: 5%;
-            --text-mix-value: 30%;
-        }
-    }
-
-    --mix-value: 0;
-    --text-mix-value: 0;
-    background-color: rgba(var(--s-color-dark-rgb), var(--mix-value));
-    width: var(--size);
-    height: var(--size);
-    border-radius: 50%;
-    margin: auto;
-    padding: calc(var(--size) / 4);
+﻿.button-close {
+    --bgmix: 0;
+    --txmix: 0;
     flex-shrink: 0;
     display: flex;
 
     transition: background-color 50ms linear;
 
+    margin: auto;
+    width: var(--size);
+    height: var(--size);
+    border-radius: 50%;
+    background-color: rgba(from var(--s-color-reverse) r g b / var(--bgmix));
+
+
+    &:hover {
+        --bgmix: 10%;
+        --txmix: 50%;
+    }
+
+    &:active {
+        --bgmix: 30%;
+        --txmix: 90%;
+    }
+
 
     &::before {
-        --mask-size: calc((var(--size) + 2rem) / 3.5);
+        --mask-size: calc(var(--size) / 2);
         content: "";
         display: block;
         margin: auto;
         width: var(--mask-size);
         height: var(--mask-size);
-        background: rgba(var(--text-color-current-rgb), var(--text-mix-value));
+        background-color: rgba(from var(--s-color-reverse) r g b / var(--txmix));
         mask-image: url(./images/svg/clear.svg);
         mask-size: var(--mask-size);
         transition: background 50ms linear;
     }
-
 }

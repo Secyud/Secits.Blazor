@@ -1,89 +1,31 @@
 
-.s-button {
-    --mix-value: 100%;
-    --text-mix-value: 100%;
-    --s-button-text-rgb: var(--s-color-text-rgb);
-
-    cursor: pointer;
-    
-    overflow: hidden;
+.button[s] {
+    --cbgp: var(--s-color);
+    --cbgs: var(--s-color-blend);
+    --bgmix: 5%;
+    --ctxp: var(--s-color);
+    --ctxs: var(--s-color-reverse);
+    --txmix: 30%;
+    --cbdp: var(--s-color);
+    --cbds: var(--s-color-blend);
+    --bdmix: 50%;
 
     text-align: center;
+    cursor: pointer;
 
-    margin: 0.25rem;
-    padding: calc(var(--size) / 2) var(--size);
-    font-size: var(--size);
-
-    border-radius: 0.25rem;
-    border: 1px solid var(--s-color);
-
-    color: rgba(var(--s-button-text-rgb), var(--text-mix-value));
-    background-color: color-mix(in lch, var(--s-color) var(--mix-value), var(--s-color-blend));
-
-    --transition-time: 50ms;
-    transition: color var(--transition-time) linear, border var(--transition-time) linear, background-color var(--transition-time) linear;
+    &.rd {
+        --width-c: var(--height-c);
+    }
 
     &:hover {
-        --mix-value: 90%;
-        --text-mix-value: 75%;
+        --bgmix: var(--bgmix-h);
+        --txmix: var(--txmix-h);
+        --bdmix: var(--bdmix-h);
     }
 
     &:active {
-        --mix-value: 70%;
-        --text-mix-value: 100%;
-    }
-
-    &.background {
-        --mix-value: 0;
-        --text-mix-value: 75%;
-        --s-button-text-rgb: var(--s-color-body-text-rgb);
-
-        &:hover {
-            --mix-value: 10%;
-            --text-mix-value: 100%;
-        }
-
-        &:active {
-            --mix-value: 50%;
-            --text-mix-value: 75%;
-        }
-    }
-
-    &.rounded {
-        border-radius: 50%;
-
-        padding: calc(var(--size) / 2);
-        height: calc(var(--size) * 2.5);
-        width: calc(var(--size) * 2.5);
-    }
-
-    &.readonly {
-        --mix-value: 100%;
-        --text-mix-value: 100%;
-
-        &:hover {
-            --mix-value: 100%;
-            --text-mix-value: 100%;
-        }
-
-        &:active {
-            --mix-value: 100%;
-            --text-mix-value: 100%;
-        }
-    }
-
-    &.disabled {
-        --mix-value: 50%;
-        --text-mix-value: 50%;
-
-        &:hover {
-            --mix-value: 50%;
-            --text-mix-value: 50%;
-        }
-
-        &:active {
-            --mix-value: 50%;
-            --text-mix-value: 50%;
-        }
+        --bgmix: var(--bgmix-a);
+        --txmix: var(--txmix-a);
+        --bdmix: var(--bdmix-a);
     }
 }

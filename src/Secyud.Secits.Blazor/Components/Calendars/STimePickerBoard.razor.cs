@@ -2,5 +2,5 @@
 
 public partial class STimePickerBoard
 {
-    protected override string ComponentName => "pkr-t-board";
+    protected override string ComponentName => "pkr-t board";
 }

@@ -1,58 +1,49 @@
-﻿.s-table {
-    --mix-value: 0%;
-    --border-mix-value: 50%;
-    --text-mix-value: 50%;
-    --text-color-current-rgb: var(--s-color-body-text-rgb);
-
-    border-radius: 0.25rem;
-    border: 0.125rem solid rgba(var(--s-color-rgb), 0.5);
-    color: var(--s-color-body-text);
-    background-color: var(--s-color-body);
-    margin: 0.25rem;
+﻿.table[s] {
+    --padding-x-c: 0;
+    --padding-y-c: 0;
 
     > table {
         border-spacing: 0;
         border-collapse: collapse;
 
         > thead {
+            --border-c: 0.125rem solid var(--border-color-c);
+
             > tr {
-                border-bottom: 0.125rem solid rgba(var(--s-color-rgb), 0.5);
+                border-bottom: var(--border-c);
 
                 > th:not(:first-child) {
-                    border-left: 0.125rem solid rgba(var(--s-color-rgb), 0.5);
+                    border-left: var(--border-c);
                 }
             }
         }
 
         > tbody {
+            --border-c: 0.125rem solid var(--border-color-c);
+
             > tr {
-                border-top: 1px solid rgba(var(--s-color-rgb), 0.5);
+                border-top: var(--border-c);
 
                 > td:not(:first-child) {
-                    border-left: 1px solid rgba(var(--s-color-rgb), 0.5);
+                    border-left: var(--border-c);
                 }
 
                 > td {
                     padding: 0.25rem;
                 }
 
-                --mix-value: 0;
-                --text-mix-value: 100%;
-
-                color: rgba(var(--text-color-current-rgb), var(--text-mix-value));
-                background-color: color-mix(in lch, var(--s-color) var(--mix-value), var(--s-color-body));
-
-                --transition-time: 50ms;
-                transition: color var(--transition-time) linear, border var(--transition-time) linear, background-color var(--transition-time) linear;
+                background-color: color-mix(in lch, var(--cbgp) var(--bgmix), var(--cbgs));
+                color: color-mix(in lch, var(--ctxp) var(--txmix), var(--ctxs));
+                transition: all 50ms;
 
                 &:hover {
-                    --mix-value: 4%;
-                    --text-mix-value: 75%;
+                    --bgmix: var(--bgmix-h);
+                    --txmix: var(--txmix-h);
                 }
 
                 &.selected {
-                    --mix-value: 8%;
-                    --text-mix-value: 100%;
+                    --bgmix: var(--bgmix-s);
+                    --txmix: var(--txmix-s);
                 }
             }
         }
