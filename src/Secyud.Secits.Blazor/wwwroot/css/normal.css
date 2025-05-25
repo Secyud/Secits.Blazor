@@ -1,0 +1,65 @@
+﻿
+:root {
+    --cbgp: var(--s-color);
+    --cbgs: var(--s-color-blend);
+    --ctxp: var(--s-color);
+    --ctxs: var(--s-color-reverse);
+    --cbdp: var(--s-color);
+    --cbds: var(--s-color-blend);
+    --height-c: auto;
+    --width-c: auto;
+    --bgmix: 5%;
+    --txmix: 30%;
+    --bdmix: 50%;
+}
+
+[s] {
+    /* activable */
+    &.button, &.input, &.card, &.table {
+        --background-color-c: color-mix(in lch, var(--cbgp) var(--bgmix), var(--cbgs));
+        --text-color-c: color-mix(in lch, var(--ctxp) var(--txmix), var(--ctxs));
+        --border-color-c: color-mix(in lch, var(--cbdp) var(--bdmix), var(--cbds));
+        --border-radius-c: calc(var(--size) / 4);
+        --margin-c: calc(var(--size) / 4);
+        --line-height-c: var(--size);
+        --padding-x-c: calc(var(--size) / 2);
+        --padding-y-c: calc(var(--size) / 4);
+        flex-shrink: 0;
+        overflow: hidden;
+        padding: var(--padding-y-c) var(--padding-x-c);
+        margin: var(--margin-c);
+        font-size: var(--size);
+        border-radius: var(--border-radius-c);
+        line-height: var(--line-height-c);
+        height: var(--height-c);
+        width: var(--width-c);
+        transition: all 75ms;
+        background-color: var(--background-color-c);
+        color: var(--text-color-c);
+        border: 0.125rem solid var(--border-color-c);
+
+        &:hover {
+            --bgmix-h: 20%;
+            --txmix-h: 60%;
+            --bdmix-h: 70%;
+        }
+
+        &:active {
+            --bgmix-a: 40%;
+            --txmix-a: 30%;
+            --bdmix-a: 90%;
+        }
+
+        &:has(:focus) {
+            --bgmix-f: 40%;
+            --txmix-f: 30%;
+            --bdmix-f: 90%;
+        }
+
+        .selected {
+            --bgmix-s: 40%;
+            --txmix-s: 30%;
+            --bdmix-s: 90%;
+        }
+    }
+}

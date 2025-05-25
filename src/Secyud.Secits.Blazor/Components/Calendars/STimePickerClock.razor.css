@@ -12,10 +12,6 @@
         --position: 0;
         position: absolute;
 
-        &.active > .handle, > .handle:hover {
-            --handle-size: var(--size);
-        }
-
         > .handle {
             --handle-size: calc(var(--size) / 2);
             z-index: 1;
@@ -28,6 +24,10 @@
             background-color: var(--s-color);
             pointer-events: auto;
             transition: all 50ms;
+        }
+
+        &.active > .handle, > .handle:hover {
+            --handle-size: var(--size);
         }
     }
 

@@ -1,6 +1,6 @@
 
 .input[s] {
-    > input, > textarea, > button, & input, & textarea, & button {
+    input, textarea, button, & input, & textarea, & button {
         font-size: var(--size);
         margin: 0;
         outline: none;
@@ -8,14 +8,25 @@
         background: none;
     }
 
-    > input, > textarea, > button {
+    input, textarea, button {
         color: inherit;
         border-radius: inherit;
-
         width: 100%;
     }
 
     display: flex;
+
+    .input-container {
+        display: flex;
+        position: relative;
+
+        > .button-close {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            right: 0;
+        }
+    }
 
     &:hover {
         --bgmix: var(--bgmix-h);

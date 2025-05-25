@@ -12,10 +12,12 @@
 
     protected override RenderFragment GenerateChildContent() => __builder =>
     {
-        <input value="@_currentString" @attributes="Attributes"
-               readonly="@(Readonly ? "readonly" : null)"
-               disabled="@(Disabled ? "disabled" : null)"
-               @oninput="OnInput" @onchange="OnChange"/>
-        @GenerateClearButton()
+        <div class="input-container">
+            <input value="@_currentString" @attributes="Attributes"
+                   readonly="@(Readonly ? "readonly" : null)"
+                   disabled="@(Disabled ? "disabled" : null)"
+                   @oninput="OnInput" @onchange="OnChange">
+            @GenerateClearButton()
+        </div>
     };
 }
