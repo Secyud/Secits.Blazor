@@ -2,10 +2,10 @@
 
 public class ListItem : ItemBase
 {
-    public static List<ListItem> Generate()
+    public static List<ListItem> Generate(int count = 20)
     {
         var res = new List<ListItem>();
-        for (var i = 0; i < 20; i++)
+        for (var i = 0; i < count; i++)
         {
             res.Add(new ListItem());
         }

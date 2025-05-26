@@ -176,6 +176,11 @@ public partial class ScList<TItem, TValue> : ISccSelect<TItem, TValue>,
             await OnValueSelectChangedAsync(value);
     }
 
+    protected string? RowClass(TItem item)
+    {
+        return IsItemSelected(item) ? " selected" : null;
+    }
+
     #endregion
 
     #region Abstraction

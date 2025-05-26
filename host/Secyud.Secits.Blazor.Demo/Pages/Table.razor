@@ -1,6 +1,6 @@
 ﻿@attribute [Route(Menu.Table)]
 
-<STable Items="Items" ValueField="u => u.Id">
+<STable Items="(r)=>Items" ValueField="u => u.Id">
     <SSciTableDataColumn Caption="@nameof(ListItem.Id)"
                          ValueField="@(item => item.Id)"/>
     <SSciTableDataColumn Caption="@nameof(ListItem.Name)"

@@ -11,5 +11,6 @@ public class ItemBase
         Utils.NumChars, Utils.NumChars, Utils.NumChars, Utils.NumChars, Utils.NumChars);
 
     public int Age { get; set; } = Utils.Rand(18, 100);
-    public DateTime BirthDate { get; set; } = DateTime.Now.AddTicks(Utils.Rand(-1000000, 1000000));
+    
+    public DateTime BirthDate { get; set; } = new DateTime(1990, 1, 1).AddDays(Utils.Rand(-100000, 100000));
 }

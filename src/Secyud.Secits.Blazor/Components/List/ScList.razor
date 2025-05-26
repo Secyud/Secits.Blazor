@@ -20,6 +20,7 @@
                 }
             </div>
         }
+
         <div class="body">
             @GenerateBodyContent()
         </div>
@@ -38,7 +39,7 @@
 
     public virtual RenderFragment GenerateRow(TItem item) => __builder =>
     {
-        <div class="row">
+        <div class="row@(RowClass(item))">
             @foreach (var column in _columns.Ordered())
             {
                 @column.GenerateColumn(item)

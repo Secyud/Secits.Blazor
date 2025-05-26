@@ -52,8 +52,7 @@
 
     public override RenderFragment GenerateRow(TItem item) => __builder =>
     {
-        var @class = IsItemSelected(item) ? " selected" : null;
-        <tr class="table-row @(@class)" @onclick="() => OnItemActivateChangedAsync(item)">
+        <tr class="table-row@(RowClass(item))" @onclick="() => OnItemActivateChangedAsync(item)">
             @foreach (var column in _columns)
             {
                 <td>
