@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
-using Secyud.Secits.Blazor.Abstraction;
+using Secyud.Secits.Blazor.Components;
 
 namespace Secyud.Secits.Blazor.Styles;
 
@@ -14,13 +14,13 @@ public class DirtyParameterContainer
     private static readonly Dictionary<Type, DirtyParameterContainer> DirtyParameters = [];
 
     private readonly HashSet<string> _dirtyParameters = [];
-    private readonly List<Action<ScBusinessBase, ClassStyleBuilderContext>> _buildActions = [];
+    private readonly List<Action<ScStyledBase, ClassStyleBuilderContext>> _buildActions = [];
 
     private DirtyParameterContainer()
     {
     }
 
-    public void AddBuildAction(Action<ScBusinessBase, ClassStyleBuilderContext> action)
+    public void AddBuildAction(Action<ScStyledBase, ClassStyleBuilderContext> action)
     {
         _buildActions.Add(action);
     }
@@ -49,7 +49,7 @@ public class DirtyParameterContainer
         return false;
     }
 
-    public void BuildDirtyClassStyle(ScBusinessBase c, ClassStyleBuilderContext context)
+    public void BuildDirtyClassStyle(ScStyledBase c, ClassStyleBuilderContext context)
     {
         foreach (var action in _buildActions)
         {
@@ -57,7 +57,7 @@ public class DirtyParameterContainer
         }
     }
     
-    public bool AddIfIs<TComponent>(ScBusinessBase component ,Action<TComponent, ClassStyleBuilderContext> action, params string[] parameters)
+    public bool AddIfIs<TComponent>(ScStyledBase component ,Action<TComponent, ClassStyleBuilderContext> action, params string[] parameters)
         where TComponent : class
     {
         if (component is not TComponent) return false;
@@ -69,7 +69,7 @@ public class DirtyParameterContainer
         return true;
     }
     
-    public static DirtyParameterContainer GetOrCreateByComponent(ScBusinessBase c)
+    public static DirtyParameterContainer GetOrCreateByComponent(ScStyledBase c)
     {
         var type = c.GetType();
 
@@ -82,7 +82,7 @@ public class DirtyParameterContainer
         return dirtyParameter;
     }
 
-    private static DirtyParameterContainer CreateByComponent(ScBusinessBase c)
+    private static DirtyParameterContainer CreateByComponent(ScStyledBase c)
     {
         var res = new DirtyParameterContainer();
         c.SetDirtyParameter(res);

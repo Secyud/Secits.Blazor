@@ -2,11 +2,23 @@
 
 public class DataRequest
 {
+    private int _pageIndex;
     public const int DefaultPageSize = 10;
-    
-    public int PageIndex { get; set; }
+
+    public int PageIndex
+    {
+        get => _pageIndex;
+        set
+        {
+            _pageIndex = value;
+            SkipCount = _pageIndex * PageSize;
+        }
+    }
 
     public int PageSize { get; set; } = DefaultPageSize;
+    public int SkipCount { get; set; }
+
+    public CancellationToken CancellationToken { get; set; }
 
     public List<DataSorter> Sorters { get; } = [];
 

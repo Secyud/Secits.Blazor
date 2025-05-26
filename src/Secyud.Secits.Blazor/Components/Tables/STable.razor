@@ -1,10 +1,7 @@
 ﻿@namespace Secyud.Secits.Blazor.Components
-@inherits ScSelectableBase<TItem, TValue>
+@inherits ScList<TItem, TValue>
 @typeparam TItem
-@using Secyud.Secits.Blazor.Arguments
 @typeparam TValue
-
-@(GenerateSettingContent<ITable<TItem>>())
 
 @{
     base.BuildRenderTree(__builder);
@@ -12,63 +9,57 @@
 
 @code
 {
-    protected override RenderFragment GenerateChildContent() => __builder =>
+    protected override RenderFragment GenerateBodyContent() => __builder =>
     {
         <table>
-            @GenerateHeader()
-            @GenerateBody()
+            @if (!DisableHeader)
+            {
+                <thead>
+                @GenerateHeader()
+                </thead>
+            }
+            <tbody>
+            @ItemsRenderer?.GenerateItemsContent()
+            @GenerateFooter();
+            </tbody>
         </table>
     };
 
     private RenderFragment GenerateHeader() => __builder =>
     {
-        <thead>
-        @if (RenderHeader())
-        {
-            <tr>
-                @foreach (var column in Columns)
-                {
-                    <th>
-                        @column.GenerateHeader()
-                    </th>
-                }
-            </tr>
-        }
-        @if (RenderFilter())
-        {
-            <tr>
-                @foreach (var column in Columns)
-                {
-                    <th>
-                        @column.GenerateFilter()
-                    </th>
-                }
-            </tr>
-        }
-        </thead>
+        <tr class="table-header">
+            @foreach (var column in _columns)
+            {
+                <th>
+                    @column.GenerateHeader()
+                </th>
+            }
+        </tr>
     };
 
-    private RenderFragment GenerateBody() => __builder =>
+    private RenderFragment GenerateFooter() => __builder =>
     {
-        if (Items is null || !Items.Any()) return;
-        <tbody>
-        @foreach (var item in Items)
-        {
-            var currentItem = item;
-            var @class = IsItemSelected(item) ? "selected" : null;
+        if (DisableFooter) return;
+        <tr class="table-footer">
+            @foreach (var column in _columns)
+            {
+                <td>
+                    @column.GenerateFooter()
+                </td>
+            }
+        </tr>
+    };
 
-            <tr class="@(@class)" @onclick="()=>OnItemActivateChangedAsync(currentItem)">
-                @foreach (var column in Columns)
-                {
-                    <td>
-                        @column.GenerateBody(item)
-                    </td>
-                }
-            </tr>
-        }
-        </tbody>
+    public override RenderFragment GenerateRow(TItem item) => __builder =>
+    {
+        var @class = IsItemSelected(item) ? " selected" : null;
+        <tr class="table-row @(@class)" @onclick="() => OnItemActivateChangedAsync(item)">
+            @foreach (var column in _columns)
+            {
+                <td>
+                    @column.GenerateColumn(item)
+                </td>
+            }
+        </tr>
     };
 }
-@code {
-}
-

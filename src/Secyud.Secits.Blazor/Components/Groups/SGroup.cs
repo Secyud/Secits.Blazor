@@ -1,6 +1,4 @@
-﻿using Secyud.Secits.Blazor.Abstraction;
-
-namespace Secyud.Secits.Blazor.Components;
+﻿namespace Secyud.Secits.Blazor.Components;
 
 public class SGroup:ScContainerBase
 {

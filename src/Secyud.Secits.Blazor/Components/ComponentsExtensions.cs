@@ -5,6 +5,12 @@ namespace Secyud.Secits.Blazor.Components;
 
 public static class ComponentsExtensions
 {
+    public static IEnumerable<TSetting> Ordered<TSetting>(this List<TSetting> settings)
+        where TSetting : IScSetting
+    {
+        return settings.OrderBy(u => u.Priority);
+    }
+
     public static string? GetBodyName<TItem, TValue>(this Expression<Func<TItem, TValue>> expr)
     {
         var body = expr.Body.ToString();

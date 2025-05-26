@@ -1,11 +1,12 @@
-﻿using Secyud.Secits.Blazor.Abstraction;
-using Secyud.Secits.Blazor.Arguments;
+﻿using Secyud.Secits.Blazor.Arguments;
 
 namespace Secyud.Secits.Blazor.Components;
 
 public partial class SDropdown : IScdSelect
 {
     protected override string ComponentName => "dropdown";
+    protected override string ElementName => "input";
+
     protected SelectionItem? SelectionItem { get; set; }
     protected IEnumerable<SelectionItem> SelectionItems { get; set; } = [];
 

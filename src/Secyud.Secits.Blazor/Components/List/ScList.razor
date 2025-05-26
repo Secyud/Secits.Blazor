@@ -1,0 +1,48 @@
+﻿@namespace Secyud.Secits.Blazor.Components
+@inherits ScSelectionBase<TValue>
+@typeparam TItem
+@typeparam TValue
+
+@{
+    base.BuildRenderTree(__builder);
+}
+
+@code
+{
+    protected override RenderFragment GenerateChildContent() => __builder =>
+    {
+        @if (_headers.Any())
+        {
+            <div class="header">
+                @foreach (var header in _headers.Ordered())
+                {
+                    @header.GenerateHeader()
+                }
+            </div>
+        }
+        <div class="body">
+            @GenerateBodyContent()
+        </div>
+        @if (_footers.Any())
+        {
+            <div class="footer">
+                @foreach (var footer in _footers.Ordered())
+                {
+                    @footer.GenerateFooter()
+                }
+            </div>
+        }
+    };
+
+    protected virtual RenderFragment GenerateBodyContent() => __builder => { @ItemsRenderer?.GenerateItemsContent() };
+
+    public virtual RenderFragment GenerateRow(TItem item) => __builder =>
+    {
+        <div class="row">
+            @foreach (var column in _columns.Ordered())
+            {
+                @column.GenerateColumn(item)
+            }
+        </div>
+    };
+}

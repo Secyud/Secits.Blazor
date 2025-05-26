@@ -1,0 +1,15 @@
+﻿@namespace Secyud.Secits.Blazor.Components
+@inherits ScSettingBase<IScList<TItem>>
+@typeparam TItem
+
+@code
+{
+    public RenderFragment GenerateItemsContent() => __builder =>
+    {
+        if (Master is null) return;
+
+        <Virtualize @ref="_virtualize" ItemsProvider="RefreshRowsAsync" Context="item">
+            @Master.GenerateRow(item)
+        </Virtualize>
+    };
+}

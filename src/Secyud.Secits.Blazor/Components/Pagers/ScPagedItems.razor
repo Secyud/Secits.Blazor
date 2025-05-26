@@ -1,0 +1,29 @@
+﻿@namespace Secyud.Secits.Blazor.Components
+@inherits ScSettingBase<IScList<TItem>>
+@typeparam TItem
+
+@code
+{
+    public RenderFragment GenerateItemsContent() => __builder =>
+    {
+        if (Master is null || !_items.Any()) return;
+
+        foreach (var item in _items)
+        {
+            @Master.GenerateRow(item)
+        }
+    };
+
+    public RenderFragment GenerateFooter() => __builder =>
+    {
+        if (Master is null) return;
+
+        var maxPageCount = _totalCount;
+        <div class="table-pager-container">
+            <SPager Class="table-pager" MaxPageCount="maxPageCount" 
+                    PageIndex="Master.DataRequest.PageIndex"
+                    PageIndexChanged="PageIndexChangedAsync"/>
+            <SDropdown></SDropdown>
+        </div>
+    };
+}

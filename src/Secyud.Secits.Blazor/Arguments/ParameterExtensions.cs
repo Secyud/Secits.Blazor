@@ -1,4 +1,5 @@
-﻿using Secyud.Secits.Blazor.Abstraction;
+﻿using Microsoft.AspNetCore.Components.Web.Virtualization;
+using Secyud.Secits.Blazor.Components;
 using Secyud.Secits.Blazor.Styles;
 
 namespace Secyud.Secits.Blazor.Arguments;

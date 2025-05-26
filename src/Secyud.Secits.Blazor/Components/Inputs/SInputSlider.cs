@@ -1,6 +1,5 @@
 ﻿using System.Numerics;
 using Microsoft.AspNetCore.Components;
-using Secyud.Secits.Blazor.Abstraction;
 
 namespace Secyud.Secits.Blazor.Components;
 

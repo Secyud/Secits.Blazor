@@ -1,8 +1,6 @@
 ﻿@namespace Secyud.Secits.Blazor.Components
-@inherits ScContainerBase
+@inherits ScBusinessBase
 @typeparam TValue
-
-@GenerateSettingContent()
 
 @{
     base.BuildRenderTree(__builder);
@@ -10,11 +8,8 @@
 
 @code
 {
-
-    protected virtual RenderFragment GenerateSettingContent() =>
-        GenerateSettingContent<SInputBase<TValue>>();
-
     protected override RenderFragment GenerateContent() => GenerateChildContent();
+
 
     protected override RenderFragment GenerateChildContent() => __builder =>
     {
