@@ -1,47 +1,17 @@
-.card {    
-    --mix-value: 0%;
-    --border-mix-value: 50%;
-    --text-mix-value: 50%;
+.card {
+    --bgmix: 0;
 
-    margin: 0.25rem;
-    padding: 0.25rem;
-
-    border-radius: 0.25rem;
-    border: 0.125rem solid color-mix(in lch, var(--s-color) var(--border-mix-value), var(--s-color-blend));
-
-    color: rgba(var(--s-color-body-text-rgb), var(--text-mix-value));
-    background-color: color-mix(in lch, var(--s-color) var(--mix-value), var(--s-color-body));
-
-    --transition-time: 50ms;
-    transition: color var(--transition-time) linear, border var(--transition-time) linear, background-color var(--transition-time) linear;
-
-
-    &.background {
-        color: rgba(var(--s-color-text-rgb), var(--text-mix-value));
-        background-color: color-mix(in lch, var(--s-color) var(--mix-value), var(--s-color-blend));
-
-        --mix-value: 100%;
-        --text-mix-value: 75%;
-
-    }
-
-    &.rounded {
+    &.rd {
         border-radius: calc(var(--size));
     }
 
-    &.readonly, &.disabled {
-        --mix-value: 0%;
-        --border-mix-value: 50%;
-        --text-mix-value: 50%;
-    }
-    
-    .card-header{
-        padding: 0.5rem;
+    .card-header {
+        padding: 0.25rem;
         font-weight: 600;
     }
 
-    .card-body{
-        padding: 0.5rem;
-        font-size: calc(var(--size) * 0.875);
+    .card-body {
+        --size-body: calc(var(--size) * 0.875);
+        padding: 0.25rem;
     }
 }

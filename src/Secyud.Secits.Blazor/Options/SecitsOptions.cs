@@ -9,7 +9,8 @@ public class SecitsOptions
 
     public List<string> GetCssPaths()
     {
-        List<string> res = [
+        List<string> res =
+        [
             RootPath + "css/components.css",
         ];
 

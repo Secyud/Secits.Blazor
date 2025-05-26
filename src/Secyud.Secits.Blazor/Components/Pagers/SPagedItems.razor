@@ -1,5 +1,5 @@
 ﻿@namespace Secyud.Secits.Blazor.Components
-@inherits ScSettingBase<IScList<TItem>>
+@inherits ScSettingBase<ISList<TItem>>
 @typeparam TItem
 
 @code
@@ -20,7 +20,7 @@
 
         var maxPageCount = _totalCount;
         <div class="table-pager-container">
-            <SPager Class="table-pager" MaxPageCount="maxPageCount" 
+            <SPager Class="table-pager" MaxPageCount="maxPageCount"
                     PageIndex="Master.DataRequest.PageIndex"
                     PageIndexChanged="PageIndexChangedAsync"/>
             <SDropdown></SDropdown>

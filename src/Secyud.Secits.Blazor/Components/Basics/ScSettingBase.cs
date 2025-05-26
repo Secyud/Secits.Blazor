@@ -12,6 +12,7 @@ public abstract class ScSettingBase<TComponent> : ComponentBase, IAsyncDisposabl
 {
     protected TComponent? Master { get; private set; }
 
+    [CascadingParameter]
     public ScSettingMaster? MasterComponent
     {
         get => null;

@@ -73,7 +73,7 @@ public abstract partial class SMaskableInputBase<TValue>
         string? value;
         if (_isMasked && InputMask is not null)
             InputMask.TryConvertMaskToText(_maskedString, out value);
-        else 
+        else
             value = _originString;
 
         _parsingFailed = !TryParseValueFromString(value, out var output);

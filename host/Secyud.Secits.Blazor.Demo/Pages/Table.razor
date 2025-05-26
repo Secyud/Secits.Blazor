@@ -1,6 +1,8 @@
 ﻿@attribute [Route(Menu.Table)]
 
-<STable Items="(r)=>Items" ValueField="u => u.Id">
+<STable Items="@GetItemsAsync" ValueField="u => u.Id"
+        Height="@("500px")">
+    <SVisualizeItems/>
     <SSciTableDataColumn Caption="@nameof(ListItem.Id)"
                          ValueField="@(item => item.Id)"/>
     <SSciTableDataColumn Caption="@nameof(ListItem.Name)"
@@ -17,5 +19,9 @@
 </STable>
 
 @code {
-    List<ListItem> Items { get; } = ListItem.Generate();
+
+    protected Task<DataResult<ListItem>> GetItemsAsync(DataRequest request)
+    {
+        return Task.FromResult(DataResult.Create(ListItem.Generate(request.PageSize), 200));
+    }
 }

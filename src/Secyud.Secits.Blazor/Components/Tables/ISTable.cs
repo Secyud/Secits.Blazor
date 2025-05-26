@@ -1,6 +1,6 @@
 ﻿namespace Secyud.Secits.Blazor.Components;
 
-public interface IScTable<TItem> : IScList<TItem>
+public interface ISTable<TItem> : ISList<TItem>
 {
     void AddTableColumn(ISciTableColumn<TItem> column);
 

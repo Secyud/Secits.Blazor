@@ -12,7 +12,6 @@ public class Utils
     public const string UpChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     public const string UpIChars = "AEIOU";
     public const string UpUChars = "BCDFGHJKLMNPQRSTVWXYZ";
-
     private static readonly Random Random = new();
     private static readonly StringBuilder Sb = new();
 
@@ -29,18 +28,41 @@ public class Utils
     public static string GetRandomString(params string[] arr)
     {
         Sb.Clear();
+        RandomString(Sb, arr);
+        return Sb.ToString();
+    }
 
+    public static string GetRandomWord(bool firstUpper = true)
+    {
+        Sb.Clear();
+        RandomWord(Sb, firstUpper);
+        return Sb.ToString();
+    }
+
+    public static string GetRandomSentence()
+    {
+        Sb.Clear();
+        RandomSentence(Sb);
+        return Sb.ToString();
+    }
+
+    public static string GetRandomSentences(int count = 10)
+    {
+        Sb.Clear();
+        RandomSentences(Sb, count);
+        return Sb.ToString();
+    }
+
+    private static void RandomString(StringBuilder sb, params string[] arr)
+    {
         foreach (var str in arr)
         {
             var random = Random.Next(str.Length);
             Sb.Append(str[random]);
         }
-
-        return Sb.ToString();
     }
 
-
-    public static string GetRandomWord(bool firstUpper = true)
+    private static void RandomWord(StringBuilder sb, bool firstUpper)
     {
         var len = Random.Next(3, 10);
         var arr = new string[len];
@@ -55,38 +77,27 @@ public class Utils
             arr[i] = i % 2 == 0 ? LowUChars : LowIChars;
         }
 
-        return GetRandomString(arr);
+        RandomString(sb, arr);
     }
 
-    public static string GetRandomSentence()
+    private static void RandomSentence(StringBuilder sb)
     {
-        var sb = new StringBuilder();
-
-        sb.Append(GetRandomWord());
-
+        RandomWord(sb, true);
         var len = Random.Next(3, 10);
-        for (int i = 0; i < len; i++)
+        for (var i = 0; i < len; i++)
         {
             sb.Append(' ');
-            sb.Append(GetRandomWord(false));
+            RandomWord(sb, false);
         }
 
         sb.Append(". ");
-        return sb.ToString();
     }
 
-    public static string GetRandomString(int length)
+    private static void RandomSentences(StringBuilder sb, int count)
     {
-        Sb.Clear();
-
-        for (var i = 0; i < length; i++)
+        for (var i = 0; i < count; i++)
         {
-            var random = Random.Next(AllChars.Length * 4 / 3);
-            Sb.Append(random >= AllChars.Length
-                ? ' '
-                : AllChars[random]);
+            RandomSentence(sb);
         }
-
-        return Sb.ToString();
     }
 }

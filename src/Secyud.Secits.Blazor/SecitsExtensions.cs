@@ -11,7 +11,7 @@ public static class SecitsExtensions
         Action<SecitsOptions>? optionAction = null)
     {
         services.AddTransient<ILocalizationService, DefaultLocalizationService>();
-        services.AddTransient<IJsElementService, SecitsJsElementService>();
+        services.AddTransient<IJsElementService, SecitsJsElementServiceBaseService>();
         services.AddTransient<IJsWindowService, SecitsJsWindowService>();
 
 

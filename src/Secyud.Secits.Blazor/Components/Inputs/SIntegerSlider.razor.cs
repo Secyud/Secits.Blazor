@@ -22,7 +22,7 @@ public partial class SIntegerSlider : IScwMinMaxValue<int>
     protected void OnWheel(WheelEventArgs args)
     {
         if (Readonly || Disabled) return;
-        
+
         var value = (int)args.DeltaY / 80 + Value;
         value = Cycle ? GetCycleValue(value) : Math.Min(Math.Max(Min, value), Max);
         OnInputInvoke(value);

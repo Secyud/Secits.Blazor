@@ -3,7 +3,7 @@
 public class DataRequest
 {
     private int _pageIndex;
-    public const int DefaultPageSize = 10;
+    public static int DefaultPageSize { get; set; } = 10;
 
     public int PageIndex
     {

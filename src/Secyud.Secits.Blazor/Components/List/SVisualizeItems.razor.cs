@@ -2,11 +2,20 @@
 
 namespace Secyud.Secits.Blazor.Components;
 
-public partial class ScVisualizeItems<TItem> : ISciItemsRenderer
+public partial class SVisualizeItems<TItem> : ISciItemsRenderer
 {
     private Virtualize<TItem>? _virtualize;
     private bool _needRefreshData;
 
+    protected override void ApplySetting()
+    {
+        Master!.SetItemsRender(this);
+    }
+
+    protected override void ForgoSetting()
+    {
+        Master!.SetItemsRender(this);
+    }
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         await base.OnAfterRenderAsync(firstRender);

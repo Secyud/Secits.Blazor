@@ -69,7 +69,7 @@
     };
 
     public RenderFragment GenerateNumber(int position,
-        object number,  bool selected) => __builder =>
+        object number, bool selected) => __builder =>
     {
         var selectedStr = selected ? " selected" : null;
         <div class="@($"number{selectedStr}")"

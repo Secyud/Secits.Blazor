@@ -11,7 +11,7 @@ namespace Secyud.Secits.Blazor.Components;
 /// <typeparam name="TItem"></typeparam>
 /// <typeparam name="TValue"></typeparam>
 [CascadingTypeParameter(nameof(TItem))]
-public partial class STable<TItem, TValue> : IScsTheme, IScTable<TItem>
+public partial class STable<TItem, TValue> : IScsTheme, ISTable<TItem>
 {
     protected override string ComponentName => "table";
 

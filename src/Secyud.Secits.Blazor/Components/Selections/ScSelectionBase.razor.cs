@@ -1,6 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using Microsoft.AspNetCore.Components;
-using Secyud.Secits.Blazor.Arguments;
+﻿using Microsoft.AspNetCore.Components;
 
 namespace Secyud.Secits.Blazor.Components;
 

@@ -8,7 +8,7 @@ public readonly struct DatePrecision
     }
 
     public DateTimePrecisionKind PrecisionKind { get; }
-    
+
     public static implicit operator DateTimePrecision(DatePrecision value)
     {
         return new DateTimePrecision(value.PrecisionKind);

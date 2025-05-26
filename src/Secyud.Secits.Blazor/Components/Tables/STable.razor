@@ -1,5 +1,5 @@
 ﻿@namespace Secyud.Secits.Blazor.Components
-@inherits ScList<TItem, TValue>
+@inherits SList<TItem, TValue>
 @typeparam TItem
 @typeparam TValue
 
@@ -20,8 +20,13 @@
             }
             <tbody>
             @ItemsRenderer?.GenerateItemsContent()
-            @GenerateFooter();
             </tbody>
+            @if (!DisableFooter)
+            {
+                <tfoot>
+                @GenerateFooter()
+                </tfoot>
+            }
         </table>
     };
 
@@ -39,7 +44,6 @@
 
     private RenderFragment GenerateFooter() => __builder =>
     {
-        if (DisableFooter) return;
         <tr class="table-footer">
             @foreach (var column in _columns)
             {

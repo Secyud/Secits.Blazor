@@ -15,6 +15,7 @@
 
 [s] {
     /* activable */
+
     &.button, &.input, &.card, &.table {
         --background-color-c: color-mix(in lch, var(--cbgp) var(--bgmix), var(--cbgs));
         --text-color-c: color-mix(in lch, var(--ctxp) var(--txmix), var(--ctxs));
@@ -61,5 +62,119 @@
             --txmix-s: 30%;
             --bdmix-s: 90%;
         }
+    }
+
+    /* size */
+
+    &.x-small {
+        --size: 0.75rem;
+    }
+
+    &.small {
+        --size: 0.875rem;
+    }
+
+    &.medium {
+        --size: 1rem;
+    }
+
+    &.large {
+        --size: 1.125rem;
+    }
+
+    &.x-large {
+        --size: 1.25rem;
+    }
+
+    /* shadow */
+
+    &.sd {
+        --shadow-size: calc(var(--size) * var(--shadow-size-n));
+        --shadow-size-n: 0.25;
+        --shadow-opacity: 0.1;
+        box-shadow: 0 var(--shadow-size) var(--shadow-size) rgba(
+                from var(--s-color-reverse) r g b / var(--shadow-opacity));
+        transition: box-shadow 50ms linear;
+
+        &:active {
+            --shadow-size-n: 0.5;
+            --shadow-opacity: 0.2;
+        }
+
+        &.disabled, &.readonly {
+            --shadow-size-n: 0.25;
+            --shadow-opacity: 0.1;
+        }
+    }
+
+    /* borderless */
+
+    &.bl {
+        --border-color-c: transparent;
+    }
+
+    /* angular */
+
+    &.ag {
+        --border-radius-c: 0;
+    }
+
+    /* rounded */
+
+    &.rd {
+        --height-c: var(--size);
+        --border-radius-c: calc(var(--height-c) / 2 + var(--padding-y-c));
+
+        .input-container {
+            padding: 0 var(--padding-x-c);
+        }
+    }
+
+    /* background */
+
+    &.bg {
+        --bgmix: 55%;
+        --txmix: 10%;
+        --bdmix: 90%;
+        --ctxs: var(--s-color-blend);
+
+        &:hover {
+            --bgmix-h: 70%;
+            --txmix-h: 20%;
+            --bdmix-h: 100%;
+        }
+
+        &:active {
+            --bgmix-a: 90%;
+            --txmix-a: 10%;
+            --bdmix-a: 90%;
+        }
+
+        &:has(:focus) {
+            --bgmix-f: 90%;
+            --txmix-f: 10%;
+            --bdmix-f: 90%;
+        }
+
+        .selected {
+            --bgmix-s: 90%;
+            --txmix-s: 10%;
+            --bdmix-s: 90%;
+        }
+    }
+
+    &.pl {
+        --bgmix: 0%;
+        --cbgs: var(--s-color-body);
+    }
+
+    &.readonly {
+        --s-color-blend: rgb(224, 224, 224);
+        --s-color-reverse: rgb(64, 64, 64);
+    }
+
+    &.disabled {
+        --s-color-blend: rgb(192, 192, 192);
+        --s-color-reverse: rgb(128, 128, 128);
     }
 }

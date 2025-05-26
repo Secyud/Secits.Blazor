@@ -1,12 +1,22 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿namespace Secyud.Secits.Blazor.Components;
 
-namespace Secyud.Secits.Blazor.Components;
-
-public partial class ScPagedItems<TItem> : ISciItemsRenderer, ISciFooterRender
+public partial class SPagedItems<TItem> : ISciItemsRenderer, ISciFooterRender
 {
     private List<TItem> _items = [];
 
     private int _totalCount;
+
+    protected override void ApplySetting()
+    {
+        Master!.SetItemsRender(this);
+        Master.AddFooterRender(this);
+    }
+
+    protected override void ForgoSetting()
+    {
+        Master!.SetItemsRender(this);
+        Master.RemoveFooterRender(this);
+    }
 
     public async Task RefreshAsync()
     {

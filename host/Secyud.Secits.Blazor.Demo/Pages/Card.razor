@@ -1,5 +1,4 @@
-﻿@using Secyud.Secits.Blazor.Components
-@attribute [Route(Menu.Card)]
+﻿@attribute [Route(Menu.Card)]
 
 <SCard Title="@Title" Text="@Content"/>
 
@@ -7,7 +6,7 @@
 
 @code
 {
-    string Title { get; } = Utils.GetRandomString(20);
+    string Title { get; } = Utils.GetRandomWord(true);
 
-    string Content { get; } = Utils.GetRandomString(1000);
+    string Content { get; } = Utils.GetRandomSentences(10);
 }

@@ -34,7 +34,7 @@ public class ClassStyleBuilderContext
     public void AppendStyle(string name, string? value, bool important = false)
     {
         if (string.IsNullOrWhiteSpace(value)) return;
-        
+
         Style.Append(name);
         Style.Append(':');
         Style.Append(value);

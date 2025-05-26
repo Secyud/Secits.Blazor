@@ -2,7 +2,7 @@
 
 namespace Secyud.Secits.Blazor.Components;
 
-public interface ISciFooterRender: IScSetting
+public interface ISciFooterRender : IScSetting
 {
     RenderFragment GenerateFooter();
 }

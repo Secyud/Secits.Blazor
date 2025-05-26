@@ -56,8 +56,9 @@ public class DirtyParameterContainer
             action(c, context);
         }
     }
-    
-    public bool AddIfIs<TComponent>(ScStyledBase component ,Action<TComponent, ClassStyleBuilderContext> action, params string[] parameters)
+
+    public bool AddIfIs<TComponent>(ScStyledBase component, Action<TComponent, ClassStyleBuilderContext> action,
+        params string[] parameters)
         where TComponent : class
     {
         if (component is not TComponent) return false;
@@ -68,7 +69,7 @@ public class DirtyParameterContainer
 
         return true;
     }
-    
+
     public static DirtyParameterContainer GetOrCreateByComponent(ScStyledBase c)
     {
         var type = c.GetType();

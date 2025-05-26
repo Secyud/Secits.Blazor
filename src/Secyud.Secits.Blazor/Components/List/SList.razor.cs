@@ -1,15 +1,28 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using System.Linq.Expressions;
+using System.Text;
 using Microsoft.AspNetCore.Components;
 using Secyud.Secits.Blazor.Arguments;
 
 namespace Secyud.Secits.Blazor.Components;
 
 [CascadingTypeParameter(nameof(TItem))]
-public partial class ScList<TItem, TValue> : ISccSelect<TItem, TValue>,
-    ISchTextField<TItem>, ISchValueField<TItem, TValue>, IScList<TItem>
+public partial class SList<TItem, TValue> : ISccSelect<TItem, TValue>,
+    ISchTextField<TItem>, ISchValueField<TItem, TValue>, ISList<TItem>,
+    IScsSize
 {
     protected override string ComponentName => "list";
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+
+        if (firstRender)
+        {
+            await RefreshAsync();
+            await InvokeAsync(StateHasChanged);
+        }
+    }
 
     #region Setting
 
@@ -20,6 +33,12 @@ public partial class ScList<TItem, TValue> : ISccSelect<TItem, TValue>,
     public virtual void SetItemsRender(ISciItemsRenderer renderer)
     {
         _itemsRenderer = renderer;
+    }
+
+    public void UnsetItemsRender(ISciItemsRenderer renderer)
+    {
+        if (_itemsRenderer == renderer)
+            _itemsRenderer = null;
     }
 
     private readonly List<ISciHeaderRender> _headers = [];
@@ -207,4 +226,11 @@ public partial class ScList<TItem, TValue> : ISccSelect<TItem, TValue>,
     }
 
     #endregion
+
+
+    [Parameter]
+    public SValue Width { get; set; }
+
+    [Parameter]
+    public SValue Height { get; set; }
 }

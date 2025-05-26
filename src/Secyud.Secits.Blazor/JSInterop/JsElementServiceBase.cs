@@ -3,7 +3,7 @@ using Microsoft.JSInterop;
 
 namespace Secyud.Secits.Blazor.JSInterop;
 
-public abstract class JsElement(IJSRuntime js)
+public abstract class JsElementServiceBase(IJSRuntime js)
 {
     protected async ValueTask InvokeVoidAsync(ElementReference element, string identifier, params object?[]? args)
     {
@@ -17,7 +17,7 @@ public abstract class JsElement(IJSRuntime js)
         }
     }
 
-    protected async ValueTask<T> InvokeAsync<T>(ElementReference element, string identifier, params object?[]? args) 
+    protected async ValueTask<T> InvokeAsync<T>(ElementReference element, string identifier, params object?[]? args)
         where T : new()
     {
         try

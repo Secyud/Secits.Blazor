@@ -6,7 +6,6 @@ public abstract class ScGroupBase : ScContainerBase
 {
     protected override RenderFragment GenerateChildContent() => builder =>
     {
-        
         //TODO
     };
 }

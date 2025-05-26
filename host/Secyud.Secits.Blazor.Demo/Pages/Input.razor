@@ -3,41 +3,24 @@
     .group {
         display: grid;
         grid-template-columns: repeat(9, 1fr); /* 自适应列数 */
-        grid-gap: 0.5rem;        
+        grid-gap: 0.5rem;
     }
 </style>
 
-@{
-    foreach (var shadow in Bool)
-    foreach (var angular in Bool)
-    foreach (var rounded in Bool)
-    foreach (var borderless in Bool)
-    foreach (var backless in Bool)
-    {
-        <SCard>
-            <SCardHeader>
-                @(shadow ? "有阴影" : "无阴影")
-                @(angular ? "直角" : "圆角")
-                @(rounded ? "图标" : "按钮")
-                @(borderless ? "无边" : "有边")
-                @(backless ? "无背景" : "有背景")
-            </SCardHeader>
-            <SCardBody Class="group">
-                @foreach (var size in Sizes)
-                {
-                    <label>@size</label>
-                    foreach (var theme in Themes)
-                    {
-                        <SInputText Value="@(theme.ToString())"
-                                    Theme="theme" Size="size" Shadow="shadow" Angular="angular"
-                                    Rounded="rounded" Borderless="borderless" Background="backless"
-                                    ShowClearButton/>
-                    }
-                }
-            </SCardBody>
-        </SCard>
-    }
-}
+<SCard>
+    <SCardBody Class="group">
+        @foreach (var size in Sizes)
+        {
+            <label>@size</label>
+            foreach (var theme in Themes)
+            {
+                <SInputText Value="@(theme.ToString())"
+                            Theme="theme" Size="size"
+                            ShowClearButton/>
+            }
+        }
+    </SCardBody>
+</SCard>
 
 @code
 {
