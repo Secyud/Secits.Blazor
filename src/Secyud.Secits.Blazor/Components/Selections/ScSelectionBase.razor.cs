@@ -1,8 +1,9 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Secyud.Secits.Blazor.Arguments;
 
 namespace Secyud.Secits.Blazor.Components;
 
-public abstract partial class ScSelectionBase<TValue> : ISccSelect<TValue>
+public abstract partial class ScSelectionBase<TValue> : ISccSelect<TValue>, ISciSelect
 {
     private IScdSelect? _selectDelegate;
 
@@ -32,9 +33,11 @@ public abstract partial class ScSelectionBase<TValue> : ISccSelect<TValue>
     [Parameter]
     public IEnumerable<TValue> Values { get; set; } = [];
 
-
     [Parameter]
     public bool MultiSelectEnabled { get; set; }
+
+    [Parameter]
+    public string? Format { get; set; }
 
     #endregion
 
@@ -46,6 +49,8 @@ public abstract partial class ScSelectionBase<TValue> : ISccSelect<TValue>
         Values = values;
         if (ValuesChanged.HasDelegate)
             await ValuesChanged.InvokeAsync(values);
+        _selectDelegate?.OnDelegateSelectItemsAsync(values
+            .Select(u => SelectionItem.FromObject(u, Format)));
     }
 
     protected virtual async Task OnValueSelectChangedAsync(TValue? value)
@@ -53,8 +58,8 @@ public abstract partial class ScSelectionBase<TValue> : ISccSelect<TValue>
         Value = value!;
         if (ValueChanged.HasDelegate)
             await ValueChanged.InvokeAsync(value);
+        _selectDelegate?.OnDelegateSelectItemAsync(SelectionItem.FromObject(value, Format));
     }
-
 
     protected virtual bool IsValueSelected(TValue? value)
     {

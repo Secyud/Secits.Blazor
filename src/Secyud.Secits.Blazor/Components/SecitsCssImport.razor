@@ -12,7 +12,7 @@ else
 {
     foreach (var cssPath in Options.Value.GetCssPaths())
     {
-        <link rel="stylesheet" href="@Assets[cssPath] "/>
+        <link rel="stylesheet" href="@GetCssPath(cssPath)"/>
     }
 }
 
@@ -20,4 +20,13 @@ else
 {
     [Parameter]
     public bool IsWebAssemblyOnly { get; set; }
+
+    private string GetCssPath(string cssPath)
+    {
+#if NET8_0
+        return cssPath;
+#else
+        return Assets[cssPath];
+#endif
+    }
 }

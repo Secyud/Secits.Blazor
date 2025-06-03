@@ -2,48 +2,76 @@
     --padding-x-c: 0;
     --padding-y-c: 0;
 
-    > table {
-        border-spacing: 0;
-        border-collapse: collapse;
+    > .body {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
 
-        > thead {
-            --border-c: 0.125rem solid var(--border-color-c);
 
-            > tr {
-                border-bottom: var(--border-c);
+        > .table-body {
+            flex: 1;
+            overflow: auto;
 
-                > th:not(:first-child) {
-                    border-left: var(--border-c);
-                }
+            &::-webkit-scrollbar {
             }
         }
 
-        > tbody {
-            --border-c: 0.125rem solid var(--border-color-c);
+        table {
+            border-spacing: 0;
+            border-collapse: collapse;
+            table-layout: fixed;
+            width: 100%;
+            flex: 0;
 
-            > tr {
-                border-top: var(--border-c);
+            > thead, > tbody, > tfoot {
+                --border-c: 1px solid var(--border-color-c);
 
-                > td:not(:first-child) {
-                    border-left: var(--border-c);
+                > tr {
+
+                    > td, > th {
+                        padding: 0.5rem 1rem;
+                        border: var(--border-c);
+                    }
+
+                    > td, > th > .header-cell {
+                        overflow: hidden;
+                    }
+
+                    &:first-child {
+                        > th, > td {
+                            --col-width: auto;
+                            width: var(--col-width);
+
+                            &:last-child {
+                                width: auto;
+                            }
+                        }
+
+                        > td {
+                            padding: 0 1rem;
+                        }
+                    }
+
+                    border: var(--border-c);
                 }
+            }
 
-                > td {
-                    padding: 0.25rem;
-                }
+            > tbody {
+                > tr {
+                    background-color: color-mix(in lch, var(--cbgp) var(--bgmix), var(--cbgs));
+                    color: color-mix(in lch, var(--ctxp) var(--txmix), var(--ctxs));
+                    transition: all 50ms;
 
-                background-color: color-mix(in lch, var(--cbgp) var(--bgmix), var(--cbgs));
-                color: color-mix(in lch, var(--ctxp) var(--txmix), var(--ctxs));
-                transition: all 50ms;
 
-                &:hover {
-                    --bgmix: var(--bgmix-h);
-                    --txmix: var(--txmix-h);
-                }
+                    &:hover {
+                        --bgmix: var(--bgmix-h);
+                        --txmix: var(--txmix-h);
+                    }
 
-                &.selected {
-                    --bgmix: var(--bgmix-s);
-                    --txmix: var(--txmix-s);
+                    &.selected {
+                        --bgmix: var(--bgmix-s);
+                        --txmix: var(--txmix-s);
+                    }
                 }
             }
         }

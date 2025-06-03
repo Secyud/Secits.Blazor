@@ -1,15 +1,10 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using System.Linq.Expressions;
-using System.Text;
-using Microsoft.AspNetCore.Components;
+﻿using Microsoft.AspNetCore.Components;
 using Secyud.Secits.Blazor.Arguments;
 
 namespace Secyud.Secits.Blazor.Components;
 
 [CascadingTypeParameter(nameof(TItem))]
-public partial class SList<TItem, TValue> : ISccSelect<TItem, TValue>,
-    ISchTextField<TItem>, ISchValueField<TItem, TValue>, ISList<TItem>,
-    IScsSize
+public partial class SList<TItem> : ISchTextField<TItem>,  IScsSize, ISciSelect
 {
     protected override string ComponentName => "list";
 
@@ -29,6 +24,7 @@ public partial class SList<TItem, TValue> : ISccSelect<TItem, TValue>,
     private ISciItemsRenderer? _itemsRenderer;
 
     protected ISciItemsRenderer? ItemsRenderer => _itemsRenderer;
+
 
     public virtual void SetItemsRender(ISciItemsRenderer renderer)
     {
@@ -86,6 +82,19 @@ public partial class SList<TItem, TValue> : ISccSelect<TItem, TValue>,
         _footers.Remove(renderer);
     }
 
+    protected ISciItemSelect<TItem>? Select { get; private set; }
+
+    public virtual void SetSelect(ISciItemSelect<TItem> itemSelect)
+    {
+        Select = itemSelect;
+    }
+
+    public virtual void UnsetSelect(ISciItemSelect<TItem> itemSelect)
+    {
+        if (itemSelect == Select)
+            Select = null;
+    }
+
     #endregion
 
     #region Parameters
@@ -102,6 +111,8 @@ public partial class SList<TItem, TValue> : ISccSelect<TItem, TValue>,
 
     [Parameter]
     public TItem? SelectedItem { get; set; }
+
+    public TItem? ActiveItem { get; set; }
 
     #endregion
 
@@ -120,58 +131,93 @@ public partial class SList<TItem, TValue> : ISccSelect<TItem, TValue>,
 
     #endregion
 
+    #region SciSelect
+
+    private IScdSelect? _selectDelegate;
+
+    [CascadingParameter]
+    public IScdSelect? SelectDelegate
+    {
+        get => _selectDelegate;
+        set
+        {
+            _selectDelegate?.UnbindComponent(this);
+            _selectDelegate = value;
+            _selectDelegate?.BindComponent(this);
+        }
+    }
+
+    [Parameter]
+    public bool MultiSelectEnabled { get; set; }
+
+    public async Task UnselectObjectAsync(object obj)
+    {
+        if (obj is not TItem item) return;
+
+        if (MultiSelectEnabled)
+        {
+            await OnItemsSelectChangedAsync(SelectedItems.Where(u => !Equals(item, u)));
+        }
+        else
+        {
+            await OnItemSelectChangedAsync(Equals(item, SelectedItem) ? default : item);
+        }
+    }
+
+    public async Task ClearSelectAsync()
+    {
+        if (MultiSelectEnabled)
+        {
+            await OnItemsSelectChangedAsync([]);
+        }
+        else
+        {
+            await OnItemSelectChangedAsync(default);
+        }
+    }
+
+    #endregion
+
     #region Selection
 
     protected virtual async Task OnItemActivateChangedAsync(TItem item)
     {
-        var isSelected = IsItemSelected(item);
+        ActiveItem = item;
 
         if (MultiSelectEnabled)
         {
-            var list = SelectedItems.ToList();
-            if (isSelected) list.Remove(item);
-            else list.Add(item);
+            var list = SelectedItems.Where(u => !Equals(item, u)).ToList();
+            if (!list.Remove(item)) list.Add(item);
             await OnItemsSelectChangedAsync(list);
         }
         else
         {
-            await OnItemSelectChangedAsync(isSelected ? default : item);
+            await OnItemSelectChangedAsync(Equals(item, SelectedItem) ? default : item);
         }
     }
 
-    protected virtual async Task OnItemSelectChangedAsync(TItem? item)
+    public virtual async Task OnItemSelectChangedAsync(TItem? item)
     {
         SelectedItem = item;
 
         if (SelectedItemChanged.HasDelegate)
             await SelectedItemChanged.InvokeAsync(SelectedItem);
 
-        if (!MultiSelectEnabled && SelectDelegate is not null)
-        {
-            var selectItem = new SelectionItem(item, GetText(item));
-            SelectDelegate.DelegateSelectItem(selectItem);
-        }
-
-        var value = GetValue(item);
-        await OnValueSelectChangedAsync(value);
+        if (SelectDelegate is not null) await SelectDelegate.OnDelegateSelectItemAsync(
+            SelectionItem.FromObject(item, GetText));
+        if (Select is not null) await Select.OnItemSelectChangedAsync(item);
     }
 
-    protected virtual async Task OnItemsSelectChangedAsync(IEnumerable<TItem> items)
+    public virtual async Task OnItemsSelectChangedAsync(IEnumerable<TItem> items)
     {
         SelectedItems = items.ToList();
 
         if (SelectedItemsChanged.HasDelegate)
             await SelectedItemsChanged.InvokeAsync(SelectedItems);
 
-        if (MultiSelectEnabled && SelectDelegate is not null)
-        {
-            var selectItems = SelectedItems
-                .Select(u => new SelectionItem(u, GetText(u))).ToList();
-            SelectDelegate.DelegateSelectItems(selectItems);
-        }
-
-        var values = SelectedItems.Select(GetValue);
-        await OnValuesSelectChangedAsync(values!);
+        if (SelectDelegate is not null) await SelectDelegate.OnDelegateSelectItemsAsync(
+            SelectedItems.Select(u => SelectionItem.FromObject(u, GetText)));
+        if (Select is not null) await Select.OnItemsSelectChangedAsync(SelectedItems);
     }
 
     protected virtual bool IsItemSelected(TItem? item)
@@ -179,20 +225,6 @@ public partial class SList<TItem, TValue> : ISccSelect<TItem, TValue>,
         return MultiSelectEnabled
             ? SelectedItems.Contains(item)
             : Equals(SelectedItem, item);
-    }
-
-
-    public override async Task UnselectObjectAsync(object obj)
-    {
-        if (obj is not TItem item) return;
-
-        var value = GetValue(item);
-
-        if (MultiSelectEnabled)
-            await OnValuesSelectChangedAsync(
-                Values.Where(u => !Equals(u, value)));
-        else
-            await OnValueSelectChangedAsync(value);
     }
 
     protected string? RowClass(TItem item)
@@ -206,19 +238,6 @@ public partial class SList<TItem, TValue> : ISccSelect<TItem, TValue>,
 
     [Parameter]
     public Func<TItem, string?>? TextField { get; set; }
-
-    private Func<TItem, TValue>? _valueField;
-
-    [Parameter]
-    public Expression<Func<TItem, TValue>>? ValueField { get; set; }
-
-    [return: NotNullIfNotNull(nameof(item))]
-    protected virtual TValue? GetValue(TItem? item)
-    {
-        if (item is null) return default;
-        _valueField ??= ValueField?.Compile()!;
-        return _valueField.Invoke(item)!;
-    }
 
     protected virtual string? GetText(TItem? item)
     {

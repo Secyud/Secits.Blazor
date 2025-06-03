@@ -8,4 +8,6 @@ public interface ISciTableColumn<in TItem> : IScSetting
     RenderFragment GenerateHeader();
     RenderFragment GenerateColumn(TItem item);
     RenderFragment GenerateFooter();
+    int GetColumnWidth();
+    int Width { get; set; }
 }

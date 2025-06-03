@@ -1,6 +1,6 @@
 using Secyud.Secits.Blazor;
-using Secyud.Secits.Blazor.Demo.Layout;
-using Secyud.Secits.Blazor.Server.Demo.Components;
+using Secyud.Secits.Blazor.Components;
+using Secyud.Secits.Blazor.Layout;
 
 var builder = WebApplication.CreateBuilder(args);
 

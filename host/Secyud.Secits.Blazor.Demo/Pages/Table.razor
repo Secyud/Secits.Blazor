@@ -1,17 +1,14 @@
-﻿@attribute [Route(Menu.Table)]
+﻿
+@attribute [Route(Menu.Table)]
 
 <STable Items="@GetItemsAsync" ValueField="u => u.Id"
         Height="@("500px")">
     <SVisualizeItems/>
-    <SSciTableDataColumn Caption="@nameof(ListItem.Id)"
-                         ValueField="@(item => item.Id)"/>
     <SSciTableDataColumn Caption="@nameof(ListItem.Name)"
                          ValueField="@(item => item.Name)"/>
-    <SSciTableDataColumn Caption="@nameof(ListItem.Description)"
-                         ValueField="@(item => item.Description)"/>
-    <SSciTableDataColumn Caption="@nameof(ListItem.PhoneNumber)"
+    <SSciTableDataColumn Caption="@nameof(ListItem.PhoneNumber)" 
                          ValueField="@(item => item.PhoneNumber)"/>
-    <SSciTableDataColumn Caption="@nameof(ListItem.Age)"
+    <SSciTableDataColumn Caption="@nameof(ListItem.Age)" 
                          ValueField="@(item => item.Age)"/>
     <SSciTableDataColumn Caption="@nameof(ListItem.BirthDate)"
                          ValueField="@(item => item.BirthDate)"

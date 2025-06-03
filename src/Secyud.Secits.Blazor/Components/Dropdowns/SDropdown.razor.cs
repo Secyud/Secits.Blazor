@@ -8,47 +8,44 @@ public partial class SDropdown : IScdSelect
     protected override string ElementName => "input";
 
     protected SelectionItem? SelectionItem { get; set; }
+
     protected IEnumerable<SelectionItem> SelectionItems { get; set; } = [];
 
-    public void DelegateSelectItem(SelectionItem? item)
+    public Task OnDelegateSelectItemAsync(SelectionItem? item)
     {
         SelectionItem = item;
+        return Task.CompletedTask;
     }
 
-    public void DelegateSelectItems(IEnumerable<SelectionItem> items)
+    public Task OnDelegateSelectItemsAsync(IEnumerable<SelectionItem> items)
     {
         SelectionItems = items;
+        return Task.CompletedTask;
     }
 
     public bool MultiSelectEnabled { get; set; }
 
 
-    private readonly List<ISccSelect> _components = [];
+    private ISciSelect? _component;
 
-    public void BindComponent(ISccSelect component)
+    public void BindComponent(ISciSelect component)
     {
-        _components.Remove(component);
-        _components.Add(component);
+        _component = component;
     }
 
-    public void UnbindComponent(ISccSelect component)
+    public void UnbindComponent(ISciSelect component)
     {
-        _components.Remove(component);
+        if (component == _component)
+            _component = null;
     }
 
     protected async Task UnselectObjectAsync(object item)
     {
-        foreach (var component in _components)
-        {
-            await component.UnselectObjectAsync(item);
-        }
+        if (_component is not null) await _component.UnselectObjectAsync(item);
     }
 
     protected async Task ClearSelectAsync()
     {
-        foreach (var component in _components)
-        {
-            await component.ClearSelectAsync();
-        }
+        if (_component is not null) await _component.ClearSelectAsync();
     }
 }

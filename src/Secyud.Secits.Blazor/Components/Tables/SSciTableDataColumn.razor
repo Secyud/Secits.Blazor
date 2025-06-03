@@ -1,5 +1,5 @@
 ﻿@namespace Secyud.Secits.Blazor.Components
-@inherits ScSettingBase<ISTable<TItem>>
+@inherits ScSettingBase<STable<TItem>>
 @typeparam TItem
 @typeparam TValue
 
@@ -7,16 +7,19 @@
 {
     public virtual RenderFragment GenerateHeader() => __builder =>
     {
-        @Caption
-        if (EnableSorter)
-        {
-            // TODO Sorter
-        }
+        <div class="header-cell">
+            @Caption
 
-        if (EnableFilter)
-        {
-            @GenerateFilter()
-        }
+            @if (EnableFilter)
+            {
+                @GenerateFilter()
+            }
+            @if (EnableSorter)
+            {
+                // TODO Sorter
+            }
+            <div class="col-resizer"></div>
+        </div>
     };
 
     public virtual RenderFragment GenerateFilter() => __builder =>

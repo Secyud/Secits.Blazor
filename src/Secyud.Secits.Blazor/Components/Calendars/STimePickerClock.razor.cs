@@ -13,7 +13,7 @@ public partial class STimePickerClock
     private ClockState _clockState = ClockState.Default;
 
     [Inject]
-    private IJsElementService ElementService { get; set; } = null!;
+    private IJsElement Element { get; set; } = null!;
 
     protected override int BuildContentExtra(RenderTreeBuilder builder, int sequence)
     {
@@ -27,7 +27,7 @@ public partial class STimePickerClock
 
     private async Task<(double, double)> GetPointer(MouseEventArgs e)
     {
-        var rect = await ElementService.GetBoundingClientRect(Ref);
+        var rect = await Element.GetBoundingClientRect(Ref);
         var centerX = (rect.Left + rect.Right) / 2;
         var centerY = (rect.Top + rect.Bottom) / 2;
         var pointerX = e.ClientX - centerX;

@@ -3,7 +3,7 @@ using Microsoft.JSInterop;
 
 namespace Secyud.Secits.Blazor.JSInterop;
 
-public class SecitsJsElementServiceBaseService(IJSRuntime js) : JsElementServiceBase(js), IJsElementService
+public class SJsElement(IJSRuntime js) : JsElementBase(js), IJsElement
 {
     public ValueTask<DomRect> GetBoundingClientRect(ElementReference element)
     {

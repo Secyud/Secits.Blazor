@@ -1,7 +1,6 @@
 ﻿@namespace Secyud.Secits.Blazor.Components
-@inherits SList<TItem, TValue>
+@inherits SList<TItem>
 @typeparam TItem
-@typeparam TValue
 
 @{
     base.BuildRenderTree(__builder);
@@ -11,31 +10,45 @@
 {
     protected override RenderFragment GenerateBodyContent() => __builder =>
     {
-        <table>
-            @if (!DisableHeader)
-            {
+        @if (!DisableHeader)
+        {
+            <table class="table-header">
                 <thead>
                 @GenerateHeader()
                 </thead>
-            }
-            <tbody>
-            @ItemsRenderer?.GenerateItemsContent()
-            </tbody>
-            @if (!DisableFooter)
-            {
+            </table>
+        }
+
+        <div class="table-body">
+            <table>
+                <tbody>
+                <tr>
+                    @foreach (var column in _columns)
+                    {
+                        <td style="--col-width: @column.GetColumnWidth()px;"/>
+                    }
+                </tr>
+                @ItemsRenderer?.GenerateItemsContent()
+                </tbody>
+            </table>
+        </div>
+        @if (!DisableFooter)
+        {
+            <table class="table-footer">
                 <tfoot>
                 @GenerateFooter()
                 </tfoot>
-            }
-        </table>
+            </table>
+        }
     };
 
     private RenderFragment GenerateHeader() => __builder =>
     {
-        <tr class="table-header">
+        <tr>
             @foreach (var column in _columns)
             {
-                <th>
+                <th style="--col-width: @column.GetColumnWidth()px;"
+                    @onmousedown="_ => BeginDragColumnHeader(TableDragEventType.ColumnResize, column)">
                     @column.GenerateHeader()
                 </th>
             }
@@ -44,10 +57,10 @@
 
     private RenderFragment GenerateFooter() => __builder =>
     {
-        <tr class="table-footer">
+        <tr>
             @foreach (var column in _columns)
             {
-                <td>
+                <td style="--col-width: @column.GetColumnWidth()px;">
                     @column.GenerateFooter()
                 </td>
             }
@@ -56,7 +69,7 @@
 
     public override RenderFragment GenerateRow(TItem item) => __builder =>
     {
-        <tr class="table-row@(RowClass(item))" @onclick="() => OnItemActivateChangedAsync(item)">
+        <tr class="@(RowClass(item))" @onclick="() => OnItemActivateChangedAsync(item)">
             @foreach (var column in _columns)
             {
                 <td>

@@ -10,7 +10,7 @@ public abstract class JsModule(IJSRuntime js, string moduleUrl) : IAsyncDisposab
     private readonly CancellationTokenSource _cts = new();
     private bool _isDisposed;
 
-    protected async ValueTask InvokeVoidAsync(string identifier, params object?[]? args)
+    public async ValueTask InvokeVoidAsync(string identifier, params object?[]? args)
     {
         var module = await _moduleTask.Value;
 
@@ -29,7 +29,7 @@ public abstract class JsModule(IJSRuntime js, string moduleUrl) : IAsyncDisposab
         }
     }
 
-    protected async ValueTask<T?> InvokeAsync<T>(string identifier, params object?[]? args)
+    public async ValueTask<T?> InvokeAsync<T>(string identifier, params object?[]? args)
     {
         var module = await _moduleTask.Value;
 

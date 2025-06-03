@@ -2,7 +2,7 @@
 
 namespace Secyud.Secits.Blazor.JSInterop;
 
-public interface IJsElementService
+public interface IJsElement
 {
     public ValueTask<DomRect> GetBoundingClientRect(ElementReference element);
 }

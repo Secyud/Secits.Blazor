@@ -12,6 +12,15 @@ public partial class SSciTableDataColumn<TItem, TValue> :
     public string? Caption { get; set; }
 
     [Parameter]
+    public int MaxWidth { get; set; }
+
+    [Parameter]
+    public int MinWidth { get; set; }
+
+    [Parameter]
+    public int Width { get; set; } = 100;
+
+    [Parameter]
     public string? Format { get; set; }
 
     private Func<TItem, TValue>? _valueField;
@@ -67,4 +76,12 @@ public partial class SSciTableDataColumn<TItem, TValue> :
 
     public DataFilter Filter { get; } = new();
     public DataSorter Sorter { get; } = new();
+
+    public int GetColumnWidth()
+    {
+        var width = Width;
+        if (MaxWidth > 0 && width > MaxWidth) width = MaxWidth;
+        if (MinWidth > width) width = MinWidth;
+        return width;
+    }
 }

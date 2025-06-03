@@ -4,9 +4,8 @@ namespace Secyud.Secits.Blazor.Components;
 
 public interface IScdSelect
 {
-    void DelegateSelectItem(SelectionItem? item);
-    void DelegateSelectItems(IEnumerable<SelectionItem> items);
-    bool MultiSelectEnabled { get; set; }
-    void BindComponent(ISccSelect component);
-    void UnbindComponent(ISccSelect component);
+    Task OnDelegateSelectItemAsync(SelectionItem? item);
+    Task OnDelegateSelectItemsAsync(IEnumerable<SelectionItem> items);
+    void BindComponent(ISciSelect component);
+    void UnbindComponent(ISciSelect component);
 }

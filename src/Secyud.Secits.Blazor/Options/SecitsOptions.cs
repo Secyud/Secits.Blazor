@@ -9,10 +9,7 @@ public class SecitsOptions
 
     public List<string> GetCssPaths()
     {
-        List<string> res =
-        [
-            RootPath + "css/components.css",
-        ];
+        List<string> res = [];
 
         switch (ThemeType)
         {
@@ -26,6 +23,8 @@ public class SecitsOptions
                 throw new ArgumentOutOfRangeException();
         }
 
+        res.Add(RootPath + "css/components.css");
+
         return res;
     }
 
@@ -34,6 +33,7 @@ public class SecitsOptions
         List<string> res =
         [
             RootPath + "js/components.js",
+            RootPath + "js/event-handler.js",
         ];
 
         return res;

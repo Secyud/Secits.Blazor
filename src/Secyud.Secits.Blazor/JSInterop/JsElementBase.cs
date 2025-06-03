@@ -3,7 +3,7 @@ using Microsoft.JSInterop;
 
 namespace Secyud.Secits.Blazor.JSInterop;
 
-public abstract class JsElementServiceBase(IJSRuntime js)
+public abstract class JsElementBase(IJSRuntime js)
 {
     protected async ValueTask InvokeVoidAsync(ElementReference element, string identifier, params object?[]? args)
     {
