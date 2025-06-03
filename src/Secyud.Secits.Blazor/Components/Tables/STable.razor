@@ -25,7 +25,7 @@
                 <tr>
                     @foreach (var column in _columns)
                     {
-                        <td style="--col-width: @column.GetColumnWidth()px;"/>
+                        <td style="--cw: @column.GetColumnWidth()px;"/>
                     }
                 </tr>
                 @ItemsRenderer?.GenerateItemsContent()
@@ -45,11 +45,15 @@
     private RenderFragment GenerateHeader() => __builder =>
     {
         <tr>
-            @foreach (var column in _columns)
+            @for (var i = 0; i < _columns.Count; i++)
             {
-                <th style="--col-width: @column.GetColumnWidth()px;"
-                    @onmousedown="_ => BeginDragColumnHeader(TableDragEventType.ColumnResize, column)">
+                var column = _columns[i];
+                <th style="--cw: @(column.GetColumnWidth())px;">
                     @column.GenerateHeader()
+                    @foreach (var header in _headers)
+                    {
+                        @header.GenerateHeader(i);
+                    }
                 </th>
             }
         </tr>
@@ -58,10 +62,15 @@
     private RenderFragment GenerateFooter() => __builder =>
     {
         <tr>
-            @foreach (var column in _columns)
+            @for (var i = 0; i < _columns.Count; i++)
             {
-                <td style="--col-width: @column.GetColumnWidth()px;">
+                var column = _columns[i];
+                <td style="--cw: @(column.GetColumnWidth())px;">
                     @column.GenerateFooter()
+                    @foreach (var footer in _footers)
+                    {
+                        @footer.GenerateFooter(i);
+                    }
                 </td>
             }
         </tr>

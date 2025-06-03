@@ -33,14 +33,14 @@
                         border: var(--border-c);
                     }
 
-                    > td, > th > .header-cell {
+                    > td {
                         overflow: hidden;
                     }
 
                     &:first-child {
                         > th, > td {
-                            --col-width: auto;
-                            width: var(--col-width);
+                            --cw: auto;
+                            width: var(--cw);
 
                             &:last-child {
                                 width: auto;
@@ -53,6 +53,28 @@
                     }
 
                     border: var(--border-c);
+                }
+            }
+
+            > thead {
+                > tr {
+                    > th {
+                        position: relative;
+
+                        .header-cell {
+                            overflow: hidden;
+                        }
+
+                        > .col-resizer {
+                            position: absolute;
+                            right: -0.5rem;
+                            top: 0;
+                            width: 1rem;
+                            height: 100%;
+                            cursor: col-resize;
+                            z-index: 2;
+                        }
+                    }
                 }
             }
 

@@ -2,7 +2,7 @@
 
 namespace Secyud.Secits.Blazor.Components;
 
-public interface ISciColumnRender<TItem> : IScSetting
+public interface ISciColumnRenderer<TItem> : IScSetting
 {
     RenderFragment GenerateColumn(TItem item);
 }

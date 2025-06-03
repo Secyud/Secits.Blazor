@@ -15,9 +15,6 @@ public partial class STable<TItem> : IScsTheme
 {
     protected override string ComponentName => "table";
 
-    [Inject]
-    private IJsDocument JsDocument { get; set; } = null!;
-
     [Parameter]
     public bool DisableHeader { get; set; }
 
@@ -26,87 +23,57 @@ public partial class STable<TItem> : IScsTheme
 
     #region Columns
 
-    private readonly List<ISciTableColumn<TItem>> _columns = [];
+    private readonly List<ISciTableColumnRenderer<TItem>> _columns = [];
 
-    public void AddTableColumn(ISciTableColumn<TItem> column)
+    public IReadOnlyList<ISciTableColumnRenderer<TItem>> TableColumns => _columns;
+
+    public void AddTableColumn(ISciTableColumnRenderer<TItem> column)
     {
         RemoveTableColumn(column);
         _columns.Add(column);
     }
 
-    public void RemoveTableColumn(ISciTableColumn<TItem> column)
+    public void RemoveTableColumn(ISciTableColumnRenderer<TItem> column)
     {
         _columns.Remove(column);
     }
 
-    private bool _isDrag;
-    private long _dragEventId;
-    private long _mouseupEventId;
-    private long _mouseleaveEventId;
-    private TableDragEventType _dragEventType;
-    private int _currentColumnIndex;
 
-    private async Task SetDragAsync(bool isDrag)
+    private readonly List<ISciTableHeaderRenderer> _headers = [];
+
+    public IReadOnlyList<ISciTableHeaderRenderer> TableHeaders => _headers;
+
+    public virtual void AddTableHeaderRender(ISciTableHeaderRenderer renderer)
     {
-        if (isDrag == _isDrag) return;
-        _isDrag = isDrag;
-        if (_isDrag)
-        {
-            _dragEventId = await JsDocument.AddEventListener<MouseEventArgs>("mousemove", OnDragColumnHeader);
-            _mouseupEventId = await JsDocument.AddEventListener("mouseup", EndDragColumnHeader);
-            _mouseleaveEventId = await JsDocument.AddEventListener("mouseleave", EndDragColumnHeader);
-        }
-        else
-        {
-            await JsDocument.RemoveEventListener(_dragEventId);
-            await JsDocument.RemoveEventListener(_mouseupEventId);
-            await JsDocument.RemoveEventListener(_mouseleaveEventId);
-        }
+        RemoveTableHeaderRender(renderer);
+        _headers.Add(renderer);
     }
 
-    public async Task BeginDragColumnHeader(TableDragEventType type, ISciTableColumn<TItem> column)
+    public virtual void RemoveTableHeaderRender(ISciTableHeaderRenderer renderer)
     {
-        await SetDragAsync(true);
-        _dragEventType = type;
-        _currentColumnIndex = _columns.IndexOf(column);
+        _headers.Remove(renderer);
     }
 
-    public async Task OnDragColumnHeader(MouseEventArgs args)
+    private readonly List<ISciTableFooterRenderer> _footers = [];
+
+    public IReadOnlyList<ISciTableFooterRenderer> TableFooters => _footers;
+
+    public virtual void AddTableFooterRender(ISciTableFooterRenderer renderer)
     {
-        switch (_dragEventType)
-        {
-            case TableDragEventType.ColumnResize:
-                if (_currentColumnIndex == _columns.Count - 1) return;
-                const int gap = 50;
-                var column = _columns[_currentColumnIndex];
-                var nextColumn = _columns[_currentColumnIndex + 1];
-                var width = column.Width;
-                var nextWidth = nextColumn.Width;
-                var moveWith = (int)args.MovementX;
-                if (moveWith < 0)
-                    moveWith = -Math.Min(width - gap, -moveWith);
-                else
-                    moveWith = Math.Min(nextWidth - gap, moveWith);
-                await InvokeAsync(() =>
-                {
-                    column.Width += moveWith;
-                    nextColumn.Width -= moveWith;
-                    StateHasChanged();
-                });
-                break;
-            case TableDragEventType.ColumnMove:
-                // TODO
-                break;
-            default:
-                throw new ArgumentOutOfRangeException();
-        }
+        RemoveTableFooterRender(renderer);
+        _footers.Add(renderer);
     }
 
-    public async Task EndDragColumnHeader()
+    public virtual void RemoveTableFooterRender(ISciTableFooterRenderer renderer)
     {
-        await SetDragAsync(false);
+        _footers.Remove(renderer);
     }
 
+    public void RefreshUi()
+    {
+        StateHasChanged();
+    }
+    
     #endregion
 
     [Parameter]

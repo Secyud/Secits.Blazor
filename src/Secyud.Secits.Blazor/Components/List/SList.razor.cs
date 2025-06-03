@@ -4,7 +4,7 @@ using Secyud.Secits.Blazor.Arguments;
 namespace Secyud.Secits.Blazor.Components;
 
 [CascadingTypeParameter(nameof(TItem))]
-public partial class SList<TItem> : ISchTextField<TItem>,  IScsSize, ISciSelect
+public partial class SList<TItem> : ISchTextField<TItem>, IScsSize, ISciSelect
 {
     protected override string ComponentName => "list";
 
@@ -23,7 +23,7 @@ public partial class SList<TItem> : ISchTextField<TItem>,  IScsSize, ISciSelect
 
     private ISciItemsRenderer? _itemsRenderer;
 
-    protected ISciItemsRenderer? ItemsRenderer => _itemsRenderer;
+    public ISciItemsRenderer? ItemsRenderer => _itemsRenderer;
 
 
     public virtual void SetItemsRender(ISciItemsRenderer renderer)
@@ -37,52 +37,52 @@ public partial class SList<TItem> : ISchTextField<TItem>,  IScsSize, ISciSelect
             _itemsRenderer = null;
     }
 
-    private readonly List<ISciHeaderRender> _headers = [];
+    private readonly List<ISciHeaderRenderer> _headers = [];
 
-    protected IReadOnlyList<ISciHeaderRender> Headers => _headers;
+    public IReadOnlyList<ISciHeaderRenderer> Headers => _headers;
 
-    public virtual void AddHeaderRender(ISciHeaderRender renderer)
+    public virtual void AddHeaderRender(ISciHeaderRenderer renderer)
     {
         RemoveHeaderRender(renderer);
         _headers.Add(renderer);
     }
 
-    public virtual void RemoveHeaderRender(ISciHeaderRender renderer)
+    public virtual void RemoveHeaderRender(ISciHeaderRenderer renderer)
     {
         _headers.Remove(renderer);
     }
 
-    private readonly List<ISciColumnRender<TItem>> _columns = [];
+    private readonly List<ISciColumnRenderer<TItem>> _columns = [];
 
-    protected IReadOnlyList<ISciColumnRender<TItem>> Columns => _columns;
+    public IReadOnlyList<ISciColumnRenderer<TItem>> Columns => _columns;
 
-    public virtual void AddColumnRender(ISciColumnRender<TItem> renderer)
+    public virtual void AddColumnRender(ISciColumnRenderer<TItem> renderer)
     {
         RemoveColumnRender(renderer);
         _columns.Add(renderer);
     }
 
-    public virtual void RemoveColumnRender(ISciColumnRender<TItem> renderer)
+    public virtual void RemoveColumnRender(ISciColumnRenderer<TItem> renderer)
     {
         _columns.Remove(renderer);
     }
 
-    private readonly List<ISciFooterRender> _footers = [];
+    private readonly List<ISciFooterRenderer> _footers = [];
 
-    protected IReadOnlyList<ISciFooterRender> Footers => _footers;
+    public IReadOnlyList<ISciFooterRenderer> Footers => _footers;
 
-    public virtual void AddFooterRender(ISciFooterRender renderer)
+    public virtual void AddFooterRender(ISciFooterRenderer renderer)
     {
         RemoveFooterRender(renderer);
         _footers.Add(renderer);
     }
 
-    public virtual void RemoveFooterRender(ISciFooterRender renderer)
+    public virtual void RemoveFooterRender(ISciFooterRenderer renderer)
     {
         _footers.Remove(renderer);
     }
 
-    protected ISciItemSelect<TItem>? Select { get; private set; }
+    public ISciItemSelect<TItem>? Select { get; private set; }
 
     public virtual void SetSelect(ISciItemSelect<TItem> itemSelect)
     {
@@ -203,8 +203,9 @@ public partial class SList<TItem> : ISchTextField<TItem>,  IScsSize, ISciSelect
         if (SelectedItemChanged.HasDelegate)
             await SelectedItemChanged.InvokeAsync(SelectedItem);
 
-        if (SelectDelegate is not null) await SelectDelegate.OnDelegateSelectItemAsync(
-            SelectionItem.FromObject(item, GetText));
+        if (SelectDelegate is not null)
+            await SelectDelegate.OnDelegateSelectItemAsync(
+                SelectionItem.FromObject(item, GetText));
         if (Select is not null) await Select.OnItemSelectChangedAsync(item);
     }
 
@@ -215,8 +216,9 @@ public partial class SList<TItem> : ISchTextField<TItem>,  IScsSize, ISciSelect
         if (SelectedItemsChanged.HasDelegate)
             await SelectedItemsChanged.InvokeAsync(SelectedItems);
 
-        if (SelectDelegate is not null) await SelectDelegate.OnDelegateSelectItemsAsync(
-            SelectedItems.Select(u => SelectionItem.FromObject(u, GetText)));
+        if (SelectDelegate is not null)
+            await SelectDelegate.OnDelegateSelectItemsAsync(
+                SelectedItems.Select(u => SelectionItem.FromObject(u, GetText)));
         if (Select is not null) await Select.OnItemsSelectChangedAsync(SelectedItems);
     }
 

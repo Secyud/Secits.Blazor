@@ -4,6 +4,7 @@
 <STable Items="@GetItemsAsync" ValueField="u => u.Id"
         Height="@("500px")">
     <SVisualizeItems/>
+    <STableColumnResizer/>
     <SSciTableDataColumn Caption="@nameof(ListItem.Name)"
                          ValueField="@(item => item.Name)"/>
     <SSciTableDataColumn Caption="@nameof(ListItem.PhoneNumber)" 

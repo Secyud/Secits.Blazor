@@ -1,6 +1,6 @@
 ﻿namespace Secyud.Secits.Blazor.Components;
 
-public partial class SPagedItems<TItem> : ISciItemsRenderer, ISciFooterRender
+public partial class SPagedItems<TItem> : ISciItemsRenderer, ISciFooterRenderer
 {
     private List<TItem> _items = [];
 

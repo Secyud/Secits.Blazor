@@ -2,7 +2,7 @@
 
 namespace Secyud.Secits.Blazor.Components;
 
-public interface ISciTableColumn<in TItem> : IScSetting
+public interface ISciTableColumnRenderer<in TItem> : IScSetting
 {
     string? Caption { get; set; }
     RenderFragment GenerateHeader();

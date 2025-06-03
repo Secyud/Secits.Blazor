@@ -6,7 +6,7 @@ using Secyud.Secits.Blazor.Arguments;
 namespace Secyud.Secits.Blazor.Components;
 
 public partial class SSciTableDataColumn<TItem, TValue> :
-    ISciTableColumn<TItem>, ISchValueField<TItem, TValue>
+    ISciTableColumnRenderer<TItem>, ISchValueField<TItem, TValue>
 {
     [Parameter]
     public string? Caption { get; set; }

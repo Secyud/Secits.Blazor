@@ -1,0 +1,13 @@
+﻿@namespace Secyud.Secits.Blazor.Components
+@inherits ScSettingBase<STable<TItem>>
+@typeparam TItem
+
+@code
+{
+    public RenderFragment GenerateHeader(int index) => __builder =>
+    {
+        if (Master is null || Master.TableColumns.Count - 1 <= index) return;
+
+        <div class="col-resizer" @onmousedown="()=>BeginDragColumnHeader(index)"></div>
+    };
+}
