@@ -11,7 +11,7 @@ namespace Secyud.Secits.Blazor.Components;
 /// </summary>
 /// <typeparam name="TItem"></typeparam>
 [CascadingTypeParameter(nameof(TItem))]
-public partial class STable<TItem> : IScsTheme
+public partial class STable<TItem> 
 {
     protected override string ComponentName => "table";
 
@@ -75,13 +75,4 @@ public partial class STable<TItem> : IScsTheme
     }
     
     #endregion
-
-    [Parameter]
-    public Theme Theme { get; set; }
-
-    [Parameter]
-    public Size Size { get; set; }
-
-    [Parameter]
-    public Style StyleOption { get; set; }
 }

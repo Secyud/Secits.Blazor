@@ -4,7 +4,7 @@ using Secyud.Secits.Blazor.Arguments;
 namespace Secyud.Secits.Blazor.Components;
 
 [CascadingTypeParameter(nameof(TItem))]
-public partial class SList<TItem> : ISchTextField<TItem>, IScsSize, ISciSelect
+public partial class SList<TItem> : ISchTextField<TItem>, IScsSize, ISciSelect, IScsTheme
 {
     protected override string ComponentName => "list";
 
@@ -131,6 +131,11 @@ public partial class SList<TItem> : ISchTextField<TItem>, IScsSize, ISciSelect
 
     #endregion
 
+    /// <summary>
+    /// Select, package as a setting?
+    /// List may be a show list with content.
+    /// Or create a new component to handle a show list.
+    /// </summary>
     #region SciSelect
 
     private IScdSelect? _selectDelegate;
@@ -248,6 +253,14 @@ public partial class SList<TItem> : ISchTextField<TItem>, IScsSize, ISciSelect
 
     #endregion
 
+    [Parameter]
+    public Theme Theme { get; set; }
+
+    [Parameter]
+    public Size Size { get; set; }
+
+    [Parameter]
+    public Style StyleOption { get; set; }
 
     [Parameter]
     public SValue Width { get; set; }

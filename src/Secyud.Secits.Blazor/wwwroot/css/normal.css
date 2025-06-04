@@ -34,7 +34,7 @@
         line-height: var(--line-height-c);
         height: var(--height-c);
         width: var(--width-c);
-        transition: all 75ms;
+        transition: 50ms;
         background-color: var(--background-color-c);
         color: var(--text-color-c);
         border: 0.125rem solid var(--border-color-c);
@@ -94,11 +94,12 @@
         --shadow-opacity: 0.1;
         box-shadow: 0 var(--shadow-size) var(--shadow-size) rgba(
                 from var(--s-color-reverse) r g b / var(--shadow-opacity));
-        transition: box-shadow 50ms linear;
+        transition: 50ms;
 
         &:active {
             --shadow-size-n: 0.5;
             --shadow-opacity: 0.2;
+            transition: 0ms;
         }
 
         &.disabled, &.readonly {

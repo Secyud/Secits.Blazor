@@ -27,5 +27,6 @@
         --bgmix: var(--bgmix-a);
         --txmix: var(--txmix-a);
         --bdmix: var(--bdmix-a);
+        transition: 0ms;
     }
 }

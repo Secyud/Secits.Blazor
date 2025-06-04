@@ -3,7 +3,11 @@ using Secyud.Secits.Blazor.Arguments;
 
 namespace Secyud.Secits.Blazor.Components;
 
-public abstract partial class ScSelectionBase<TValue> : ISccSelect<TValue>, ISciSelect
+/// <summary>
+/// base class for select item. etc. date selector, combobox content, enum selector.
+/// </summary>
+/// <typeparam name="TValue"></typeparam>
+public abstract partial class SSelectorBase<TValue> : ISccSelect<TValue>, ISciSelect
 {
     private IScdSelect? _selectDelegate;
 

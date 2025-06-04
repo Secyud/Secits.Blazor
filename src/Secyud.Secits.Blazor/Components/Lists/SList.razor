@@ -20,7 +20,7 @@
             </div>
         }
 
-        <div class="body" >
+        <div class="body">
             @GenerateBodyContent()
         </div>
         @if (_footers.Any())
@@ -38,7 +38,7 @@
 
     public virtual RenderFragment GenerateRow(TItem item) => __builder =>
     {
-        <div class="row@(RowClass(item))">
+        <div class="row@(RowClass(item))" @onclick="_=>OnItemActivateChangedAsync(item)">
             @foreach (var column in _columns.Ordered())
             {
                 @column.GenerateColumn(item)
