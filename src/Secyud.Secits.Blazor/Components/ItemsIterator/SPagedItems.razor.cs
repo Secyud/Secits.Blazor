@@ -8,14 +8,14 @@ public partial class SPagedItems<TItem> : ISciItemsRenderer<TItem>, ISciFooterRe
 
     protected override void ApplySetting()
     {
-        Master!.SetItemsRender(this);
-        Master.AddFooterRender(this);
+        Master!.ItemsRenderer.Apply(this);
+        Master.Footers.Apply(this);
     }
 
     protected override void ForgoSetting()
     {
-        Master!.SetItemsRender(this);
-        Master.RemoveFooterRender(this);
+        Master!.ItemsRenderer.Forgo(this);
+        Master.Footers.Forgo(this);
     }
 
     public async Task RefreshAsync()

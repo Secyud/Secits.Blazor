@@ -1,0 +1,26 @@
+﻿@namespace Secyud.Secits.Blazor.Components
+@inherits ScSettingBase<SInput<int>>
+
+@{
+    base.BuildRenderTree(__builder);
+}
+
+@code
+{
+    public RenderFragment RenderSlot() => __builder =>
+    {
+        <div class="integer-slider"
+             @onwheel="OnWheelAsync">
+            @GenerateNumberBox()
+        </div>
+    };
+
+    private RenderFragment GenerateOffset(int offset, int value) => __builder =>
+    {
+        var size = $"s{Math.Abs(offset)}";
+        <span class="element @size" style="--offset: @offset;"
+              @onclick="() => Master!.OnValueChangedAsync(value)">
+            @(string.IsNullOrEmpty(Format) ? value : value.ToString(Format))
+        </span>
+    };
+}

@@ -18,69 +18,16 @@ public abstract partial class SItemsIteratorBase<TItem> : IScsSize, IScsTheme
 
     #region Settings
 
-    private ISciItemsRenderer<TItem>? _itemsRenderer;
-    public ISciItemsRenderer<TItem>? ItemsRenderer => _itemsRenderer;
+    public SSetting<ISciRowRenderer<TItem>> RowRenderer { get; } = new();
 
-    public virtual void SetItemsRender(ISciItemsRenderer<TItem> renderer)
-    {
-        _itemsRenderer = renderer;
-    }
+    public SSettings<ISciHeaderRenderer> Headers { get; } = new();
 
-    public void UnsetItemsRender(ISciItemsRenderer<TItem> renderer)
-    {
-        if (_itemsRenderer == renderer)
-            _itemsRenderer = null;
-    }
+    public SSettings<ISciFooterRenderer> Footers { get; } = new();
+    public SSetting<ISciItemsRenderer<TItem>> ItemsRenderer { get; } = new();
 
     public async Task RefreshAsync()
     {
-        if (_itemsRenderer is not null)
-            await _itemsRenderer.RefreshAsync();
-    }
-
-    private ISciRowRenderer<TItem>? _rowRenderer;
-
-    public ISciRowRenderer<TItem>? RowRenderer => _rowRenderer;
-
-    public virtual void SetRowRender(ISciRowRenderer<TItem> renderer)
-    {
-        _rowRenderer = renderer;
-    }
-
-    public void UnsetRowRender(ISciRowRenderer<TItem> renderer)
-    {
-        if (_rowRenderer == renderer)
-            _rowRenderer = null;
-    }
-
-    private readonly List<ISciHeaderRenderer> _headers = [];
-
-    public IReadOnlyList<ISciHeaderRenderer> Headers => _headers;
-
-    public virtual void AddHeaderRender(ISciHeaderRenderer renderer)
-    {
-        RemoveHeaderRender(renderer);
-        _headers.Add(renderer);
-    }
-
-    public virtual void RemoveHeaderRender(ISciHeaderRenderer renderer)
-    {
-        _headers.Remove(renderer);
-    }
-
-    private readonly List<ISciFooterRenderer> _footers = [];
-
-    public IReadOnlyList<ISciFooterRenderer> Footers => _footers;
-
-    public virtual void AddFooterRender(ISciFooterRenderer renderer)
-    {
-        RemoveFooterRender(renderer);
-        _footers.Add(renderer);
-    }
-
-    public virtual void RemoveFooterRender(ISciFooterRenderer renderer)
-    {
-        _footers.Remove(renderer);
+        await ItemsRenderer.InvokeAsync(u => u.RefreshAsync());
     }
 
     #endregion

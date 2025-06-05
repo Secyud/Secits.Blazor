@@ -46,6 +46,6 @@ public abstract partial class STimePickerBase
             hour ?? ValueOrDefault.Hour,
             minute ?? ValueOrDefault.Minute,
             second ?? ValueOrDefault.Second);
-        OnInputInvoke(time);
+        OnValueChangedAsync(time).ConfigureAwait(true);
     }
 }

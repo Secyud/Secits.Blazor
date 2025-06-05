@@ -9,13 +9,14 @@ public partial class SVisualizeItems<TItem> : ISciItemsRenderer<TItem>
 
     protected override void ApplySetting()
     {
-        Master!.SetItemsRender(this);
+        Master!.ItemsRenderer.Apply(this);
     }
 
     protected override void ForgoSetting()
     {
-        Master!.SetItemsRender(this);
+        Master!.ItemsRenderer.Forgo(this);
     }
+
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         await base.OnAfterRenderAsync(firstRender);

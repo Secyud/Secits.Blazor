@@ -51,12 +51,12 @@ public partial class SSciTableDataColumn<TItem, TValue> :
 
     protected override void ApplySetting()
     {
-        Master?.AddTableColumn(this);
+        Master?.TableColumns.Apply(this);
     }
 
     protected override void ForgoSetting()
     {
-        Master?.RemoveTableColumn(this);
+        Master?.TableColumns.Forgo(this);
     }
 
     #endregion

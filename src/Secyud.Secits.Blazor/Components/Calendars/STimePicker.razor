@@ -9,10 +9,10 @@
 {
     protected override RenderFragment GenerateChildContent() => __builder =>
     {
-        <STimePickerBoard Value="Value" ValueChanged="OnInputInvoke"
+        <STimePickerBoard Value="Value" ValueChanged="OnValueChangedAsync"
                           DelayInterval="0" Pression="Pression"
                           ChangeMode="ChangeMode"/>
-        <STimePickerClock Value="Value" ValueChanged="OnInputInvoke"
+        <STimePickerClock Value="Value" ValueChanged="OnValueChangedAsync"
                           DelayInterval="0" Pression="Pression"
                           ChangeMode="ChangeMode"/>
     };

@@ -4,11 +4,11 @@ public partial class STableSingleSelectRow<TItem> : ISciRowRenderer<TItem>
 {
     protected override void ApplySetting()
     {
-        Master?.SetRowRender(this);
+        Master?.RowRenderer.Apply(this);
     }
 
     protected override void ForgoSetting()
     {
-        Master?.UnsetRowRender(this);
+        Master?.RowRenderer.Forgo(this);
     }
 }

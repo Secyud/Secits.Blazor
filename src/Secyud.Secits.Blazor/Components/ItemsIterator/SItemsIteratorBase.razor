@@ -17,7 +17,7 @@
 
     protected virtual RenderFragment GenerateHeader() => __builder =>
     {
-        foreach (var header in _headers)
+        foreach (var header in Headers)
         {
             @header.GenerateHeader()
         }
@@ -25,15 +25,21 @@
 
     protected virtual RenderFragment GenerateFooter() => __builder =>
     {
-        foreach (var footer in _footers)
+        foreach (var footer in Footers)
         {
             @footer.GenerateFooter()
         }
     };
 
-    protected virtual RenderFragment GenerateIterator() => __builder => { @ItemsRenderer?.GenerateItems(GenerateRow()) };
+    protected virtual RenderFragment GenerateIterator() => __builder =>
+    {
+        @ItemsRenderer.Get()?.GenerateItems(GenerateRow())
+    };
 
-    protected virtual RenderFragment<TItem> GenerateRow() => item => __builder => { @_rowRenderer?.GenerateRow(item,GenerateCol()) };
+    protected virtual RenderFragment<TItem> GenerateRow() => item => __builder =>
+    {
+        @RowRenderer.Get()?.GenerateRow(item,GenerateCol())
+    };
 
     protected abstract RenderFragment<TItem> GenerateCol();
 }

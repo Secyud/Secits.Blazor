@@ -8,11 +8,9 @@
 
 @code
 {
-
-
     protected override RenderFragment<TItem> GenerateRow()
     {
-        if (RowRenderer is not null)
+        if (RowRenderer.Get() is not null)
             return base.GenerateRow();
 
         return item => __builder =>
@@ -25,7 +23,7 @@
 
     protected override RenderFragment<TItem> GenerateCol() => item => __builder =>
     {
-        foreach (var col in _columns)
+        foreach (var col in Columns)
         {
             @col.GenerateColumn(item)
         }

@@ -7,7 +7,7 @@ namespace Secyud.Secits.Blazor.Components;
 /// </summary>
 /// <typeparam name="TItem"></typeparam>
 [CascadingTypeParameter(nameof(TItem))]
-public sealed partial class STable<TItem> 
+public sealed partial class STable<TItem>
 {
     protected override string ComponentName => "table";
 
@@ -19,56 +19,14 @@ public sealed partial class STable<TItem>
 
     #region Settings
 
-    private readonly List<ISciTableColumnRenderer<TItem>> _columns = [];
-
-    public IReadOnlyList<ISciTableColumnRenderer<TItem>> TableColumns => _columns;
-
-    public void AddTableColumn(ISciTableColumnRenderer<TItem> column)
-    {
-        RemoveTableColumn(column);
-        _columns.Add(column);
-    }
-
-    public void RemoveTableColumn(ISciTableColumnRenderer<TItem> column)
-    {
-        _columns.Remove(column);
-    }
-
-
-    private readonly List<ISciTableHeaderRenderer> _tableHeaders = [];
-
-    public IReadOnlyList<ISciTableHeaderRenderer> TableHeaders => _tableHeaders;
-
-    public void AddTableHeaderRender(ISciTableHeaderRenderer renderer)
-    {
-        RemoveTableHeaderRender(renderer);
-        _tableHeaders.Add(renderer);
-    }
-
-    public void RemoveTableHeaderRender(ISciTableHeaderRenderer renderer)
-    {
-        _tableHeaders.Remove(renderer);
-    }
-
-    private readonly List<ISciTableFooterRenderer> _tableFooters = [];
-
-    public IReadOnlyList<ISciTableFooterRenderer> TableFooters => _tableFooters;
-
-    public void AddTableFooterRender(ISciTableFooterRenderer renderer)
-    {
-        RemoveTableFooterRender(renderer);
-        _tableFooters.Add(renderer);
-    }
-
-    public void RemoveTableFooterRender(ISciTableFooterRenderer renderer)
-    {
-        _tableFooters.Remove(renderer);
-    }
+    public SSettings<ISciTableColumnRenderer<TItem>> TableColumns { get; } = new();
+    public SSettings<ISciTableHeaderRenderer> TableHeaders { get; } = new();
+    public SSettings<ISciTableFooterRenderer> TableFooters { get; } = new();
 
     public void RefreshUi()
     {
         StateHasChanged();
     }
-    
+
     #endregion
 }

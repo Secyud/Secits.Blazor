@@ -17,12 +17,12 @@ public partial class STableColumnResizer<TItem> : ISciTableHeaderRenderer
     
     protected override void ApplySetting()
     {
-        Master?.AddTableHeaderRender(this);
+        Master?.TableHeaders.Apply(this);
     }
 
     protected override void ForgoSetting()
     {
-        Master?.RemoveTableHeaderRender(this);
+        Master?.TableHeaders.Forgo(this);
     }
 
     private async Task SetDragAsync(bool isDrag)

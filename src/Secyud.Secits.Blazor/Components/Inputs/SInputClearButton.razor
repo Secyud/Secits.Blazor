@@ -1,0 +1,11 @@
+﻿@namespace Secyud.Secits.Blazor.Components
+@inherits ScSettingBase<SInput<TValue>>
+@typeparam TValue
+
+@code
+{
+    public RenderFragment RenderSlot() => __builder =>
+    {
+        <CloseButton Click="ClearInputAsync"/>
+    };
+}

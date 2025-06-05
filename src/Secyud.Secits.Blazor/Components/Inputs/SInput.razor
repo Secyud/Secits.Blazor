@@ -1,5 +1,5 @@
 ﻿@namespace Secyud.Secits.Blazor.Components
-@inherits SMaskableInputBase<TValue>
+@inherits SInputBase<TValue>
 @typeparam TValue
 
 @{
@@ -10,10 +10,9 @@
 {
     protected override RenderFragment GenerateChildContent() => __builder =>
     {
-        @base.GenerateChildContent()
-        // TODO Icon button
-        <span class="s-group">
-            <SButton></SButton>
-        </span>
+        foreach (var renderer in InputSlotRenderers)
+        {
+            @renderer.RenderSlot()
+        }
     };
 }
