@@ -5,17 +5,17 @@ namespace Secyud.Secits.Blazor.Components;
 
 public static class ComponentsExtensions
 {
-    public static IEnumerable<TSetting> Ordered<TSetting>(this List<TSetting> settings)
-        where TSetting : IScSetting
+    public static string? GetBodyName<TItem, TValue>(this Expression<Func<TItem, TValue>>? expr)
     {
-        return settings.OrderBy(u => u.Priority);
-    }
+        if (expr is null) return null;
 
-    public static string? GetBodyName<TItem, TValue>(this Expression<Func<TItem, TValue>> expr)
-    {
-        var body = expr.Body.ToString();
-        var index = body.IndexOf('.') + 1;
-        return index <= 0 ? null : body[index..];
+        var body = expr.Body;
+        if (body is UnaryExpression unary)
+            body = unary.Operand;
+
+        var name = body.ToString();
+        var index = name.IndexOf('.') + 1;
+        return index <= 0 ? null : name[index..];
     }
 
     public static void UseParameter<TParameter>(this ParameterView view,

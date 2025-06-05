@@ -1,15 +1,15 @@
 ﻿@namespace Secyud.Secits.Blazor.Components
-@inherits ScSettingBase<SList<TItem>>
+@inherits ScSettingBase<SItemsIteratorBase<TItem>>
 @typeparam TItem
 
 @code
 {
-    public RenderFragment GenerateItemsContent() => __builder =>
+    public RenderFragment GenerateItems(RenderFragment<TItem> itemTemplate) => __builder =>
     {
         if (Master is null) return;
 
         <Virtualize @ref="_virtualize" ItemsProvider="RefreshRowsAsync" Context="item">
-            @Master.GenerateRow(item)
+            @itemTemplate(item)
         </Virtualize>
     };
 }

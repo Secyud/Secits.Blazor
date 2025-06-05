@@ -2,6 +2,4 @@
 
 public interface IScSetting
 {
-    Guid Id { get; }
-    int Priority { get; }
 }

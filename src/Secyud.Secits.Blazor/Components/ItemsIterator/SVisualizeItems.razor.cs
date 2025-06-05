@@ -2,7 +2,7 @@
 
 namespace Secyud.Secits.Blazor.Components;
 
-public partial class SVisualizeItems<TItem> : ISciItemsRenderer
+public partial class SVisualizeItems<TItem> : ISciItemsRenderer<TItem>
 {
     private Virtualize<TItem>? _virtualize;
     private bool _needRefreshData;

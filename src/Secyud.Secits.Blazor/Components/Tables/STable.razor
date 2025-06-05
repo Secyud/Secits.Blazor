@@ -1,5 +1,5 @@
 ﻿@namespace Secyud.Secits.Blazor.Components
-@inherits SList<TItem>
+@inherits SItemsIteratorBase<TItem>
 @typeparam TItem
 
 @{
@@ -8,17 +8,33 @@
 
 @code
 {
-    protected override RenderFragment GenerateBodyContent() => __builder =>
+    protected override RenderFragment GenerateHeader() => __builder =>
     {
+        @base.GenerateHeader()
         @if (!DisableHeader)
         {
             <table class="table-header">
                 <thead>
-                @GenerateHeader()
+                <tr>
+                    @for (var i = 0; i < _columns.Count; i++)
+                    {
+                        var column = _columns[i];
+                        <th style="--cw: @(column.GetColumnWidth())px;">
+                            @column.GenerateHeader()
+                            @foreach (var header in _tableHeaders)
+                            {
+                                @header.GenerateHeader(i)
+                            }
+                        </th>
+                    }
+                </tr>
                 </thead>
             </table>
         }
+    };
 
+    protected override RenderFragment GenerateIterator() => __builder =>
+    {
         <div class="table-body">
             <table>
                 <tbody>
@@ -28,63 +44,58 @@
                         <td style="--cw: @column.GetColumnWidth()px;"/>
                     }
                 </tr>
-                @ItemsRenderer?.GenerateItemsContent()
+                @base.GenerateIterator()
                 </tbody>
             </table>
         </div>
+    };
+
+    protected override RenderFragment GenerateFooter() => __builder =>
+    {
         @if (!DisableFooter)
         {
             <table class="table-footer">
                 <tfoot>
-                @GenerateFooter()
+                <tr>
+                    @for (var i = 0; i < _columns.Count; i++)
+                    {
+                        var column = _columns[i];
+                        <td style="--cw: @(column.GetColumnWidth())px;">
+                            @column.GenerateFooter()
+                            @foreach (var footer in _tableFooters)
+                            {
+                                @footer.GenerateFooter(i)
+                            }
+                        </td>
+                    }
+                </tr>
                 </tfoot>
             </table>
         }
+
+        @base.GenerateFooter()
     };
 
-    private RenderFragment GenerateHeader() => __builder =>
+    protected override RenderFragment<TItem> GenerateRow()
     {
-        <tr>
-            @for (var i = 0; i < _columns.Count; i++)
-            {
-                var column = _columns[i];
-                <th style="--cw: @(column.GetColumnWidth())px;">
-                    @column.GenerateHeader()
-                    @foreach (var header in _headers)
-                    {
-                        @header.GenerateHeader(i);
-                    }
-                </th>
-            }
-        </tr>
-    };
+        if (RowRenderer is not null)
+            return base.GenerateRow();
 
-    private RenderFragment GenerateFooter() => __builder =>
-    {
-        <tr>
-            @for (var i = 0; i < _columns.Count; i++)
-            {
-                var column = _columns[i];
-                <td style="--cw: @(column.GetColumnWidth())px;">
-                    @column.GenerateFooter()
-                    @foreach (var footer in _footers)
-                    {
-                        @footer.GenerateFooter(i);
-                    }
-                </td>
-            }
-        </tr>
-    };
+        return item => __builder =>
+        {
+            <tr>
+                @(GenerateCol()(item))
+            </tr>
+        };
+    }
 
-    public override RenderFragment GenerateRow(TItem item) => __builder =>
+    protected override RenderFragment<TItem> GenerateCol() => item => __builder =>
     {
-        <tr class="@(RowClass(item))" @onclick="() => OnItemActivateChangedAsync(item)">
-            @foreach (var column in _columns)
-            {
-                <td>
-                    @column.GenerateColumn(item)
-                </td>
-            }
-        </tr>
+        @foreach (var column in _columns)
+        {
+            <td>
+                @column.GenerateColumn(item)
+            </td>
+        }
     };
 }

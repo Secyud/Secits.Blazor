@@ -2,7 +2,7 @@
 
 namespace Secyud.Secits.Blazor.Components;
 
-public interface ISciHeaderRenderer : IScSetting
+public interface ISciColRenderer<in TItem>
 {
-    RenderFragment GenerateHeader();
+    RenderFragment GenerateCol(TItem item);
 }

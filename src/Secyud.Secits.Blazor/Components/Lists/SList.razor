@@ -1,5 +1,5 @@
 ﻿@namespace Secyud.Secits.Blazor.Components
-@inherits ScBusinessBase
+@inherits SItemsIteratorBase<TItem>
 @typeparam TItem
 
 @{
@@ -8,41 +8,16 @@
 
 @code
 {
-    protected override RenderFragment GenerateChildContent() => __builder =>
+    protected override RenderFragment<TItem> GenerateRow()
     {
-        @if (_headers.Any())
+        if (RowRenderer is not null)
+            return base.GenerateRow();
+
+        return item => __builder =>
         {
-            <div class="header">
-                @foreach (var header in _headers.Ordered())
-                {
-                    @header.GenerateHeader()
-                }
+            <div>
+                @GenerateCol()(item)
             </div>
-        }
-
-        <div class="body">
-            @GenerateBodyContent()
-        </div>
-        @if (_footers.Any())
-        {
-            <div class="footer">
-                @foreach (var footer in _footers.Ordered())
-                {
-                    @footer.GenerateFooter()
-                }
-            </div>
-        }
-    };
-
-    protected virtual RenderFragment GenerateBodyContent() => __builder => { @ItemsRenderer?.GenerateItemsContent() };
-
-    public virtual RenderFragment GenerateRow(TItem item) => __builder =>
-    {
-        <div class="row@(RowClass(item))" @onclick="_=>OnItemActivateChangedAsync(item)">
-            @foreach (var column in _columns.Ordered())
-            {
-                @column.GenerateColumn(item)
-            }
-        </div>
-    };
+        };
+    }
 }

@@ -1,0 +1,51 @@
+﻿@namespace Secyud.Secits.Blazor.Components
+@inherits ScBusinessBase
+@typeparam TItem
+
+@{
+    base.BuildRenderTree(__builder);
+}
+
+@code
+{
+    protected override RenderFragment GenerateChildContent() => __builder =>
+    {
+        @GenerateHeader()
+        @GenerateIterator()
+        @GenerateFooter()
+    };
+
+    protected virtual RenderFragment GenerateHeader() => __builder =>
+    {
+        foreach (var header in _headers)
+        {
+            @header.GenerateHeader()
+        }
+    };
+
+    protected virtual RenderFragment GenerateFooter() => __builder =>
+    {
+        foreach (var footer in _footers)
+        {
+            @footer.GenerateFooter()
+        }
+    };
+
+    protected virtual RenderFragment GenerateIterator() => __builder =>
+    {
+        @ItemsRenderer?.GenerateItems(GenerateRow())
+    };
+
+    protected virtual RenderFragment<TItem> GenerateRow() => item => __builder =>
+    {
+        @_rowRenderer?.GenerateRow(GenerateCol()(item))
+    };
+
+    protected virtual RenderFragment<TItem> GenerateCol() => item => __builder =>
+    {
+        foreach (var col in _columns)
+        {
+            @col.GenerateCol(item)
+        }
+    };
+}

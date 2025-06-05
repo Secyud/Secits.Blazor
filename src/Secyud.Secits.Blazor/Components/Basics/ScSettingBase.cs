@@ -8,7 +8,7 @@ namespace Secyud.Secits.Blazor.Components;
 /// and handle asynchronous disposal. It is designed to be inherited by specific setting implementations.
 /// </summary>
 public abstract class ScSettingBase<TComponent> : ComponentBase, IAsyncDisposable, IScSetting
-    where TComponent : class
+    where TComponent : ScBusinessBase
 {
     protected TComponent? Master { get; private set; }
 
@@ -38,7 +38,4 @@ public abstract class ScSettingBase<TComponent> : ComponentBase, IAsyncDisposabl
         MasterComponent = null;
         return ValueTask.CompletedTask;
     }
-
-    public Guid Id { get; } = Guid.NewGuid();
-    public virtual int Priority => 0;
 }

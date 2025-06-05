@@ -21,7 +21,7 @@ public partial class STable<TItem>
     [Parameter]
     public bool DisableFooter { get; set; }
 
-    #region Columns
+    #region Settings
 
     private readonly List<ISciTableColumnRenderer<TItem>> _columns = [];
 
@@ -39,34 +39,34 @@ public partial class STable<TItem>
     }
 
 
-    private readonly List<ISciTableHeaderRenderer> _headers = [];
+    private readonly List<ISciTableHeaderRenderer> _tableHeaders = [];
 
-    public IReadOnlyList<ISciTableHeaderRenderer> TableHeaders => _headers;
+    public IReadOnlyList<ISciTableHeaderRenderer> TableHeaders => _tableHeaders;
 
     public virtual void AddTableHeaderRender(ISciTableHeaderRenderer renderer)
     {
         RemoveTableHeaderRender(renderer);
-        _headers.Add(renderer);
+        _tableHeaders.Add(renderer);
     }
 
     public virtual void RemoveTableHeaderRender(ISciTableHeaderRenderer renderer)
     {
-        _headers.Remove(renderer);
+        _tableHeaders.Remove(renderer);
     }
 
-    private readonly List<ISciTableFooterRenderer> _footers = [];
+    private readonly List<ISciTableFooterRenderer> _tableFooters = [];
 
-    public IReadOnlyList<ISciTableFooterRenderer> TableFooters => _footers;
+    public IReadOnlyList<ISciTableFooterRenderer> TableFooters => _tableFooters;
 
     public virtual void AddTableFooterRender(ISciTableFooterRenderer renderer)
     {
         RemoveTableFooterRender(renderer);
-        _footers.Add(renderer);
+        _tableFooters.Add(renderer);
     }
 
     public virtual void RemoveTableFooterRender(ISciTableFooterRenderer renderer)
     {
-        _footers.Remove(renderer);
+        _tableFooters.Remove(renderer);
     }
 
     public void RefreshUi()
