@@ -53,21 +53,6 @@ public abstract partial class SItemsIteratorBase<TItem> : IScsSize, IScsTheme
             _rowRenderer = null;
     }
 
-    private readonly List<ISciColRenderer<TItem>> _columns = [];
-
-    public IReadOnlyList<ISciColRenderer<TItem>> Columns => _columns;
-
-    public virtual void AddColumnRender(ISciColRenderer<TItem> renderer)
-    {
-        RemoveColumnRender(renderer);
-        _columns.Add(renderer);
-    }
-
-    public virtual void RemoveColumnRender(ISciColRenderer<TItem> renderer)
-    {
-        _columns.Remove(renderer);
-    }
-
     private readonly List<ISciHeaderRenderer> _headers = [];
 
     public IReadOnlyList<ISciHeaderRenderer> Headers => _headers;

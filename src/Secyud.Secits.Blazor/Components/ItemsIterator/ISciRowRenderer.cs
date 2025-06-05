@@ -2,7 +2,7 @@
 
 namespace Secyud.Secits.Blazor.Components;
 
-public interface ISciRowRenderer<in TItem>
+public interface ISciRowRenderer<TItem>
 {
-    RenderFragment GenerateRow(RenderFragment content);
+    RenderFragment GenerateRow(TItem item, RenderFragment<TItem> content);
 }

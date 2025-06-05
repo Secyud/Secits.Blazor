@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Components;
-using Secyud.Secits.Blazor.Arguments;
 
 namespace Secyud.Secits.Blazor.Components;
 
@@ -25,12 +24,12 @@ public abstract class SItemSingleSelectorBase<TComponent, TItem> : SSelectorBase
         await OnItemSelectChangedAsync(default);
     }
 
-    protected override bool IsSelected(TItem? item)
+    public override bool IsSelected(TItem? item)
     {
         return Equals(SelectedItem, item);
     }
 
-    protected override async Task OnSelectionActivateAsync(TItem item)
+    public override async Task OnSelectionActivateAsync(TItem item)
     {
         await OnItemSelectChangedAsync(Equals(item, SelectedItem) ? default : item);
     }

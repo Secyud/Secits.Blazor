@@ -30,6 +30,6 @@ public abstract class SSelectorBase<TComponent, TSelection> : ScSettingBase<TCom
 
     public abstract RenderFragment GenerateSelectedContent();
     public abstract Task ClearSelectAsync();
-    protected abstract bool IsSelected(TSelection? selection);
-    protected abstract Task OnSelectionActivateAsync(TSelection selection);
+    public abstract bool IsSelected(TSelection? selection);
+    public abstract Task OnSelectionActivateAsync(TSelection selection);
 }

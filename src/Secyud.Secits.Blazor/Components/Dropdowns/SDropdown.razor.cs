@@ -1,6 +1,4 @@
-﻿using Secyud.Secits.Blazor.Arguments;
-
-namespace Secyud.Secits.Blazor.Components;
+﻿namespace Secyud.Secits.Blazor.Components;
 
 public partial class SDropdown : IScdSelect
 {

@@ -24,12 +24,12 @@ public abstract class SItemMultiSelectorBase<TComponent, TItem> : SSelectorBase<
         await OnItemsSelectChangedAsync([]);
     }
 
-    protected override bool IsSelected(TItem? item)
+    public override bool IsSelected(TItem? item)
     {
         return SelectedItems.Contains(item);
     }
 
-    protected override async Task OnSelectionActivateAsync(TItem item)
+    public override async Task OnSelectionActivateAsync(TItem item)
     {
         var list = SelectedItems.ToList();
         if (!list.Remove(item)) list.Add(item);

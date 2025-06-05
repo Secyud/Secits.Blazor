@@ -20,7 +20,7 @@ public abstract class SValueMultiSelectorBase<TComponent, TValue> :
             await ValuesChanged.InvokeAsync(values);
     }
 
-    protected override bool IsSelected(TValue? selection)
+    public override bool IsSelected(TValue? selection)
     {
         return selection is not null && Values.Contains(selection);
     }
@@ -28,5 +28,12 @@ public abstract class SValueMultiSelectorBase<TComponent, TValue> :
     public override async Task ClearSelectAsync()
     {
         await OnValuesSelectChangedAsync([]);
+    }
+
+    public override async Task OnSelectionActivateAsync(TValue selection)
+    {
+        var list = Values.ToList();
+        if (!list.Remove(selection)) list.Add(selection);
+        await OnValuesSelectChangedAsync(list);
     }
 }

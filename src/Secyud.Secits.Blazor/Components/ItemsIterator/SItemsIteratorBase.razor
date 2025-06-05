@@ -31,21 +31,9 @@
         }
     };
 
-    protected virtual RenderFragment GenerateIterator() => __builder =>
-    {
-        @ItemsRenderer?.GenerateItems(GenerateRow())
-    };
+    protected virtual RenderFragment GenerateIterator() => __builder => { @ItemsRenderer?.GenerateItems(GenerateRow()) };
 
-    protected virtual RenderFragment<TItem> GenerateRow() => item => __builder =>
-    {
-        @_rowRenderer?.GenerateRow(GenerateCol()(item))
-    };
+    protected virtual RenderFragment<TItem> GenerateRow() => item => __builder => { @_rowRenderer?.GenerateRow(item,GenerateCol()) };
 
-    protected virtual RenderFragment<TItem> GenerateCol() => item => __builder =>
-    {
-        foreach (var col in _columns)
-        {
-            @col.GenerateCol(item)
-        }
-    };
+    protected abstract RenderFragment<TItem> GenerateCol();
 }

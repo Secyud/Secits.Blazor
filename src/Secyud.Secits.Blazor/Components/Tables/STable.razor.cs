@@ -1,8 +1,4 @@
 ﻿using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Rendering;
-using Microsoft.AspNetCore.Components.Web;
-using Secyud.Secits.Blazor.Arguments;
-using Secyud.Secits.Blazor.JSInterop;
 
 namespace Secyud.Secits.Blazor.Components;
 
@@ -11,7 +7,7 @@ namespace Secyud.Secits.Blazor.Components;
 /// </summary>
 /// <typeparam name="TItem"></typeparam>
 [CascadingTypeParameter(nameof(TItem))]
-public partial class STable<TItem> 
+public sealed partial class STable<TItem> 
 {
     protected override string ComponentName => "table";
 
@@ -43,13 +39,13 @@ public partial class STable<TItem>
 
     public IReadOnlyList<ISciTableHeaderRenderer> TableHeaders => _tableHeaders;
 
-    public virtual void AddTableHeaderRender(ISciTableHeaderRenderer renderer)
+    public void AddTableHeaderRender(ISciTableHeaderRenderer renderer)
     {
         RemoveTableHeaderRender(renderer);
         _tableHeaders.Add(renderer);
     }
 
-    public virtual void RemoveTableHeaderRender(ISciTableHeaderRenderer renderer)
+    public void RemoveTableHeaderRender(ISciTableHeaderRenderer renderer)
     {
         _tableHeaders.Remove(renderer);
     }
@@ -58,13 +54,13 @@ public partial class STable<TItem>
 
     public IReadOnlyList<ISciTableFooterRenderer> TableFooters => _tableFooters;
 
-    public virtual void AddTableFooterRender(ISciTableFooterRenderer renderer)
+    public void AddTableFooterRender(ISciTableFooterRenderer renderer)
     {
         RemoveTableFooterRender(renderer);
         _tableFooters.Add(renderer);
     }
 
-    public virtual void RemoveTableFooterRender(ISciTableFooterRenderer renderer)
+    public void RemoveTableFooterRender(ISciTableFooterRenderer renderer)
     {
         _tableFooters.Remove(renderer);
     }

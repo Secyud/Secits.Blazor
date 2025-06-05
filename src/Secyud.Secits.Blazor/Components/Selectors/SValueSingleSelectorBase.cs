@@ -12,6 +12,11 @@ public abstract class SValueSingleSelectorBase<TComponent, TValue> :
     [Parameter]
     public EventCallback<TValue> ValueChanged { get; set; }
 
+    public override async Task OnSelectionActivateAsync(TValue selection)
+    {
+        await OnValueSelectChangedAsync(Equals(selection, Value) ? default : selection);
+    }
+
     protected virtual async Task OnValueSelectChangedAsync(TValue? value)
     {
         Value = value!;
@@ -19,7 +24,7 @@ public abstract class SValueSingleSelectorBase<TComponent, TValue> :
             await ValueChanged.InvokeAsync(value);
     }
 
-    protected override bool IsSelected(TValue? selection)
+    public override bool IsSelected(TValue? selection)
     {
         return selection is not null && Equals(Value, selection);
     }

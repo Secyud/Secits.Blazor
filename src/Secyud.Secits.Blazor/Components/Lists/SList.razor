@@ -8,6 +8,8 @@
 
 @code
 {
+
+
     protected override RenderFragment<TItem> GenerateRow()
     {
         if (RowRenderer is not null)
@@ -20,4 +22,12 @@
             </div>
         };
     }
+
+    protected override RenderFragment<TItem> GenerateCol() => item => __builder =>
+    {
+        foreach (var col in _columns)
+        {
+            @col.GenerateColumn(item)
+        }
+    };
 }
