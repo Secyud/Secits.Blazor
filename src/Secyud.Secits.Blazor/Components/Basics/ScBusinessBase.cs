@@ -31,4 +31,9 @@ public abstract class ScBusinessBase : ScContainerBase
     {
         StateHasChanged();
     }
+
+    public Task RefreshUiAsync()
+    {
+        return InvokeAsync(StateHasChanged);
+    }
 }

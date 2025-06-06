@@ -37,17 +37,12 @@ public partial class SIntegerSliderSlot : IScwMinMaxValue<int>, ISciInputSlotRen
         return (value - Min + modValue) % modValue + Min;
     }
 
-    public Task SetValueFromParameterAsync(int value)
-    {
-        return Task.CompletedTask;
-    }
-
     #region Render
 
     private RenderFragment GenerateNumberBox() => builder =>
     {
         var currentValue = Master.Value;
-        var cacheElement = NumberCount;
+        var cacheElement = NumberCount * 2;
         for (var offset = -cacheElement; offset <= cacheElement; offset++)
         {
             var value = currentValue + offset;

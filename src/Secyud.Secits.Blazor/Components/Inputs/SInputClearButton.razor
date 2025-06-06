@@ -4,8 +4,6 @@
 
 @code
 {
-    public RenderFragment RenderSlot() => __builder =>
-    {
-        <CloseButton Click="ClearInputAsync"/>
-    };
+    public RenderFragment RenderSlot() =>
+        @<CloseButton Click="ClearInputAsync"/>;
 }

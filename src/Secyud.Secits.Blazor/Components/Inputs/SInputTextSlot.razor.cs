@@ -15,13 +15,11 @@ public partial class SInputTextSlot<TValue> : ISciInputSlotRenderer<TValue>
 
     public Task SetValueFromParameterAsync(TValue value)
     {
-        return InvokeAsync(() =>
-        {
-            CachedValue = value;
-            ValueString = value?.ToString();
-            CurrentString = ValueString;
-            ParsingFailed = false;
-        });
+        CachedValue = value;
+        ValueString = value?.ToString();
+        CurrentString = ValueString;
+        ParsingFailed = false;
+        return Task.CompletedTask;
     }
 
     private async Task OnInputAsync(ChangeEventArgs args)

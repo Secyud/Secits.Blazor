@@ -13,23 +13,11 @@
         @GenerateText()
     };
 
-    private RenderFragment GenerateTitle() => __builder =>
-    {
-        @if (!string.IsNullOrEmpty(Title))
-        {
-            <SCardHeader>@Title</SCardHeader>
-        }
-    };
+    private RenderFragment? GenerateTitle() => string.IsNullOrEmpty(Title)
+        ? null
+        : @<SCardHeader>@Title</SCardHeader>;
 
-    private RenderFragment GenerateText() => __builder =>
-    {
-        if (!string.IsNullOrEmpty(Text))
-        {
-            <SCardBody>@Text</SCardBody>
-        }
-        else
-        {
-            @ChildContent
-        }
-    };
+    private RenderFragment? GenerateText() => string.IsNullOrEmpty(Text)
+        ? ChildContent
+        : @<SCardBody>@Text</SCardBody>;
 }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Rendering;
 
 namespace Secyud.Secits.Blazor.Components;
 
@@ -7,7 +8,7 @@ namespace Secyud.Secits.Blazor.Components;
 /// This class provides functionality to apply and revoke settings, manage the lifecycle of the associated master component,
 /// and handle asynchronous disposal. It is designed to be inherited by specific setting implementations.
 /// </summary>
-public abstract class ScSettingBase<TComponent> : ComponentBase, IAsyncDisposable, IScSetting
+public abstract class ScSettingBase<TComponent> : IComponent, IAsyncDisposable, IScSetting
     where TComponent : ScBusinessBase
 {
     private TComponent? _master;
@@ -32,6 +33,7 @@ public abstract class ScSettingBase<TComponent> : ComponentBase, IAsyncDisposabl
                 ForgoSetting();
                 _master.RefreshUi();
             }
+
             _master = value?.Value as TComponent;
             if (_master is not null)
             {
@@ -49,5 +51,19 @@ public abstract class ScSettingBase<TComponent> : ComponentBase, IAsyncDisposabl
     {
         MasterComponent = null;
         return ValueTask.CompletedTask;
+    }
+
+    public void Attach(RenderHandle renderHandle)
+    {
+    }
+
+    public virtual Task SetParametersAsync(ParameterView parameters)
+    {
+        parameters.SetParameterProperties(this);
+        return Task.CompletedTask;
+    }
+
+    protected virtual void BuildRenderTree(RenderTreeBuilder builder)
+    {
     }
 }

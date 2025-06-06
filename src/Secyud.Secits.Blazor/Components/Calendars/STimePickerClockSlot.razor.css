@@ -1,4 +1,11 @@
 ﻿.pkr-t.clock {
+    --border-color-c: transparent;
+    --border-c: 1px solid var(--border-color-c);
+    border: var(--border-c);
+    &.active{
+        --border-color-c: var(--s-color);
+    }
+    
     margin: 0.25rem;
     width: var(--wh-size);
     height: var(--wh-size);

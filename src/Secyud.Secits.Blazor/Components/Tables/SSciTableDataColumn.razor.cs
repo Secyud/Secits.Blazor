@@ -51,12 +51,12 @@ public partial class SSciTableDataColumn<TItem, TValue> :
 
     protected override void ApplySetting()
     {
-        Master?.TableColumns.Apply(this);
+        Master.TableColumns.Apply(this);
     }
 
     protected override void ForgoSetting()
     {
-        Master?.TableColumns.Forgo(this);
+        Master.TableColumns.Forgo(this);
     }
 
     #endregion
@@ -64,8 +64,7 @@ public partial class SSciTableDataColumn<TItem, TValue> :
     protected async Task SetFilterValueAsync(object? filterValue)
     {
         Filter.FilterValue = filterValue;
-        if (Master is not null)
-            await Master.RefreshAsync();
+        await Master.RefreshAsync();
     }
 
     [return: NotNullIfNotNull(nameof(item))]

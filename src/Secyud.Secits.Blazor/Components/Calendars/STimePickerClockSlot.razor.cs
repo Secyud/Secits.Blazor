@@ -1,5 +1,4 @@
-﻿using System.Text;
-using Microsoft.AspNetCore.Components;
+﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Secyud.Secits.Blazor.JSInterop;
 
@@ -8,6 +7,8 @@ namespace Secyud.Secits.Blazor.Components;
 public partial class STimePickerClockSlot : ISciInputSlotRenderer<TimeOnly>
 {
     private TimePrecision _clockState = TimePrecision.Default;
+
+    private DateTimePrecisionKind State => _clockState.PrecisionKind;
 
     [Inject]
     private IJsElement Element { get; set; } = null!;
@@ -34,7 +35,7 @@ public partial class STimePickerClockSlot : ISciInputSlotRenderer<TimeOnly>
     {
         var (x, y) = pointer;
         var distance = x * x + y * y;
-        return distance < 48 * 48;
+        return distance < 32 * 32;
     }
 
     private async Task OnMouseMove(MouseEventArgs e)
@@ -90,41 +91,10 @@ public partial class STimePickerClockSlot : ISciInputSlotRenderer<TimeOnly>
     private void OnMouseUp()
     {
         _clockState = TimePrecision.Default;
+        Master.RefreshUi();
     }
 
     private bool HoverInner => Hour is <= 12 and > 0;
-
-    private (string, string, string) GetCssClass()
-    {
-        var h = new StringBuilder();
-        var m = new StringBuilder();
-        var s = new StringBuilder();
-        h.Append("hour hand");
-        m.Append("minute hand");
-        s.Append("second hand");
-
-        if (HoverInner) h.Append(" inner");
-
-        switch (_clockState.PrecisionKind)
-        {
-            case DateTimePrecisionKind.Default:
-                break;
-            case DateTimePrecisionKind.Hour:
-                h.Append(" active");
-                break;
-            case DateTimePrecisionKind.Minute:
-                m.Append(" active");
-                break;
-            case DateTimePrecisionKind.Second:
-                s.Append(" active");
-                break;
-            default:
-                throw new ArgumentOutOfRangeException();
-        }
-
-        return (h.ToString(), m.ToString(), s.ToString());
-    }
-
 
     protected override void ApplySetting()
     {

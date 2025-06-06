@@ -1,86 +1,73 @@
 ﻿@namespace Secyud.Secits.Blazor.Components
 @inherits SInputTimePickerSlot
 
-@{
-    base.BuildRenderTree(__builder);
-}
-
 @code
 {
-    public override RenderFragment RenderSlot() => __builder =>
-    {
-        <div class="pkr-t clock" @ref="_ref"
-             @onmouseup="OnMouseUp"
-             @onmouseleave="OnMouseUp"
-             @ontouchend="OnMouseUp"
-             @onmousemove="OnMouseMove">
-            @GenerateHands()
-            @GenerateNumbers()
-        </div>
-    };
-
-    private RenderFragment GenerateHands() => __builder =>
-    {
-        var (hour, minute, second) = GetCssClass();
-
-        <div class="@hour" style="--position: @(Hour * 5)">
-            <div class="handle"
-                 @onmousedown="@OnMouseDownHour"
-                 @onmousedown:preventDefault></div>
-        </div>
-        <div class="@minute" style="--position: @Minute">
-            <div class="handle"
-                 @onmousedown="@OnMouseDownMinute"
-                 @onmousedown:preventDefault></div>
-        </div>
-        <div class="@second" style="--position: @Second">
-            <div class="handle"
-                 @onmousedown="@OnMouseDownSecond"
-                 @onmousedown:preventDefault></div>
-        </div>
-    };
-
-    private RenderFragment GenerateNumbers() => __builder =>
-    {
-        switch (_clockState.PrecisionKind)
-        {
-            case DateTimePrecisionKind.Default:
-            case DateTimePrecisionKind.Hour:
+    public override RenderFragment RenderSlot() =>
+        @<div class="pkr-t clock@(_clockState.PrecisionKind == DateTimePrecisionKind.Default ? "" : " active")"
+              @ref="_ref"
+              @onmouseup="OnMouseUp"
+              @onmouseup:stopPropagation
+              @onmouseleave="OnMouseUp"
+              @onmouseleave:stopPropagation
+              @ontouchend="OnMouseUp"
+              @ontouchend:stopPropagation
+              @onmousemove="OnMouseMove">
+            <div style="--position: @(Hour * 5)"
+                 class="hand hour@((State == DateTimePrecisionKind.Hour ? " active" : "") + (HoverInner ? " inner" : ""))">
+                <div class="handle"
+                     @onmousedown="@OnMouseDownHour"
+                     @onmousedown:preventDefault></div>
+            </div>
+            <div class="hand minute@(State == DateTimePrecisionKind.Minute ? " active" : "")"
+                 style="--position: @Minute">
+                <div class="handle"
+                     @onmousedown="@OnMouseDownMinute"
+                     @onmousedown:preventDefault></div>
+            </div>
+            <div class="hand second@(State == DateTimePrecisionKind.Second ? " active" : "")"
+                 style="--position: @Second">
+                <div class="handle"
+                     @onmousedown="@OnMouseDownSecond"
+                     @onmousedown:preventDefault></div>
+            </div>
+            @switch (_clockState.PrecisionKind)
             {
-                var add = HoverInner ? 0 : 12;
-                for (var i = 1; i <= 12; i++)
+                case DateTimePrecisionKind.Default:
+                case DateTimePrecisionKind.Hour:
                 {
-                    @GenerateNumber(i, i + add, Hour % 12 == i)
+                    var add = HoverInner ? 0 : 12;
+                    for (var i = 1; i <= 12; i++)
+                    {
+                        @GenerateNumber(i, i + add, Hour % 12 == i)
+                    }
+
+                    break;
+                }
+                case DateTimePrecisionKind.Minute:
+                {
+                    for (var i = 0; i < 12; i++)
+                    {
+                        @GenerateNumber(i, $"{i * 5: 00}", Minute == i * 5)
+                    }
+
+                    break;
+                }
+                case DateTimePrecisionKind.Second:
+                {
+                    for (var i = 0; i < 12; i++)
+                    {
+                        @GenerateNumber(i, $"{i * 5: 00}", Second == i * 5)
+                    }
+
+                    break;
                 }
             }
+        </div>;
 
-                break;
-            case DateTimePrecisionKind.Minute:
-                for (var i = 0; i < 12; i++)
-                {
-                    @GenerateNumber(i, $"{i * 5: 00}", Minute == i * 5)
-                }
-
-                break;
-            case DateTimePrecisionKind.Second:
-                for (var i = 0; i < 12; i++)
-                {
-                    @GenerateNumber(i, $"{i * 5: 00}", Second == i * 5)
-                }
-
-                break;
-            default:
-                throw new ArgumentOutOfRangeException();
-        }
-    };
-
-    public RenderFragment GenerateNumber(int position,
-        object number, bool selected) => __builder =>
-    {
-        var selectedStr = selected ? " selected" : null;
-        <div class="@($"number{selectedStr}")"
-             style="--position: @position">
+    private RenderFragment GenerateNumber(int position, object number, bool selected) =>
+        @<div class="number@(selected ? " selected" : null)"
+              style="--position: @position">
             @number
-        </div>
-    };
+        </div>;
 }

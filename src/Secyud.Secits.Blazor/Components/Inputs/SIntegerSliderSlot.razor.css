@@ -16,11 +16,11 @@
         left: 0;
         right: 0;
         top: calc(var(--size) * (var(--bias) + var(--offset) - 0.5));
-        transition: top 100ms, bottom 100ms, font-size 100ms;
         user-select: none;
         cursor: pointer;
         overflow-y: scroll;
         scrollbar-width: none;
         overscroll-behavior-y: none;
+        transition: top .1s;
     }
 }

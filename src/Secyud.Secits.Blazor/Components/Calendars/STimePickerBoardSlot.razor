@@ -3,9 +3,8 @@
 
 @code
 {
-    public override RenderFragment RenderSlot() => __builder =>
-    {
-        <div class="pkr-t board">
+    public override RenderFragment RenderSlot() =>
+        @<div class="pkr-t board">
             <SInput Disabled="@Pression.Disable(DateTimePrecisionKind.Hour)"
                     @bind-Value="Hour" Style="width: 3rem;padding: 0;">
                 <SIntegerSliderSlot Cycle Format="00" Max="23"/>
@@ -18,6 +17,5 @@
                     @bind-Value="Second" Style="width: 3rem;padding: 0;">
                 <SIntegerSliderSlot Cycle Format="00" Max="59"/>
             </SInput>
-        </div>
-    };
+        </div>;
 }

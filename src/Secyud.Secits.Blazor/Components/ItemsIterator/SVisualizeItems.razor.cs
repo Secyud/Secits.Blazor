@@ -5,7 +5,6 @@ namespace Secyud.Secits.Blazor.Components;
 public partial class SVisualizeItems<TItem> : ISciItemsRenderer<TItem>
 {
     private Virtualize<TItem>? _virtualize;
-    private bool _needRefreshData;
 
     protected override void ApplySetting()
     {
@@ -15,18 +14,6 @@ public partial class SVisualizeItems<TItem> : ISciItemsRenderer<TItem>
     protected override void ForgoSetting()
     {
         Master.ItemsRenderer.Forgo(this);
-    }
-
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        await base.OnAfterRenderAsync(firstRender);
-
-        if (_needRefreshData && _virtualize is not null)
-        {
-            _needRefreshData = false;
-            await _virtualize.RefreshDataAsync();
-            StateHasChanged();
-        }
     }
 
     public async ValueTask<ItemsProviderResult<TItem>> RefreshRowsAsync(ItemsProviderRequest request)
@@ -39,9 +26,11 @@ public partial class SVisualizeItems<TItem> : ISciItemsRenderer<TItem>
         return new ItemsProviderResult<TItem>(result.Items, result.TotalCount);
     }
 
-    public Task RefreshAsync()
+    public async Task RefreshAsync()
     {
-        _needRefreshData = true;
-        return InvokeAsync(StateHasChanged);
+        if (_virtualize is not null)
+        {
+            await _virtualize.RefreshDataAsync();
+        }
     }
 }

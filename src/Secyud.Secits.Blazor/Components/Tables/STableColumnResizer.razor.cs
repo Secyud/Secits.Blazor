@@ -14,15 +14,15 @@ public partial class STableColumnResizer<TItem> : ISciTableHeaderRenderer
     private long _mouseupEventId;
     private long _mouseleaveEventId;
     private int _currentColumnIndex;
-    
+
     protected override void ApplySetting()
     {
-        Master?.TableHeaders.Apply(this);
+        Master.TableHeaders.Apply(this);
     }
 
     protected override void ForgoSetting()
     {
-        Master?.TableHeaders.Forgo(this);
+        Master.TableHeaders.Forgo(this);
     }
 
     private async Task SetDragAsync(bool isDrag)
@@ -51,7 +51,7 @@ public partial class STableColumnResizer<TItem> : ISciTableHeaderRenderer
 
     private async Task OnDragColumnHeader(MouseEventArgs args)
     {
-        if (Master is null || !_isDrag) return;
+        if (!_isDrag) return;
         var columns = Master.TableColumns;
         if (_currentColumnIndex >= columns.Count - 1) return;
 
@@ -65,12 +65,10 @@ public partial class STableColumnResizer<TItem> : ISciTableHeaderRenderer
             moveWith = -Math.Min(width - gap, -moveWith);
         else
             moveWith = Math.Min(nextWidth - gap, moveWith);
-        await InvokeAsync(() =>
-        {
-            column.Width += moveWith;
-            nextColumn.Width -= moveWith;
-            Master.RefreshUi();
-        });
+        column.Width += moveWith;
+        nextColumn.Width -= moveWith;
+        
+        await Master.RefreshUiAsync();
     }
 
     private async Task EndDragColumnHeader()

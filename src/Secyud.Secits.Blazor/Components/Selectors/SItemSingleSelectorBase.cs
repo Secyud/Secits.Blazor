@@ -32,5 +32,6 @@ public abstract class SItemSingleSelectorBase<TComponent, TItem> : SSelectorBase
     public override async Task OnSelectionActivateAsync(TItem item)
     {
         await OnItemSelectChangedAsync(Equals(item, SelectedItem) ? default : item);
+        await Master.RefreshUiAsync();
     }
 }

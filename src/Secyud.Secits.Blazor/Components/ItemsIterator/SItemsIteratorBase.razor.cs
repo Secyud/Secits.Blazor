@@ -5,13 +5,16 @@ namespace Secyud.Secits.Blazor.Components;
 
 public abstract partial class SItemsIteratorBase<TItem> : IScsSize, IScsTheme
 {
+    private bool _needRefresh = true;
+
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         await base.OnAfterRenderAsync(firstRender);
 
-        if (firstRender)
+        if (_needRefresh)
         {
-            await RefreshAsync();
+            _needRefresh = false;
+            await ItemsRenderer.InvokeAsync(u => u.RefreshAsync());
             await InvokeAsync(StateHasChanged);
         }
     }
@@ -25,9 +28,9 @@ public abstract partial class SItemsIteratorBase<TItem> : IScsSize, IScsTheme
     public SSettings<ISciFooterRenderer> Footers { get; } = new();
     public SSetting<ISciItemsRenderer<TItem>> ItemsRenderer { get; } = new();
 
-    public async Task RefreshAsync()
+    public Task RefreshAsync()
     {
-        await ItemsRenderer.InvokeAsync(u => u.RefreshAsync());
+        return InvokeAsync(() => { _needRefresh = true; });
     }
 
     #endregion
