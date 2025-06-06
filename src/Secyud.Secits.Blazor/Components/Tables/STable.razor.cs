@@ -23,10 +23,5 @@ public sealed partial class STable<TItem>
     public SSettings<ISciTableHeaderRenderer> TableHeaders { get; } = new();
     public SSettings<ISciTableFooterRenderer> TableFooters { get; } = new();
 
-    public void RefreshUi()
-    {
-        StateHasChanged();
-    }
-
     #endregion
 }

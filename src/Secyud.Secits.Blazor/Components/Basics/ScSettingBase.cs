@@ -10,7 +10,15 @@ namespace Secyud.Secits.Blazor.Components;
 public abstract class ScSettingBase<TComponent> : ComponentBase, IAsyncDisposable, IScSetting
     where TComponent : ScBusinessBase
 {
-    protected TComponent? Master { get; private set; }
+    private TComponent? _master;
+
+    protected TComponent Master
+    {
+        get => _master!;
+        private set => _master = value;
+    }
+
+    protected bool MasterValid => _master is not null;
 
     [CascadingParameter]
     public ScSettingMaster? MasterComponent
@@ -18,20 +26,24 @@ public abstract class ScSettingBase<TComponent> : ComponentBase, IAsyncDisposabl
         get => null;
         set
         {
-            if (Master == value?.Value) return;
-            if (Master is not null) ForgoSetting();
-            Master = value?.Value as TComponent;
-            if (Master is not null) ApplySetting();
+            if (_master == value?.Value) return;
+            if (_master is not null)
+            {
+                ForgoSetting();
+                _master.RefreshUi();
+            }
+            _master = value?.Value as TComponent;
+            if (_master is not null)
+            {
+                ApplySetting();
+                _master.RefreshUi();
+            }
         }
     }
 
-    protected virtual void ApplySetting()
-    {
-    }
+    protected abstract void ApplySetting();
 
-    protected virtual void ForgoSetting()
-    {
-    }
+    protected abstract void ForgoSetting();
 
     public virtual ValueTask DisposeAsync()
     {

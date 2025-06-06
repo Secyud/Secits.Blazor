@@ -28,24 +28,24 @@ public static class ParameterExtensions
 
     public static void AppendTheme(this IScsTheme c, ClassStyleBuilderContext context)
     {
-        context.AppendClass(c.Theme switch
+        context.AppendClass(c switch
         {
-            Theme.Primary => "primary",
-            Theme.Secondary => "secondary",
-            Theme.Naive => "naive",
-            Theme.Success => "success",
-            Theme.Info => "info",
-            Theme.Warning => "warning",
-            Theme.Danger => "danger",
+            { Theme: Theme.Primary } => "primary",
+            { Theme: Theme.Secondary } => "secondary",
+            { Theme: Theme.Naive } => "naive",
+            { Theme: Theme.Success } => "success",
+            { Theme: Theme.Info } => "info",
+            { Theme: Theme.Warning } => "warning",
+            { Theme: Theme.Danger } => "danger",
             _ => null
         });
 
-        context.AppendClass(c.Size switch
+        context.AppendClass(c switch
         {
-            Size.XSmall => "x-small",
-            Size.Small => "small",
-            Size.Large => "large",
-            Size.XLarge => "x-large",
+            { Size: Size.XSmall } => "x-small",
+            { Size: Size.Small } => "small",
+            { Size: Size.Large } => "large",
+            { Size: Size.XLarge } => "x-large",
             _ => null
         });
 

@@ -19,5 +19,8 @@
 
     <ItemGroup>
         <None Update="**/*.razor.css" CssScope="s"/>
+        <None Update="Components\Inputs\Elements\SInputSliderSlotBase.razor.css">
+          <CssScope>s</CssScope>
+        </None>
     </ItemGroup>
 </Project>

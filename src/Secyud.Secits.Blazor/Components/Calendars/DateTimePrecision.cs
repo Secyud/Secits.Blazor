@@ -11,10 +11,11 @@ public readonly struct DateTimePrecision
 
     public static implicit operator DatePrecision(DateTimePrecision value)
     {
-        if (value.PrecisionKind
-            is DateTimePrecisionKind.Second
-            or DateTimePrecisionKind.Minute
-            or DateTimePrecisionKind.Hour)
+        if (value
+            is
+            { PrecisionKind: DateTimePrecisionKind.Second
+                or DateTimePrecisionKind.Minute
+                or DateTimePrecisionKind.Hour })
             return Default;
 
         return new DatePrecision(value.PrecisionKind);
@@ -22,10 +23,11 @@ public readonly struct DateTimePrecision
 
     public static implicit operator TimePrecision(DateTimePrecision value)
     {
-        if (value.PrecisionKind
-            is DateTimePrecisionKind.Day
-            or DateTimePrecisionKind.Month
-            or DateTimePrecisionKind.Year)
+        if (value
+            is
+            { PrecisionKind: DateTimePrecisionKind.Day
+                or DateTimePrecisionKind.Month
+                or DateTimePrecisionKind.Year })
             return Default;
         return new TimePrecision(value.PrecisionKind);
     }

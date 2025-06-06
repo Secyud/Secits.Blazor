@@ -1,0 +1,23 @@
+﻿@namespace Secyud.Secits.Blazor.Components
+@inherits SInputTimePickerSlot
+
+@code
+{
+    public override RenderFragment RenderSlot() => __builder =>
+    {
+        <div class="pkr-t board">
+            <SInput Disabled="@Pression.Disable(DateTimePrecisionKind.Hour)"
+                    @bind-Value="Hour" Style="width: 3rem;padding: 0;">
+                <SIntegerSliderSlot Cycle Format="00" Max="23"/>
+            </SInput>
+            <SInput Disabled="@Pression.Disable(DateTimePrecisionKind.Minute)"
+                    @bind-Value="Minute" Style="width: 3rem;padding: 0;">
+                <SIntegerSliderSlot Cycle Format="00" Max="59"/>
+            </SInput>
+            <SInput Disabled="@Pression.Disable(DateTimePrecisionKind.Second)"
+                    @bind-Value="Second" Style="width: 3rem;padding: 0;">
+                <SIntegerSliderSlot Cycle Format="00" Max="59"/>
+            </SInput>
+        </div>
+    };
+}

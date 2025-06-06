@@ -8,14 +8,16 @@ public partial class SInputTextSlot<TValue> : ISciInputSlotRenderer<TValue>
     protected string? CurrentString { get; set; }
     protected string? ValueString { get; set; }
     protected bool ParsingFailed { get; set; }
+    protected TValue CachedValue { get; set; } = default!;
 
     [Parameter]
     public bool SubmitOnInput { get; set; }
 
-    public virtual async Task SetValueFromParameterAsync(TValue value)
+    public Task SetValueFromParameterAsync(TValue value)
     {
-        await InvokeAsync(() =>
+        return InvokeAsync(() =>
         {
+            CachedValue = value;
             ValueString = value?.ToString();
             CurrentString = ValueString;
             ParsingFailed = false;
@@ -40,29 +42,27 @@ public partial class SInputTextSlot<TValue> : ISciInputSlotRenderer<TValue>
 
     protected virtual Task OnInputValueHandleAsync()
     {
-        if (Master is null) return Task.CompletedTask;
-
         switch (CurrentString)
         {
             case null:
-                Master.CurrentValue = default!;
+                CachedValue = default!;
                 ParsingFailed = false;
                 break;
             case TValue value:
-                Master.CurrentValue = value;
+                CachedValue = value;
                 ParsingFailed = false;
                 break;
             default:
                 if (Master.ValueConverter.Get() is { } converter)
                 {
                     ParsingFailed = !converter.TryConvert(CurrentString, out var value);
-                    if (!ParsingFailed) Master.CurrentValue = value;
+                    if (!ParsingFailed) CachedValue = value;
                     break;
                 }
 
                 try
                 {
-                    Master.CurrentValue = (TValue)Convert.ChangeType(CurrentString, typeof(TValue));
+                    CachedValue = (TValue)Convert.ChangeType(CurrentString, typeof(TValue));
                     ParsingFailed = false;
                 }
                 catch (Exception)
@@ -80,10 +80,20 @@ public partial class SInputTextSlot<TValue> : ISciInputSlotRenderer<TValue>
 
     protected virtual async Task OnInputInvokeAsync(string? value, bool submit = true)
     {
-        if (Master is null || Master.Readonly || Master.Disabled) return;
+        if (Master.Readonly || Master.Disabled) return;
         await OnInputStringHandleAsync(value);
         await OnInputValueHandleAsync();
-        await OnInputInvokeAsync(value);
-        if (submit) await Master.OnValueChangedAsync(Master.CurrentValue);
+        if (submit)
+            await Master.OnValueChangedAsync(CachedValue);
+    }
+
+    protected override void ApplySetting()
+    {
+        Master.InputSlotRenderers.Apply(this);
+    }
+
+    protected override void ForgoSetting()
+    {
+        Master.InputSlotRenderers.Forgo(this);
     }
 }

@@ -6,7 +6,7 @@
 {
     public RenderFragment GenerateItems(RenderFragment<TItem> itemTemplate) => __builder =>
     {
-        if (Master is null || !_items.Any()) return;
+        if (!_items.Any()) return;
 
         foreach (var item in _items)
         {
@@ -16,8 +16,6 @@
 
     public RenderFragment GenerateFooter() => __builder =>
     {
-        if (Master is null) return;
-
         var maxPageCount = _totalCount;
         <div class="table-pager-container">
             <SPager Class="table-pager" MaxPageCount="maxPageCount"

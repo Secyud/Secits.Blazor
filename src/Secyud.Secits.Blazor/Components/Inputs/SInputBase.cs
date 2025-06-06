@@ -3,7 +3,7 @@ using Secyud.Secits.Blazor.Arguments;
 
 namespace Secyud.Secits.Blazor.Components;
 
-public abstract class SInputBase<TValue>:ScBusinessBase,ISchValue<TValue>, IScsTheme, IScsActive
+public abstract class SInputBase<TValue> : ScBusinessBase, ISchValue<TValue>, IScsTheme, IScsActive
 {
     #region Parameters
 
@@ -30,11 +30,11 @@ public abstract class SInputBase<TValue>:ScBusinessBase,ISchValue<TValue>, IScsT
 
     #endregion
 
-    public TValue CurrentValue { get; set; } = default!;
+    public TValue CurrentValue { get; protected set; } = default!;
+
     public virtual async Task OnValueChangedAsync(TValue value)
     {
         CurrentValue = value;
         await ValueChanged.InvokeAsync(value);
     }
-    
 }

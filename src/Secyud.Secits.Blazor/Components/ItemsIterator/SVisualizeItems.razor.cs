@@ -9,12 +9,12 @@ public partial class SVisualizeItems<TItem> : ISciItemsRenderer<TItem>
 
     protected override void ApplySetting()
     {
-        Master!.ItemsRenderer.Apply(this);
+        Master.ItemsRenderer.Apply(this);
     }
 
     protected override void ForgoSetting()
     {
-        Master!.ItemsRenderer.Forgo(this);
+        Master.ItemsRenderer.Forgo(this);
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -31,7 +31,7 @@ public partial class SVisualizeItems<TItem> : ISciItemsRenderer<TItem>
 
     public async ValueTask<ItemsProviderResult<TItem>> RefreshRowsAsync(ItemsProviderRequest request)
     {
-        if (Master?.Items is null) return default;
+        if (Master.Items is null) return default;
         Master.DataRequest.SkipCount = request.StartIndex;
         Master.DataRequest.PageSize = request.Count;
         Master.DataRequest.CancellationToken = request.CancellationToken;

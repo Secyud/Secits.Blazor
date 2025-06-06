@@ -1,5 +1,5 @@
 ﻿@namespace Secyud.Secits.Blazor.Components
-@inherits STimePickerBase
+@inherits SInputTimePickerSlot
 
 @{
     base.BuildRenderTree(__builder);
@@ -7,10 +7,16 @@
 
 @code
 {
-    protected override RenderFragment GenerateChildContent() => __builder =>
+    public override RenderFragment RenderSlot() => __builder =>
     {
-        @GenerateHands()
-        @GenerateNumbers()
+        <div class="pkr-t clock" @ref="_ref"
+             @onmouseup="OnMouseUp"
+             @onmouseleave="OnMouseUp"
+             @ontouchend="OnMouseUp"
+             @onmousemove="OnMouseMove">
+            @GenerateHands()
+            @GenerateNumbers()
+        </div>
     };
 
     private RenderFragment GenerateHands() => __builder =>
@@ -36,10 +42,10 @@
 
     private RenderFragment GenerateNumbers() => __builder =>
     {
-        switch (_clockState)
+        switch (_clockState.PrecisionKind)
         {
-            case ClockState.Default:
-            case ClockState.Hour:
+            case DateTimePrecisionKind.Default:
+            case DateTimePrecisionKind.Hour:
             {
                 var add = HoverInner ? 0 : 12;
                 for (var i = 1; i <= 12; i++)
@@ -49,14 +55,14 @@
             }
 
                 break;
-            case ClockState.Minute:
+            case DateTimePrecisionKind.Minute:
                 for (var i = 0; i < 12; i++)
                 {
                     @GenerateNumber(i, $"{i * 5: 00}", Minute == i * 5)
                 }
 
                 break;
-            case ClockState.Second:
+            case DateTimePrecisionKind.Second:
                 for (var i = 0; i < 12; i++)
                 {
                     @GenerateNumber(i, $"{i * 5: 00}", Second == i * 5)

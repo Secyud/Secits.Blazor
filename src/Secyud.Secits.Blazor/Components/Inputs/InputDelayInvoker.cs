@@ -14,12 +14,12 @@ public class InputDelayInvoker<TValue> : ScSettingBase<SInput<TValue>>, ISciInpu
 
     protected override void ApplySetting()
     {
-        Master!.InputInvoker.Apply(this);
+        Master.InputInvoker.Apply(this);
     }
 
     protected override void ForgoSetting()
     {
-        Master!.InputInvoker.Forgo(this);
+        Master.InputInvoker.Forgo(this);
     }
 
     public override async Task SetParametersAsync(ParameterView parameters)
@@ -69,7 +69,7 @@ public class InputDelayInvoker<TValue> : ScSettingBase<SInput<TValue>>, ISciInpu
 
     private async Task ValueChangedAsync(TValue value)
     {
-        if (Master?.ValueChanged is { HasDelegate: true } callback)
+        if (Master is { ValueChanged: { HasDelegate: true } callback })
         {
             await callback.InvokeAsync(value);
         }

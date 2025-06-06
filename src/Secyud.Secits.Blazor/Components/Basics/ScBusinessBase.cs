@@ -26,4 +26,9 @@ public abstract class ScBusinessBase : ScContainerBase
             nameof(CascadingValue<ScSettingMaster>.ChildContent), ChildContent);
         builder.CloseComponent();
     };
+
+    public void RefreshUi()
+    {
+        StateHasChanged();
+    }
 }

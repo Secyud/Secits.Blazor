@@ -6,8 +6,6 @@
 {
     public RenderFragment GenerateItems(RenderFragment<TItem> itemTemplate) => __builder =>
     {
-        if (Master is null) return;
-
         <Virtualize @ref="_virtualize" ItemsProvider="RefreshRowsAsync" Context="item">
             @itemTemplate(item)
         </Virtualize>

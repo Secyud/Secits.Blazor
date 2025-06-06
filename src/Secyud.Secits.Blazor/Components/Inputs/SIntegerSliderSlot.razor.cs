@@ -1,12 +1,13 @@
-﻿using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Rendering;
+﻿using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 
 namespace Secyud.Secits.Blazor.Components;
 
 public partial class SIntegerSliderSlot : IScwMinMaxValue<int>, ISciInputSlotRenderer<int>
 {
-    private const int CacheElement = 4;
+    [Parameter, Range(1, 4)]
+    public int NumberCount { get; set; } = 1;
 
     [Parameter]
     public int Max { get; set; } = 100;
@@ -22,11 +23,11 @@ public partial class SIntegerSliderSlot : IScwMinMaxValue<int>, ISciInputSlotRen
 
     private async Task OnWheelAsync(WheelEventArgs args)
     {
-        if (Master is null || Master.Readonly || Master.Disabled) return;
+        if (Master.Readonly || Master.Disabled) return;
 
         var value = (int)args.DeltaY / 80 + Master.Value;
         value = Cycle ? GetCycleValue(value) : Math.Min(Math.Max(Min, value), Max);
-        
+
         await Master.OnValueChangedAsync(value);
     }
 
@@ -45,8 +46,9 @@ public partial class SIntegerSliderSlot : IScwMinMaxValue<int>, ISciInputSlotRen
 
     private RenderFragment GenerateNumberBox() => builder =>
     {
-        var currentValue = Master!.Value;
-        for (var offset = -CacheElement; offset < CacheElement; offset++)
+        var currentValue = Master.Value;
+        var cacheElement = NumberCount;
+        for (var offset = -cacheElement; offset <= cacheElement; offset++)
         {
             var value = currentValue + offset;
 
@@ -60,4 +62,14 @@ public partial class SIntegerSliderSlot : IScwMinMaxValue<int>, ISciInputSlotRen
     };
 
     #endregion
+
+    protected override void ApplySetting()
+    {
+        Master.InputSlotRenderers.Apply(this);
+    }
+
+    protected override void ForgoSetting()
+    {
+        Master.InputSlotRenderers.Forgo(this);
+    }
 }

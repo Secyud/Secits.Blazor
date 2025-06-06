@@ -9,7 +9,7 @@
 {
     public RenderFragment RenderSlot() => __builder =>
     {
-        <div class="integer-slider"
+        <div class="integer-slider" style="--bias: @NumberCount;"
              @onwheel="OnWheelAsync">
             @GenerateNumberBox()
         </div>
@@ -17,8 +17,7 @@
 
     private RenderFragment GenerateOffset(int offset, int value) => __builder =>
     {
-        var size = $"s{Math.Abs(offset)}";
-        <span class="element @size" style="--offset: @offset;"
+        <span class="element" style="--offset: @offset;"
               @onclick="() => Master!.OnValueChangedAsync(value)">
             @(string.IsNullOrEmpty(Format) ? value : value.ToString(Format))
         </span>

@@ -2,12 +2,14 @@
 
 namespace Secyud.Secits.Blazor.Components;
 
-public abstract partial class STimePickerBase
+public abstract class SInputTimePickerSlot : ScSettingBase<SInput<TimeOnly>>, ISciInputSlotRenderer<TimeOnly>
 {
+    public abstract RenderFragment RenderSlot();
+
     [Parameter]
     public TimePrecision Pression { get; set; }
 
-    protected TimeOnly ValueOrDefault => Value ?? default;
+    protected TimeOnly ValueOrDefault => Master.CurrentValue;
 
     protected int Hour
     {
@@ -39,13 +41,12 @@ public abstract partial class STimePickerBase
         }
     }
 
-    protected void OnTimeChanged(
-        int? hour = null, int? minute = null, int? second = null)
+    protected void OnTimeChanged(int? hour = null, int? minute = null, int? second = null)
     {
         var time = new TimeOnly(
             hour ?? ValueOrDefault.Hour,
             minute ?? ValueOrDefault.Minute,
             second ?? ValueOrDefault.Second);
-        OnValueChangedAsync(time).ConfigureAwait(true);
+        Master.OnValueChangedAsync(time).ConfigureAwait(false);
     }
 }

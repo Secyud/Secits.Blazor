@@ -6,5 +6,8 @@ public interface ISciInputSlotRenderer<in TValue>
 {
     RenderFragment RenderSlot();
 
-    Task SetValueFromParameterAsync(TValue value);
+    public Task SetValueFromParameterAsync(TValue value)
+    {
+        return Task.CompletedTask;
+    }
 }

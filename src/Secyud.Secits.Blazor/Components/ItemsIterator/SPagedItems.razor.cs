@@ -8,19 +8,19 @@ public partial class SPagedItems<TItem> : ISciItemsRenderer<TItem>, ISciFooterRe
 
     protected override void ApplySetting()
     {
-        Master!.ItemsRenderer.Apply(this);
+        Master.ItemsRenderer.Apply(this);
         Master.Footers.Apply(this);
     }
 
     protected override void ForgoSetting()
     {
-        Master!.ItemsRenderer.Forgo(this);
+        Master.ItemsRenderer.Forgo(this);
         Master.Footers.Forgo(this);
     }
 
     public async Task RefreshAsync()
     {
-        if (Master?.Items is null) return;
+        if (Master.Items is null) return;
         var result = await Master.Items(Master.DataRequest);
         _items = result.Items.ToList();
         _totalCount = result.TotalCount;
@@ -28,14 +28,12 @@ public partial class SPagedItems<TItem> : ISciItemsRenderer<TItem>, ISciFooterRe
 
     private async Task PageSizeChangedAsync(int pageSize)
     {
-        if (Master is null) return;
         Master.DataRequest.PageSize = pageSize;
         await Master.RefreshAsync();
     }
 
     private async Task PageIndexChangedAsync(int pageIndex)
     {
-        if (Master is null) return;
         Master.DataRequest.PageIndex = pageIndex;
         await Master.RefreshAsync();
     }

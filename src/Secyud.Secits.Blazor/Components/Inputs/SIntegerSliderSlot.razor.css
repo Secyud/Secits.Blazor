@@ -1,32 +1,26 @@
 ﻿
 .integer-slider {
-    height: calc(var(--size) * 1.9);
+    --bias: 1;
+    height: calc(var(--size) * (var(--bias) * 2));
     position: relative;
     text-align: center;
     overflow: hidden;
     flex: auto;
+    width: 100%;
 
     > .element {
         --offset: 0;
         position: absolute;
-        line-height: calc(var(--size));
+        line-height: var(--size);
+        font-size: var(--size);
         left: 0;
         right: 0;
-        top: calc(var(--size) * (0.7 + var(--offset)));
+        top: calc(var(--size) * (var(--bias) + var(--offset) - 0.5));
         transition: top 100ms, bottom 100ms, font-size 100ms;
         user-select: none;
         cursor: pointer;
-        font-size: 0;
         overflow-y: scroll;
         scrollbar-width: none;
         overscroll-behavior-y: none;
-
-        &.s0 {
-            font-size: var(--size);
-        }
-
-        &.s1 {
-            font-size: calc(var(--size) * 0.5);
-        }
     }
 }

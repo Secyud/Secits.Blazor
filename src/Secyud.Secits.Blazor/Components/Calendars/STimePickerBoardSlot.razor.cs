@@ -1,12 +1,7 @@
 ﻿namespace Secyud.Secits.Blazor.Components;
 
-public partial class SInputClearButton<TValue> : ISciInputSlotRenderer<TValue>
+public partial class STimePickerBoardSlot
 {
-    private async Task ClearInputAsync()
-    {
-        await Master.OnValueChangedAsync(default!);
-    }
-
     protected override void ApplySetting()
     {
         Master.InputSlotRenderers.Apply(this);

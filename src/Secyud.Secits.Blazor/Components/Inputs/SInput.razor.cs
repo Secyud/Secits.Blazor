@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Components;
-using Secyud.Secits.Blazor.Arguments;
 
 namespace Secyud.Secits.Blazor.Components;
 
@@ -23,7 +22,6 @@ public partial class SInput<TValue>
         await base.SetParametersAsync(parameters);
         await Task.WhenAll(tasks);
     }
-
     #region Settings
 
     public SSetting<ISciInputInvoker<TValue>> InputInvoker { get; } = new();

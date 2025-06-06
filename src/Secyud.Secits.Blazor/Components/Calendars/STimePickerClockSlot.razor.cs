@@ -1,33 +1,22 @@
 ﻿using System.Text;
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.AspNetCore.Components.Web;
 using Secyud.Secits.Blazor.JSInterop;
 
 namespace Secyud.Secits.Blazor.Components;
 
-public partial class STimePickerClock
+public partial class STimePickerClockSlot : ISciInputSlotRenderer<TimeOnly>
 {
-    protected override string ComponentName => "pkr-t clock";
-
-    private ClockState _clockState = ClockState.Default;
+    private TimePrecision _clockState = TimePrecision.Default;
 
     [Inject]
     private IJsElement Element { get; set; } = null!;
 
-    protected override int BuildContentExtra(RenderTreeBuilder builder, int sequence)
-    {
-        builder.AddAttribute(sequence + 1, "onmouseup", OnMouseUp);
-        builder.AddAttribute(sequence + 2, "onmouseleave", OnMouseUp);
-        builder.AddAttribute(sequence + 3, "ontouchend", OnMouseUp);
-        builder.AddAttribute(sequence + 4, "onmousemove", OnMouseMove);
-
-        return sequence + 4;
-    }
+    private ElementReference _ref;
 
     private async Task<(double, double)> GetPointer(MouseEventArgs e)
     {
-        var rect = await Element.GetBoundingClientRect(Ref);
+        var rect = await Element.GetBoundingClientRect(_ref);
         var centerX = (rect.Left + rect.Right) / 2;
         var centerY = (rect.Top + rect.Bottom) / 2;
         var pointerX = e.ClientX - centerX;
@@ -50,11 +39,11 @@ public partial class STimePickerClock
 
     private async Task OnMouseMove(MouseEventArgs e)
     {
-        switch (_clockState)
+        switch (_clockState.PrecisionKind)
         {
-            case ClockState.Default:
+            case DateTimePrecisionKind.Default:
                 break;
-            case ClockState.Hour:
+            case DateTimePrecisionKind.Hour:
             {
                 var pointer = await GetPointer(e);
                 var angle = GetMouseAngle(pointer);
@@ -64,14 +53,14 @@ public partial class STimePickerClock
                 Hour = hour + (inner ? 0 : 12);
             }
                 break;
-            case ClockState.Minute:
+            case DateTimePrecisionKind.Minute:
             {
                 var pointer = await GetPointer(e);
                 var angle = GetMouseAngle(pointer);
                 Minute = (int)Math.Round(angle / 6);
             }
                 break;
-            case ClockState.Second:
+            case DateTimePrecisionKind.Second:
             {
                 var pointer = await GetPointer(e);
                 var angle = GetMouseAngle(pointer);
@@ -85,22 +74,22 @@ public partial class STimePickerClock
 
     private void OnMouseDownHour(MouseEventArgs e)
     {
-        _clockState = ClockState.Hour;
+        _clockState = TimePrecision.Hour;
     }
 
     private void OnMouseDownMinute(MouseEventArgs e)
     {
-        _clockState = ClockState.Minute;
+        _clockState = TimePrecision.Minute;
     }
 
     private void OnMouseDownSecond(MouseEventArgs e)
     {
-        _clockState = ClockState.Second;
+        _clockState = TimePrecision.Second;
     }
 
-    private void OnMouseUp(MouseEventArgs e)
+    private void OnMouseUp()
     {
-        _clockState = ClockState.Default;
+        _clockState = TimePrecision.Default;
     }
 
     private bool HoverInner => Hour is <= 12 and > 0;
@@ -116,17 +105,17 @@ public partial class STimePickerClock
 
         if (HoverInner) h.Append(" inner");
 
-        switch (_clockState)
+        switch (_clockState.PrecisionKind)
         {
-            case ClockState.Default:
+            case DateTimePrecisionKind.Default:
                 break;
-            case ClockState.Hour:
+            case DateTimePrecisionKind.Hour:
                 h.Append(" active");
                 break;
-            case ClockState.Minute:
+            case DateTimePrecisionKind.Minute:
                 m.Append(" active");
                 break;
-            case ClockState.Second:
+            case DateTimePrecisionKind.Second:
                 s.Append(" active");
                 break;
             default:
@@ -137,11 +126,13 @@ public partial class STimePickerClock
     }
 
 
-    protected enum ClockState
+    protected override void ApplySetting()
     {
-        Default,
-        Hour,
-        Minute,
-        Second
+        Master.InputSlotRenderers.Apply(this);
+    }
+
+    protected override void ForgoSetting()
+    {
+        Master.InputSlotRenderers.Forgo(this);
     }
 }

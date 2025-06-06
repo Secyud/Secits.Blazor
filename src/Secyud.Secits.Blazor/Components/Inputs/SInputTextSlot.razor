@@ -7,8 +7,8 @@
     public RenderFragment RenderSlot() => __builder =>
     {
         <input value="@InputString"
-               readonly="@(Master!.Readonly ? "readonly" : null)"
-               disabled="@(Master!.Disabled ? "disabled" : null)"
+               readonly="@(Master.Readonly ? "readonly" : null)"
+               disabled="@(Master.Disabled ? "disabled" : null)"
                @oninput="OnInputAsync" @onchange="@OnChangeAsync"
                @attributes="Master.Attributes"
         />
