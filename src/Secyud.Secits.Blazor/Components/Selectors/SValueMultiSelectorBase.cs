@@ -2,8 +2,8 @@
 
 namespace Secyud.Secits.Blazor.Components;
 
-public abstract class SValueMultiSelectorBase<TComponent, TValue> :
-    SSelectorBase<TComponent, TValue>, ISchValues<TValue>
+public abstract class SValueMultiSelectorBase<TComponent, TValue> : SSelectorBase<TComponent, TValue>,
+    ISchValues<TValue>
     where TComponent : ScBusinessBase
 {
     [Parameter]
@@ -11,6 +11,12 @@ public abstract class SValueMultiSelectorBase<TComponent, TValue> :
 
     [Parameter]
     public EventCallback<List<TValue>> ValuesChanged { get; set; }
+
+    [Parameter]
+    public RenderFragment<SMultiSelectorContext<TValue>>? SelectContent { get; set; }
+
+    public override RenderFragment? GenerateSelectedContent() =>
+        SelectContent?.Invoke(new(this, Values));
 
     protected virtual async Task OnValuesSelectChangedAsync(List<TValue> values)
     {

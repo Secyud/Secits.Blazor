@@ -4,41 +4,43 @@ using Microsoft.AspNetCore.Components.Web;
 namespace Secyud.Secits.Blazor.Components;
 
 [CascadingTypeParameter(nameof(TItem))]
-public partial class SItemMultiSelector<TItem> : ISciRowRenderer<TItem>
+public class SItemSingleSelector<TItem> : SSelectorBase<SItemsIteratorBase<TItem>, TItem>,
+    ISciRowRenderer<TItem>
 {
     [Parameter]
-    public EventCallback<List<TItem>> SelectedItemsChanged { get; set; }
+    public EventCallback<TItem?> SelectedItemChanged { get; set; }
 
     [Parameter]
-    public List<TItem> SelectedItems { get; set; } = [];
+    public TItem? SelectedItem { get; set; }
 
     [Parameter]
-    public RenderFragment<SMultiSelectorContext<TItem>>? SelectContent { get; set; }
+    public RenderFragment<SSingleSelectorContext<TItem>>? SelectContent { get; set; }
 
-    protected virtual async Task OnItemsSelectChangedAsync(List<TItem> items)
+    public override RenderFragment? GenerateSelectedContent() =>
+        SelectContent?.Invoke(new(this, SelectedItem));
+
+    protected virtual async Task OnItemSelectChangedAsync(TItem? item)
     {
-        SelectedItems = items.ToList();
+        SelectedItem = item;
 
-        if (SelectedItemsChanged.HasDelegate)
-            await SelectedItemsChanged.InvokeAsync(SelectedItems);
+        if (SelectedItemChanged.HasDelegate)
+            await SelectedItemChanged.InvokeAsync(SelectedItem);
     }
 
     public override async Task ClearSelectAsync()
     {
-        await OnItemsSelectChangedAsync([]);
+        await OnItemSelectChangedAsync(default);
     }
 
     public override bool IsSelected(TItem? item)
     {
-        if (item is null) return false;
-        return SelectedItems.Contains(item);
+        return Equals(SelectedItem, item);
     }
 
     public override async Task OnSelectionActivateAsync(TItem item)
     {
-        var list = SelectedItems.ToList();
-        if (!list.Remove(item)) list.Add(item);
-        await OnItemsSelectChangedAsync(list);
+        await OnItemSelectChangedAsync(Equals(item, SelectedItem) ? default : item);
+        await Master.RefreshUiAsync();
     }
 
     protected override void ApplySetting()

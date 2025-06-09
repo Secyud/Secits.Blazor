@@ -4,39 +4,44 @@ using Microsoft.AspNetCore.Components.Web;
 namespace Secyud.Secits.Blazor.Components;
 
 [CascadingTypeParameter(nameof(TItem))]
-public partial class SItemSingleSelector<TItem> : ISciRowRenderer<TItem>
+public class SItemMultiSelector<TItem> : SSelectorBase<SItemsIteratorBase<TItem>, TItem>, ISciRowRenderer<TItem>
 {
     [Parameter]
-    public EventCallback<TItem?> SelectedItemChanged { get; set; }
+    public EventCallback<List<TItem>> SelectedItemsChanged { get; set; }
 
     [Parameter]
-    public TItem? SelectedItem { get; set; }
+    public List<TItem> SelectedItems { get; set; } = [];
 
     [Parameter]
-    public RenderFragment<SSingleSelectorContext<TItem>>? SelectContent { get; set; }
+    public RenderFragment<SMultiSelectorContext<TItem>>? SelectContent { get; set; }
 
-    protected virtual async Task OnItemSelectChangedAsync(TItem? item)
+    public override RenderFragment? GenerateSelectedContent() =>
+        SelectContent?.Invoke(new(this, SelectedItems));
+
+    protected virtual async Task OnItemsSelectChangedAsync(List<TItem> items)
     {
-        SelectedItem = item;
+        SelectedItems = items.ToList();
 
-        if (SelectedItemChanged.HasDelegate)
-            await SelectedItemChanged.InvokeAsync(SelectedItem);
+        if (SelectedItemsChanged.HasDelegate)
+            await SelectedItemsChanged.InvokeAsync(SelectedItems);
     }
 
     public override async Task ClearSelectAsync()
     {
-        await OnItemSelectChangedAsync(default);
+        await OnItemsSelectChangedAsync([]);
     }
 
     public override bool IsSelected(TItem? item)
     {
-        return Equals(SelectedItem, item);
+        if (item is null) return false;
+        return SelectedItems.Contains(item);
     }
 
     public override async Task OnSelectionActivateAsync(TItem item)
     {
-        await OnItemSelectChangedAsync(Equals(item, SelectedItem) ? default : item);
-        await Master.RefreshUiAsync();
+        var list = SelectedItems.ToList();
+        if (!list.Remove(item)) list.Add(item);
+        await OnItemsSelectChangedAsync(list);
     }
 
     protected override void ApplySetting()

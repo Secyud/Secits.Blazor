@@ -4,6 +4,6 @@ namespace Secyud.Secits.Blazor.Components;
 
 public interface ISciSelect
 {
-    RenderFragment GenerateSelectedContent();
+    RenderFragment? GenerateSelectedContent();
     Task ClearSelectAsync();
 }
