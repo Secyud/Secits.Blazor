@@ -7,12 +7,12 @@ public abstract class SValueMultiSelectorBase<TComponent, TValue> :
     where TComponent : ScBusinessBase
 {
     [Parameter]
-    public IEnumerable<TValue> Values { get; set; } = [];
+    public List<TValue> Values { get; set; } = [];
 
     [Parameter]
-    public EventCallback<IEnumerable<TValue>> ValuesChanged { get; set; }
+    public EventCallback<List<TValue>> ValuesChanged { get; set; }
 
-    protected virtual async Task OnValuesSelectChangedAsync(IEnumerable<TValue> values)
+    protected virtual async Task OnValuesSelectChangedAsync(List<TValue> values)
     {
         values = values.ToList();
         Values = values;

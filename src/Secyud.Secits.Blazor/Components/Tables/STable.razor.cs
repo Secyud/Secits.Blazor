@@ -11,6 +11,8 @@ public sealed partial class STable<TItem>
 {
     protected override string ComponentName => "table";
 
+    protected override string RowElementName => "tr";
+
     [Parameter]
     public bool DisableHeader { get; set; }
 

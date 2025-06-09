@@ -9,7 +9,7 @@
 {
     protected override RenderFragment GenerateChildContent() => __builder =>
     {
-        @_component?.GenerateSelectedContent()
+        @Selector.Get()?.GenerateSelectedContent()
         <input/>
         @GenerateDropdownButton()
     };

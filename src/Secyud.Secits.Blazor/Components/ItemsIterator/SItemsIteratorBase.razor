@@ -36,10 +36,5 @@
         @ItemsRenderer.Get()?.GenerateItems(GenerateRow())
     };
 
-    protected virtual RenderFragment<TItem> GenerateRow() => item => __builder =>
-    {
-        @RowRenderer.Get()?.GenerateRow(item,GenerateCol())
-    };
-
     protected abstract RenderFragment<TItem> GenerateCol();
 }

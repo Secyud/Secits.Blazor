@@ -3,12 +3,12 @@ using Microsoft.AspNetCore.Components;
 
 namespace Secyud.Secits.Blazor.Components;
 
-public abstract class SItemValueMultiSelectorBase<TComponent, TItem, TValue> :
-    SItemMultiSelectorBase<TComponent, TItem>, ISchValueField<TItem, TValue>,
-    ISchValues<TValue> where TComponent : ScBusinessBase
+[CascadingTypeParameter(nameof(TItem))]
+public class SItemValueMultiSelector<TItem, TValue> : SItemMultiSelector<TItem>,
+    ISchValueField<TItem, TValue>, ISchValues<TValue>
 {
     [Parameter]
-    public Expression<Func<TItem, TValue>>? ValueField { get; set; } 
+    public Expression<Func<TItem, TValue>>? ValueField { get; set; }
 
     private Func<TItem, TValue> _valueField = null!;
 
@@ -16,33 +16,24 @@ public abstract class SItemValueMultiSelectorBase<TComponent, TItem, TValue> :
     public Func<IEnumerable<TValue>, Task<IEnumerable<TItem>>> ItemFinder { get; set; } = null!;
 
     [Parameter]
-    public IEnumerable<TValue> Values { get; set; } = [];
+    public List<TValue> Values { get; set; } = [];
 
     [Parameter]
-    public EventCallback<IEnumerable<TValue>> ValuesChanged { get; set; }
+    public EventCallback<List<TValue>> ValuesChanged { get; set; }
 
-    private IEnumerable<TValue> _values = [];
+    private List<TValue> _values = [];
 
     public override async Task SetParametersAsync(ParameterView parameters)
     {
-        List<Task> parameterTasks = [];
-
         parameters.UseParameter(ValueField, nameof(ValueField),
             value => _valueField = value!.Compile());
-
-        parameters.UseParameter(_values, nameof(Values), value =>
-        {
-            _values = Values;
-            parameterTasks.Add(SetSelectionFromParameter(value));
-        });
-
         await base.SetParametersAsync(parameters);
-
-        await Task.WhenAll(parameterTasks);
+        await parameters.UseParameter(_values, nameof(Values), SetSelectionFromParameter);
     }
 
-    protected async Task SetSelectionFromParameter(IEnumerable<TValue> values)
+    protected async Task SetSelectionFromParameter(List<TValue> values)
     {
+        _values = values;
         var items = await ItemFinder.Invoke(values);
         SelectedItems = items.ToList();
     }

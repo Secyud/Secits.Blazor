@@ -2,6 +2,5 @@
 
 public interface IScdSelect
 {
-    void BindComponent(ISciSelect component);
-    void UnbindComponent(ISciSelect component);
+    SSetting<ISciSelect> Selector { get; }
 }

@@ -25,4 +25,12 @@ public static class ComponentsExtensions
         if (Equals(previous, value)) return;
         action(value);
     }
+
+    public static async Task UseParameter<TParameter>(this ParameterView view,
+        TParameter previous, string name, Func<TParameter, Task> action)
+    {
+        if (!view.TryGetValue<TParameter>(name, out var value)) return;
+        if (Equals(previous, value)) return;
+        await action(value);
+    }
 }

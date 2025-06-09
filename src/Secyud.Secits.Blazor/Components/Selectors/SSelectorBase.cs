@@ -2,9 +2,8 @@
 
 namespace Secyud.Secits.Blazor.Components;
 
-public abstract class SSelectorBase<TComponent, TSelection> : ScSettingBase<TComponent>, ISciSelect,
-    ISchTextField<TSelection>
-    where TComponent : ScBusinessBase
+public abstract class SSelectorBase<TComponent, TSelection> : ScSettingBase<TComponent>,
+    ISciSelect, ISchTextField<TSelection> where TComponent : ScBusinessBase
 {
     private IScdSelect? _selectDelegate;
 
@@ -14,9 +13,9 @@ public abstract class SSelectorBase<TComponent, TSelection> : ScSettingBase<TCom
         get => _selectDelegate;
         set
         {
-            _selectDelegate?.UnbindComponent(this);
+            _selectDelegate?.Selector.Forgo(this);
             _selectDelegate = value;
-            _selectDelegate?.BindComponent(this);
+            _selectDelegate?.Selector.Apply(this);
         }
     }
 

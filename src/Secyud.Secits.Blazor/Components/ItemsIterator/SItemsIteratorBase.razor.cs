@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
 using Secyud.Secits.Blazor.Arguments;
 
 namespace Secyud.Secits.Blazor.Components;
@@ -52,6 +53,34 @@ public abstract partial class SItemsIteratorBase<TItem> : IScsSize, IScsTheme
     public SValue Height { get; set; }
 
     public DataRequest DataRequest { get; } = new();
+
+    #endregion
+
+    #region Renderer
+
+    protected virtual string RowElementName => "div";
+
+    protected virtual RenderFragment<TItem> GenerateRow() => item => builder =>
+    {
+        builder.OpenElement(0, RowElementName);
+        var rowRender = RowRenderer.Get();
+        if (rowRender is not null)
+        {
+            var @class = rowRender.GetRowClass(item);
+            if (!string.IsNullOrWhiteSpace(@class))
+                builder.AddAttribute(1, "class", @class);
+            var style = rowRender.GetRowStyle(item);
+            if (!string.IsNullOrWhiteSpace(@class))
+                builder.AddAttribute(2, "style", style);
+            if (rowRender.ClickEnabled)
+                builder.AddAttribute(3, "onclick",
+                    EventCallback.Factory.Create<MouseEventArgs>(
+                        this, args => rowRender.OnRowClick(args, item)));
+        }
+
+        builder.AddContent(10, GenerateCol());
+        builder.CloseElement();
+    };
 
     #endregion
 }

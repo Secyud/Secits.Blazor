@@ -3,12 +3,12 @@ using Microsoft.AspNetCore.Components;
 
 namespace Secyud.Secits.Blazor.Components;
 
-public abstract class SItemValueSingleSelectorBase<TComponent, TItem, TValue> :
-    SItemSingleSelectorBase<TComponent, TItem>, ISchValueField<TItem, TValue>,
-    ISchValue<TValue> where TComponent : ScBusinessBase
+[CascadingTypeParameter(nameof(TItem))]
+public class SItemValueSingleSelector<TItem, TValue> : SItemSingleSelector<TItem>,
+    ISchValueField<TItem, TValue>, ISchValue<TValue>
 {
     [Parameter]
-    public Expression<Func<TItem, TValue>>? ValueField { get; set; } 
+    public Expression<Func<TItem, TValue>>? ValueField { get; set; }
 
     private Func<TItem, TValue> _valueField = null!;
 
@@ -25,24 +25,16 @@ public abstract class SItemValueSingleSelectorBase<TComponent, TItem, TValue> :
 
     public override async Task SetParametersAsync(ParameterView parameters)
     {
-        List<Task> parameterTasks = [];
-
         parameters.UseParameter(ValueField, nameof(ValueField),
             value => _valueField = value!.Compile());
 
-        parameters.UseParameter(_value, nameof(Value), value =>
-        {
-            _value = value;
-            parameterTasks.Add(SetSelectionFromParameter(value));
-        });
-
         await base.SetParametersAsync(parameters);
-
-        await Task.WhenAll(parameterTasks);
+        await parameters.UseParameter(_value, nameof(Value), SetSelectionFromParameter);
     }
 
     protected async Task SetSelectionFromParameter(TValue value)
     {
+        _value = value;
         var item = await ItemFinder.Invoke(value);
         SelectedItem = item;
     }

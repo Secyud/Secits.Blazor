@@ -1,15 +1,19 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
 
 namespace Secyud.Secits.Blazor.Components;
 
-public abstract class SItemSingleSelectorBase<TComponent, TItem> : SSelectorBase<TComponent, TItem>
-    where TComponent : ScBusinessBase
+[CascadingTypeParameter(nameof(TItem))]
+public partial class SItemSingleSelector<TItem> : ISciRowRenderer<TItem>
 {
     [Parameter]
     public EventCallback<TItem?> SelectedItemChanged { get; set; }
 
     [Parameter]
     public TItem? SelectedItem { get; set; }
+
+    [Parameter]
+    public RenderFragment<SSingleSelectorContext<TItem>>? SelectContent { get; set; }
 
     protected virtual async Task OnItemSelectChangedAsync(TItem? item)
     {
@@ -34,4 +38,31 @@ public abstract class SItemSingleSelectorBase<TComponent, TItem> : SSelectorBase
         await OnItemSelectChangedAsync(Equals(item, SelectedItem) ? default : item);
         await Master.RefreshUiAsync();
     }
+
+    protected override void ApplySetting()
+    {
+        Master.RowRenderer.Apply(this);
+    }
+
+    protected override void ForgoSetting()
+    {
+        Master.RowRenderer.Forgo(this);
+    }
+
+    public virtual string? GetRowClass(TItem item)
+    {
+        return IsSelected(item) ? "selected" : null;
+    }
+
+    public virtual string? GetRowStyle(TItem item)
+    {
+        return null;
+    }
+
+    public virtual void OnRowClick(MouseEventArgs args, TItem item)
+    {
+        OnSelectionActivateAsync(item).ConfigureAwait(false);
+    }
+
+    public bool ClickEnabled => true;
 }

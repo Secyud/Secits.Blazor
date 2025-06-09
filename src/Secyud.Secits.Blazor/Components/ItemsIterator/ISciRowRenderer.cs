@@ -1,8 +1,12 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
 
 namespace Secyud.Secits.Blazor.Components;
 
-public interface ISciRowRenderer<TItem>:IScSetting
+public interface ISciRowRenderer<in TItem> : IScSetting
 {
-    RenderFragment GenerateRow(TItem item, RenderFragment<TItem> content);
+    string? GetRowClass(TItem item);
+    string? GetRowStyle(TItem item);
+    void OnRowClick(MouseEventArgs args, TItem item);
+    bool ClickEnabled { get; }
 }
