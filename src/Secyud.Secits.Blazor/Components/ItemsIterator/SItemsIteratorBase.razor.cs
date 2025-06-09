@@ -22,9 +22,8 @@ public abstract partial class SItemsIteratorBase<TItem> : IScsSize, IScsTheme
     #region Settings
 
     public SSetting<ISciRowRenderer<TItem>> RowRenderer { get; } = new();
-
+    public SSetting<ISciDataSource<TItem>> DataSource { get; } = new();
     public SSettings<ISciHeaderRenderer> Headers { get; } = new();
-
     public SSettings<ISciFooterRenderer> Footers { get; } = new();
     public SSetting<ISciItemsRenderer<TItem>> ItemsRenderer { get; } = new();
 
@@ -51,9 +50,6 @@ public abstract partial class SItemsIteratorBase<TItem> : IScsSize, IScsTheme
 
     [Parameter]
     public SValue Height { get; set; }
-
-    [Parameter]
-    public Func<DataRequest, Task<DataResult<TItem>>>? Items { get; set; }
 
     public DataRequest DataRequest { get; } = new();
 

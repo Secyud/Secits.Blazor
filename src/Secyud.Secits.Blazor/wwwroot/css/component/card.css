@@ -1,4 +1,4 @@
-.card {
+.card[s] {
     --bgmix: 0;
 
     &.rd {

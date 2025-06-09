@@ -2,7 +2,7 @@
 
 namespace Secyud.Secits.Blazor.JSInterop;
 
-public class SJsDocument(JsEventHandler eventHandler, IJSRuntime js) : IJsDocument
+public class SJsDocument(JsEventHandler eventHandler) : IJsDocument
 {
     private readonly Lazy<Task<IJSObjectReference>> _documentEventHandler =
         new(() => eventHandler.InvokeAsync<IJSObjectReference>("getDocumentEventHandler").AsTask()!);

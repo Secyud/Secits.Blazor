@@ -51,7 +51,8 @@ public partial class STableColumnResizer<TItem> : ISciTableHeaderRenderer
 
     private async Task OnDragColumnHeader(MouseEventArgs args)
     {
-        if (!_isDrag) return;
+        if (!_isDrag) return;	
+
         var columns = Master.TableColumns;
         if (_currentColumnIndex >= columns.Count - 1) return;
 
@@ -63,8 +64,10 @@ public partial class STableColumnResizer<TItem> : ISciTableHeaderRenderer
         var moveWith = (int)args.MovementX;
         if (moveWith < 0)
             moveWith = -Math.Min(width - gap, -moveWith);
-        else
+        else if (_currentColumnIndex != columns.Count - 2)
             moveWith = Math.Min(nextWidth - gap, moveWith);
+        else
+            moveWith = Math.Min(1000 - gap, moveWith);
         column.Width += moveWith;
         nextColumn.Width -= moveWith;
         

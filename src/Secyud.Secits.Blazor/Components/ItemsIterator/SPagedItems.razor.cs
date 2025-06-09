@@ -20,8 +20,8 @@ public partial class SPagedItems<TItem> : ISciItemsRenderer<TItem>, ISciFooterRe
 
     public async Task RefreshAsync()
     {
-        if (Master.Items is null) return;
-        var result = await Master.Items(Master.DataRequest);
+        if (Master.DataSource.Get() is not {} source) return;
+        var result = await source.GetDataAsync(Master.DataRequest);
         _items = result.Items.ToList();
         _totalCount = result.TotalCount;
     }

@@ -18,11 +18,11 @@ public partial class SVisualizeItems<TItem> : ISciItemsRenderer<TItem>
 
     public async ValueTask<ItemsProviderResult<TItem>> RefreshRowsAsync(ItemsProviderRequest request)
     {
-        if (Master.Items is null) return default;
+        if (Master.DataSource.Get() is not {} source) return default;
         Master.DataRequest.SkipCount = request.StartIndex;
         Master.DataRequest.PageSize = request.Count;
         Master.DataRequest.CancellationToken = request.CancellationToken;
-        var result = await Master.Items(Master.DataRequest);
+        var result = await source.GetDataAsync(Master.DataRequest);
         return new ItemsProviderResult<TItem>(result.Items, result.TotalCount);
     }
 

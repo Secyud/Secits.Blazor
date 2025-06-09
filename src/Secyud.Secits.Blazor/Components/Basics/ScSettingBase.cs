@@ -13,11 +13,7 @@ public abstract class ScSettingBase<TComponent> : IComponent, IAsyncDisposable, 
 {
     private TComponent? _master;
 
-    protected TComponent Master
-    {
-        get => _master!;
-        private set => _master = value;
-    }
+    protected TComponent Master => _master!;
 
     protected bool MasterValid => _master is not null;
 
