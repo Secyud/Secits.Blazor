@@ -91,7 +91,7 @@ public partial class STimePickerClockSlot : ISciInputSlotRenderer<TimeOnly>
     private void OnMouseUp()
     {
         _clockState = TimePrecision.Default;
-        Master.RefreshUi();
+        StateHasChanged();
     }
 
     private bool HoverInner => Hour is <= 12 and > 0;

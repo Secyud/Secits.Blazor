@@ -27,15 +27,37 @@ public abstract class ScSettingBase<TComponent> : IComponent, IAsyncDisposable, 
             if (_master is not null)
             {
                 ForgoSetting();
-                _master.RefreshUi();
+                StateHasChanged();
             }
 
             _master = value?.Value as TComponent;
             if (_master is not null)
             {
                 ApplySetting();
-                _master.RefreshUi();
+                StateHasChanged();
             }
+        }
+    }
+
+
+    protected void StateHasChanged()
+    {
+        _master?.MasterStateHasChanged();
+    }
+
+    public async Task InvokeAsync(Action action)
+    {
+        if (_master is not null)
+        {
+            await _master.MasterInvokeAsync(action);
+        }
+    }
+
+    public async Task InvokeAsync(Func<Task> action)
+    {
+        if (_master is not null)
+        {
+            await _master.MasterInvokeAsync(action);
         }
     }
 

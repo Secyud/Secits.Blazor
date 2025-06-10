@@ -40,7 +40,7 @@ public class SItemSingleSelector<TItem> : SSelectorBase<SItemsIteratorBase<TItem
     public override async Task OnSelectionActivateAsync(TItem item)
     {
         await OnItemSelectChangedAsync(Equals(item, SelectedItem) ? default : item);
-        await Master.RefreshUiAsync();
+        await InvokeAsync(StateHasChanged);
     }
 
     protected override void ApplySetting()

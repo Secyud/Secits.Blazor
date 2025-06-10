@@ -11,13 +11,18 @@ public abstract partial class ScBusinessBase
         _settingMaster = new ScSettingMaster(this);
     }
 
-    public void RefreshUi()
+    internal void MasterStateHasChanged()
     {
         StateHasChanged();
     }
 
-    public Task RefreshUiAsync()
+    internal Task MasterInvokeAsync(Action action)
     {
-        return InvokeAsync(StateHasChanged);
+        return InvokeAsync(action);
+    }
+
+    internal Task MasterInvokeAsync(Func<Task> action)
+    {
+        return InvokeAsync(action);
     }
 }
