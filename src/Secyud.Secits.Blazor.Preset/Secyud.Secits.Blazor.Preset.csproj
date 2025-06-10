@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+    <Import Project="../../common.props"/>
+
+    <PropertyGroup>
+        <TargetFrameworks>net8.0;net9.0</TargetFrameworks>
+        <RootNamespace>Secyud.Secits.Blazor.Preset</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\Secyud.Secits.Blazor\Secyud.Secits.Blazor.csproj"/>
+    </ItemGroup>
+
+</Project>

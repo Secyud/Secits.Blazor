@@ -4,14 +4,6 @@
     <PropertyGroup>
         <TargetFrameworks>net8.0;net9.0</TargetFrameworks>
     </PropertyGroup>
-
-    <PropertyGroup Condition="'$(TargetFramework)' == 'net8.0'">
-        <DotNetVersion>8.*</DotNetVersion>
-    </PropertyGroup>
-
-    <PropertyGroup Condition="'$(TargetFramework)' == 'net9.0'">
-        <DotNetVersion>9.*</DotNetVersion>
-    </PropertyGroup>
     
     <ItemGroup>
         <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="$(DotNetVersion)"/>
