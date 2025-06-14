@@ -1,4 +1,4 @@
-﻿namespace Secyud.Secits.Blazor.Services;
+﻿namespace Secyud.Secits.Blazor;
 
 public class NullLocalizationService : ILocalizationService
 {

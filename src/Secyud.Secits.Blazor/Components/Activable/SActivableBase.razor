@@ -1,0 +1,23 @@
+﻿@namespace Secyud.Secits.Blazor
+@inherits SComponentBase
+
+@{
+    base.BuildRenderTree(__builder);
+}
+
+@code
+{
+    /// <summary>
+    /// TODO add layout component
+    /// 
+    /// </summary>
+    /// <returns></returns>
+    protected override RenderFragment GenerateChildContent() => __builder =>
+    {
+        foreach (var renderer in SlotRenderer)
+        {
+            @renderer.RenderSlot()
+        }
+    };
+}
+

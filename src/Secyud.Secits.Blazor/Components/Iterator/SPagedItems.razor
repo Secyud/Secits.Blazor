@@ -1,0 +1,27 @@
+﻿@namespace Secyud.Secits.Blazor
+@inherits SSettingBase<SIteratorBase<TItem>>
+@typeparam TItem
+
+@code
+{
+    public RenderFragment GenerateItems(RenderFragment<TItem> itemTemplate) => __builder =>
+    {
+        if (!_items.Any()) return;
+
+        foreach (var item in _items)
+        {
+            @itemTemplate(item)
+        }
+    };
+
+    public RenderFragment GenerateFooter() => __builder =>
+    {
+        var maxPageCount = _totalCount;
+        <div class="table-pager-container">
+            <SPager Class="table-pager" MaxPageCount="maxPageCount"
+                    PageIndex="Master.DataRequest.PageIndex"
+                    PageIndexChanged="PageIndexChangedAsync"/>
+            <SDropdown></SDropdown>
+        </div>
+    };
+}

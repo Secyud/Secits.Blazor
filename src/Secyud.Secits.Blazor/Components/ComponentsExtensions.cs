@@ -1,7 +1,7 @@
 ﻿using System.Linq.Expressions;
 using Microsoft.AspNetCore.Components;
 
-namespace Secyud.Secits.Blazor.Components;
+namespace Secyud.Secits.Blazor;
 
 public static class ComponentsExtensions
 {

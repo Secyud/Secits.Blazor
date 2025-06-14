@@ -1,4 +1,4 @@
-﻿namespace Secyud.Secits.Blazor.Arguments;
+﻿namespace Secyud.Secits.Blazor;
 
 [Flags]
 public enum Style : byte

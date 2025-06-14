@@ -1,0 +1,6 @@
+﻿@inject IOptionsSnapshot<SecitsOptions> Options
+
+@foreach (var jsPath in Options.Value.GetJsPaths())
+{
+    <script src="@jsPath"></script>
+}

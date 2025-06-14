@@ -1,6 +1,6 @@
 ﻿using System.Linq.Expressions;
 
-namespace Secyud.Secits.Blazor.Components;
+namespace Secyud.Secits.Blazor;
 
 public interface ISchValueField<TItem, TValue>
 {

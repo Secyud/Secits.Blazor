@@ -1,4 +1,4 @@
-﻿namespace Secyud.Secits.Blazor.Options;
+﻿namespace Secyud.Secits.Blazor;
 
 public class SecitsOptions
 {
@@ -6,6 +6,7 @@ public class SecitsOptions
 
     public UiThemeType ThemeType { get; set; } = UiThemeType.Default;
 
+    public List<DirtyParameter> Parameters { get; } = [];
 
     public List<string> GetCssPaths()
     {

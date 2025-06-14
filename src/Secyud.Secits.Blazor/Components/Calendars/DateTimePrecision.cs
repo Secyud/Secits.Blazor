@@ -1,4 +1,4 @@
-﻿namespace Secyud.Secits.Blazor.Components;
+﻿namespace Secyud.Secits.Blazor;
 
 public readonly struct DateTimePrecision
 {

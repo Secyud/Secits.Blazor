@@ -1,0 +1,13 @@
+﻿@namespace Secyud.Secits.Blazor
+@inherits SSettingBase<SIteratorBase<TItem>>
+@typeparam TItem
+
+@code
+{
+    public RenderFragment GenerateItems(RenderFragment<TItem> itemTemplate) => __builder =>
+    {
+        <Virtualize @ref="_virtualize" ItemsProvider="RefreshRowsAsync" Context="item">
+            @itemTemplate(item)
+        </Virtualize>
+    };
+}

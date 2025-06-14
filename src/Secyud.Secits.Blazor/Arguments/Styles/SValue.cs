@@ -1,7 +1,6 @@
-﻿namespace Secyud.Secits.Blazor.Arguments;
+﻿namespace Secyud.Secits.Blazor;
 
-public readonly struct SValue(string value, bool isClass = false) :
-    IEquatable<SValue>, IMaybeClassParameter
+public readonly struct SValue(string value, bool isClass = false) : IEquatable<SValue>, IMaybeClassParameter
 {
     public string Value { get; } = value;
     public bool IsClass { get; } = isClass;

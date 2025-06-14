@@ -1,14 +1,14 @@
-﻿namespace Secyud.Secits.Blazor.Components;
+﻿namespace Secyud.Secits.Blazor;
 
 public partial class STimePickerBoardSlot
 {
     protected override void ApplySetting()
     {
-        Master.InputSlotRenderers.Apply(this);
+        Master.ValueContainer.Apply(this);
     }
 
     protected override void ForgoSetting()
     {
-        Master.InputSlotRenderers.Forgo(this);
+        Master.ValueContainer.Forgo(this);
     }
 }

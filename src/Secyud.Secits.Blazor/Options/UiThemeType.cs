@@ -1,4 +1,4 @@
-﻿namespace Secyud.Secits.Blazor.Options;
+﻿namespace Secyud.Secits.Blazor;
 
 public enum UiThemeType
 {

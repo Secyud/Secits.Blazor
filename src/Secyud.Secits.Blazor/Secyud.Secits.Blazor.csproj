@@ -15,4 +15,9 @@
           <CssScope>s</CssScope>
         </None>
     </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Components\Buttons\" />
+      <Folder Include="Styles\" />
+    </ItemGroup>
 </Project>

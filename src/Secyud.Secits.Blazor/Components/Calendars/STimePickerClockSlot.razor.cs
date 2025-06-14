@@ -1,10 +1,9 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
-using Secyud.Secits.Blazor.JSInterop;
 
-namespace Secyud.Secits.Blazor.Components;
+namespace Secyud.Secits.Blazor;
 
-public partial class STimePickerClockSlot : ISciInputSlotRenderer<TimeOnly>
+public partial class STimePickerClockSlot : ISciValueContainer<TimeOnly>
 {
     private TimePrecision _clockState = TimePrecision.Default;
 
@@ -98,11 +97,11 @@ public partial class STimePickerClockSlot : ISciInputSlotRenderer<TimeOnly>
 
     protected override void ApplySetting()
     {
-        Master.InputSlotRenderers.Apply(this);
+        Master.ValueContainer.Apply(this);
     }
 
     protected override void ForgoSetting()
     {
-        Master.InputSlotRenderers.Forgo(this);
+        Master.ValueContainer.Forgo(this);
     }
 }

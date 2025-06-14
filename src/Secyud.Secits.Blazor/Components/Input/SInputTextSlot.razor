@@ -1,0 +1,13 @@
+﻿@namespace Secyud.Secits.Blazor
+@inherits SSettingBase<SInput<TValue>>
+@typeparam TValue
+
+@code
+{
+    public RenderFragment RenderSlot() =>
+        @<input value="@InputString"
+                readonly="@(Master.Readonly ? "readonly" : null)"
+                disabled="@(Master.Disabled ? "disabled" : null)"
+                @oninput="OnInputAsync" @onchange="@OnChangeAsync"
+                @attributes="Attributes"/>;
+}

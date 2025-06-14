@@ -1,4 +1,4 @@
-﻿namespace Secyud.Secits.Blazor.JSInterop;
+﻿namespace Secyud.Secits.Blazor;
 
 public interface IJsDocument
 {

@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Components;
 
-namespace Secyud.Secits.Blazor.Components;
+namespace Secyud.Secits.Blazor;
 
-public abstract class SInputTimePickerSlot : ScSettingBase<SInput<TimeOnly>>, ISciInputSlotRenderer<TimeOnly>
+public abstract class SInputTimePickerSlot : SSettingBase<SInput<TimeOnly>>, ISciValueContainer<TimeOnly>
 {
     public abstract RenderFragment RenderSlot();
 

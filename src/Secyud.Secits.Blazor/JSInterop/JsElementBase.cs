@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 
-namespace Secyud.Secits.Blazor.JSInterop;
+namespace Secyud.Secits.Blazor;
 
 public abstract class JsElementBase(IJSRuntime js)
 {

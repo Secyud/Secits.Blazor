@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 
-namespace Secyud.Secits.Blazor.Components;
+namespace Secyud.Secits.Blazor;
 
 public interface ISchValue<TValue>
 {

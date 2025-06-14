@@ -1,0 +1,34 @@
+﻿@namespace Secyud.Secits.Blazor
+@inherits SComponentBase
+
+@{
+    base.BuildRenderTree(__builder);
+}
+
+@code
+{
+    protected override RenderFragment GenerateChildContent() => __builder =>
+    {
+        @GenerateHeader()
+        @GenerateBody()
+        @GenerateFooter()
+    };
+
+    protected virtual RenderFragment GenerateHeader() => __builder =>
+    {
+        foreach (var header in Header)
+        {
+            @header.GenerateHeader()
+        }
+    };
+
+    protected abstract RenderFragment? GenerateBody();
+
+    protected virtual RenderFragment GenerateFooter() => __builder =>
+    {
+        foreach (var footer in Footer)
+        {
+            @footer.GenerateFooter()
+        }
+    };
+}

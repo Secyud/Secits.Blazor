@@ -1,4 +1,4 @@
-﻿namespace Secyud.Secits.Blazor.Components;
+﻿namespace Secyud.Secits.Blazor;
 
 public interface IScwMinMaxValue<TValue>
     where TValue : IComparable<TValue>

@@ -1,6 +1,6 @@
 ﻿using Microsoft.JSInterop;
 
-namespace Secyud.Secits.Blazor.JSInterop;
+namespace Secyud.Secits.Blazor;
 
 public class Invoker<TEventArgs>
 {
