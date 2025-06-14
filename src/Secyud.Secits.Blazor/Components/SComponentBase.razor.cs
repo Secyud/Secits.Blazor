@@ -1,8 +1,9 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Secyud.Secits.Blazor.Services;
 
 namespace Secyud.Secits.Blazor;
 
-public abstract partial class SComponentBase : IScsTheme, IScsSize
+public abstract partial class SComponentBase : IHasTheme, IHasSize
 {
     private readonly SSettingMaster _settingMaster;
     private readonly ClassStyleBuilder _classStyleBuilder;

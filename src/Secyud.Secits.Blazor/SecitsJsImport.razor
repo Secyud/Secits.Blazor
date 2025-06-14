@@ -1,4 +1,5 @@
-﻿@inject IOptionsSnapshot<SecitsOptions> Options
+﻿@using Secyud.Secits.Blazor.Options
+@inject IOptionsSnapshot<SecitsOptions> Options
 
 @foreach (var jsPath in Options.Value.GetJsPaths())
 {

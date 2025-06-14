@@ -2,24 +2,24 @@
 
 namespace Secyud.Secits.Blazor;
 
-public class WidthParameter : DirtyParameter<IScsWidth>
+public class WidthParameter : DirtyParameter<IHasWidth>
 {
     public override bool CheckComponentValid(SComponentBase c)
     {
-        return c is IScsWidth and not IScsSize;
+        return c is IHasWidth and not IHasSize;
     }
 
-    public static void Append(IScsWidth c, ClassStyleContext context)
+    public static void Append(IHasWidth c, ClassStyleContext context)
     {
         context.AppendClassOrStyle(c.Width, "w-", "width");
     }
 
-    protected override void BuildClassStyle(IScsWidth c, ClassStyleContext context)
+    protected override void BuildClassStyle(IHasWidth c, ClassStyleContext context)
     {
         Append(c, context);
     }
 
-    protected override bool CheckDirty(IScsWidth c, ParameterView view)
+    protected override bool CheckDirty(IHasWidth c, ParameterView view)
     {
         return ParameterChanged(nameof(c.Width), c.Width, view);
     }

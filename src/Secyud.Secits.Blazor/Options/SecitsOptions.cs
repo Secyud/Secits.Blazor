@@ -1,4 +1,4 @@
-﻿namespace Secyud.Secits.Blazor;
+﻿namespace Secyud.Secits.Blazor.Options;
 
 public class SecitsOptions
 {

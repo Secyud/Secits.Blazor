@@ -2,15 +2,15 @@
 
 namespace Secyud.Secits.Blazor;
 
-public class ThemeParameter : DirtyParameter<IScsTheme>
+public class ThemeParameter : DirtyParameter<IHasTheme>
 {
     public override bool CheckComponentValid(SComponentBase c)
     {
-        return c is IScsTheme;
+        return c is IHasTheme;
     }
 
 
-    protected override void BuildClassStyle(IScsTheme c, ClassStyleContext context)
+    protected override void BuildClassStyle(IHasTheme c, ClassStyleContext context)
     {
         context.AppendClass(c.Theme switch
         {
@@ -41,7 +41,7 @@ public class ThemeParameter : DirtyParameter<IScsTheme>
         if (c.StyleOption.HasFlag(Style.Plain)) context.AppendClass("pl");
     }
 
-    protected override bool CheckDirty(IScsTheme c, ParameterView view)
+    protected override bool CheckDirty(IHasTheme c, ParameterView view)
     {
         return
             ParameterChanged(nameof(c.Size), c.Size, view) ||

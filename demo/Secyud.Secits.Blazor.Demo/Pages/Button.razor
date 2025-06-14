@@ -1,0 +1,41 @@
+﻿@attribute [Route(Menu.Button)]
+@{
+    <SCard>
+        <Header>
+            Header
+        </Header>
+        <Body>
+        @foreach (var size in Sizes)
+        {
+            <br/>
+            <label>@size</label>
+            <br/>
+            foreach (var theme in Themes)
+            {
+                <SButton Theme="theme" Size="size" StyleOption="Style.Plain">
+                    @theme
+                </SButton>
+            }
+        }
+        </Body>
+    </SCard>
+}
+
+@code
+{
+    Theme[] Themes { get; } =
+    [
+        Theme.Default, Theme.Primary, Theme.Secondary, Theme.Naive,
+        Theme.Success, Theme.Info, Theme.Warning, Theme.Danger
+    ];
+
+    Size[] Sizes { get; } =
+    [
+        Size.XSmall, Size.Small, Size.Default, Size.Large, Size.XLarge
+    ];
+
+    bool[] Bool { get; } =
+    [
+        false, true
+    ];
+}

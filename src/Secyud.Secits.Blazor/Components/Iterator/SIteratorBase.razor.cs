@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Secyud.Secits.Blazor.Settings;
 
 namespace Secyud.Secits.Blazor;
 
@@ -21,9 +22,9 @@ public abstract partial class SIteratorBase<TItem>
 
     #region Settings
 
-    public SSetting<ISciRowRenderer<TItem>> RowRenderer { get; } = new();
-    public SSetting<ISciDataSource<TItem>> DataSource { get; } = new();
-    public SSetting<ISciItemsRenderer<TItem>> ItemsRenderer { get; } = new();
+    public SSetting<IRowRenderer<TItem>> RowRenderer { get; } = new();
+    public SSetting<IDataSourceProvider<TItem>> DataSource { get; } = new();
+    public SSetting<IIteratorRenderer<TItem>> ItemsRenderer { get; } = new();
 
     public Task RefreshAsync()
     {

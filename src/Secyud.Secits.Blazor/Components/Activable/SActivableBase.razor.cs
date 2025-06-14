@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Secyud.Secits.Blazor.Settings;
 
 namespace Secyud.Secits.Blazor;
 
@@ -16,7 +17,7 @@ public abstract partial class SActivableBase
 
     #region Settings
 
-    public SSettings<ISciLayoutSlotRenderer> SlotRenderer { get; } = new();
+    public SSettings<ILayoutSlotRenderer> SlotRenderer { get; } = new();
 
     #endregion
 }

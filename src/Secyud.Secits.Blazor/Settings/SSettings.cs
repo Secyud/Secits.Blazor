@@ -1,6 +1,6 @@
 ﻿using System.Collections;
 
-namespace Secyud.Secits.Blazor;
+namespace Secyud.Secits.Blazor.Settings;
 
 public class SSettings<TSetting> : IReadOnlyList<TSetting> where TSetting : class
 {

@@ -1,0 +1,43 @@
+﻿
+@attribute [Route(Menu.Input)]
+<style>
+    .group {
+        display: grid;
+        grid-template-columns: repeat(9, 1fr); /* 自适应列数 */
+        grid-gap: 0.5rem;
+    }
+</style>
+
+<SCard>
+    <Body>
+        @foreach (var size in Sizes)
+        {
+            <label>@size</label>
+            foreach (var theme in Themes)
+            {
+                <InputTextBox Value="@(theme.ToString())"
+                              Theme="theme" Size="size">
+                </InputTextBox>
+            }
+        }
+    </Body>
+</SCard>
+
+@code
+{
+    Theme[] Themes { get; } =
+    [
+        Theme.Default, Theme.Primary, Theme.Secondary, Theme.Naive,
+        Theme.Success, Theme.Info, Theme.Warning, Theme.Danger
+    ];
+
+    Size[] Sizes { get; } =
+    [
+        Size.XSmall, Size.Small, Size.Default, Size.Large, Size.XLarge
+    ];
+
+    bool[] Bool { get; } =
+    [
+        false, true
+    ];
+}

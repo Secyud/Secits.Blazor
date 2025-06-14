@@ -1,0 +1,17 @@
+﻿@namespace Secyud.Secits.Blazor
+@inherits TimePickerSlot
+
+@code
+{
+    public override RenderFragment RenderSlot() =>
+        @<div class="pkr-t board">
+            <SliderBox Disabled="@Pression.Disable(DateTimePrecisionKind.Hour)"
+                       @bind-Value="Hour" Cycle Format="00" Max="23" Style="@Style"/>
+            <SliderBox Disabled="@Pression.Disable(DateTimePrecisionKind.Minute)"
+                       @bind-Value="Minute" Cycle Format="00" Max="59" Style="@Style"/>
+            <SliderBox Disabled="@Pression.Disable(DateTimePrecisionKind.Second)"
+                       @bind-Value="Second" Cycle Format="00" Max="59" Style="@Style"/>
+        </div>;
+
+    private const string Style = "width: 3rem;padding: 0;";
+}

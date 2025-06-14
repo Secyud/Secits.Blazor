@@ -2,14 +2,14 @@
 
 namespace Secyud.Secits.Blazor;
 
-public class SizeParameter : DirtyParameter<IScsSize>
+public class SizeParameter : DirtyParameter<IHasSize>
 {
     public override bool CheckComponentValid(SComponentBase c)
     {
-        return c is IScsSize;
+        return c is IHasSize;
     }
 
-    protected override void BuildClassStyle(IScsSize c, ClassStyleContext context)
+    protected override void BuildClassStyle(IHasSize c, ClassStyleContext context)
     {
         if (c.Height.IsClass && c.Width.IsClass && c.Height.Value == c.Width.Value)
             context.AppendClass("size-", c.Height.ToString());
@@ -20,7 +20,7 @@ public class SizeParameter : DirtyParameter<IScsSize>
         }
     }
 
-    protected override bool CheckDirty(IScsSize c, ParameterView view)
+    protected override bool CheckDirty(IHasSize c, ParameterView view)
     {
         return
             ParameterChanged(nameof(c.Width), c.Width, view) ||

@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 
-namespace Secyud.Secits.Blazor;
+namespace Secyud.Secits.Blazor.JSInterop;
 
 public interface IJsElement
 {

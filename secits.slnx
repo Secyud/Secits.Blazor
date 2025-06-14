@@ -4,14 +4,20 @@
     <Platform Name="x64" />
     <Platform Name="x86" />
   </Configurations>
-  <Folder Name="/host/">
-    <Project Path="host\Secyud.Secits.Blazor.Demo\Secyud.Secits.Blazor.Demo.csproj" Type="Classic C#">
+  <Folder Name="/demo/">
+    <Project Path="demo\Secyud.Secits.Blazor.Demo\Secyud.Secits.Blazor.Demo.csproj" Type="Classic C#">
       <Configuration Solution="Debug|x64" Project="Debug|Any CPU" />
       <Configuration Solution="Debug|x86" Project="Debug|Any CPU" />
       <Configuration Solution="Release|x64" Project="Release|Any CPU" />
       <Configuration Solution="Release|x86" Project="Release|Any CPU" />
     </Project>
-    <Project Path="host\Secyud.Secits.Blazor.Server.Demo\Secyud.Secits.Blazor.Server.Demo.csproj" Type="Classic C#">
+    <Project Path="demo\Secyud.Secits.Blazor.Server.Demo\Secyud.Secits.Blazor.Server.Demo.csproj" Type="Classic C#">
+      <Configuration Solution="Debug|x64" Project="Debug|Any CPU" />
+      <Configuration Solution="Debug|x86" Project="Debug|Any CPU" />
+      <Configuration Solution="Release|x64" Project="Release|Any CPU" />
+      <Configuration Solution="Release|x86" Project="Release|Any CPU" />
+    </Project>
+    <Project Path="demo\Secyud.Secits.Blazor.WebAssembly.Demo\Secyud.Secits.Blazor.WebAssembly.Demo.csproj" Type="Classic C#">
       <Configuration Solution="Debug|x64" Project="Debug|Any CPU" />
       <Configuration Solution="Debug|x86" Project="Debug|Any CPU" />
       <Configuration Solution="Release|x64" Project="Release|Any CPU" />

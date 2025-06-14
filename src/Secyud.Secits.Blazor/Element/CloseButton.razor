@@ -1,0 +1,10 @@
+﻿@namespace Secyud.Secits.Blazor.Element
+@inherits SElementBase
+
+<span class="close" @onclick="OnClick"></span>
+
+@code
+{
+    [Parameter]
+    public EventCallback<MouseEventArgs> OnClick { get; set; }
+}

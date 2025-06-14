@@ -1,4 +1,6 @@
-﻿namespace Secyud.Secits.Blazor;
+﻿using Secyud.Secits.Blazor.Settings;
+
+namespace Secyud.Secits.Blazor;
 
 public partial class SCard
 {
@@ -6,7 +8,7 @@ public partial class SCard
 
     #region Body
 
-    public SSettings<ISciBodyRenderer> Body { get; } = new();
+    public SSettings<IContentBodyRenderer> Body { get; } = new();
 
     #endregion
 }

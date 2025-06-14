@@ -1,6 +1,11 @@
 ﻿@namespace Secyud.Secits.Blazor
 @inherits SContentBase
+@using Secyud.Secits.Blazor.Settings
 @typeparam TItem
+
+@{
+    base.BuildRenderTree(__builder);
+}
 
 @code
 {
@@ -17,10 +22,10 @@
             : GenerateRowWithoutRenderer();
     }
 
-    protected virtual RenderFragment<TItem> GenerateRowWithRenderer(ISciRowRenderer<TItem> renderer) => item =>
+    protected virtual RenderFragment<TItem> GenerateRowWithRenderer(IRowRenderer<TItem> renderer) => item =>
         @<div class="@renderer.GetRowClass(item)"
               style="@renderer.GetRowStyle(item)"
-              @onclick="e=> renderer.OnRowClick(e,item))">
+              @onclick="e=> renderer.OnRowClick(e,item)">
             @GenerateCol()(item)
         </div>;
 

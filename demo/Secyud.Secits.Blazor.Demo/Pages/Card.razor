@@ -1,0 +1,21 @@
+﻿@attribute [Route(Menu.Card)]
+
+<SCard>
+    <Header>
+        @Title
+    </Header>
+    <Body>
+    @Content
+    </Body>
+</SCard>
+
+
+
+
+
+@code
+{
+    string Title { get; } = Utils.GetRandomWord(true);
+
+    string Content { get; } = Utils.GetRandomSentences(10);
+}

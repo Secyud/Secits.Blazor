@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace Secyud.Secits.Blazor;
+namespace Secyud.Secits.Blazor.JSInterop;
 
 public class DomRect
 {

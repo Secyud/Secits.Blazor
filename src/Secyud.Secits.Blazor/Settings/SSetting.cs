@@ -1,4 +1,4 @@
-﻿namespace Secyud.Secits.Blazor;
+﻿namespace Secyud.Secits.Blazor.Settings;
 
 public class SSetting<TSetting> where TSetting : class
 {

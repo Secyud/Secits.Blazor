@@ -11,7 +11,6 @@ public class ClassStyleParameter : DirtyParameter<SComponentBase>
 
     protected override void BuildClassStyle(SComponentBase c, ClassStyleContext context)
     {
-        context.Class.Append(' ');
         context.Class.Append(c.Class);
         context.Style.Append(c.Style);
     }

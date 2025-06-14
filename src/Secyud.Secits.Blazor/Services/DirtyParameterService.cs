@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Options;
+using Secyud.Secits.Blazor.Options;
 
-namespace Secyud.Secits.Blazor;
+namespace Secyud.Secits.Blazor.Services;
 
 public class DirtyParameterService(IOptions<SecitsOptions> options)
 {

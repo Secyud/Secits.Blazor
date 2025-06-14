@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Secyud.Secits.Blazor.Settings;
 
 namespace Secyud.Secits.Blazor;
 
@@ -8,7 +9,19 @@ public partial class SInput<TValue>
     protected override string ComponentName => "input";
 
 
+    #region Parameters
+
     private TValue _value = default!;
+
+    [Parameter]
+    public TValue Value { get; set; } = default!;
+
+    [Parameter]
+    public EventCallback<TValue> ValueChanged { get; set; }
+
+    #endregion
+
+    public TValue CurrentValue { get; protected set; } = default!;
 
     public override async Task SetParametersAsync(ParameterView parameters)
     {
@@ -23,9 +36,9 @@ public partial class SInput<TValue>
 
     #region Settings
 
-    public SSetting<ISciInputInvoker<TValue>> InputInvoker { get; } = new();
+    public SSetting<IInputInvoker<TValue>> InputInvoker { get; } = new();
 
-    public override async Task OnValueChangedAsync(TValue value)
+    public virtual async Task OnValueChangedAsync(TValue value)
     {
         CurrentValue = value;
         await InputInvoker.InvokeAsync(
@@ -33,14 +46,14 @@ public partial class SInput<TValue>
             () => ValueChanged.InvokeAsync(value));
     }
 
-    public SSettings<ISciValueContainer<TValue>> ValueContainer { get; } = new();
+    public SSettings<IValueContainer<TValue>> ValueContainer { get; } = new();
 
     private async Task SetValueFromParameterAsync(TValue value)
     {
         await ValueContainer.InvokeAsync(u => u.SetValueFromParameterAsync(value));
     }
 
-    public SSetting<ISciInputValueConverter<TValue>> ValueConverter { get; } = new();
+    public SSetting<IInputValueConverter<TValue>> ValueConverter { get; } = new();
 
     #endregion
 }

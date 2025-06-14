@@ -7,7 +7,7 @@
 
 @code {
 
-    protected override RenderFragment GenerateHeader() =>
+    protected override RenderFragment? GenerateHeader() =>
         Header.Count > 0
             ? @<div class="header">
                   @base.GenerateHeader()
@@ -24,7 +24,7 @@
               </div>
             : null;
 
-    protected override RenderFragment GenerateFooter() =>
+    protected override RenderFragment? GenerateFooter() =>
         Footer.Count > 0
             ? @<div class="footer">
                   @base.GenerateFooter()

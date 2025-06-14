@@ -1,0 +1,24 @@
+﻿@using Secyud.Secits.Blazor.Data
+
+@attribute [Route(Menu.Table)]
+
+<STable TItem="ListItem" Height="@("500px")">
+    <SimpleDataSource Items="_list"/>
+    <EnableIteratorVisualize/>
+    <EnableItemSelect/>
+    <EnableColumnResize/>
+    <TableDataColumn Caption="@nameof(ListItem.Name)"
+                     ValueField="@(item => item.Name)"/>
+    <TableDataColumn Caption="@nameof(ListItem.PhoneNumber)"
+                     ValueField="@(item => item.PhoneNumber)"/>
+    <TableDataColumn Caption="@nameof(ListItem.Age)"
+                     ValueField="@(item => item.Age)"/>
+    <TableDataColumn Caption="@nameof(ListItem.BirthDate)"
+                     ValueField="@(item => item.BirthDate)"
+                     Format="yyyy MM dd hh mm ss"/>
+</STable>
+
+@code {
+    readonly List<ListItem> _list = ListItem.Generate(200);
+
+}

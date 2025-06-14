@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Secyud.Secits.Blazor.Settings;
 
 namespace Secyud.Secits.Blazor;
 
@@ -9,7 +10,7 @@ public partial class SList<TItem>
 
     #region Settings
 
-    public SSettings<ISciColumnRenderer<TItem>> Columns { get; } = new();
+    public SSettings<ITableColumnRenderer<TItem>> Columns { get; } = new();
 
     #endregion
 }

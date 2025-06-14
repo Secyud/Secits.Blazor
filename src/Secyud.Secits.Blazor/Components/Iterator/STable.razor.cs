@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Secyud.Secits.Blazor.Settings;
 
 namespace Secyud.Secits.Blazor;
 
@@ -19,9 +20,9 @@ public sealed partial class STable<TItem>
 
     #region Settings
 
-    public SSettings<ISciTableColumnRenderer<TItem>> TableColumns { get; } = new();
-    public SSettings<ISciTableHeaderRenderer> TableHeaders { get; } = new();
-    public SSettings<ISciTableFooterRenderer> TableFooters { get; } = new();
+    public SSettings<ITableColumnRenderer<TItem>> TableColumns { get; } = new();
+    public SSettings<ITableHeaderRenderer> TableHeaders { get; } = new();
+    public SSettings<ITableFooterRenderer> TableFooters { get; } = new();
 
     #endregion
 }

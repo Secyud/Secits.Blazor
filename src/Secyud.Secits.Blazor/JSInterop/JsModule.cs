@@ -1,6 +1,6 @@
 ﻿using Microsoft.JSInterop;
 
-namespace Secyud.Secits.Blazor;
+namespace Secyud.Secits.Blazor.JSInterop;
 
 public abstract class JsModule(IJSRuntime js, string moduleUrl) : IAsyncDisposable
 {

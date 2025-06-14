@@ -1,8 +1,9 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Secyud.Secits.Blazor.Settings;
 
 namespace Secyud.Secits.Blazor;
 
-public partial class SButton : ISccClick
+public partial class SButton : ICanClick
 {
     protected override string ComponentName => "button";
 

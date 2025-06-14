@@ -14,7 +14,7 @@
         @GenerateFooter()
     };
 
-    protected virtual RenderFragment GenerateHeader() => __builder =>
+    protected virtual RenderFragment? GenerateHeader() => __builder =>
     {
         foreach (var header in Header)
         {
@@ -24,7 +24,7 @@
 
     protected abstract RenderFragment? GenerateBody();
 
-    protected virtual RenderFragment GenerateFooter() => __builder =>
+    protected virtual RenderFragment? GenerateFooter() => __builder =>
     {
         foreach (var footer in Footer)
         {
