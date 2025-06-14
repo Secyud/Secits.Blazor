@@ -2,7 +2,13 @@
 
 namespace Secyud.Secits.Blazor.Preset;
 
-public partial class InputTextBox
+[CascadingTypeParameter(nameof(TValue))]
+public partial class InputTextBox<TValue>
+    where TValue :
+    IComparable<string?>,
+    IEquatable<string?>,
+    ISpanParsable<string>,
+    IParsable<string>
 {
     [Parameter]
     public bool SubmitOnInput { get; set; }

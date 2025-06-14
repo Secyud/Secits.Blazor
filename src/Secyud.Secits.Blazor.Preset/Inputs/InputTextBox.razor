@@ -1,5 +1,6 @@
 ﻿@namespace Secyud.Secits.Blazor.Preset
-@inherits SInput<string>
+@inherits SInput<TValue>
+@typeparam TValue
 
 @{
     base.BuildRenderTree(__builder);
@@ -9,6 +10,6 @@
 {
     protected override RenderFragment GenerateSetting() => __builder =>
     {
-        <InputTextSlot TValue="string" SubmitOnInput="SubmitOnInput"/>
+        <InputTextSlot TValue="TValue" SubmitOnInput="SubmitOnInput"/>
     };
 }
