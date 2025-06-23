@@ -1,0 +1,17 @@
+﻿.card {
+    --bgmix: 0;
+
+    &.rd {
+        border-radius: calc(var(--s-s));
+    }
+
+    .card-header {
+        padding: 0.25rem;
+        font-weight: 600;
+    }
+
+    .card-body {
+        --size-body: calc(var(--s-s) * 0.875);
+        padding: 0.25rem;
+    }
+}

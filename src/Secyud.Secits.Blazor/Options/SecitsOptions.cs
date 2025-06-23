@@ -4,7 +4,9 @@ public class SecitsOptions
 {
     public const string RootPath = "_content/Secyud.Secits.Blazor/";
 
-    public UiThemeType ThemeType { get; set; } = UiThemeType.Default;
+    public UiThemeColor ThemeColor { get; set; } = UiThemeColor.Default;
+    public UiThemeStyle ThemeStyle { get; set; } = UiThemeStyle.Default;
+    public UiThemeParam ThemeParam { get; set; } = UiThemeParam.Default;
 
     public List<DirtyParameter> Parameters { get; } = [];
 
@@ -12,19 +14,23 @@ public class SecitsOptions
     {
         List<string> res = [];
 
-        switch (ThemeType)
+        res.AddRange(ThemeColor switch
         {
-            case UiThemeType.Default:
-                res.Add(RootPath + "css/style/default.css");
-                break;
-            case UiThemeType.BootstrapV5:
-                res.Add(RootPath + "css/style/bootstrap-v5.css");
-                break;
-            default:
-                throw new ArgumentOutOfRangeException();
-        }
-
-        res.Add(RootPath + "css/components.css");
+            UiThemeColor.Default => [RootPath + "css/color/default.min.css"],
+            _ => throw new ArgumentOutOfRangeException(),
+        });
+        
+        res.AddRange(ThemeParam switch
+        {
+            UiThemeParam.Default => [RootPath + "css/param/default.min.css"],
+            _ => throw new ArgumentOutOfRangeException(),
+        });
+        
+        res.AddRange(ThemeStyle switch
+        {
+            UiThemeStyle.Default => [RootPath + "css/style/default.min.css"],
+            _ => throw new ArgumentOutOfRangeException(),
+        });
 
         return res;
     }

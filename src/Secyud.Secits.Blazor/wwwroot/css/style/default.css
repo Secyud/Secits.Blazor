@@ -17,30 +17,3 @@ body {
     font-size: var(--size);
 }
 
-:root, .primary {
-    --s-color: rgb(39, 128, 227);
-}
-
-.secondary {
-    --s-color: rgb(24, 191, 153);
-}
-
-.naive {
-    --s-color: rgb(126, 126, 126);
-}
-
-.success {
-    --s-color: rgb(65, 198, 16);
-}
-
-.info {
-    --s-color: rgb(160, 17, 214);
-}
-
-.warning {
-    --s-color: rgb(255, 117, 24);
-}
-
-.danger {
-    --s-color: rgb(255, 0, 57);
-}

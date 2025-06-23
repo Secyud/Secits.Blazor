@@ -7,8 +7,8 @@
     transition: background-color 50ms linear;
 
     margin: auto;
-    width: var(--size);
-    height: var(--size);
+    width: var(--s-s);
+    height: var(--s-s);
     border-radius: 50%;
     background-color: rgba(from var(--s-color-reverse) r g b / var(--bgmix));
 
@@ -25,7 +25,7 @@
 
 
     &::before {
-        --mask-size: calc(var(--size) / 2);
+        --mask-size: calc(var(--s-s) / 2);
         content: "";
         display: block;
         margin: auto;

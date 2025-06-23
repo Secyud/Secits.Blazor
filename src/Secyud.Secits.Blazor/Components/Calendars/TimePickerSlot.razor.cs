@@ -3,7 +3,7 @@ using Secyud.Secits.Blazor.Settings;
 
 namespace Secyud.Secits.Blazor;
 
-public abstract class TimePickerSlot : SSettingBase<SInput<TimeOnly>>, ILayoutSlotRenderer
+public abstract partial class TimePickerSlot :  ILayoutSlotRenderer
 {
     public abstract RenderFragment RenderSlot();
 

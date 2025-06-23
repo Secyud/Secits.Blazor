@@ -87,12 +87,12 @@ public abstract class SSettingBase<TComponent> : IComponent, IAsyncDisposable, I
 
     protected EventCallback<TArgs> CreateEventCallback<TArgs>(Action<TArgs> action)
     {
-        return EventCallback.Factory.Create<TArgs>(Master, action);
+        return EventCallback.Factory.Create(Master, action);
     }
 
     protected EventCallback<TArgs> CreateEventCallback<TArgs>(Func<TArgs, Task> action)
     {
-        return EventCallback.Factory.Create<TArgs>(Master, action);
+        return EventCallback.Factory.Create(Master, action);
     }
 
     protected EventCallback CreateEventCallback(Action action)
