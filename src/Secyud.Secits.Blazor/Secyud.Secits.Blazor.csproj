@@ -11,12 +11,8 @@
 
     <ItemGroup>
         <None Update="**/*.razor.css" CssScope="s"/>
-        <None Update="Components\Inputs\Elements\SInputSliderSlotBase.razor.css">
-            <CssScope>s</CssScope>
-        </None>
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="wwwroot\css\param\" />
+        <Content Remove="wwwroot/**/*.less"/>
+        <Content Remove="wwwroot/**/*.map"/>
+        <None Include="wwwroot/**/*.less"/>
     </ItemGroup>
 </Project>

@@ -95,9 +95,6 @@ public abstract partial class SComponentBase : IHasTheme, IHasSize
     public Size Size { get; set; }
 
     [Parameter]
-    public Style StyleOption { get; set; }
-
-    [Parameter]
     public SValue Width { get; set; }
 
     [Parameter]

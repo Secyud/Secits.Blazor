@@ -17,7 +17,7 @@ public abstract class EnableMultiValueSelectBase<TComponent, TValue> : EnableSel
     public RenderFragment<SelectionsContext<TValue>>? SelectContent { get; set; }
 
     public override RenderFragment? GenerateSelectedContent() =>
-        SelectContent?.Invoke(new(this, Values));
+        SelectContent?.Invoke(new SelectionsContext<TValue>(this, Values));
 
     protected virtual async Task OnValuesSelectChangedAsync(List<TValue> values)
     {

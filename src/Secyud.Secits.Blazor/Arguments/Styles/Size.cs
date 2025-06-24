@@ -2,10 +2,10 @@
 
 public enum Size : byte
 {
+    Default = 0,
     XSmall = 1,
     Small = 2,
-    Medium = 0,
-    Large = 3,
-    XLarge = 4,
-    Default = Medium,
+    Medium = 3,
+    Large = 4,
+    XLarge = 5,
 }

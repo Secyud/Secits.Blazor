@@ -2,7 +2,6 @@
 
 public interface IHasTheme
 {
-    Theme Theme { get;  }
-    Size Size { get;  }
-    Style StyleOption { get;  }
+    Theme Theme { get; }
+    Size Size { get; }
 }

@@ -1,19 +1,6 @@
-:root {
-    --s-color-body: rgb(255, 255, 255);
-    --s-color-blend: rgb(255, 255, 255);
-    --s-color-reverse: rgb(0, 0, 0);
-    --size: 1rem;
-    --border-radius-c: calc(var(--size) / 4);
-    --margin-c: calc(var(--size) / 4);
-    --text-color-c: var(--s-color-reverse);
-    --background-color-c: var(--s-color-body);
-    --border-color-c: var(--s-color);
-    --line-height-c: var(--size);
-    --padding-x-c: calc(var(--size) / 2);
-    --padding-y-c: calc(var(--size) / 4);
+.card {
+  border-radius: var(--s-s-br);
+  background-color: var(--s-c);
+  border: var(--s-s-bw) solid var(--s-c);
 }
-
-body {
-    font-size: var(--size);
-}
-
+/*# sourceMappingURL=default.css.map */

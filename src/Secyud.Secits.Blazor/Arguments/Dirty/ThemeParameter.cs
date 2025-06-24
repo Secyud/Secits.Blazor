@@ -26,27 +26,20 @@ public class ThemeParameter : DirtyParameter<IHasTheme>
 
         context.AppendClass(c.Size switch
         {
-            Size.XSmall => "x-small",
-            Size.Small => "small",
-            Size.Large => "large",
-            Size.XLarge => "x-large",
+            Size.XSmall => "xs",
+            Size.Small => "sm",
+            Size.Medium => "md",
+            Size.Large => "lg",
+            Size.XLarge => "xl",
             _ => null
         });
-
-        if (c.StyleOption.HasFlag(Style.Background)) context.AppendClass("bg");
-        if (c.StyleOption.HasFlag(Style.Borderless)) context.AppendClass("bl");
-        if (c.StyleOption.HasFlag(Style.Shadow)) context.AppendClass("sd");
-        if (c.StyleOption.HasFlag(Style.Angular)) context.AppendClass("ag");
-        if (c.StyleOption.HasFlag(Style.Rounded)) context.AppendClass("rd");
-        if (c.StyleOption.HasFlag(Style.Plain)) context.AppendClass("pl");
     }
 
     protected override bool CheckDirty(IHasTheme c, ParameterView view)
     {
         return
             ParameterChanged(nameof(c.Size), c.Size, view) ||
-            ParameterChanged(nameof(c.Theme), c.Theme, view) ||
-            ParameterChanged(nameof(c.StyleOption), c.StyleOption, view)
+            ParameterChanged(nameof(c.Theme), c.Theme, view)
             ;
     }
 }

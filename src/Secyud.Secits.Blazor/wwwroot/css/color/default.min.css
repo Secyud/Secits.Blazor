@@ -1,1 +1,1 @@
-.primary,:root{--s-color:rgb(39, 128, 227)}.secondary{--s-color:rgb(24, 191, 153)}.naive{--s-color:rgb(126, 126, 126)}.success{--s-color:rgb(65, 198, 16)}.info{--s-color:rgb(160, 17, 214)}.warning{--s-color:rgb(255, 117, 24)}.danger{--s-color:rgb(255, 0, 57)}
+[s]{--s-c:#2780e3;--s-c-t:#ffffff;--s-c-bg:#ffffff;--s-c-t-bg:#505050}[s].secondary{--s-c:#18bf99}[s].naive{--s-c:#7e7e7e}[s].success{--s-c:#41c610}[s].info{--s-c:#a011d6}[s].warning{--s-c:#ff7518}[s].danger{--s-c:#ff0039}
