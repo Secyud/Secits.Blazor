@@ -4,7 +4,7 @@ import svg2ttf from "svg2ttf";
 export function buildTtfFont(svgPath, outputPath) {
     return new Promise((resolve, reject) => {
         let ttf = svg2ttf(fs.readFileSync(svgPath, 'utf8'), {});
-        fs.writeFile(outputPath, new Buffer(ttf.buffer), async (err, data) => {
+        fs.writeFile(outputPath, Buffer.from(ttf.buffer), async (err, data) => {
             if (err) {
                 console.log(err);
                 return false;
