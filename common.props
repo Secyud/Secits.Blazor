@@ -8,7 +8,7 @@
         <Description>
             A blazor library.
         </Description>
-        <PackageProjectUrl>https://github.com/Secyud/Secits</PackageProjectUrl>
+        <PackageProjectUrl>https://github.com/Secyud/Secits/Blazor</PackageProjectUrl>
         <PackageTags>Blazor, Component</PackageTags>
     </PropertyGroup>
 

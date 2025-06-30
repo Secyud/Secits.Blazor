@@ -2,34 +2,20 @@
 
 namespace Secyud.Secits.Blazor.JSInterop;
 
-public class Invoker<TEventArgs>
+public class Invoker<TEventArgs>(Func<TEventArgs, Task> func)
 {
-    private readonly Func<TEventArgs, Task> _func;
-
-    public Invoker(Func<TEventArgs, Task> func)
-    {
-        _func = func;
-    }
-
     [JSInvokable("Invoke")]
     public Task Invoke(TEventArgs e)
     {
-        return _func(e);
+        return func(e);
     }
 }
 
-public class Invoker
+public class Invoker(Func<Task> func)
 {
-    private readonly Func<Task> _func;
-
-    public Invoker(Func<Task> func)
-    {
-        _func = func;
-    }
-
     [JSInvokable("Invoke")]
     public Task Invoke()
     {
-        return _func();
+        return func();
     }
 }
