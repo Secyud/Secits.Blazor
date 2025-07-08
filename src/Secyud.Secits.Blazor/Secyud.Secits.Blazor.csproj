@@ -6,7 +6,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="$(DotNetVersion)"/>
+        <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="$(DotnetVersion)"/>
     </ItemGroup>
 
     <ItemGroup>

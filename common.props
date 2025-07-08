@@ -11,14 +11,6 @@
         <PackageProjectUrl>https://github.com/Secyud/Secits/Blazor</PackageProjectUrl>
         <PackageTags>Blazor, Component</PackageTags>
     </PropertyGroup>
-
-    <PropertyGroup Condition="'$(TargetFramework)' == 'net8.0'">
-        <DotNetVersion>8.*</DotNetVersion>
-    </PropertyGroup>
-
-    <PropertyGroup Condition="'$(TargetFramework)' == 'net9.0'">
-        <DotNetVersion>9.*</DotNetVersion>
-    </PropertyGroup>
     
     <ItemGroup>
         <None Include="../../README.md"
