@@ -4,7 +4,7 @@
     <Platform Name="x64" />
     <Platform Name="x86" />
   </Configurations>
-  <Folder Name="/demo/">
+  <Folder Name="demo/">
     <Project Path="demo\Secyud.Secits.Blazor.Demo\Secyud.Secits.Blazor.Demo.csproj" Type="Classic C#">
       <Configuration Solution="Debug|x64" Project="Debug|Any CPU" />
       <Configuration Solution="Debug|x86" Project="Debug|Any CPU" />
@@ -24,7 +24,7 @@
       <Configuration Solution="Release|x86" Project="Release|Any CPU" />
     </Project>
   </Folder>
-  <Folder Name="/src/">
+  <Folder Name="src/">
     <Project Path="src\Secyud.Secits.Blazor.Preset\Secyud.Secits.Blazor.Preset.csproj" Type="Classic C#">
       <Configuration Solution="Debug|x64" Project="Debug|Any CPU" />
       <Configuration Solution="Debug|x86" Project="Debug|Any CPU" />
