@@ -3,7 +3,7 @@ using Secyud.Secits.Blazor.Services;
 
 namespace Secyud.Secits.Blazor;
 
-public abstract partial class SComponentBase : IHasTheme, IHasSize
+public abstract partial class SComponentBase : IHasTheme, IHasSize,IHasCustomCss
 {
     private readonly SSettingMaster _settingMaster;
     private readonly ClassStyleBuilder _classStyleBuilder;

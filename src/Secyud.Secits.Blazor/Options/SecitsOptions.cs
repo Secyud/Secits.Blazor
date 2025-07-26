@@ -8,6 +8,9 @@ public class SecitsOptions
     public UiThemeStyle ThemeStyle { get; set; } = UiThemeStyle.Default;
     public UiThemeParam ThemeParam { get; set; } = UiThemeParam.Default;
 
+    public List<string> CssPaths { get; } = [];
+    public List<string> JsPaths { get; } = [];
+
     public List<DirtyParameter> Parameters { get; } = [];
 
     public List<string> GetCssPaths()
@@ -19,18 +22,20 @@ public class SecitsOptions
             UiThemeColor.Default => [RootPath + "css/color/default.min.css"],
             _ => throw new ArgumentOutOfRangeException(),
         });
-        
+
         res.AddRange(ThemeParam switch
         {
             UiThemeParam.Default => [RootPath + "css/param/default.min.css"],
             _ => throw new ArgumentOutOfRangeException(),
         });
-        
+
         res.AddRange(ThemeStyle switch
         {
             UiThemeStyle.Default => [RootPath + "css/style/default.min.css"],
             _ => throw new ArgumentOutOfRangeException(),
         });
+
+        res.AddRange(CssPaths);
 
         return res;
     }
@@ -41,6 +46,7 @@ public class SecitsOptions
         [
             RootPath + "js/components.js",
             RootPath + "js/event-handler.js",
+            ..JsPaths
         ];
 
         return res;

@@ -9,6 +9,7 @@ builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
 builder.Services.AddSecitsBlazor();
+builder.Services.AddSecitsFontAwesome();
 
 var app = builder.Build();
 

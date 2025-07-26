@@ -5,7 +5,7 @@ using Secyud.Secits.Blazor.Settings;
 
 namespace Secyud.Secits.Blazor;
 
-public partial class TimePickerClockSlot 
+public partial class TimePickerClockTemplate 
 {
     private TimePrecision _clockState = TimePrecision.Default;
 

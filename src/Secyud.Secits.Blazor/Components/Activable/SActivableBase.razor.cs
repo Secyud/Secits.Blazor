@@ -17,7 +17,7 @@ public abstract partial class SActivableBase
 
     #region Settings
 
-    public SSettings<ILayoutSlotRenderer> SlotRenderer { get; } = new();
+    public SSettings<ILayoutTemplateRenderer> SlotRenderer { get; } = new();
 
     #endregion
 }

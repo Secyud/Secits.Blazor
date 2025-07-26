@@ -3,7 +3,7 @@ using Secyud.Secits.Blazor.Options;
 
 namespace Secyud.Secits.Blazor.Services;
 
-public class DirtyParameterService(IOptions<SecitsOptions> options)
+public class DirtyParameterService(IOptions<SecitsOptions> options):IDirtyParameterService
 {
     private readonly Dictionary<Type, List<DirtyParameter>> _parameters = [];
 

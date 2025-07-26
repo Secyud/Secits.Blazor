@@ -7,7 +7,7 @@ namespace Secyud.Secits.Blazor.Settings;
 /// TODO add layout parameter.
 /// 
 /// </summary>
-public interface ILayoutSlotRenderer : IIsSetting
+public interface ILayoutTemplateRenderer : IIsSetting
 {
-    RenderFragment RenderSlot();
+    RenderFragment RenderTemplate();
 }

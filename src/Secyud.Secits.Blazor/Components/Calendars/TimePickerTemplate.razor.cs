@@ -3,9 +3,9 @@ using Secyud.Secits.Blazor.Settings;
 
 namespace Secyud.Secits.Blazor;
 
-public abstract partial class TimePickerSlot :  ILayoutSlotRenderer
+public abstract partial class TimePickerTemplate :  ILayoutTemplateRenderer
 {
-    public abstract RenderFragment RenderSlot();
+    public abstract RenderFragment RenderTemplate();
 
     [Parameter]
     public TimePrecision Pression { get; set; }

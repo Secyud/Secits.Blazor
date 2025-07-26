@@ -13,7 +13,7 @@ public static class SecitsExtensions
         #region Service
 
         services.AddTransient<ILocalizationService, NullLocalizationService>();
-        services.AddSingleton<DirtyParameterService>();
+        services.AddSingleton<IDirtyParameterService, DirtyParameterService>();
 
         #endregion
 

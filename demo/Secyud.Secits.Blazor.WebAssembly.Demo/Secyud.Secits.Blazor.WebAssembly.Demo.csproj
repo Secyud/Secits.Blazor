@@ -16,8 +16,4 @@
         <ProjectReference Include="..\Secyud.Secits.Blazor.Demo\Secyud.Secits.Blazor.Demo.csproj"/>
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="obj\Debug\net9.0\" />
-    </ItemGroup>
-
 </Project>

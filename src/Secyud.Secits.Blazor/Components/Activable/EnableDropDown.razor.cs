@@ -2,7 +2,7 @@
 
 namespace Secyud.Secits.Blazor;
 
-public partial class EnableDropDown : ILayoutSlotRenderer
+public partial class EnableDropDown : ILayoutTemplateRenderer
 {
     protected override void ApplySetting()
     {

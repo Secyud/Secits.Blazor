@@ -1,9 +1,9 @@
 ﻿@namespace Secyud.Secits.Blazor
-@inherits TimePickerSlot
+@inherits TimePickerTemplate
 
 @code
 {
-    public override RenderFragment RenderSlot() =>
+    public override RenderFragment RenderTemplate() =>
         @<div class="pkr-t clock@(_clockState.PrecisionKind == DateTimePrecisionKind.Default ? "" : " active")"
               @ref="_ref"
               @onmouseup="OnMouseUp"

@@ -3,7 +3,7 @@ using Secyud.Secits.Blazor.Settings;
 
 namespace Secyud.Secits.Blazor;
 
-public partial class InputTextSlot<TValue> : IValueContainer<TValue>, ILayoutSlotRenderer
+public partial class InputTextTemplate<TValue> : IValueContainer<TValue>, ILayoutTemplateRenderer
 {
     protected virtual string? InputString => ParsingFailed ? ValueString : CurrentString;
     protected string? CurrentString { get; set; }
