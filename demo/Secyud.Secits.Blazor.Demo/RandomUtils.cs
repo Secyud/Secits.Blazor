@@ -2,7 +2,7 @@
 
 namespace Secyud.Secits.Blazor;
 
-public class Utils
+public class RandomUtils
 {
     public const string AllChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
     public const string NumChars = "1234567890";
@@ -25,28 +25,28 @@ public class Utils
         return Random.Next(min, max);
     }
 
-    public static string GetRandomString(params string[] arr)
+    public static string GetString(params string[] arr)
     {
         Sb.Clear();
         RandomString(Sb, arr);
         return Sb.ToString();
     }
 
-    public static string GetRandomWord(bool firstUpper = true)
+    public static string GetWord(bool firstUpper = true)
     {
         Sb.Clear();
         RandomWord(Sb, firstUpper);
         return Sb.ToString();
     }
 
-    public static string GetRandomSentence()
+    public static string GetSentence()
     {
         Sb.Clear();
         RandomSentence(Sb);
         return Sb.ToString();
     }
 
-    public static string GetRandomSentences(int count = 10)
+    public static string GetSentences(int count = 10)
     {
         Sb.Clear();
         RandomSentences(Sb, count);

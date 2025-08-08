@@ -3,14 +3,13 @@
 public class ItemBase
 {
     public Guid Id { get; set; } = Guid.NewGuid();
-    public string Name { get; set; } = Utils.GetRandomWord();
-    public string Description { get; set; } = Utils.GetRandomSentence();
+    public string Name { get; set; } = RandomUtils.GetWord();
+    public string Description { get; set; } = RandomUtils.GetSentence();
+    public string PhoneNumber { get; set; } = RandomUtils.GetString(
+        "1", RandomUtils.NumChars, RandomUtils.NumChars, RandomUtils.NumChars, RandomUtils.NumChars, RandomUtils.NumChars,
+        RandomUtils.NumChars, RandomUtils.NumChars, RandomUtils.NumChars, RandomUtils.NumChars, RandomUtils.NumChars);
 
-    public string PhoneNumber { get; set; } = Utils.GetRandomString(
-        "1", "357", "13579", Utils.NumChars, Utils.NumChars, Utils.NumChars,
-        Utils.NumChars, Utils.NumChars, Utils.NumChars, Utils.NumChars, Utils.NumChars);
+    public int Age { get; set; } = RandomUtils.Rand(18, 100);
 
-    public int Age { get; set; } = Utils.Rand(18, 100);
-    
-    public DateTime BirthDate { get; set; } = new DateTime(1990, 1, 1).AddDays(Utils.Rand(-100000, 100000));
+    public DateTime BirthDate { get; set; } = new DateTime(1990, 1, 1).AddDays(RandomUtils.Rand(-100000, 100000));
 }

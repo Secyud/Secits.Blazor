@@ -18,7 +18,7 @@ public abstract partial class SComponentBase : IHasTheme, IHasSize,IHasCustomCss
     protected virtual string ComponentName => "s";
 
     [Inject]
-    private DirtyParameterService DirtyParameterService { get; set; } = null!;
+    private IDirtyParameterService DirtyParameterService { get; set; } = null!;
 
 
     protected override async Task OnInitializedAsync()
@@ -38,7 +38,6 @@ public abstract partial class SComponentBase : IHasTheme, IHasSize,IHasCustomCss
 
         await base.SetParametersAsync(parameters);
     }
-
 
     #region Internal
 

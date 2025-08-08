@@ -13,7 +13,7 @@ public class TreeItem : ItemBase
         {
             var item = new TreeItem();
             res.Add(item);
-            var index = Utils.Rand(-1, i);
+            var index = RandomUtils.Rand(-1, i);
             if (index == -1) continue;
             var parent = res[index];
             item.ParentId = parent.Id;
