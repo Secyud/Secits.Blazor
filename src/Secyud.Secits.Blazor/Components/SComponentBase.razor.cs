@@ -1,9 +1,10 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Secyud.Secits.Blazor.Services;
+using Secyud.Secits.Blazor.Settings;
 
 namespace Secyud.Secits.Blazor;
 
-public abstract partial class SComponentBase : IHasTheme, IHasSize,IHasCustomCss
+public abstract partial class SComponentBase : IHasTheme, IHasSize, IHasCustomCss
 {
     private readonly SSettingMaster _settingMaster;
     private readonly ClassStyleBuilder _classStyleBuilder;
@@ -64,6 +65,12 @@ public abstract partial class SComponentBase : IHasTheme, IHasSize,IHasCustomCss
     {
         if (!string.IsNullOrEmpty(ComponentName))
             context.Class.Append(ComponentName);
+
+        foreach (var extendClassStyleBuilder in ClassStyleBuilders)
+        {
+            
+        }
+        
         foreach (var dirtyParameter in _dirtyParameters)
         {
             dirtyParameter.BuildComponentClassStyle(this, context);
@@ -73,6 +80,12 @@ public abstract partial class SComponentBase : IHasTheme, IHasSize,IHasCustomCss
     protected string? GetClass() => _classStyleBuilder.Class;
 
     protected string? GetStyle() => _classStyleBuilder.Style;
+
+    #endregion
+
+    #region Settings
+
+    public SSettings<IExtendClassStyleBuilder> ClassStyleBuilders { get; } = new();
 
     #endregion
 

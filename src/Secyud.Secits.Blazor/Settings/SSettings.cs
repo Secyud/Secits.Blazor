@@ -30,12 +30,20 @@ public class SSettings<TSetting> : IReadOnlyList<TSetting> where TSetting : clas
     public int Count => _settings.Count;
 
     public TSetting this[int index] => _settings[index];
-    
+
     public async Task InvokeAsync(Func<TSetting, Task> function)
     {
         foreach (var setting in _settings)
         {
             await function(setting);
+        }
+    }
+
+    public void Invoke(Action<TSetting> function)
+    {
+        foreach (var setting in _settings)
+        {
+            function(setting);
         }
     }
 }

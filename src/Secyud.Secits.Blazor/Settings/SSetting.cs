@@ -21,7 +21,15 @@ public class SSetting<TSetting> where TSetting : class
     {
         if (_setting is not null)
             await function(_setting);
-        else if (defaultFunction is not null) 
+        else if (defaultFunction is not null)
             await defaultFunction();
+    }
+
+    public void Invoke(Action<TSetting> function, Action? defaultFunction = null)
+    {
+        if (_setting is not null)
+            function(_setting);
+        else
+            defaultFunction?.Invoke();
     }
 }

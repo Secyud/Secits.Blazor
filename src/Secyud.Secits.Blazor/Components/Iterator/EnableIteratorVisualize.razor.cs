@@ -3,23 +3,25 @@ using Secyud.Secits.Blazor.Settings;
 
 namespace Secyud.Secits.Blazor;
 
-public partial class EnableIteratorVisualize<TItem> : IIteratorRenderer<TItem>
+public partial class EnableIteratorVisualize<TItem> : IIteratorRenderer<TItem>, IExtendClassStyleBuilder
 {
     private Virtualize<TItem>? _virtualize;
 
     protected override void ApplySetting()
     {
         Master.ItemsRenderer.Apply(this);
+        Master.ClassStyleBuilders.Apply(this);
     }
 
     protected override void ForgoSetting()
     {
         Master.ItemsRenderer.Forgo(this);
+        Master.ClassStyleBuilders.Forgo(this);
     }
 
     public async ValueTask<ItemsProviderResult<TItem>> RefreshRowsAsync(ItemsProviderRequest request)
     {
-        if (Master.DataSource.Get() is not {} source) return default;
+        if (Master.DataSource.Get() is not { } source) return default;
         Master.DataRequest.SkipCount = request.StartIndex;
         Master.DataRequest.PageSize = request.Count;
         Master.DataRequest.CancellationToken = request.CancellationToken;
@@ -33,5 +35,10 @@ public partial class EnableIteratorVisualize<TItem> : IIteratorRenderer<TItem>
         {
             await _virtualize.RefreshDataAsync();
         }
+    }
+
+    public void BuildExtendClassStyle(ClassStyleContext context)
+    {
+        context.AppendClass("visualize");
     }
 }
