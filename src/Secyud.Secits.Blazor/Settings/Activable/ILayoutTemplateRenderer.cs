@@ -10,4 +10,7 @@ namespace Secyud.Secits.Blazor.Settings;
 public interface ILayoutTemplateRenderer : IIsSetting
 {
     RenderFragment RenderTemplate();
+
+    string? Row { get; set; }
+    string? Col { get; set; }
 }

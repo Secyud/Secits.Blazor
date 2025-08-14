@@ -14,14 +14,4 @@ public partial class EnableInputClearButton<TValue> : ILayoutTemplateRenderer
     {
         await Master.OnValueChangedAsync(default!);
     }
-
-    protected override void ApplySetting()
-    {
-        Master.SlotRenderer.Apply(this);
-    }
-
-    protected override void ForgoSetting()
-    {
-        Master.SlotRenderer.Forgo(this);
-    }
 }

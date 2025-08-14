@@ -1,16 +1,5 @@
-﻿using Secyud.Secits.Blazor.Settings;
+﻿namespace Secyud.Secits.Blazor;
 
-namespace Secyud.Secits.Blazor;
-
-public partial class EnableDropDown : ILayoutTemplateRenderer
+public partial class EnableDropDown
 {
-    protected override void ApplySetting()
-    {
-        Master.SlotRenderer.Apply(this);
-    }
-
-    protected override void ForgoSetting()
-    {
-        Master.SlotRenderer.Forgo(this);
-    }
 }

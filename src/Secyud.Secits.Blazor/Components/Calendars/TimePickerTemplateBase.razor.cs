@@ -1,27 +1,14 @@
 ﻿using Microsoft.AspNetCore.Components;
-using Secyud.Secits.Blazor.Settings;
 
 namespace Secyud.Secits.Blazor;
 
-public abstract partial class TimePickerTemplate :  ILayoutTemplateRenderer
+public abstract partial class TimePickerTemplateBase
 {
-    public abstract RenderFragment RenderTemplate();
-
     [Parameter]
     public TimePrecision Pression { get; set; }
 
     protected TimeOnly ValueOrDefault => Master.CurrentValue;
     
-    protected override void ApplySetting()
-    {
-        Master.SlotRenderer.Apply(this);
-    }
-
-    protected override void ForgoSetting()
-    {
-        Master.SlotRenderer.Forgo(this);
-    }
-
     protected int Hour
     {
         get => ValueOrDefault.Hour;
