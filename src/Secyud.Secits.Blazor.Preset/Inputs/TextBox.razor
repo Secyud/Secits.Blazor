@@ -1,5 +1,5 @@
 ﻿@namespace Secyud.Secits.Blazor.Preset
-@inherits SSingleInput<TValue>
+@inherits SInput<TValue>
 @typeparam TValue
 
 @{
@@ -10,6 +10,8 @@
 {
     protected override RenderFragment GenerateSetting() => __builder =>
     {
+        @base.GenerateSetting()
         <InputTextTemplate TValue="TValue" SubmitOnInput="SubmitOnInput"/>
+        <EnableItemInput TValue="TValue" SelectedItem="Value" SelectedItemChanged="ValueChanged" />
     };
 }

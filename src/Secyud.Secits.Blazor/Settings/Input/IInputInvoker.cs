@@ -7,7 +7,10 @@
 /// but the real submit may delayed by invoker.
 /// </summary>
 /// <typeparam name="TValue"></typeparam>
-public interface IInputInvoker<in TValue> : IIsSetting
+public interface IInputInvoker<TValue> : IIsPlugin
 {
-    Task InvokeValueChanged(object? sender, TValue value);
+    bool IsItemSelected(TValue value);
+    Task ClearActiveItemAsync();
+    Task SetActiveItemAsync(TValue value);
+    TValue GetActiveItem();
 }

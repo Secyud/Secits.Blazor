@@ -4,7 +4,9 @@
 /// for text convert to value.
 /// </summary>
 /// <typeparam name="TValue"></typeparam>
-public interface IInputValueConverter<TValue> : IIsSetting
+public interface IValueParser<TValue> : IIsPlugin
 {
-    bool TryConvert(string? str, out TValue output);
+    bool TryParse(string? str, out TValue output);
+
+    string? ToString(TValue value);
 }

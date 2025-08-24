@@ -34,7 +34,5 @@
             @GenerateCol()(item)
         </div>;
 
-    protected virtual RenderFragment GenerateIterator() => __builder => { @ItemsRenderer.Get()?.GenerateItems(GenerateRow()) };
-
     protected abstract RenderFragment<TItem> GenerateCol();
 }

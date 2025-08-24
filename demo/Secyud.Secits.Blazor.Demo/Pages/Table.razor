@@ -5,15 +5,14 @@
 <STable TItem="ListItem" Height="@("500px")">
     <StaticDataSource Items="_list"/>
     <EnableIteratorVisualize/>
-    <EnableItemSelect/>
     <EnableColumnResize/>
-    <TableDataColumn Caption="@nameof(ListItem.Name)"
+    <TableColumn Caption="@nameof(ListItem.Name)"
                      ValueField="@(item => item.Name)"/>
-    <TableDataColumn Caption="@nameof(ListItem.PhoneNumber)"
+    <TableColumn Caption="@nameof(ListItem.PhoneNumber)"
                      ValueField="@(item => item.PhoneNumber)"/>
-    <TableDataColumn Caption="@nameof(ListItem.Age)"
+    <TableColumn Caption="@nameof(ListItem.Age)"
                      ValueField="@(item => item.Age)"/>
-    <TableDataColumn Caption="@nameof(ListItem.BirthDate)"
+    <TableColumn Caption="@nameof(ListItem.BirthDate)"
                      ValueField="@(item => item.BirthDate)"
                      Format="yyyy MM dd hh mm ss"/>
 </STable>

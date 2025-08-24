@@ -5,10 +5,10 @@ using Timer = System.Timers.Timer;
 
 namespace Secyud.Secits.Blazor;
 
-public class EnableInputDelay<TValue> : SPluginBase<IInputInvokable<TValue>>, IInputInvoker<TValue>
+public abstract class EnableInputDelayInvokerBase<TItem> : SPluginBase<SInput<TItem>>, IInputInvoker<TItem>
 {
     private Timer? _timer;
-    private TValue _value = default!;
+    private TItem _lastActiveItem = default!;
 
     [Parameter]
     public int DelayInterval { get; set; }
@@ -46,29 +46,42 @@ public class EnableInputDelay<TValue> : SPluginBase<IInputInvokable<TValue>>, II
         });
     }
 
-    public async Task InvokeValueChanged(object? sender, TValue value)
+    protected async Task Do(Func<Task> task)
     {
         if (_timer is null)
         {
-            await ValueChangedAsync(value);
+            await task.Invoke();
+            await OnValueChangedAsync();
         }
         else
         {
             _timer.Stop();
-            _value = value;
+            await task.Invoke();
             _timer.Start();
         }
     }
 
-    private void OnElapsed(object? source, ElapsedEventArgs e)
+    protected async Task Do(Action action)
     {
-        ValueChangedAsync(_value).ConfigureAwait(false);
+        if (_timer is null)
+        {
+            action.Invoke();
+            await OnValueChangedAsync();
+        }
+        else
+        {
+            _timer.Stop();
+            action.Invoke();
+            _timer.Start();
+        }
     }
 
-    private async Task ValueChangedAsync(TValue value)
+    protected void OnElapsed(object? source, ElapsedEventArgs e)
     {
-        await Master.OnValueChangedAsync(value);
+        OnValueChangedAsync().ConfigureAwait(false);
     }
+
+    protected abstract Task OnValueChangedAsync();
 
     public override async ValueTask DisposeAsync()
     {
@@ -80,5 +93,20 @@ public class EnableInputDelay<TValue> : SPluginBase<IInputInvokable<TValue>>, II
         }
 
         await base.DisposeAsync();
+    }
+
+    public abstract bool IsItemSelected(TItem value);
+
+    public abstract Task ClearActiveItemAsync();
+
+    public virtual Task SetActiveItemAsync(TItem value)
+    {
+        _lastActiveItem = value;
+        return Task.CompletedTask;
+    }
+
+    public virtual TItem GetActiveItem()
+    {
+        return _lastActiveItem;
     }
 }

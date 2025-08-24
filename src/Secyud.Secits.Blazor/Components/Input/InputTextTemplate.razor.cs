@@ -2,7 +2,7 @@
 
 namespace Secyud.Secits.Blazor;
 
-public partial class InputTextTemplate<TValue> 
+public partial class InputTextTemplate<TValue>
 {
     protected virtual string? InputString => ParsingFailed ? ValueString : CurrentString;
     protected string? CurrentString { get; set; }
@@ -56,7 +56,7 @@ public partial class InputTextTemplate<TValue>
             default:
                 if (Master.ValueConverter.Get() is { } converter)
                 {
-                    ParsingFailed = !converter.TryConvert(CurrentString, out var value);
+                    ParsingFailed = !converter.TryParse(CurrentString, out var value);
                     if (!ParsingFailed) CachedValue = value;
                     break;
                 }
@@ -75,7 +75,17 @@ public partial class InputTextTemplate<TValue>
                 break;
         }
 
-        ValueString = Master.GetSingleValue()?.ToString();
+        var invoker = Master.InputInvoker.Get();
+        if (invoker is not null)
+        {
+            var currentItem = invoker.GetActiveItem();
+
+            var converter = Master.ValueConverter.Get();
+            ValueString = converter is null
+                ? currentItem?.ToString()
+                : converter.ToString(currentItem);
+        }
+        
         return Task.CompletedTask;
     }
 
@@ -84,7 +94,9 @@ public partial class InputTextTemplate<TValue>
         if (Master.Readonly || Master.Disabled) return;
         await OnInputStringHandleAsync(value);
         await OnInputValueHandleAsync();
-        if (submit)
-            await Master.SetSingleValue(CachedValue);
+        if (submit && Master.InputInvoker.Get() is { } invoker)
+        {
+            await invoker.SetActiveItemAsync(CachedValue);
+        }
     }
 }

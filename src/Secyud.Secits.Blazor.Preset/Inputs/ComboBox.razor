@@ -1,5 +1,5 @@
 @namespace Secyud.Secits.Blazor.Preset
-@inherits SSingleInput<TValue>
+@inherits SInput<TValue>
 @typeparam TItem
 @typeparam TValue
 
@@ -11,12 +11,14 @@
 {
     protected override RenderFragment GenerateSetting() => __builder =>
     {
-        <InputTextTemplate TValue="TValue" SubmitOnInput />
+        @base.GenerateSetting()
+        <EnableValueInput TValue="TItem" TItemValue="TValue" Value="Value" ValueChanged="ValueChanged"/>
         <EnableDropDown>
             <SList TItem="TItem">
                 <StaticDataSource Items="Items"/>
                 <EnableIteratorVisualize/>
-                <EnableItemValueSelect TItem="TItem" TValue="TValue"/>
+                <EnableIteratorSelect/>
+                <ListColumn ChildContent="SelectTemplate"/>
             </SList>
         </EnableDropDown>
     };

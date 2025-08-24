@@ -5,7 +5,7 @@
 /// for special use.
 /// </summary>
 /// <typeparam name="TValue"></typeparam>
-public interface IValueContainer<in TValue> : IIsSetting
+public interface IValueContainer<in TValue> : IIsPlugin
 {
-    public Task SetValueFromParameterAsync(TValue value);
+    Task SetValueFromParameterAsync(TValue value);
 }

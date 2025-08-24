@@ -8,10 +8,14 @@
     public override RenderFragment RenderTemplate() => __builder =>
     {
         <SIcon IconName="@IconProvider.GetIcon(IconType.DropDown)"
+               OnClick="@(_ => _isDropDownVisible = !_isDropDownVisible)"
                Class="@GetClass()" Style="@GetStyle()"></SIcon>
-        
-        <div class="dropdown-content @ContentClass" style="@ContentStyle">
-            @ChildContent
-        </div>
+
+        @if (_isDropDownVisible)
+        {
+            <div class="dropdown-content @ContentClass" style="@ContentStyle">
+                @ChildContent
+            </div>
+        }
     };
 }

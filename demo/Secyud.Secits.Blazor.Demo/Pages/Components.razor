@@ -1,15 +1,16 @@
 ﻿@attribute [Route(Menu.Component)]
 
 
-<SSingleInput @bind-Value="timeOnly">
+<SInput TValue="TimeOnly">
+    <EnableItemInput @bind-SelectedItem="_timeOnly"/>
     <TimePickerBoardTemplate/>
     <TimePickerClockTemplate/>
-</SSingleInput>
+</SInput>
 
+@_timeOnly
 
 
 @code
 {
-    TimeOnly timeOnly;
-
+    TimeOnly _timeOnly;
 }

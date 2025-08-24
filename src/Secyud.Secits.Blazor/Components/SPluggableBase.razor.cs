@@ -6,13 +6,13 @@ namespace Secyud.Secits.Blazor;
 
 public abstract partial class SPluggableBase : IHasTheme, IHasSize, IHasCustomCss, IPluggable
 {
-    private readonly SSettingMaster _settingMaster;
     private readonly ClassStyleBuilder _classStyleBuilder;
     private readonly List<DirtyParameter> _dirtyParameters = [];
+    protected SPluggableContainer PluggableContainer { get; }
 
     protected SPluggableBase()
     {
-        _settingMaster = new SSettingMaster(this);
+        PluggableContainer = new SPluggableContainer(this);
         _classStyleBuilder = new ClassStyleBuilder(BuildClassStyle);
     }
 

@@ -9,7 +9,7 @@ namespace Secyud.Secits.Blazor;
 /// This class provides functionality to apply and revoke settings, manage the lifecycle of the associated master component,
 /// and handle asynchronous disposal. It is designed to be inherited by specific setting implementations.
 /// </summary>
-public abstract class SPluginBase<TComponent> : IComponent, IAsyncDisposable, IIsSetting
+public abstract class SPluginBase<TComponent> : IComponent, IAsyncDisposable, IIsPlugin
     where TComponent : class, IPluggable
 {
     private TComponent? _master;
@@ -18,7 +18,7 @@ public abstract class SPluginBase<TComponent> : IComponent, IAsyncDisposable, II
     protected bool MasterValid => _master is not null;
 
     [CascadingParameter]
-    public SSettingMaster? MasterComponent
+    public SPluggableContainer? MasterComponent
     {
         set
         {
@@ -84,8 +84,7 @@ public abstract class SPluginBase<TComponent> : IComponent, IAsyncDisposable, II
     protected virtual void BeforeParametersSet(ParameterContainer parameters)
     {
     }
-
-
+    
     protected virtual void BuildRenderTree(RenderTreeBuilder builder)
     {
     }

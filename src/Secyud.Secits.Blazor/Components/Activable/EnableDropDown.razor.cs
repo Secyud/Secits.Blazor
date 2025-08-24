@@ -6,6 +6,8 @@ namespace Secyud.Secits.Blazor;
 
 public partial class EnableDropDown : IHasContent
 {
+    private bool _isDropDownVisible;
+
     [Inject]
     private IIconProvider IconProvider { get; set; } = null!;
 
@@ -15,5 +17,6 @@ public partial class EnableDropDown : IHasContent
     [Parameter]
     public string? ContentStyle { get; set; }
 
+    [Parameter]
     public RenderFragment? ChildContent { get; set; }
 }

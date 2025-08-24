@@ -1,0 +1,17 @@
+@namespace Secyud.Secits.Blazor
+@inherits SActivableBase
+@typeparam TValue
+
+@{
+    base.BuildRenderTree(__builder);
+}
+
+@code
+{
+    protected override RenderFragment GenerateSettingContent() =>
+        @<CascadingValue TValue="SPluggableContainer" Value="PluggableContainer" IsFixed>
+            <CascadingValue TValue="SSelectableContainer" Value="SelectableContainer" IsFixed>
+                @GenerateSetting()
+            </CascadingValue>
+        </CascadingValue>;
+}

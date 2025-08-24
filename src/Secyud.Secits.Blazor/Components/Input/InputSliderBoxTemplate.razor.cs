@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
 using Secyud.Secits.Blazor.Settings;
 
 namespace Secyud.Secits.Blazor;
@@ -21,4 +20,22 @@ public partial class InputSliderBoxTemplate : IHasRange<int>, ILayoutTemplateRen
 
     [Parameter]
     public string? Format { get; set; }
+
+    protected int GetValue()
+    {
+        if (Master.InputInvoker.Get() is { } invoker)
+        {
+            return invoker.GetActiveItem();
+        }
+
+        return 0;
+    }
+
+    protected async Task SetValueAsync(int value)
+    {
+        if (Master.InputInvoker.Get() is { } invoker)
+        {
+            await invoker.SetActiveItemAsync(value);
+        }
+    }
 }

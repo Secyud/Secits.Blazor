@@ -10,7 +10,7 @@ public partial class SList<TItem>
 
     #region Settings
 
-    public SSettings<ITableColumnRenderer<TItem>> Columns { get; } = new();
+    public SSettings<IListColumnRenderer<TItem>> Columns { get; } = new();
 
     #endregion
 }

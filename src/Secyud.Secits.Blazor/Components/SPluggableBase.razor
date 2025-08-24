@@ -12,11 +12,10 @@
 
     protected virtual RenderFragment? GenerateChildContent() => null;
 
-    protected virtual RenderFragment? GenerateSetting() => null;
+    protected virtual RenderFragment? GenerateSetting() => ChildContent;
 
-    protected RenderFragment GenerateSettingContent() =>
-        @<CascadingValue TValue="SSettingMaster" Value="_settingMaster" IsFixed>
+    protected virtual RenderFragment GenerateSettingContent() =>
+        @<CascadingValue TValue="SPluggableContainer" Value="PluggableContainer" IsFixed>
             @GenerateSetting()
-            @ChildContent
         </CascadingValue>;
 }

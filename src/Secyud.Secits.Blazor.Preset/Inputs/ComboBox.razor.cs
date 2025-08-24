@@ -1,14 +1,27 @@
+using System.Linq.Expressions;
 using Microsoft.AspNetCore.Components;
+using Secyud.Secits.Blazor.Settings;
 
 namespace Secyud.Secits.Blazor.Preset;
 
-public partial class ComboBox<TItem, TValue>
+public partial class ComboBox<TItem, TValue> : IHasValue<TValue>
 {
     [Parameter]
     public IReadOnlyList<TItem> Items { get; set; } = [];
-    
-    
-    
+
+
     [Parameter]
-    public bool EnableMultiSelect { get; set; }
+    public Expression<Func<TItem, TValue>>? ValueField { get; set; }
+
+    [Parameter]
+    public Func<TValue, Task<TItem>> ItemFinder { get; set; } = null!;
+
+    [Parameter]
+    public RenderFragment<TItem>? SelectTemplate { get; set; }
+
+    [Parameter]
+    public TValue Value { get; set; } = default!;
+
+    [Parameter]
+    public EventCallback<TValue> ValueChanged { get; set; }
 }

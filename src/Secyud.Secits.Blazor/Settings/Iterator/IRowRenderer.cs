@@ -7,7 +7,7 @@ namespace Secyud.Secits.Blazor.Settings;
 /// click action is useful for selection.
 /// </summary>
 /// <typeparam name="TItem"></typeparam>
-public interface IRowRenderer<in TItem> : IIsSetting
+public interface IRowRenderer<in TItem> : IIsPlugin
 {
     string? GetRowClass(TItem item);
     string? GetRowStyle(TItem item);

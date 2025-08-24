@@ -6,7 +6,7 @@ namespace Secyud.Secits.Blazor.Settings;
 /// setting for all column header.
 /// etc. resizer, filter.
 /// </summary>
-public interface ITableHeaderRenderer : IIsSetting
+public interface ITableHeaderRenderer : IIsPlugin
 {
     RenderFragment GenerateHeader(int index);
 }

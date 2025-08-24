@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Components;
-using Secyud.Secits.Blazor.Settings;
+﻿using Secyud.Secits.Blazor.Settings;
 
 namespace Secyud.Secits.Blazor;
 

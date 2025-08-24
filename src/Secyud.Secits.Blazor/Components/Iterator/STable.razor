@@ -34,7 +34,7 @@
         }
     };
 
-    protected override RenderFragment GenerateIterator() => __builder =>
+    protected override RenderFragment GenerateBody()=> __builder =>
     {
         <div class="table-body">
             <table>
@@ -45,7 +45,7 @@
                         <td style="--cw: @column.GetColumnWidth()px;"/>
                     }
                 </tr>
-                @base.GenerateIterator()
+                @base.GenerateBody()
                 </tbody>
             </table>
         </div>
