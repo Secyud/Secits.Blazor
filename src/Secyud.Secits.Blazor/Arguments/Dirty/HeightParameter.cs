@@ -4,7 +4,7 @@ namespace Secyud.Secits.Blazor;
 
 public class HeightParameter : DirtyParameter<IHasHeight>
 {
-    public override bool CheckComponentValid(SComponentBase c)
+    public override bool CheckComponentValid(SPluggableBase c)
     {
         return c is IHasHeight and not IHasSize;
     }

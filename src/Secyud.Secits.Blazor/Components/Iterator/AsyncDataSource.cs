@@ -3,7 +3,7 @@ using Secyud.Secits.Blazor.Settings;
 
 namespace Secyud.Secits.Blazor;
 
-public class AsyncDataSource<TItem> : SSettingBase<SIteratorBase<TItem>>, IDataSourceProvider<TItem>
+public class AsyncDataSource<TItem> : SPluginBase<SIteratorBase<TItem>>, IDataSourceProvider<TItem>
 {
     [Parameter]
     public Func<DataRequest, Task<DataResult<TItem>>>? Items { get; set; }

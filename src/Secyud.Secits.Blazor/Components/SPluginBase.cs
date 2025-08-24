@@ -9,11 +9,10 @@ namespace Secyud.Secits.Blazor;
 /// This class provides functionality to apply and revoke settings, manage the lifecycle of the associated master component,
 /// and handle asynchronous disposal. It is designed to be inherited by specific setting implementations.
 /// </summary>
-public abstract class SSettingBase<TComponent> : IComponent, IAsyncDisposable, IIsSetting
-    where TComponent : SComponentBase
+public abstract class SPluginBase<TComponent> : IComponent, IAsyncDisposable, IIsSetting
+    where TComponent : class, IPluggable
 {
     private TComponent? _master;
-
     protected TComponent Master => _master!;
 
     protected bool MasterValid => _master is not null;
@@ -21,7 +20,6 @@ public abstract class SSettingBase<TComponent> : IComponent, IAsyncDisposable, I
     [CascadingParameter]
     public SSettingMaster? MasterComponent
     {
-        get => null;
         set
         {
             if (_master == value?.Value) return;
@@ -42,14 +40,14 @@ public abstract class SSettingBase<TComponent> : IComponent, IAsyncDisposable, I
 
     protected void StateHasChanged()
     {
-        _master?.MasterStateHasChanged();
+        _master?.StateHasChanged();
     }
 
     protected async Task InvokeAsync(Action action)
     {
         if (_master is not null)
         {
-            await _master.MasterInvokeAsync(action);
+            await _master.InvokeAsync(action);
         }
     }
 
@@ -57,7 +55,7 @@ public abstract class SSettingBase<TComponent> : IComponent, IAsyncDisposable, I
     {
         if (_master is not null)
         {
-            await _master.MasterInvokeAsync(action);
+            await _master.InvokeAsync(action);
         }
     }
 
@@ -77,9 +75,16 @@ public abstract class SSettingBase<TComponent> : IComponent, IAsyncDisposable, I
 
     public virtual Task SetParametersAsync(ParameterView parameters)
     {
+        var container = new ParameterContainer(parameters);
+        BeforeParametersSet(container);
         parameters.SetParameterProperties(this);
-        return Task.CompletedTask;
+        return Task.WhenAll(container.ParameterTasks);
     }
+
+    protected virtual void BeforeParametersSet(ParameterContainer parameters)
+    {
+    }
+
 
     protected virtual void BuildRenderTree(RenderTreeBuilder builder)
     {

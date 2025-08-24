@@ -2,20 +2,20 @@
 
 namespace Secyud.Secits.Blazor;
 
-public class ClassStyleParameter : DirtyParameter<SComponentBase>
+public class ClassStyleParameter : DirtyParameter<SPluggableBase>
 {
-    public override bool CheckComponentValid(SComponentBase c)
+    public override bool CheckComponentValid(SPluggableBase c)
     {
         return true;
     }
 
-    protected override void BuildClassStyle(SComponentBase c, ClassStyleContext context)
+    protected override void BuildClassStyle(SPluggableBase c, ClassStyleContext context)
     {
         context.Class.Append(c.Class);
         context.Style.Append(c.Style);
     }
 
-    protected override bool CheckDirty(SComponentBase c, ParameterView view)
+    protected override bool CheckDirty(SPluggableBase c, ParameterView view)
     {
         return
             ParameterChanged(nameof(c.Class), c.Class, view) ||

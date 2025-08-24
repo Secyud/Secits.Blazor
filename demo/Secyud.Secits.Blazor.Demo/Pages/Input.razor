@@ -15,9 +15,9 @@
             <label>@size</label>
             foreach (var theme in Themes)
             {
-                <InputTextBox Value="@(theme.ToString())"
+                <TextBox Value="@(theme.ToString())"
                               Theme="theme" Size="size">
-                </InputTextBox>
+                </TextBox>
             }
         }
     </Body>

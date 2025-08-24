@@ -13,14 +13,4 @@
         <None Update="**/*.razor.css" CssScope="s"/>
     </ItemGroup>
 
-
-    <ItemGroup Condition="'$(EnableDefaultItems)' == 'true' And '$(EnableDefaultContentItems)' == 'true' ">
-        <Content Include="..\..\..\web\css\**\*.min.css"
-                 Link="wwwroot\css\%(RecursiveDir)%(Filename)%(Extension)"
-                 ExcludeFromSingleFile="true"
-                 CopyToPublishDirectory="PreserveNewest"
-                 Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />
-        <_ContentIncludedByDefault Include="@(Content)" />
-    </ItemGroup>
-    
 </Project>

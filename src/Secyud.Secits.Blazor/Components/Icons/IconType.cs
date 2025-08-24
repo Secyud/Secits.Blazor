@@ -7,4 +7,5 @@ public enum IconType
     Delete,
     Search,
     Clear,
+    DropDown,
 }

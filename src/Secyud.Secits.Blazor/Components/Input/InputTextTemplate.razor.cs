@@ -1,9 +1,8 @@
 ﻿using Microsoft.AspNetCore.Components;
-using Secyud.Secits.Blazor.Settings;
 
 namespace Secyud.Secits.Blazor;
 
-public partial class InputTextTemplate<TValue> : IValueContainer<TValue>
+public partial class InputTextTemplate<TValue> 
 {
     protected virtual string? InputString => ParsingFailed ? ValueString : CurrentString;
     protected string? CurrentString { get; set; }
@@ -76,7 +75,7 @@ public partial class InputTextTemplate<TValue> : IValueContainer<TValue>
                 break;
         }
 
-        ValueString = Master.CurrentValue?.ToString();
+        ValueString = Master.GetSingleValue()?.ToString();
         return Task.CompletedTask;
     }
 
@@ -86,18 +85,6 @@ public partial class InputTextTemplate<TValue> : IValueContainer<TValue>
         await OnInputStringHandleAsync(value);
         await OnInputValueHandleAsync();
         if (submit)
-            await Master.OnValueChangedAsync(CachedValue);
-    }
-
-    protected override void ApplySetting()
-    {
-        base.ApplySetting();
-        Master.ValueContainer.Apply(this);
-    }
-
-    protected override void ForgoSetting()
-    {
-        base.ForgoSetting();
-        Master.ValueContainer.Forgo(this);
+            await Master.SetSingleValue(CachedValue);
     }
 }

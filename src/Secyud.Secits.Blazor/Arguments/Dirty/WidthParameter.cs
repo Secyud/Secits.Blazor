@@ -4,7 +4,7 @@ namespace Secyud.Secits.Blazor;
 
 public class WidthParameter : DirtyParameter<IHasWidth>
 {
-    public override bool CheckComponentValid(SComponentBase c)
+    public override bool CheckComponentValid(SPluggableBase c)
     {
         return c is IHasWidth and not IHasSize;
     }

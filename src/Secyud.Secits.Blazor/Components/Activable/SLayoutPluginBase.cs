@@ -3,21 +3,26 @@ using Secyud.Secits.Blazor.Settings;
 
 namespace Secyud.Secits.Blazor;
 
-public abstract class SLayoutSettingBase<TComponent> : SSettingBase<TComponent>,
+public abstract class SLayoutPluginBase<TComponent> : SPluginBase<TComponent>,
     ILayoutTemplateRenderer
-    where TComponent : SComponentBase,IHasLayoutTemplateSlot
+    where TComponent : SPluggableBase, IHasLayoutTemplateSlot
 {
     [Parameter]
-    public string? Col { get; set; }
+    public string? Style { get; set; }
 
     [Parameter]
-    public string? Row { get; set; }
+    public string? Class { get; set; }
 
     public abstract RenderFragment RenderTemplate();
 
-    protected string GetStyle()
+    protected string? GetStyle()
     {
-        return $"grid-column: {Col}; grid-row: {Row};";
+        return Style;
+    }
+
+    protected string? GetClass()
+    {
+        return Class;
     }
 
     protected override void ApplySetting()

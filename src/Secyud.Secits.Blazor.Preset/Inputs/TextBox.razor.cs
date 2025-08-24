@@ -3,7 +3,7 @@
 namespace Secyud.Secits.Blazor.Preset;
 
 [CascadingTypeParameter(nameof(TValue))]
-public partial class InputTextBox<TValue>
+public partial class TextBox<TValue>
     where TValue :
     IComparable<string?>,
     IEquatable<string?>,

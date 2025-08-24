@@ -9,8 +9,5 @@ namespace Secyud.Secits.Blazor.Settings;
 /// </summary>
 public interface ILayoutTemplateRenderer : IIsSetting
 {
-    RenderFragment RenderTemplate();
-
-    string? Row { get; set; }
-    string? Col { get; set; }
+    RenderFragment? RenderTemplate();
 }

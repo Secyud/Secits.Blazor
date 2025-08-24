@@ -8,13 +8,14 @@ namespace Secyud.Secits.Blazor;
 public class EnableItemValueSelect<TItem, TValue> : EnableItemSelect<TItem>,
     IHasValueField<TItem, TValue>, IHasValue<TValue>
 {
-    [Parameter]
-    public Expression<Func<TItem, TValue>>? ValueField { get; set; }
-
     private Func<TItem, TValue> _valueField = null!;
 
     [Parameter]
+    public Expression<Func<TItem, TValue>>? ValueField { get; set; }
+
+    [Parameter]
     public Func<TValue, Task<TItem>> ItemFinder { get; set; } = null!;
+
 
     [Parameter]
     public TValue Value { get; set; } = default!;
@@ -22,20 +23,14 @@ public class EnableItemValueSelect<TItem, TValue> : EnableItemSelect<TItem>,
     [Parameter]
     public EventCallback<TValue> ValueChanged { get; set; }
 
-    private TValue _value = default!;
-
-    public override async Task SetParametersAsync(ParameterView parameters)
+    protected override void BeforeParametersSet(ParameterContainer parameters)
     {
-        parameters.UseParameter(ValueField, nameof(ValueField),
-            value => _valueField = value!.Compile());
-
-        await base.SetParametersAsync(parameters);
-        await parameters.UseParameter(_value, nameof(Value), SetSelectionFromParameter);
+        parameters.UseParameter(ValueField, nameof(ValueField), value => _valueField = value!.Compile());
+        parameters.UseParameter(Value, nameof(Value), SetSelectionFromParameter);
     }
 
     protected async Task SetSelectionFromParameter(TValue value)
     {
-        _value = value;
         var item = await ItemFinder.Invoke(value);
         SelectedItem = item;
     }

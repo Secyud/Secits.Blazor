@@ -1,11 +1,11 @@
 ﻿@namespace Secyud.Secits.Blazor
-@inherits SLayoutSettingBase<SInput<int>>
+@inherits SLayoutPluginBase<SInputBase<int>>
 
 @code
 {
     public override RenderFragment RenderTemplate() =>
-        @<SliderBox Value="Master.CurrentValue" ValueChanged="Master.OnValueChangedAsync"
-                    Style="@GetStyle()" Cycle="Cycle" 
+        @<SliderBox Value="Master.GetSingleValue()" ValueChanged="Master.SetSingleValue"
+                    Style="@GetStyle()" Class="@GetClass()" Cycle="Cycle"
                     Disabled="Master.Disabled" Readonly="Master.Readonly"
                     Format="@Format" Max="Max" Min="Min" NumberCount="NumberCount"
         />;

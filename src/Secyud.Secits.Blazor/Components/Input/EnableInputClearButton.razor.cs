@@ -12,6 +12,6 @@ public partial class EnableInputClearButton<TValue> : ILayoutTemplateRenderer
 
     private async Task ClearInputAsync(MouseEventArgs args)
     {
-        await Master.OnValueChangedAsync(default!);
+        await Master.OnValueCleared();
     }
 }

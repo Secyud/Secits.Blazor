@@ -5,7 +5,7 @@ using Timer = System.Timers.Timer;
 
 namespace Secyud.Secits.Blazor;
 
-public class EnableInputDelay<TValue> : SSettingBase<SInput<TValue>>, IInputInvoker<TValue>
+public class EnableInputDelay<TValue> : SPluginBase<IInputInvokable<TValue>>, IInputInvoker<TValue>
 {
     private Timer? _timer;
     private TValue _value = default!;
@@ -23,7 +23,7 @@ public class EnableInputDelay<TValue> : SSettingBase<SInput<TValue>>, IInputInvo
         Master.InputInvoker.Forgo(this);
     }
 
-    public override async Task SetParametersAsync(ParameterView parameters)
+    protected override void BeforeParametersSet(ParameterContainer parameters)
     {
         parameters.UseParameter(DelayInterval, nameof(DelayInterval), value =>
         {
@@ -44,10 +44,7 @@ public class EnableInputDelay<TValue> : SSettingBase<SInput<TValue>>, IInputInvo
                 _timer = null;
             }
         });
-
-        await base.SetParametersAsync(parameters);
     }
-
 
     public async Task InvokeValueChanged(object? sender, TValue value)
     {
@@ -70,10 +67,7 @@ public class EnableInputDelay<TValue> : SSettingBase<SInput<TValue>>, IInputInvo
 
     private async Task ValueChangedAsync(TValue value)
     {
-        if (Master is { ValueChanged: { HasDelegate: true } callback })
-        {
-            await callback.InvokeAsync(value);
-        }
+        await Master.OnValueChangedAsync(value);
     }
 
     public override async ValueTask DisposeAsync()

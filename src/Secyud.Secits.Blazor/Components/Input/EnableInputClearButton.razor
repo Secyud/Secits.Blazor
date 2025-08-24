@@ -1,5 +1,5 @@
 ﻿@namespace Secyud.Secits.Blazor
-@inherits SLayoutSettingBase<SInput<TValue>>
+@inherits SLayoutPluginBase<SSingleInput<TValue>>
 @using Secyud.Secits.Blazor.Icons
 @typeparam TValue
 
@@ -7,6 +7,6 @@
 {
     public override RenderFragment RenderTemplate() => 
         @<SIcon IconName="@IconProvider.GetIcon(IconType.Clear)"
-                Style="@GetStyle()"
+                Style="@GetStyle()" Class="@GetClass()"
                 OnClick="ClearInputAsync"/>;
 }

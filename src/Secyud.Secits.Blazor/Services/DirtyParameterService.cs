@@ -7,9 +7,9 @@ public class DirtyParameterService(IOptions<SecitsOptions> options):IDirtyParame
 {
     private readonly Dictionary<Type, List<DirtyParameter>> _parameters = [];
 
-    public IReadOnlyList<DirtyParameter> GetDirtyParameters(SComponentBase component)
+    public IReadOnlyList<DirtyParameter> GetDirtyParameters(SPluggableBase pluggable)
     {
-        var type = component.GetType();
+        var type = pluggable.GetType();
         if (!_parameters.TryGetValue(type, out var list))
         {
             list = [];
@@ -17,7 +17,7 @@ public class DirtyParameterService(IOptions<SecitsOptions> options):IDirtyParame
             _parameters[type] = list;
 
             list.AddRange(options.Value.Parameters
-                .Where(parameter => parameter.CheckComponentValid(component)));
+                .Where(parameter => parameter.CheckComponentValid(pluggable)));
         }
 
         return list;

@@ -1,11 +1,6 @@
 ﻿namespace Secyud.Secits.Blazor;
 
-public class SSettingMaster
+public class SSettingMaster(IPluggable value)
 {
-    public SSettingMaster(object value)
-    {
-        Value = value;
-    }
-
-    public object Value { get; }
+    public IPluggable Value { get; } = value;
 }

@@ -1,13 +1,17 @@
 ﻿@namespace Secyud.Secits.Blazor
-@inherits SLayoutSettingBase<SActivableBase>
+@using Secyud.Secits.Blazor.Icons
+@inherits SLayoutPluginBase<SActivableBase>
 
 
 @code
 {
     public override RenderFragment RenderTemplate() => __builder =>
     {
-        <div></div>
+        <SIcon IconName="@IconProvider.GetIcon(IconType.DropDown)"
+               Class="@GetClass()" Style="@GetStyle()"></SIcon>
         
-        
+        <div class="dropdown-content @ContentClass" style="@ContentStyle">
+            @ChildContent
+        </div>
     };
 }

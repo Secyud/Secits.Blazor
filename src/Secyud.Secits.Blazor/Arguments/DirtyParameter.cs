@@ -4,9 +4,9 @@ namespace Secyud.Secits.Blazor;
 
 public abstract class DirtyParameter
 {
-    public abstract bool CheckComponentValid(SComponentBase c);
-    public abstract bool CheckComponentDirty(SComponentBase component, ParameterView view);
-    public abstract void BuildComponentClassStyle(SComponentBase c, ClassStyleContext context);
+    public abstract bool CheckComponentValid(SPluggableBase c);
+    public abstract bool CheckComponentDirty(SPluggableBase pluggable, ParameterView view);
+    public abstract void BuildComponentClassStyle(SPluggableBase c, ClassStyleContext context);
 }
 
 public abstract class DirtyParameter<TComponent> : DirtyParameter where TComponent : class
@@ -23,13 +23,13 @@ public abstract class DirtyParameter<TComponent> : DirtyParameter where TCompone
 
     protected abstract bool CheckDirty(TComponent c, ParameterView view);
 
-    public sealed override void BuildComponentClassStyle(SComponentBase c, ClassStyleContext context)
+    public sealed override void BuildComponentClassStyle(SPluggableBase c, ClassStyleContext context)
     {
         BuildClassStyle((c as TComponent)!, context);
     }
 
-    public sealed override bool CheckComponentDirty(SComponentBase component, ParameterView view)
+    public sealed override bool CheckComponentDirty(SPluggableBase pluggable, ParameterView view)
     {
-        return CheckDirty((component as TComponent)!, view);
+        return CheckDirty((pluggable as TComponent)!, view);
     }
 }

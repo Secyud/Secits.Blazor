@@ -35,6 +35,9 @@ public partial class SliderBox : ICanActive, IHasRange<int>
     public string? Style { get; set; }
 
     [Parameter]
+    public string? Class { get; set; }
+
+    [Parameter]
     public EventCallback<int> ValueChanged { get; set; }
 
     private async Task OnWheelAsync(WheelEventArgs args)

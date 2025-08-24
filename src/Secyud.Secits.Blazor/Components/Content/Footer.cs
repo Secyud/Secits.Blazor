@@ -3,7 +3,7 @@ using Secyud.Secits.Blazor.Settings;
 
 namespace Secyud.Secits.Blazor;
 
-public class Footer : SSettingBase<SCard>, IContentFooterRenderer, IHasContent
+public class Footer : SPluginBase<SCard>, IContentFooterRenderer, IHasContent
 {
     [Parameter]
     public RenderFragment? ChildContent { get; set; }

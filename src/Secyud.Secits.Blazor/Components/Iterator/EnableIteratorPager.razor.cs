@@ -24,7 +24,7 @@ public partial class EnableIteratorPager<TItem> : IIteratorRenderer<TItem>, ICon
     {
         if (Master.DataSource.Get() is not {} source) return;
         var result = await source.GetDataAsync(Master.DataRequest);
-        _items = Enumerable.ToList<TItem>(result.Items);
+        _items = result.Items.ToList();
         _totalCount = result.TotalCount;
     }
 

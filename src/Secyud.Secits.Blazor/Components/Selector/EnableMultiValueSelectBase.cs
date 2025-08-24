@@ -5,7 +5,7 @@ namespace Secyud.Secits.Blazor;
 
 public abstract class EnableMultiValueSelectBase<TComponent, TValue> : EnableSelectBase<TComponent, TValue>,
     IHasValues<TValue>
-    where TComponent : SComponentBase
+    where TComponent : SPluggableBase
 {
     [Parameter]
     public List<TValue> Values { get; set; } = [];

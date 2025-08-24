@@ -6,12 +6,12 @@
     public override RenderFragment RenderTemplate() =>
         @<div class="pkr-t board">
             <SliderBox Disabled="@Pression.Disable(DateTimePrecisionKind.Hour)"
-                       @bind-Value="Hour" Cycle Format="00" Max="23" Style="@Style"/>
+                       @bind-Value="Hour" Cycle Format="00" Max="23" Style="@SliderStyle"/>
             <SliderBox Disabled="@Pression.Disable(DateTimePrecisionKind.Minute)"
-                       @bind-Value="Minute" Cycle Format="00" Max="59" Style="@Style"/>
+                       @bind-Value="Minute" Cycle Format="00" Max="59" Style="@SliderStyle"/>
             <SliderBox Disabled="@Pression.Disable(DateTimePrecisionKind.Second)"
-                       @bind-Value="Second" Cycle Format="00" Max="59" Style="@Style"/>
+                       @bind-Value="Second" Cycle Format="00" Max="59" Style="@SliderStyle"/>
         </div>;
 
-    private const string Style = "width: 3rem;padding: 0;";
+    private const string SliderStyle = "width: 3rem;padding: 0;";
 }

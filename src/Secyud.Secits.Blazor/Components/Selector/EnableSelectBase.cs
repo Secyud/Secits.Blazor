@@ -3,8 +3,8 @@ using Secyud.Secits.Blazor.Settings;
 
 namespace Secyud.Secits.Blazor;
 
-public abstract class EnableSelectBase<TComponent, TSelection> : SSettingBase<TComponent>,
-    IHasSelectContent, IHasTextField<TSelection> where TComponent : SComponentBase
+public abstract class EnableSelectBase<TComponent, TSelection> : SPluginBase<TComponent>,
+    IHasSelectContent, IHasTextField<TSelection> where TComponent : SPluggableBase
 {
     private ISelectionDisplayer? _selectDelegate;
 

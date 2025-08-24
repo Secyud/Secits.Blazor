@@ -3,7 +3,7 @@ using Secyud.Secits.Blazor.Settings;
 
 namespace Secyud.Secits.Blazor;
 
-public class Body : SSettingBase<SCard>, IContentBodyRenderer, IHasContent
+public class Body : SPluginBase<SCard>, IContentBodyRenderer, IHasContent
 {
     [Parameter]
     public RenderFragment? ChildContent { get; set; }

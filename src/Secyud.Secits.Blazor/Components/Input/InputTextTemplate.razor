@@ -1,11 +1,11 @@
 ﻿@namespace Secyud.Secits.Blazor
-@inherits SLayoutSettingBase<SInput<TValue>>
+@inherits SLayoutPluginBase<SInputBase<TValue>>
 @typeparam TValue
 
 @code
 {
     public override RenderFragment RenderTemplate() =>
-        @<input value="@InputString" style="@GetStyle()"
+        @<input value="@InputString" class="@GetClass()" style="@GetStyle()"
                 readonly="@(Master.Readonly ? "readonly" : null)"
                 disabled="@(Master.Disabled ? "disabled" : null)"
                 @oninput="OnInputAsync" @onchange="@OnChangeAsync"

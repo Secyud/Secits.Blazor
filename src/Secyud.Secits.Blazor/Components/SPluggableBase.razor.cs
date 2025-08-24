@@ -4,13 +4,13 @@ using Secyud.Secits.Blazor.Settings;
 
 namespace Secyud.Secits.Blazor;
 
-public abstract partial class SComponentBase : IHasTheme, IHasSize, IHasCustomCss
+public abstract partial class SPluggableBase : IHasTheme, IHasSize, IHasCustomCss, IPluggable
 {
     private readonly SSettingMaster _settingMaster;
     private readonly ClassStyleBuilder _classStyleBuilder;
     private readonly List<DirtyParameter> _dirtyParameters = [];
 
-    protected SComponentBase()
+    protected SPluggableBase()
     {
         _settingMaster = new SSettingMaster(this);
         _classStyleBuilder = new ClassStyleBuilder(BuildClassStyle);
@@ -30,6 +30,8 @@ public abstract partial class SComponentBase : IHasTheme, IHasSize, IHasCustomCs
     }
 
 
+    #region Parameters
+
     public override async Task SetParametersAsync(ParameterView parameters)
     {
         if (_dirtyParameters.Any(parameter => parameter.CheckComponentDirty(this, parameters)))
@@ -37,24 +39,34 @@ public abstract partial class SComponentBase : IHasTheme, IHasSize, IHasCustomCs
             _classStyleBuilder.SetDirty();
         }
 
+        var container = new ParameterContainer(parameters);
+        BeforeParametersSet(container);
         await base.SetParametersAsync(parameters);
+        await Task.WhenAll(container.ParameterTasks);
     }
+
+    protected virtual void BeforeParametersSet(ParameterContainer parameters)
+    {
+    }
+
+    #endregion
+
 
     #region Internal
 
-    internal void MasterStateHasChanged()
+    public new void StateHasChanged()
     {
-        StateHasChanged();
+        base.StateHasChanged();
     }
 
-    internal Task MasterInvokeAsync(Action action)
+    public new Task InvokeAsync(Action action)
     {
-        return InvokeAsync(action);
+        return base.InvokeAsync(action);
     }
 
-    internal Task MasterInvokeAsync(Func<Task> action)
+    public new Task InvokeAsync(Func<Task> action)
     {
-        return InvokeAsync(action);
+        return base.InvokeAsync(action);
     }
 
     #endregion
@@ -68,9 +80,9 @@ public abstract partial class SComponentBase : IHasTheme, IHasSize, IHasCustomCs
 
         foreach (var extendClassStyleBuilder in ClassStyleBuilders)
         {
-            
+            extendClassStyleBuilder.BuildExtendClassStyle(context);
         }
-        
+
         foreach (var dirtyParameter in _dirtyParameters)
         {
             dirtyParameter.BuildComponentClassStyle(this, context);

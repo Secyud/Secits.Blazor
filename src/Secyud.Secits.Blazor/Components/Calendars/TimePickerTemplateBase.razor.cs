@@ -45,6 +45,6 @@ public abstract partial class TimePickerTemplateBase
             hour ?? ValueOrDefault.Hour,
             minute ?? ValueOrDefault.Minute,
             second ?? ValueOrDefault.Second);
-        Master.OnValueChangedAsync(time).ConfigureAwait(false);
+        Master.SetSingleValue(time).ConfigureAwait(false);
     }
 }

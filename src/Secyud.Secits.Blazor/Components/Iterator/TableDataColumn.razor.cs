@@ -36,7 +36,7 @@ public partial class TableDataColumn<TItem, TValue> :
 
     #region LifeCycle
 
-    public override async Task SetParametersAsync(ParameterView parameters)
+    protected override void BeforeParametersSet(ParameterContainer parameters)
     {
         parameters.UseParameter(ValueField, nameof(ValueField), field =>
         {
@@ -45,8 +45,6 @@ public partial class TableDataColumn<TItem, TValue> :
             Filter.Field = name;
             Sorter.Field = name;
         });
-
-        await base.SetParametersAsync(parameters);
     }
 
     protected override void ApplySetting()
