@@ -10,29 +10,26 @@
 @code
 {
 
-    protected override RenderFragment GenerateBody() => __builder =>
-    {
-        @ItemsRenderer.Get()?.GenerateItems(GenerateRow())
-    };
+    protected override RenderFragment GenerateBody() => __builder => { @ItemsRenderer.Get()?.GenerateItems(GenerateRow) };
 
-    protected virtual RenderFragment<TItem> GenerateRow()
+    protected virtual RenderFragment GenerateRow(TItem item)
     {
         return RowRenderer.Get() is { } rowRenderer
-            ? GenerateRowWithRenderer(rowRenderer)
-            : GenerateRowWithoutRenderer();
+            ? GenerateRowWithRenderer(rowRenderer, item)
+            : GenerateRowWithoutRenderer(item);
     }
 
-    protected virtual RenderFragment<TItem> GenerateRowWithRenderer(IRowRenderer<TItem> renderer) => item =>
+    protected virtual RenderFragment GenerateRowWithRenderer(IRowRenderer<TItem> renderer, TItem item) =>
         @<div class="@renderer.GetRowClass(item)"
               style="@renderer.GetRowStyle(item)"
               @onclick="e=> renderer.OnRowClick(e,item)">
-            @GenerateCol()(item)
+            @GenerateCol(item)
         </div>;
 
-    protected virtual RenderFragment<TItem> GenerateRowWithoutRenderer() => item =>
+    protected virtual RenderFragment GenerateRowWithoutRenderer(TItem item) =>
         @<div>
-            @GenerateCol()(item)
+            @GenerateCol(item)
         </div>;
 
-    protected abstract RenderFragment<TItem> GenerateCol();
+    protected abstract RenderFragment GenerateCol(TItem item);
 }

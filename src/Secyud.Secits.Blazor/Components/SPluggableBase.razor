@@ -15,7 +15,7 @@
     protected virtual RenderFragment? GenerateSetting() => ChildContent;
 
     protected virtual RenderFragment GenerateSettingContent() =>
-        @<CascadingValue TValue="SPluggableContainer" Value="PluggableContainer" IsFixed>
+        @<CascadingValue Value="PluggableContainer" IsFixed>
             @GenerateSetting()
         </CascadingValue>;
 }

@@ -8,7 +8,7 @@ namespace Secyud.Secits.Blazor;
 public abstract class EnableInputDelayInvokerBase<TItem> : SPluginBase<SInput<TItem>>, IInputInvoker<TItem>
 {
     private Timer? _timer;
-    private TItem _lastActiveItem = default!;
+    protected TItem LastActiveItem { get; set; } = default!;
 
     [Parameter]
     public int DelayInterval { get; set; }
@@ -99,14 +99,10 @@ public abstract class EnableInputDelayInvokerBase<TItem> : SPluginBase<SInput<TI
 
     public abstract Task ClearActiveItemAsync();
 
-    public virtual Task SetActiveItemAsync(TItem value)
-    {
-        _lastActiveItem = value;
-        return Task.CompletedTask;
-    }
+    public abstract Task SetActiveItemAsync(TItem value);
 
     public virtual TItem GetActiveItem()
     {
-        return _lastActiveItem;
+        return LastActiveItem;
     }
 }

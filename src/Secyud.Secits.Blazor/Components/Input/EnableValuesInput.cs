@@ -26,10 +26,10 @@ public class EnableValuesInput<TValue, TItemValue> : EnableItemsInput<TValue>, I
         base.BeforeParametersSet(parameters);
         parameters.UseParameter(ValueField, nameof(ValueField),
             value => _valueField = value!.Compile());
-        parameters.UseParameter(Values, nameof(Values), SetSelectionFromParameter);
+        parameters.UseParameter(Values, nameof(Values), TrySetSelectionFromParameter);
     }
 
-    protected async Task SetSelectionFromParameter(List<TItemValue> values)
+    protected async Task TrySetSelectionFromParameter(List<TItemValue> values)
     {
         var items = await ItemFinder.Invoke(values);
         CurrentSelectedItems = items.ToList();

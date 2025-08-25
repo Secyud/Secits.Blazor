@@ -8,7 +8,7 @@
 
 @code
 {
-    protected override RenderFragment<TItem> GenerateCol() => item => __builder =>
+    protected override RenderFragment GenerateCol(TItem item) => __builder =>
     {
         foreach (var col in Columns)
         {

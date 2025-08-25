@@ -5,13 +5,18 @@ namespace Secyud.Secits.Blazor;
 [CascadingTypeParameter(nameof(TValue))]
 public class EnableItemInput<TValue> : EnableInputDelayInvokerBase<TValue>
 {
-    protected TValue CurrentSelectedItem { get; set; } = default!;
+    protected TValue CurrentSelectedItem
+    {
+        get => LastActiveItem;
+        set => LastActiveItem = value;
+    }
 
     [Parameter]
     public EventCallback<TValue> SelectedItemChanged { get; set; }
 
     [Parameter]
     public TValue SelectedItem { get; set; } = default!;
+
 
     protected override async Task OnValueChangedAsync()
     {
@@ -33,7 +38,7 @@ public class EnableItemInput<TValue> : EnableInputDelayInvokerBase<TValue>
     {
         await Do(() =>
         {
-            CurrentSelectedItem = Equals(CurrentSelectedItem, SelectedItem) ? default! : SelectedItem;
+            CurrentSelectedItem = Equals(CurrentSelectedItem, value) ? default! : value;
         });
         await InvokeAsync(StateHasChanged);
     }

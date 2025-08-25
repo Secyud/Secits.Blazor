@@ -9,18 +9,10 @@ public class EnableIteratorSelect<TItem> : SSelectorPluginBase
     <SIteratorBase<TItem>, SInput<TItem>, TItem>, IRowRenderer<TItem>
 {
     protected IInputInvoker<TItem> Invoker => Selectable.InputInvoker.Get()!;
-    
-    protected override void ApplySelectable()
-    {
-    }
-
-    protected override void ForgoSelectable()
-    {
-    }
 
     public override bool IsItemSelected(TItem value)
     {
-        return Invoker.IsItemSelected(value);
+        return SelectableValid && Invoker.IsItemSelected(value);
     }
 
     public override async Task ClearActiveItemAsync()

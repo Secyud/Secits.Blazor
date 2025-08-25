@@ -17,7 +17,7 @@ public partial class ComboBox<TItem, TValue> : IHasValue<TValue>
     public Func<TValue, Task<TItem>> ItemFinder { get; set; } = null!;
 
     [Parameter]
-    public RenderFragment<TItem>? SelectTemplate { get; set; }
+    public RenderFragment<TItem>? ListItemTemplate { get; set; }
 
     [Parameter]
     public TValue Value { get; set; } = default!;

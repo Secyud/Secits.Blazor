@@ -1,8 +1,9 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Secyud.Secits.Blazor.Settings;
 
 namespace Secyud.Secits.Blazor;
 
-public partial class InputTextTemplate<TValue>
+public partial class InputTextTemplate<TValue> : ICanActive, IValueContainer<TValue>
 {
     protected virtual string? InputString => ParsingFailed ? ValueString : CurrentString;
     protected string? CurrentString { get; set; }
@@ -13,8 +14,23 @@ public partial class InputTextTemplate<TValue>
     [Parameter]
     public bool SubmitOnInput { get; set; }
 
+    [Parameter]
+
+    public bool Readonly { get; set; }
+
+    [Parameter]
+    public bool Disabled { get; set; }
+
     [Parameter(CaptureUnmatchedValues = true)]
     public IDictionary<string, object>? Attributes { get; set; }
+
+    protected override void ApplySetting()
+    {
+        base.ApplySetting();
+        Master.InputInvoker
+            .InvokeAsync(u => SetValueFromParameterAsync(u.GetActiveItem()))
+            .ConfigureAwait(false);
+    }
 
     public Task SetValueFromParameterAsync(TValue value)
     {
@@ -85,7 +101,7 @@ public partial class InputTextTemplate<TValue>
                 ? currentItem?.ToString()
                 : converter.ToString(currentItem);
         }
-        
+
         return Task.CompletedTask;
     }
 
@@ -98,5 +114,15 @@ public partial class InputTextTemplate<TValue>
         {
             await invoker.SetActiveItemAsync(CachedValue);
         }
+    }
+
+    private string? GetReadOnly()
+    {
+        return Master.Readonly || Readonly ? "readonly" : null;
+    }
+
+    private string? GetDisabled()
+    {
+        return Master.Disabled || Disabled ? "disabled" : null;
     }
 }

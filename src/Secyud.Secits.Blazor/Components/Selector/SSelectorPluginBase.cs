@@ -12,8 +12,10 @@ public abstract class SSelectorPluginBase<TComponent, TContainer, TItem> : SPlug
         _selectable ?? throw new InvalidOperationException(
             "Inputs need a invoker to handle value callback");
 
+    protected bool SelectableValid => _selectable is not null;
+
     [CascadingParameter]
-    public SSelectableContainer? SelectableContainer
+    public SSelectableContainer? SelectableComponent
     {
         set
         {

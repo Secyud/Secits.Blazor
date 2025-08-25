@@ -18,7 +18,7 @@ public abstract class SPluginBase<TComponent> : IComponent, IAsyncDisposable, II
     protected bool MasterValid => _master is not null;
 
     [CascadingParameter]
-    public SPluggableContainer? MasterComponent
+    public SPluggableContainer? PluggableComponent
     {
         set
         {
@@ -65,7 +65,7 @@ public abstract class SPluginBase<TComponent> : IComponent, IAsyncDisposable, II
 
     public virtual ValueTask DisposeAsync()
     {
-        MasterComponent = null;
+        PluggableComponent = null;
         return ValueTask.CompletedTask;
     }
 
@@ -73,12 +73,12 @@ public abstract class SPluginBase<TComponent> : IComponent, IAsyncDisposable, II
     {
     }
 
-    public virtual Task SetParametersAsync(ParameterView parameters)
+    public virtual async Task SetParametersAsync(ParameterView parameters)
     {
         var container = new ParameterContainer(parameters);
         BeforeParametersSet(container);
         parameters.SetParameterProperties(this);
-        return Task.WhenAll(container.ParameterTasks);
+        await container.RunAndCleanTasksAsync();
     }
 
     protected virtual void BeforeParametersSet(ParameterContainer parameters)

@@ -29,14 +29,15 @@ public class EnableItemsInput<TValue> : EnableInputDelayInvokerBase<TValue>
 
     public override bool IsItemSelected(TValue value)
     {
-        return value is not null && SelectedItems.Contains(value);
+        return value is not null && CurrentSelectedItems.Contains(value);
     }
 
     public override async Task SetActiveItemAsync(TValue value)
     {
         await Do(() =>
         {
-            var list = SelectedItems.ToList();
+            LastActiveItem = value;
+            var list = CurrentSelectedItems;
             if (!list.Remove(value)) list.Add(value);
             CurrentSelectedItems = list;
         });

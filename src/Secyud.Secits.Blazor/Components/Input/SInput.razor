@@ -8,10 +8,8 @@
 
 @code
 {
-    protected override RenderFragment GenerateSettingContent() =>
-        @<CascadingValue TValue="SPluggableContainer" Value="PluggableContainer" IsFixed>
-            <CascadingValue TValue="SSelectableContainer" Value="SelectableContainer" IsFixed>
-                @GenerateSetting()
-            </CascadingValue>
+    protected override RenderFragment GenerateContent() =>
+        @<CascadingValue Value="SelectableContainer" IsFixed>
+            @base.GenerateContent()
         </CascadingValue>;
 }

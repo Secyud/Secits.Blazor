@@ -1,6 +1,6 @@
 namespace Secyud.Secits.Blazor;
 
-public class SSelectableContainer(object value)
+public class SSelectableContainer(ISelectable value)
 {
-    public object Value { get; } = value;
+    public ISelectable Value { get; } = value;
 }

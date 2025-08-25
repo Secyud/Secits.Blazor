@@ -3,7 +3,7 @@ using Secyud.Secits.Blazor.Settings;
 
 namespace Secyud.Secits.Blazor;
 
-public partial class SInput<TValue>
+public partial class SInput<TValue> : ISelectable
 {
     protected override string ComponentName => "input";
     protected SSelectableContainer SelectableContainer { get; }

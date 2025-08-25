@@ -19,4 +19,10 @@ public partial class EnableDropDown : IHasContent
 
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
+
+    private async Task OnDropDownClickAsync()
+    {
+        _isDropDownVisible = !_isDropDownVisible;
+        await InvokeAsync(StateHasChanged);
+    }
 }

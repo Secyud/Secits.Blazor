@@ -13,7 +13,12 @@ public partial class SIcon : IHasCustomCss
 
     [Parameter]
     public string? IconName { get; set; }
-    
+
     [Parameter]
-    public EventCallback<MouseEventArgs> OnClick { get; set; }
+    public EventCallback<MouseEventArgs> Click { get; set; }
+
+    protected void OnClick(MouseEventArgs args)
+    {
+        Click.InvokeAsync(args);
+    }
 }

@@ -34,7 +34,7 @@
         }
     };
 
-    protected override RenderFragment GenerateBody()=> __builder =>
+    protected override RenderFragment GenerateBody() => __builder =>
     {
         <div class="table-body">
             <table>
@@ -77,18 +77,18 @@
         @base.GenerateFooter()
     };
 
-    
-    protected override RenderFragment<TItem> GenerateRowWithRenderer(IRowRenderer<TItem> renderer) => item =>
+
+    protected override RenderFragment GenerateRowWithRenderer(IRowRenderer<TItem> renderer, TItem item) =>
         @<tr class="@renderer.GetRowClass(item)"
-              style="@renderer.GetRowStyle(item)"
-              @onclick="e=> renderer.OnRowClick(e,item)">
-            @GenerateCol()(item)
+             style="@renderer.GetRowStyle(item)"
+             @onclick="e=> renderer.OnRowClick(e,item)">
+            @GenerateCol(item)
         </tr>;
 
-    protected override RenderFragment<TItem> GenerateRowWithoutRenderer() 
-        => item => @<tr>@GenerateCol()(item)</tr>;
+    protected override RenderFragment GenerateRowWithoutRenderer(TItem item) =>
+        @<tr>@GenerateCol(item)</tr>;
 
-    protected override RenderFragment<TItem> GenerateCol() => item => __builder =>
+    protected override RenderFragment GenerateCol(TItem item) => __builder =>
     {
         @foreach (var column in TableColumns)
         {
