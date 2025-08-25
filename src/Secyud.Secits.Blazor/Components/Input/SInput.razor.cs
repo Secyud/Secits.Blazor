@@ -16,7 +16,7 @@ public partial class SInput<TValue> : ISelectable
 
     #region Settings
 
-    public SSettings<IValueContainer<TValue>> ValueContainer { get; } = new();
+    public SSettings<IValueContainer> ValueContainer { get; } = new();
 
     public SSetting<IValueParser<TValue>> ValueConverter { get; } = new();
 

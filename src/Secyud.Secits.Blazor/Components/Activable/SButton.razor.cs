@@ -12,6 +12,7 @@ public partial class SButton : ICanClick
 
     protected virtual void OnClick()
     {
-        Click.InvokeAsync();
+        if (Click.HasDelegate)
+            Click.InvokeAsync().ConfigureAwait(false);
     }
 }

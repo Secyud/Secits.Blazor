@@ -24,4 +24,10 @@ public partial class ComboBox<TItem, TValue> : IHasValue<TValue>
 
     [Parameter]
     public EventCallback<TValue> ValueChanged { get; set; }
+
+    protected override void BuildClassStyle(ClassStyleContext context)
+    {
+        base.BuildClassStyle(context);
+        context.AppendClass("flex");
+    }
 }

@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Components;
+using Secyud.Secits.Blazor.Settings;
 
 namespace Secyud.Secits.Blazor;
 
@@ -29,17 +30,15 @@ public class EnableItemInput<TValue> : EnableInputDelayInvokerBase<TValue>
         return Equals(CurrentSelectedItem, value);
     }
 
-    public override async Task ClearActiveItemAsync()
+    protected override async Task OnClearActiveItemAsync(object sender)
     {
-        await Do(() => { CurrentSelectedItem = default!; });
+        CurrentSelectedItem = default!;
+        await NotifyValueChangedAsync(sender);
     }
 
-    public override async Task SetActiveItemAsync(TValue value)
+    protected override async Task OnSetActiveItemAsync(object sender, TValue value)
     {
-        await Do(() =>
-        {
-            CurrentSelectedItem = Equals(CurrentSelectedItem, value) ? default! : value;
-        });
-        await InvokeAsync(StateHasChanged);
+        CurrentSelectedItem = Equals(CurrentSelectedItem, value) ? default! : value;
+        await NotifyValueChangedAsync(sender);
     }
 }

@@ -10,7 +10,7 @@
 public interface IInputInvoker<TValue> : IIsPlugin
 {
     bool IsItemSelected(TValue value);
-    Task ClearActiveItemAsync();
-    Task SetActiveItemAsync(TValue value);
+    Task ClearActiveItemAsync(object sender);
+    Task SetActiveItemAsync(object sender, TValue value);
     TValue GetActiveItem();
 }

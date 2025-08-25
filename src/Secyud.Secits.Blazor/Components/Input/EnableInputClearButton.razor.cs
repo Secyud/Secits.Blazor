@@ -13,6 +13,6 @@ public partial class EnableInputClearButton<TValue> : ILayoutTemplateRenderer
     private async Task ClearInputAsync(MouseEventArgs args)
     {
         if (Master.InputInvoker.Get() is { } invoker)
-            await invoker.ClearActiveItemAsync();
+            await invoker.ClearActiveItemAsync(this);
     }
 }

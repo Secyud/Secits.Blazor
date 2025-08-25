@@ -3,7 +3,7 @@ using Secyud.Secits.Blazor.Settings;
 
 namespace Secyud.Secits.Blazor;
 
-public partial class InputTextTemplate<TValue> : ICanActive, IValueContainer<TValue>
+public partial class InputTextTemplate<TValue> : ICanActive, IValueContainer
 {
     protected virtual string? InputString => ParsingFailed ? ValueString : CurrentString;
     protected string? CurrentString { get; set; }
@@ -15,7 +15,6 @@ public partial class InputTextTemplate<TValue> : ICanActive, IValueContainer<TVa
     public bool SubmitOnInput { get; set; }
 
     [Parameter]
-
     public bool Readonly { get; set; }
 
     [Parameter]
@@ -24,21 +23,17 @@ public partial class InputTextTemplate<TValue> : ICanActive, IValueContainer<TVa
     [Parameter(CaptureUnmatchedValues = true)]
     public IDictionary<string, object>? Attributes { get; set; }
 
-    protected override void ApplySetting()
+    public async Task OnValueUpdatedAsync(object sender)
     {
-        base.ApplySetting();
-        Master.InputInvoker
-            .InvokeAsync(u => SetValueFromParameterAsync(u.GetActiveItem()))
-            .ConfigureAwait(false);
-    }
-
-    public Task SetValueFromParameterAsync(TValue value)
-    {
-        CachedValue = value;
-        ValueString = value?.ToString();
+        if (sender == this) return;
+        if (Master.InputInvoker.Get() is { } invoker)
+            CachedValue = invoker.GetActiveItem();
+        else
+            CachedValue = default!;
+        ValueString = CachedValue?.ToString();
         CurrentString = ValueString;
         ParsingFailed = false;
-        return Task.CompletedTask;
+        await Task.CompletedTask;
     }
 
     private async Task OnInputAsync(ChangeEventArgs args)
@@ -112,8 +107,21 @@ public partial class InputTextTemplate<TValue> : ICanActive, IValueContainer<TVa
         await OnInputValueHandleAsync();
         if (submit && Master.InputInvoker.Get() is { } invoker)
         {
-            await invoker.SetActiveItemAsync(CachedValue);
+            await invoker.SetActiveItemAsync(this, CachedValue);
         }
+    }
+
+    protected override void ApplySetting()
+    {
+        base.ApplySetting();
+        Master.ValueContainer.Apply(this);
+        OnValueUpdatedAsync(null!).ConfigureAwait(false);
+    }
+
+    protected override void ForgoSetting()
+    {
+        base.ForgoSetting();
+        Master.ValueContainer.Forgo(this);
     }
 
     private string? GetReadOnly()

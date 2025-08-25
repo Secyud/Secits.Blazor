@@ -4,8 +4,7 @@
 /// settings may have different way to sync value.
 /// for special use.
 /// </summary>
-/// <typeparam name="TValue"></typeparam>
-public interface IValueContainer<in TValue> : IIsPlugin
+public interface IValueContainer : IIsPlugin
 {
-    Task SetValueFromParameterAsync(TValue value);
+    Task OnValueUpdatedAsync(object sender);
 }

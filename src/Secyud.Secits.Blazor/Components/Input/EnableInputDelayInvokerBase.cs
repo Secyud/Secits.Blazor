@@ -61,21 +61,6 @@ public abstract class EnableInputDelayInvokerBase<TItem> : SPluginBase<SInput<TI
         }
     }
 
-    protected async Task Do(Action action)
-    {
-        if (_timer is null)
-        {
-            action.Invoke();
-            await OnValueChangedAsync();
-        }
-        else
-        {
-            _timer.Stop();
-            action.Invoke();
-            _timer.Start();
-        }
-    }
-
     protected void OnElapsed(object? source, ElapsedEventArgs e)
     {
         OnValueChangedAsync().ConfigureAwait(false);
@@ -97,12 +82,33 @@ public abstract class EnableInputDelayInvokerBase<TItem> : SPluginBase<SInput<TI
 
     public abstract bool IsItemSelected(TItem value);
 
-    public abstract Task ClearActiveItemAsync();
+    protected abstract Task OnClearActiveItemAsync(object sender);
+    protected abstract Task OnSetActiveItemAsync(object sender, TItem value);
 
-    public abstract Task SetActiveItemAsync(TItem value);
+    public Task ClearActiveItemAsync(object sender)
+    {
+        return Do(() => OnClearActiveItemAsync(sender));
+    }
+
+    public Task SetActiveItemAsync(object sender, TItem value)
+    {
+        return Do(() => OnSetActiveItemAsync(sender, value));
+    }
 
     public virtual TItem GetActiveItem()
     {
         return LastActiveItem;
+    }
+
+    protected async Task NotifyValueChangedAsync(object sender)
+    {
+        await Master.ValueContainer.InvokeAsync(OnValueUpdatedAsync);
+        await InvokeAsync(StateHasChanged);
+        return;
+
+        Task OnValueUpdatedAsync(IValueContainer container)
+        {
+            return container.OnValueUpdatedAsync(sender);
+        }
     }
 }

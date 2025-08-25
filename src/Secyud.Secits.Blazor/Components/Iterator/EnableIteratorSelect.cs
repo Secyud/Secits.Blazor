@@ -17,12 +17,12 @@ public class EnableIteratorSelect<TItem> : SSelectorPluginBase
 
     public override async Task ClearActiveItemAsync()
     {
-        await Invoker.ClearActiveItemAsync();
+        await Invoker.ClearActiveItemAsync(this);
     }
 
     public override async Task SetActiveItemAsync(TItem value)
     {
-        await Invoker.SetActiveItemAsync(value);
+        await Invoker.SetActiveItemAsync(this, value);
     }
 
     public override TItem GetActiveItem()

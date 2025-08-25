@@ -49,6 +49,6 @@ public abstract partial class TimePickerTemplateBase
             minute ?? GetValueOrDefault().Minute,
             second ?? GetValueOrDefault().Second);
         Master.InputInvoker.Get()?
-            .SetActiveItemAsync(time).ConfigureAwait(false);
+            .SetActiveItemAsync(this, time).ConfigureAwait(false);
     }
 }

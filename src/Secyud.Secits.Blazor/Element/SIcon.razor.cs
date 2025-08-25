@@ -1,9 +1,10 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
+using Secyud.Secits.Blazor.Settings;
 
 namespace Secyud.Secits.Blazor.Element;
 
-public partial class SIcon : IHasCustomCss
+public partial class SIcon : IHasCustomCss, ICanClick
 {
     [Parameter]
     public string? Class { get; set; }
@@ -15,10 +16,11 @@ public partial class SIcon : IHasCustomCss
     public string? IconName { get; set; }
 
     [Parameter]
-    public EventCallback<MouseEventArgs> Click { get; set; }
+    public EventCallback Click { get; set; }
 
     protected void OnClick(MouseEventArgs args)
     {
-        Click.InvokeAsync(args);
+        if (Click.HasDelegate)
+            Click.InvokeAsync(args).ConfigureAwait(false);
     }
 }

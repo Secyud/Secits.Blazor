@@ -45,6 +45,6 @@ public abstract class SSelectorPluginBase<TComponent, TContainer, TItem> : SPlug
 
     public abstract bool IsItemSelected(TItem value);
     public abstract Task ClearActiveItemAsync();
-    public abstract Task SetActiveItemAsync(TItem value);
+    public abstract Task SetActiveItemAsync( TItem value);
     public abstract TItem GetActiveItem();
 }

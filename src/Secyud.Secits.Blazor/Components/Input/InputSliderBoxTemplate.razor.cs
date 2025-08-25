@@ -35,7 +35,7 @@ public partial class InputSliderBoxTemplate : IHasRange<int>, ILayoutTemplateRen
     {
         if (Master.InputInvoker.Get() is { } invoker)
         {
-            await invoker.SetActiveItemAsync(value);
+            await invoker.SetActiveItemAsync(this, value);
         }
     }
 }
