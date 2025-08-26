@@ -1,6 +1,5 @@
 ﻿@namespace Secyud.Secits.Blazor
 @inherits SIteratorBase<TItem>
-@using Secyud.Secits.Blazor.Settings
 @typeparam TItem
 
 @{
@@ -76,17 +75,6 @@
 
         @base.GenerateFooter()
     };
-
-
-    protected override RenderFragment GenerateRowWithRenderer(IRowRenderer<TItem> renderer, TItem item) =>
-        @<tr class="@renderer.GetRowClass(item)"
-             style="@renderer.GetRowStyle(item)"
-             @onclick="e=> renderer.OnRowClick(e,item)">
-            @GenerateCol(item)
-        </tr>;
-
-    protected override RenderFragment GenerateRowWithoutRenderer(TItem item) =>
-        @<tr>@GenerateCol(item)</tr>;
 
     protected override RenderFragment GenerateCol(TItem item) => __builder =>
     {

@@ -4,12 +4,3 @@
 @{
     base.BuildRenderTree(__builder);
 }
-
-@code
-{
-    protected override RenderFragment GenerateContent() =>
-        @<div class="@GetClass()" style="@GetStyle()"
-              @onclick="OnClick">
-            @GenerateChildContent()
-        </div>;
-}

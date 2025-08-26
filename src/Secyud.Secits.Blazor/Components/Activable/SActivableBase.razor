@@ -14,5 +14,10 @@
             @renderer.RenderTemplate()
         }
     };
+
+    protected override RenderFragment GenerateContent() =>
+        @<div class="@GetClass()" style="@GetStyle()" @onclick="OnClick">
+            @GenerateChildContent()
+        </div>;
 }
 

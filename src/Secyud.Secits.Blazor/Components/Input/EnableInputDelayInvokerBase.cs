@@ -13,6 +13,9 @@ public abstract class EnableInputDelayInvokerBase<TItem> : SPluginBase<SInput<TI
     [Parameter]
     public int DelayInterval { get; set; }
 
+    [Parameter]
+    public EventCallback ValueUpdated { get; set; }
+
     protected override void ApplySetting()
     {
         Master.InputInvoker.Apply(this);
@@ -103,6 +106,8 @@ public abstract class EnableInputDelayInvokerBase<TItem> : SPluginBase<SInput<TI
     protected async Task NotifyValueChangedAsync(object sender)
     {
         await Master.ValueContainer.InvokeAsync(OnValueUpdatedAsync);
+        if (ValueUpdated.HasDelegate)
+            await ValueUpdated.InvokeAsync();
         await InvokeAsync(StateHasChanged);
         return;
 

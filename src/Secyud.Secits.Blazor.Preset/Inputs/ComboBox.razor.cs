@@ -30,4 +30,17 @@ public partial class ComboBox<TItem, TValue> : IHasValue<TValue>
         base.BuildClassStyle(context);
         context.AppendClass("flex");
     }
+
+    private EnableDropDown? _enableDropDown;
+
+    protected async Task OnCloseDropDownAsync()
+    {
+        if (_enableDropDown is not null)
+            await _enableDropDown.OnCloseDropDownAsync();
+    }
+    protected async Task OnDropDownClickAsync()
+    {
+        if (_enableDropDown is not null)
+            await _enableDropDown.OnDropDownClickAsync();
+    }
 }

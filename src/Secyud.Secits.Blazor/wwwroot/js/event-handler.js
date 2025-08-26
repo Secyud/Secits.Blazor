@@ -1,7 +1,6 @@
 export const getDocumentEventHandler = function () {
     let record = 0;
     const allEventListener = {};
-
     const generateFunc = function (invoker) {
         const m = function (e) {
             return {
@@ -26,27 +25,34 @@ export const getDocumentEventHandler = function () {
             }
         }
 
-
-        return function (e) {
+        function res(e) {
             invoker.invokeMethodAsync('Invoke', m(e));
         }
+
+        return res;
     }
 
 
     return {
-        addEventListener: function (type, invoker) {
-            let id = record++;
-            let func = generateFunc(invoker);
-            document.addEventListener(type, func);
-            allEventListener[id] = {
-                func, type
+        addEventListener: function (invoker, types) {
+            let id = (record++) % 0xffffffff;
+            let listener = {
+                func: generateFunc(invoker), types
             };
+            for (const type of listener.types) {
+                document.addEventListener(type, listener.func, false);
+            }
+            allEventListener[id] = listener;
             return id;
         },
         removeEventListener: function (id) {
             let listener = allEventListener[id];
-            document.removeEventListener(listener.type, listener.func);
-            delete allEventListener[id];
+            if (listener) {
+                for (const type of listener.types) {
+                    document.removeEventListener(type, listener.func, false);
+                }
+                delete allEventListener[id];
+            }
         }
     }
 }

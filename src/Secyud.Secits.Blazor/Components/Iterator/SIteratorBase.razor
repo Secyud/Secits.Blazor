@@ -1,6 +1,5 @@
 ﻿@namespace Secyud.Secits.Blazor
 @inherits SContentBase
-@using Secyud.Secits.Blazor.Settings
 @typeparam TItem
 
 @{
@@ -12,24 +11,12 @@
 
     protected override RenderFragment GenerateBody() => __builder => { @ItemsRenderer.Get()?.GenerateItems(GenerateRow) };
 
-    protected virtual RenderFragment GenerateRow(TItem item)
+    protected virtual RenderFragment GenerateRow(TItem item) => __builder =>
     {
-        return RowRenderer.Get() is { } rowRenderer
-            ? GenerateRowWithRenderer(rowRenderer, item)
-            : GenerateRowWithoutRenderer(item);
-    }
-
-    protected virtual RenderFragment GenerateRowWithRenderer(IRowRenderer<TItem> renderer, TItem item) =>
-        @<div class="@renderer.GetRowClass(item)"
-              style="@renderer.GetRowStyle(item)"
-              @onclick="e=> renderer.OnRowClick(e,item)">
+        <div class="@GetRowClass(item)" style="@GetRowStyle(item)" @onclick="e => OnRowClick(e, item)">
             @GenerateCol(item)
-        </div>;
-
-    protected virtual RenderFragment GenerateRowWithoutRenderer(TItem item) =>
-        @<div>
-            @GenerateCol(item)
-        </div>;
+        </div>
+    };
 
     protected abstract RenderFragment GenerateCol(TItem item);
 }

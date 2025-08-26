@@ -23,4 +23,14 @@ public partial class SIcon : IHasCustomCss, ICanClick
         if (Click.HasDelegate)
             Click.InvokeAsync(args).ConfigureAwait(false);
     }
+
+    protected string? GetClass()
+    {
+        return $"icon {IconName} {Class}";
+    }
+
+    protected string? GetStyle()
+    {
+        return Style;
+    }
 }

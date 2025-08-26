@@ -38,7 +38,7 @@ public class EnableItemInput<TValue> : EnableInputDelayInvokerBase<TValue>
 
     protected override async Task OnSetActiveItemAsync(object sender, TValue value)
     {
-        CurrentSelectedItem = Equals(CurrentSelectedItem, value) ? default! : value;
+        CurrentSelectedItem = value;
         await NotifyValueChangedAsync(sender);
     }
 }

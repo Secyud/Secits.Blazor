@@ -8,7 +8,7 @@ namespace Secyud.Secits.Blazor;
 /// </summary>
 /// <typeparam name="TItem"></typeparam>
 [CascadingTypeParameter(nameof(TItem))]
-public sealed partial class STable<TItem>
+public sealed partial class SGrid<TItem>
 {
     protected override string ComponentName => "table";
 

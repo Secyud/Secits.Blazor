@@ -7,25 +7,31 @@ public class SJsDocument(JsEventHandler eventHandler) : IJsDocument
     private readonly Lazy<Task<IJSObjectReference>> _documentEventHandler =
         new(() => eventHandler.InvokeAsync<IJSObjectReference>("getDocumentEventHandler").AsTask()!);
 
-    public async Task<long> AddEventListener<TEventArgs>(string type, Func<TEventArgs, Task> func)
+    public Task<long> AddEventListener<TEventArgs>(Func<TEventArgs, Task> func, params string[] types)
     {
-        var handler = await _documentEventHandler.Value;
-
-        return await handler.InvokeAsync<long>("addEventListener", type,
-            DotNetObjectReference.Create(new Invoker<TEventArgs>(func)));
+        return AddEventListenerAsync(new Invoker<TEventArgs>(func), types);
     }
 
-    public async Task<long> AddEventListener(string type, Func<Task> func)
+    public Task<long> AddEventListener(Func<Task> func, params string[] types)
     {
-        var handler = await _documentEventHandler.Value;
-        return await handler.InvokeAsync<long>("addEventListener", type,
-            DotNetObjectReference.Create(new Invoker(func)));
+        return AddEventListenerAsync(new Invoker(func), types);
     }
 
-    public async Task RemoveEventListener(long id)
+    private async Task<long> AddEventListenerAsync(object invoker, string[] types)
     {
         var handler = await _documentEventHandler.Value;
+        return await handler.InvokeAsync<long>("addEventListener",
+            DotNetObjectReference.Create(invoker), types);
+    }
 
-        await handler.InvokeVoidAsync("removeEventListener", id);
+    public async Task<long?> RemoveEventListener(long? id)
+    {
+        if (id.HasValue)
+        {
+            var handler = await _documentEventHandler.Value;
+            await handler.InvokeVoidAsync("removeEventListener", id);
+        }
+
+        return null;
     }
 }

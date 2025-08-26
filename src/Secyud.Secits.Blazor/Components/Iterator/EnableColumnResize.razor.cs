@@ -11,9 +11,8 @@ public partial class EnableColumnResize<TItem> : ITableHeaderRenderer
     private IJsDocument JsDocument { get; set; } = null!;
 
     private bool _isDrag;
-    private long _dragEventId;
-    private long _mouseupEventId;
-    private long _mouseleaveEventId;
+    private long? _dragEventId;
+    private long? _endEventId;
     private int _currentColumnIndex;
 
     protected override void ApplySetting()
@@ -32,15 +31,13 @@ public partial class EnableColumnResize<TItem> : ITableHeaderRenderer
         _isDrag = isDrag;
         if (_isDrag)
         {
-            _dragEventId = await JsDocument.AddEventListener<MouseEventArgs>("mousemove", OnDragColumnHeader);
-            _mouseupEventId = await JsDocument.AddEventListener("mouseup", EndDragColumnHeader);
-            _mouseleaveEventId = await JsDocument.AddEventListener("mouseleave", EndDragColumnHeader);
+            _dragEventId = await JsDocument.AddEventListener<MouseEventArgs>(OnDragColumnHeader, "mousemove");
+            _endEventId = await JsDocument.AddEventListener(EndDragColumnHeader, "mouseup", "mouseleave");
         }
         else
         {
-            await JsDocument.RemoveEventListener(_dragEventId);
-            await JsDocument.RemoveEventListener(_mouseupEventId);
-            await JsDocument.RemoveEventListener(_mouseleaveEventId);
+            _dragEventId = await JsDocument.RemoveEventListener(_dragEventId);
+            _endEventId = await JsDocument.RemoveEventListener(_endEventId);
         }
     }
 

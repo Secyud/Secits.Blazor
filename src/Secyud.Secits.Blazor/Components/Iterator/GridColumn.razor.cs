@@ -5,7 +5,7 @@ using Secyud.Secits.Blazor.Settings;
 
 namespace Secyud.Secits.Blazor;
 
-public partial class TableColumn<TItem, TValue> :
+public partial class GridColumn<TItem, TValue> :
     ITableColumnRenderer<TItem>, IHasValueField<TItem, TValue>
 {
     [Parameter]

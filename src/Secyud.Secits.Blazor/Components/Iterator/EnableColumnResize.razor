@@ -1,13 +1,21 @@
 ﻿@namespace Secyud.Secits.Blazor
-@inherits SPluginBase<STable<TItem>>
+@inherits SPluginBase<SGrid<TItem>>
 @typeparam TItem
 
 @code
 {
-    public RenderFragment GenerateHeader(int index) => __builder =>
+    public RenderFragment GenerateHeader(int index)
     {
-        if (Master.TableColumns.Count - 1 <= index) return;
+        return __builder =>
+        {
+            if (Master.TableColumns.Count - 1 <= index) return;
 
-        <div class="col-resizer" @onmousedown="()=>BeginDragColumnHeader(index)"></div>
-    };
+            <div class="col-resizer" @onmousedown="OnResizerMouseDown"></div>
+        };
+
+        Task OnResizerMouseDown(MouseEventArgs args)
+        {
+            return BeginDragColumnHeader(index);
+        }
+    }
 }

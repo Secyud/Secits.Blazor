@@ -1,4 +1,5 @@
-﻿using Secyud.Secits.Blazor.Settings;
+﻿using Microsoft.AspNetCore.Components.Web;
+using Secyud.Secits.Blazor.Settings;
 
 namespace Secyud.Secits.Blazor;
 
@@ -17,6 +18,27 @@ public abstract partial class SIteratorBase<TItem>
             await ItemsRenderer.InvokeAsync(u => u.RefreshAsync());
             await InvokeAsync(StateHasChanged);
         }
+    }
+
+    protected string? GetRowClass(TItem item)
+    {
+        var @class = "row";
+        if (RowRenderer.Get() is { } rowRenderer && rowRenderer.GetRowClass(item) is { } cls)
+        {
+            @class += " " + cls;
+        }
+
+        return @class;
+    }
+
+    protected string? GetRowStyle(TItem item)
+    {
+        return RowRenderer.Get()?.GetRowStyle(item);
+    }
+
+    protected void OnRowClick(MouseEventArgs args, TItem item)
+    {
+        RowRenderer.Get()?.OnRowClick(args, item);
     }
 
     #region Settings

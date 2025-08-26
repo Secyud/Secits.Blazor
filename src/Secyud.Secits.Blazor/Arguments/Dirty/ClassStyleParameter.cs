@@ -11,7 +11,7 @@ public class ClassStyleParameter : DirtyParameter<SPluggableBase>
 
     protected override void BuildClassStyle(SPluggableBase c, ClassStyleContext context)
     {
-        context.Class.Append(c.Class);
+        context.AppendClass(c.Class);
         context.Style.Append(c.Style);
     }
 

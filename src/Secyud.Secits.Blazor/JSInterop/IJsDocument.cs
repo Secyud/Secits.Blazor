@@ -2,8 +2,7 @@
 
 public interface IJsDocument
 {
-    Task<long> AddEventListener<TEventArgs>(string type, Func<TEventArgs, Task> func);
-    Task<long> AddEventListener(string type, Func<Task> func);
-
-    Task RemoveEventListener(long id);
+    Task<long> AddEventListener<TEventArgs>(Func<TEventArgs, Task> func, params string[] types);
+    Task<long> AddEventListener(Func<Task> func, params string[] types);
+    Task<long?> RemoveEventListener(long? id);
 }

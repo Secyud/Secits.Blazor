@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Secyud.Secits.Blazor.Icons;
+using Secyud.Secits.Blazor.JSInterop;
 using Secyud.Secits.Blazor.Settings;
 
 namespace Secyud.Secits.Blazor;
@@ -11,18 +12,34 @@ public partial class EnableDropDown : IHasContent
     [Inject]
     private IIconProvider IconProvider { get; set; } = null!;
 
-    [Parameter]
-    public string? ContentClass { get; set; }
-
-    [Parameter]
-    public string? ContentStyle { get; set; }
+    [Inject]
+    private IJsDocument JsDocument { get; set; } = null!;
 
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
-    private async Task OnDropDownClickAsync()
+    public async Task OnDropDownClickAsync()
     {
-        _isDropDownVisible = !_isDropDownVisible;
+        if (_isDropDownVisible)
+            await OnCloseDropDownAsync();
+        else
+            await OnOpenDropDownAsync();
+    }
+
+    private long? _openDropDownId;
+
+    public async Task OnCloseDropDownAsync()
+    {
+        _openDropDownId = await JsDocument.RemoveEventListener(_openDropDownId);
+        _isDropDownVisible = false;
+        await InvokeAsync(StateHasChanged);
+    }
+
+    public async Task OnOpenDropDownAsync()
+    {
+        _openDropDownId = await JsDocument.RemoveEventListener(_openDropDownId);
+        _openDropDownId = await JsDocument.AddEventListener(OnCloseDropDownAsync, "click");
+        _isDropDownVisible = true;
         await InvokeAsync(StateHasChanged);
     }
 }

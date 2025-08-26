@@ -12,12 +12,12 @@
     protected override RenderFragment GenerateSetting() => __builder =>
     {
         @base.GenerateSetting()
-        <InputTextTemplate TValue="TValue" Readonly></InputTextTemplate>
+        <InputTextTemplate TValue="TValue" Class="w-100" Readonly @onclick="OnDropDownClickAsync"/>
         <EnableValueInput TValue="TItem" TItemValue="TValue" Value="Value"
                           ValueField="ValueField" ItemFinder="ItemFinder"
-                          ValueChanged="ValueChanged"/>
-        <EnableDropDown>
-            <SList TItem="TItem" Class="dropdown-content">
+                          ValueChanged="ValueChanged" ValueUpdated="OnCloseDropDownAsync"/>
+        <EnableDropDown @ref="_enableDropDown" Class="button icon plain">
+            <SList TItem="TItem" Class="dropdown-content" Style="max-height: calc(var(--s-s) * 8);">
                 <StaticDataSource Items="Items"/>
                 <EnableIteratorVisualize/>
                 <EnableIteratorSelect/>
