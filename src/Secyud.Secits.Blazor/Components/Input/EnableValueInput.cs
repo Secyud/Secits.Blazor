@@ -5,63 +5,44 @@ using Secyud.Secits.Blazor.Settings;
 namespace Secyud.Secits.Blazor;
 
 [CascadingTypeParameter(nameof(TValue))]
-public class EnableValueInput<TValue, TItemValue> : EnableItemInput<TValue>, IHasValue<TItemValue>
+public class EnableValueInput<TValue> : EnableInputDelayInvokerBase<TValue>, IHasCurrentValue<TValue>, IHasValue<TValue>
 {
-    private Func<TValue, TItemValue>? _valueField;
-
-    [Parameter]
-    public Expression<Func<TValue, TItemValue>>? ValueField { get; set; }
-
-    [Parameter]
-    public Func<TItemValue, Task<TValue>>? ItemFinder { get; set; }
-
-    [Parameter]
-    public TItemValue Value { get; set; } = default!;
-
-    [Parameter]
-    public EventCallback<TItemValue> ValueChanged { get; set; }
-
-    protected override void BeforeParametersSet(ParameterContainer parameters)
+    public TValue CurrentValue
     {
-        base.BeforeParametersSet(parameters);
-        parameters.UseParameter(ValueField, nameof(ValueField),
-            value => _valueField = value?.Compile());
-        parameters.UseParameter(Value, nameof(Value), SetSelectionFromParameter);
+        get => LastActiveItem;
+        set => LastActiveItem = value;
     }
 
-    protected async Task SetSelectionFromParameter(TItemValue value)
-    {
-        if (ItemFinder is not null)
-        {
-            CurrentValue = await ItemFinder.Invoke(value);
-            return;
-        }
+    [Parameter]
+    public TValue Value { get; set; } = default!;
 
-        if (value is TValue item)
-            CurrentValue = item;
-        else
-            throw new InvalidOperationException(
-                $"Please set {nameof(ItemFinder)} in {nameof(EnableValueInput<TValue, TItemValue>)}.");
-    }
+    [Parameter]
+    public EventCallback<TValue> ValueChanged { get; set; }
+
+    [Parameter]
+    public Expression<Func<TValue>>? ValueExpression { get; set; }
+
 
     protected override async Task OnValueChangedAsync()
     {
-        await base.OnValueChangedAsync();
         if (ValueChanged.HasDelegate)
-        {
-            var value = CurrentValue is null ? default! : GetValue(CurrentValue);
-            await ValueChanged.InvokeAsync(value);
-        }
+            await ValueChanged.InvokeAsync(CurrentValue);
     }
 
-    protected TItemValue GetValue(TValue item)
+    public override bool IsItemSelected(TValue value)
     {
-        if (_valueField is not null)
-            return _valueField(item);
+        return Equals(CurrentValue, value);
+    }
 
-        if (item is TItemValue value) return value;
+    protected override async Task OnClearActiveItemAsync(object sender)
+    {
+        CurrentValue = default!;
+        await NotifyValueChangedAsync(sender);
+    }
 
-        throw new InvalidOperationException(
-            $"Please set {nameof(ValueField)} in {nameof(EnableValueInput<TValue, TItemValue>)}.");
+    protected override async Task OnSetActiveItemAsync(object sender, TValue value)
+    {
+        CurrentValue = value;
+        await NotifyValueChangedAsync(sender);
     }
 }

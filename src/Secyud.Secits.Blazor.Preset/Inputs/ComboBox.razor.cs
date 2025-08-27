@@ -14,7 +14,7 @@ public partial class ComboBox<TItem, TValue> : IHasValue<TValue>
     public Expression<Func<TItem, TValue>>? ValueField { get; set; }
 
     [Parameter]
-    public Func<TValue, Task<TItem>> ItemFinder { get; set; } = null!;
+    public Func<TValue, Task<TItem>>? ItemFinder { get; set; }
 
     [Parameter]
     public RenderFragment<TItem>? ListItemTemplate { get; set; }

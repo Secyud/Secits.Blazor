@@ -1,6 +1,6 @@
 ﻿@namespace Secyud.Secits.Blazor.Element
 @inherits SElementBase
-<div class="integer-slider @Class" style="--bias: @NumberCount;@Style" @onwheel="OnWheelAsync">
+<div @ref="Ref" class="integer-slider @Class" style="--bias: @NumberCount;@Style" @onwheel="OnWheelAsync">
     @GenerateNumberBox()
 </div>
 

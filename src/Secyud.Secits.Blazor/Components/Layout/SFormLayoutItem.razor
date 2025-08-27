@@ -1,0 +1,16 @@
+@namespace Secyud.Secits.Blazor
+@inherits SLayoutPluginBase<SFormLayout>
+
+@code
+{
+    public override RenderFragment RenderTemplate() => __builder =>
+    {
+        <div class="form-item">
+            @if (!string.IsNullOrWhiteSpace(Title))
+            {
+                <div class="form-item-title">@Title</div>
+            }
+            @ChildContent
+        </div>
+    };
+}

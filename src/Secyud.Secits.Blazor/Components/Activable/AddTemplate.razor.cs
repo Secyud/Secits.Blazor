@@ -3,7 +3,7 @@ using Secyud.Secits.Blazor.Settings;
 
 namespace Secyud.Secits.Blazor;
 
-public partial class AddCustomTemplate : IHasContent,ILayoutTemplateRenderer
+public partial class AddTemplate : IHasContent,ILayoutTemplateRenderer
 {
     [Parameter]
     public RenderFragment? ChildContent { get; set; }

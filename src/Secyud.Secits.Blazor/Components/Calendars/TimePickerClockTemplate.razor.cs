@@ -15,14 +15,14 @@ public partial class TimePickerClockTemplate
 
     private ElementReference _ref;
 
-    private async Task<(double, double)> GetPointer(MouseEventArgs e)
+    private async Task<(double, double)> GetPoint(MouseEventArgs e)
     {
         var rect = await Element.GetBoundingClientRect(_ref);
         var centerX = (rect.Left + rect.Right) / 2;
         var centerY = (rect.Top + rect.Bottom) / 2;
-        var pointerX = e.ClientX - centerX;
-        var pointerY = e.ClientY - centerY;
-        return (pointerX, pointerY);
+        var pointX = e.ClientX - centerX;
+        var pointY = e.ClientY - centerY;
+        return (pointX, pointY);
     }
 
     private double GetMouseAngle((double, double) pointer)
@@ -46,7 +46,7 @@ public partial class TimePickerClockTemplate
                 break;
             case DateTimePrecisionKind.Hour:
             {
-                var pointer = await GetPointer(e);
+                var pointer = await GetPoint(e);
                 var angle = GetMouseAngle(pointer);
                 var inner = GetMouseDistance(pointer);
                 var hour = (int)Math.Round(angle / 30) % 12;
@@ -56,14 +56,14 @@ public partial class TimePickerClockTemplate
                 break;
             case DateTimePrecisionKind.Minute:
             {
-                var pointer = await GetPointer(e);
+                var pointer = await GetPoint(e);
                 var angle = GetMouseAngle(pointer);
                 Minute = (int)Math.Round(angle / 6);
             }
                 break;
             case DateTimePrecisionKind.Second:
             {
-                var pointer = await GetPointer(e);
+                var pointer = await GetPoint(e);
                 var angle = GetMouseAngle(pointer);
                 Second = (int)Math.Round(angle / 6);
             }

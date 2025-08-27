@@ -27,4 +27,9 @@ public class DomRect
 
     [JsonPropertyName("y")]
     public double Y { get; set; }
+
+    public bool ContainsPoint(double x, double y)
+    {
+        return x >= Left && x <= Right && y >= Top && y <= Bottom;
+    }
 }

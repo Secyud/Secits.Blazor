@@ -1,13 +1,13 @@
 ﻿@attribute [Route(Menu.Button)]
 
-<ComboBox Items="SecitsDemoConsts.Themes" ValueField="u => u" ItemFinder="u =>Task.FromResult(u) " @bind-Value="Theme">
+<ComboBox Items="SecitsDemoConsts.Themes"  @bind-Value="Theme">
     <ListItemTemplate>
         @context.ToString()
     </ListItemTemplate>
 </ComboBox>
 
 <SButton Theme="Theme" Size="Size">
-    <AddCustomTemplate>Button</AddCustomTemplate>
+    <AddTemplate>Button</AddTemplate>
 </SButton>
 
 @code
