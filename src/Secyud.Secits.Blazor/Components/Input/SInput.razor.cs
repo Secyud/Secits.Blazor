@@ -19,6 +19,8 @@ public partial class SInput<TValue> : ISelectable
     public SSettings<IValueContainer> ValueContainer { get; } = new();
 
     public SSetting<IValueParser<TValue>> ValueConverter { get; } = new();
+    
+    public SSetting<IValueTextField<TValue>> TextField { get; } = new();
 
     public SSetting<IInputInvoker<TValue>> InputInvoker { get; } = new();
 

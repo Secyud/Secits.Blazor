@@ -91,10 +91,10 @@ public partial class InputTextTemplate<TValue> : ICanActive, IValueContainer
         {
             var currentItem = invoker.GetActiveItem();
 
-            var converter = Master.ValueConverter.Get();
-            ValueString = converter is null
+            var textField = Master.TextField.Get();
+            ValueString = textField is null
                 ? currentItem?.ToString()
-                : converter.ToString(currentItem);
+                : textField.ToString(currentItem);
         }
 
         return Task.CompletedTask;

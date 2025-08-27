@@ -4,9 +4,9 @@ using Secyud.Secits.Blazor.Settings;
 namespace Secyud.Secits.Blazor;
 
 [CascadingTypeParameter(nameof(TValue))]
-public class EnableItemsInput<TValue> : EnableInputDelayInvokerBase<TValue>
+public class EnableItemsInput<TValue> : EnableInputDelayInvokerBase<TValue>, IHasCurrentValues<TValue>
 {
-    protected List<TValue> CurrentSelectedItems { get; set; } = [];
+    public List<TValue> CurrentValues { get; set; } = [];
 
     [Parameter]
     public EventCallback<List<TValue>> SelectedItemsChanged { get; set; }
@@ -17,26 +17,26 @@ public class EnableItemsInput<TValue> : EnableInputDelayInvokerBase<TValue>
     protected override async Task OnValueChangedAsync()
     {
         if (SelectedItemsChanged.HasDelegate)
-            await SelectedItemsChanged.InvokeAsync(CurrentSelectedItems);
+            await SelectedItemsChanged.InvokeAsync(CurrentValues);
     }
 
     protected override async Task OnClearActiveItemAsync(object sender)
     {
-        CurrentSelectedItems = [];
+        CurrentValues = [];
         await NotifyValueChangedAsync(sender);
     }
 
     public override bool IsItemSelected(TValue value)
     {
-        return value is not null && CurrentSelectedItems.Contains(value);
+        return value is not null && CurrentValues.Contains(value);
     }
 
     protected override async Task OnSetActiveItemAsync(object sender, TValue value)
     {
         LastActiveItem = value;
-        var list = CurrentSelectedItems;
+        var list = CurrentValues;
         if (!list.Remove(value)) list.Add(value);
-        CurrentSelectedItems = list;
+        CurrentValues = list;
         await NotifyValueChangedAsync(sender);
     }
 }

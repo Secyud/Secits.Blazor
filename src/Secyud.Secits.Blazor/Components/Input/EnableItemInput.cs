@@ -4,9 +4,9 @@ using Secyud.Secits.Blazor.Settings;
 namespace Secyud.Secits.Blazor;
 
 [CascadingTypeParameter(nameof(TValue))]
-public class EnableItemInput<TValue> : EnableInputDelayInvokerBase<TValue>
+public class EnableItemInput<TValue> : EnableInputDelayInvokerBase<TValue>,IHasCurrentValue<TValue>
 {
-    protected TValue CurrentSelectedItem
+    public TValue CurrentValue
     {
         get => LastActiveItem;
         set => LastActiveItem = value;
@@ -22,23 +22,23 @@ public class EnableItemInput<TValue> : EnableInputDelayInvokerBase<TValue>
     protected override async Task OnValueChangedAsync()
     {
         if (SelectedItemChanged.HasDelegate)
-            await SelectedItemChanged.InvokeAsync(CurrentSelectedItem);
+            await SelectedItemChanged.InvokeAsync(CurrentValue);
     }
 
     public override bool IsItemSelected(TValue value)
     {
-        return Equals(CurrentSelectedItem, value);
+        return Equals(CurrentValue, value);
     }
 
     protected override async Task OnClearActiveItemAsync(object sender)
     {
-        CurrentSelectedItem = default!;
+        CurrentValue = default!;
         await NotifyValueChangedAsync(sender);
     }
 
     protected override async Task OnSetActiveItemAsync(object sender, TValue value)
     {
-        CurrentSelectedItem = value;
+        CurrentValue = value;
         await NotifyValueChangedAsync(sender);
     }
 }

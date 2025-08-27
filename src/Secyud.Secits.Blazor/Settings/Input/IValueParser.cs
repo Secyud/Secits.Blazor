@@ -7,6 +7,4 @@
 public interface IValueParser<TValue> : IIsPlugin
 {
     bool TryParse(string? str, out TValue output);
-
-    string? ToString(TValue value);
 }
