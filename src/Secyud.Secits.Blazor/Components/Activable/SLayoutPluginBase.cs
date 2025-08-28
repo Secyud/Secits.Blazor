@@ -15,12 +15,12 @@ public abstract class SLayoutPluginBase<TComponent> : SPluginBase<TComponent>,
 
     public abstract RenderFragment RenderTemplate();
 
-    protected string? GetStyle()
+    protected virtual string? GetStyle()
     {
         return Style;
     }
 
-    protected string? GetClass()
+    protected virtual string? GetClass()
     {
         return Class;
     }

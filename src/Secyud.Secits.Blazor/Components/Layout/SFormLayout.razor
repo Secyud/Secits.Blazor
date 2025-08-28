@@ -4,3 +4,14 @@
 @{
     base.BuildRenderTree(__builder);
 }
+
+@code
+{
+    protected override RenderFragment GenerateChildContent() => __builder =>
+    {
+        foreach (var renderer in SlotRenderer)
+        {
+            @renderer.RenderTemplate()
+        }
+    };
+}

@@ -5,7 +5,7 @@
 {
     public override RenderFragment RenderTemplate() => __builder =>
     {
-        <div class="form-item">
+        <div class="@GetClass()" style="@GetStyle()">
             @if (!string.IsNullOrWhiteSpace(Title))
             {
                 <div class="form-item-title">@Title</div>

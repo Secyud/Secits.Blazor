@@ -1,14 +1,36 @@
 ﻿@attribute [Route(Menu.Button)]
 
-<ComboBox Items="SecitsDemoConsts.Themes"  @bind-Value="Theme">
-    <ListItemTemplate>
-        @context.ToString()
-    </ListItemTemplate>
-</ComboBox>
+<SCard>
+    <Body>
+    <SFormLayout>
+        <FormLayoutItem>
+            <ComboBox Items="SecitsDemoConsts.Sizes" @bind-Value="Size"/>
+        </FormLayoutItem>
+        <FormLayoutItem>
+            <ComboBox Items="SecitsDemoConsts.Themes" @bind-Value="Theme"/>
+        </FormLayoutItem>
+    </SFormLayout>
+    </Body>
+</SCard>
 
-<SButton Theme="Theme" Size="Size">
-    <AddTemplate>Button</AddTemplate>
-</SButton>
+<SCard>
+    <Body>
+    <SButton Theme="Theme" Size="Size" Class="inline-block">
+        <AddTemplate>Button</AddTemplate>
+    </SButton>
+    <SButton Theme="Theme" Size="Size" Class="inline-block outline">
+        <AddTemplate>Button</AddTemplate>
+    </SButton>
+    <SButton Theme="Theme" Size="Size" Class="inline-block plain">
+        <AddTemplate>Button</AddTemplate>
+    </SButton>
+    <SButton Theme="Theme" Size="Size" Class="inline-block shadow">
+        <AddTemplate>Button</AddTemplate>
+    </SButton>
+    </Body>
+</SCard>
+
+
 
 @code
 {
