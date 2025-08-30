@@ -22,7 +22,7 @@ public abstract class SLayoutPluginBase<TComponent> : SPluginBase<TComponent>,
 
     protected virtual string? GetClass()
     {
-        return Class;
+        return ClassStyleBuilder.GenerateClass("anim", Class);
     }
 
     protected override void ApplySetting()

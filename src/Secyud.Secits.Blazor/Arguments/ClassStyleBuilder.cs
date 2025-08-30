@@ -52,4 +52,11 @@ public class ClassStyleBuilder(Action<ClassStyleContext> buildAction)
         _class = string.IsNullOrWhiteSpace(@class) ? null : @class;
         _style = string.IsNullOrWhiteSpace(style) ? null : style;
     }
+
+    public static string? GenerateClass(params string?[] strs)
+    {
+        var res = string.Join(' ', strs.Where(u => !string.IsNullOrEmpty(u)));
+
+        return string.IsNullOrWhiteSpace(res) ? null : res;
+    }
 }
