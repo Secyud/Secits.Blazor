@@ -36,7 +36,7 @@ public partial class TableColumn<TValue, TField> :
 
     #region LifeCycle
 
-    protected override void BeforeParametersSet(ParameterContainer parameters)
+    protected override void PreParametersSet(ParameterContainer parameters)
     {
         parameters.UseParameter(ValueField, nameof(ValueField), field =>
         {

@@ -3,8 +3,6 @@ using Microsoft.AspNetCore.Components;
 using Secyud.Secits.Blazor.Settings;
 
 namespace Secyud.Secits.Blazor;
-
-[CascadingTypeParameter(nameof(TValue))]
 public class EnableValuesInput<TValue> : EnableInputDelayInvokerBase<TValue>, IHasCurrentValues<TValue>,
     IHasValues<TValue>
 {

@@ -5,16 +5,12 @@ namespace Secyud.Secits.Blazor;
 
 public partial class EnableIteratorPager<TValue> : IIteratorRenderer<TValue>, IContentFooterRenderer
 {
-    private List<TValue> _items = [];
-
-    private int _totalCount;
-
     [Parameter]
     public int[]? PageSizes { get; set; }
 
     protected override void ApplySetting()
     {
-        Master.ItemsRenderer.Apply(this);
+        base.ApplySetting();
         Master.Footer.Apply(this);
 
         if (PageSizes is { Length: > 0 })
@@ -23,16 +19,12 @@ public partial class EnableIteratorPager<TValue> : IIteratorRenderer<TValue>, IC
 
     protected override void ForgoSetting()
     {
-        Master.ItemsRenderer.Forgo(this);
+        base.ForgoSetting();
         Master.Footer.Forgo(this);
     }
 
-    public async Task RefreshAsync()
+    protected override void PreRefresh()
     {
-        if (Master.DataSource.Get() is not { } source) return;
-        var result = await source.GetDataAsync(Master.DataRequest);
-        _items = result.Items.ToList();
-        _totalCount = result.TotalCount;
     }
 
     private async Task PageSizeChangedAsync(int pageSize)

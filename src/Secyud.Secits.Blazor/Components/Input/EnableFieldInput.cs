@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Components;
 
 namespace Secyud.Secits.Blazor;
 
-[CascadingTypeParameter(nameof(TValue))]
 public class EnableFieldInput<TValue, TField> : EnableValueInput<TValue>
 {
     private Func<TValue, TField>? _valueField;
@@ -23,9 +22,9 @@ public class EnableFieldInput<TValue, TField> : EnableValueInput<TValue>
     [Parameter]
     public Expression<Func<TField>>? FieldExpression { get; set; }
 
-    protected override void BeforeParametersSet(ParameterContainer parameters)
+    protected override void PreParametersSet(ParameterContainer parameters)
     {
-        base.BeforeParametersSet(parameters);
+        base.PreParametersSet(parameters);
         parameters.UseParameter(ValueField, nameof(ValueField),
             value => _valueField = value?.Compile());
         parameters.UseParameter(Field, nameof(Field), SetSelectionFromParameter);

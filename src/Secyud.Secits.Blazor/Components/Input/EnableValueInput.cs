@@ -4,7 +4,6 @@ using Secyud.Secits.Blazor.Settings;
 
 namespace Secyud.Secits.Blazor;
 
-[CascadingTypeParameter(nameof(TValue))]
 public class EnableValueInput<TValue> : EnableInputDelayInvokerBase<TValue>, IHasCurrentValue<TValue>, IHasValue<TValue>
 {
     public TValue CurrentValue

@@ -40,12 +40,12 @@ public abstract partial class SPluggableBase : IHasTheme, IHasSize, IHasCustomCs
         }
 
         var container = new ParameterContainer(parameters);
-        BeforeParametersSet(container);
+        PreParametersSet(container);
         await base.SetParametersAsync(parameters);
         await container.RunAndCleanTasksAsync();
     }
 
-    protected virtual void BeforeParametersSet(ParameterContainer parameters)
+    protected virtual void PreParametersSet(ParameterContainer parameters)
     {
     }
 

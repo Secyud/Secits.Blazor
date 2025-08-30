@@ -76,12 +76,12 @@ public abstract class SPluginBase<TComponent> : IComponent, IAsyncDisposable, II
     public virtual async Task SetParametersAsync(ParameterView parameters)
     {
         var container = new ParameterContainer(parameters);
-        BeforeParametersSet(container);
+        PreParametersSet(container);
         parameters.SetParameterProperties(this);
         await container.RunAndCleanTasksAsync();
     }
 
-    protected virtual void BeforeParametersSet(ParameterContainer parameters)
+    protected virtual void PreParametersSet(ParameterContainer parameters)
     {
     }
     

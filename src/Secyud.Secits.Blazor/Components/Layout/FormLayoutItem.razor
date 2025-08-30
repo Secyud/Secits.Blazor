@@ -8,7 +8,7 @@
         <div class="@GetClass()" style="@GetStyle()">
             @if (Master.EnableTitle || !string.IsNullOrWhiteSpace(Title))
             {
-                <label class="form-item-title" style="width: @Master.TitleWidth;">@Title</label>
+                <label class="form-item-title">@Title</label>
             }
             @ChildContent
         </div>

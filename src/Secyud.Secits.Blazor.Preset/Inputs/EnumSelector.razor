@@ -17,7 +17,7 @@
         <EnableDropDown @ref="_enableDropDown">
             <SList TValue="TEnum" Class="outline" Style="max-height: calc(var(--s-s) * 16);">
                 <StaticDataSource Items="@GetList()"/>
-                <EnableIteratorVisualize/>
+                <EnableIteratorFixed/>
                 <EnableIteratorSelect/>
                 <ListColumn ChildContent="ListItemTemplate"/>
             </SList>

@@ -3,6 +3,7 @@ using Secyud.Secits.Blazor.Settings;
 
 namespace Secyud.Secits.Blazor;
 
+[CascadingTypeParameter(nameof(TValue))]
 public partial class SInput<TValue> : ISelectable
 {
     protected override string ComponentName => "input";

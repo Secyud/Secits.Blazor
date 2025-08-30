@@ -11,7 +11,7 @@ public partial class SFormLayout : IHasLayoutTemplateSlot
     public string? Gap { get; set; } = "1rem";
 
     [Parameter]
-    public string? TitleWidth { get; set; } = "4rem";
+    public int? TitleWidth { get; set; }
 
     [Parameter]
     public bool EnableTitle { get; set; }
@@ -22,5 +22,6 @@ public partial class SFormLayout : IHasLayoutTemplateSlot
     {
         base.BuildClassStyle(context);
         context.AppendStyle("grid-gap", Gap);
+        context.AppendStyle("--label-width", TitleWidth?.ToString());
     }
 }

@@ -26,7 +26,7 @@ public abstract class EnableInputDelayInvokerBase<TValue> : SPluginBase<SInput<T
         Master.InputInvoker.Forgo(this);
     }
 
-    protected override void BeforeParametersSet(ParameterContainer parameters)
+    protected override void PreParametersSet(ParameterContainer parameters)
     {
         parameters.UseParameter(DelayInterval, nameof(DelayInterval), value =>
         {

@@ -4,7 +4,6 @@ using Secyud.Secits.Blazor.Settings;
 
 namespace Secyud.Secits.Blazor;
 
-[CascadingTypeParameter(nameof(TValue))]
 public class EnableIteratorSelect<TValue> : SSelectorPluginBase
     <SIteratorBase<TValue>, SInput<TValue>, TValue>, IRowRenderer<TValue>
 {

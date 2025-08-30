@@ -1,28 +1,17 @@
 ﻿@namespace Secyud.Secits.Blazor
-@inherits SPluginBase<SIteratorBase<TValue>>
+@inherits EnableIteratorFixed<TValue>
 @typeparam TValue
 
 @code
 {
-    public RenderFragment GenerateItems(RenderFragment<TValue> itemTemplate) => __builder =>
-    {
-        if (!_items.Any()) return;
-
-        foreach (var item in _items)
-        {
-            @itemTemplate(item)
-        }
-    };
-
     public RenderFragment GenerateFooter() => __builder =>
     {
-        var maxPageCount = _totalCount;
+        var maxPageCount = Math.Max(1, (TotalCount - 1) / Master.DataRequest.PageSize + 1);
         <div class="pager-container">
             <SPager Class="pager" MaxPageCount="maxPageCount"
                     PageIndex="Master.DataRequest.PageIndex"
                     PageIndexChanged="PageIndexChangedAsync"/>
-
-
+            
             @if (PageSizes is { Length: > 1 })
             {
                 EnableDropDown? enableDropDown = null;
@@ -30,13 +19,13 @@
                 <SInput TValue="int" Class="pager-selector">
                     <InputTextTemplate Class="w-100" Readonly
                                        @onclick="OnDropDownClickAsync"/>
-                    <EnableValueInput Value="Master.DataRequest.PageSize"
+                    <EnableValueInput TValue="int" Value="Master.DataRequest.PageSize"
                                       ValueChanged="PageSizeChangedAsync"
                                       ValueUpdated="OnCloseDropDownAsync"/>
                     <EnableDropDown @ref="enableDropDown">
                         <SList Class="outline" Style="max-height: calc(var(--s-s) * 16);">
                             <StaticDataSource Items="PageSizes"/>
-                            <EnableIteratorVisualize/>
+                            <EnableIteratorFixed/>
                             <EnableIteratorSelect/>
                             <ListColumn>
                                 <div class="page-selector-item">
