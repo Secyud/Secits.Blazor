@@ -20,9 +20,10 @@ public abstract partial class SIteratorBase<TValue>
         }
     }
 
-    protected string? GetRowClass(TValue value)
+
+    protected virtual string? GetRowClass(TValue value)
     {
-        var @class = "row";
+        var @class = ComponentName + "-row";
         if (RowRenderer.Get() is { } rowRenderer && rowRenderer.GetRowClass(value) is { } cls)
         {
             @class += " " + cls;
@@ -31,7 +32,7 @@ public abstract partial class SIteratorBase<TValue>
         return @class;
     }
 
-    protected string? GetRowStyle(TValue value)
+    protected virtual string? GetRowStyle(TValue value)
     {
         return RowRenderer.Get()?.GetRowStyle(value);
     }

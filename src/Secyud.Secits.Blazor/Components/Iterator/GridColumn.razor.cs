@@ -5,9 +5,12 @@ using Secyud.Secits.Blazor.Settings;
 
 namespace Secyud.Secits.Blazor;
 
-public partial class TableColumn<TValue, TField> :
+public partial class GridColumn<TValue, TField> :
     ITableColumnRenderer<TValue>, IHasValueField<TValue, TField>
 {
+    private Func<TValue, TField>? _valueField;
+    private int _columnWidth = 50;
+
     [Parameter]
     public string? Caption { get; set; }
 
@@ -15,15 +18,13 @@ public partial class TableColumn<TValue, TField> :
     public int MaxWidth { get; set; }
 
     [Parameter]
-    public int MinWidth { get; set; }
+    public int MinWidth { get; set; } = 50;
 
     [Parameter]
-    public int Width { get; set; } = 100;
+    public int Width { get; set; }
 
     [Parameter]
     public string? Format { get; set; }
-
-    private Func<TValue, TField>? _valueField;
 
     [Parameter]
     public Expression<Func<TValue, TField>>? ValueField { get; set; }
@@ -33,6 +34,28 @@ public partial class TableColumn<TValue, TField> :
 
     [Parameter]
     public bool EnableSorter { get; set; }
+
+    public string GetColClass()
+    {
+        var cls = "grid-col";
+        if (Master.TableColumns.FirstOrDefault() == this)
+        {
+            if (Master.FixFirstColumn) cls += " fix-left";
+        }
+        else if (Master.TableColumns.LastOrDefault() == this)
+        {
+            if (Master.FixLastColumn) cls += " fix-right";
+        }
+
+        return cls;
+    }
+
+    public int RealWidth
+    {
+        get => _columnWidth;
+        set => _columnWidth = Math.Clamp(value, MinWidth,
+            MaxWidth > MinWidth ? MaxWidth : int.MaxValue);
+    }
 
     #region LifeCycle
 
@@ -45,6 +68,8 @@ public partial class TableColumn<TValue, TField> :
             Filter.Field = name;
             Sorter.Field = name;
         });
+
+        parameters.UseParameter(Width, nameof(Width), width => RealWidth = width);
     }
 
     protected override void ApplySetting()
@@ -73,12 +98,4 @@ public partial class TableColumn<TValue, TField> :
 
     public DataFilter Filter { get; } = new();
     public DataSorter Sorter { get; } = new();
-
-    public int GetColumnWidth()
-    {
-        var width = Width;
-        if (MaxWidth > 0 && width > MaxWidth) width = MaxWidth;
-        if (MinWidth > width) width = MinWidth;
-        return width;
-    }
 }

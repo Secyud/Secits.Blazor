@@ -49,6 +49,12 @@ public abstract partial class SPluggableBase : IHasTheme, IHasSize, IHasCustomCs
     {
     }
 
+    public Task SetDirtyAsync()
+    {
+        _classStyleBuilder.SetDirty();
+        return InvokeAsync(StateHasChanged);
+    }
+
     #endregion
 
 
@@ -76,7 +82,7 @@ public abstract partial class SPluggableBase : IHasTheme, IHasSize, IHasCustomCs
     protected virtual void BuildClassStyle(ClassStyleContext context)
     {
         if (!string.IsNullOrEmpty(ComponentName))
-            context.Class.Append(ComponentName);
+            context.Class.Append("s-" + ComponentName);
 
         foreach (var extendClassStyleBuilder in ClassStyleBuilders)
         {

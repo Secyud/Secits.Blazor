@@ -10,6 +10,8 @@ public interface ITableColumnRenderer<in TValue> : IIsPlugin, IListColumnRendere
 {
     RenderFragment GenerateHeader();
     RenderFragment GenerateFooter();
-    int GetColumnWidth();
-    int Width { get; set; }
+    string GetColClass();
+    int RealWidth { get; set; }
+    int MaxWidth { get; }
+    int MinWidth { get; }
 }

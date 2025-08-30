@@ -1,5 +1,5 @@
 ﻿@namespace Secyud.Secits.Blazor
-@inherits SPluginBase<STable<TValue>>
+@inherits SPluginBase<SGrid<TValue>>
 @typeparam TValue
 
 @code
@@ -8,9 +8,7 @@
     {
         return __builder =>
         {
-            if (Master.TableColumns.Count - 1 <= index) return;
-
-            <div class="col-resizer" @onmousedown="OnResizerMouseDown"></div>
+            <div class="resizer" @onmousedown="OnResizerMouseDown"></div>
         };
 
         Task OnResizerMouseDown(MouseEventArgs args)

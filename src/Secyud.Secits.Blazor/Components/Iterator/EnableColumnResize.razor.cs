@@ -10,6 +10,9 @@ public partial class EnableColumnResize<TValue> : ITableHeaderRenderer
     [Inject]
     private IJsDocument JsDocument { get; set; } = null!;
 
+    [Parameter]
+    public bool FitNextColumn { get; set; }
+
     private bool _isDrag;
     private long? _dragEventId;
     private long? _endEventId;
@@ -50,26 +53,32 @@ public partial class EnableColumnResize<TValue> : ITableHeaderRenderer
     private async Task OnDragColumnHeader(MouseEventArgs args)
     {
         if (!_isDrag) return;
-
         var columns = Master.TableColumns;
-        if (_currentColumnIndex >= columns.Count - 1) return;
+        if (_currentColumnIndex >= columns.Count) return;
 
-        const int gap = 50;
-        var column = columns[_currentColumnIndex];
-        var nextColumn = columns[_currentColumnIndex + 1];
-        var width = column.Width;
-        var nextWidth = nextColumn.Width;
-        var moveWith = (int)args.MovementX;
-        if (moveWith < 0)
-            moveWith = -Math.Min(width - gap, -moveWith);
-        else if (_currentColumnIndex != columns.Count - 2)
-            moveWith = Math.Min(nextWidth - gap, moveWith);
+        var current = columns[_currentColumnIndex];
+        var move = (int)args.MovementX;
+        if (FitNextColumn && _currentColumnIndex + 1 < columns.Count)
+        {
+            var next = columns[_currentColumnIndex + 1];
+            var currentWidth = current.RealWidth;
+            var nextWidth = next.RealWidth;
+            var minValue = Math.Max(
+                current.MinWidth - currentWidth,
+                nextWidth - next.MaxWidth);
+            var maxValue = Math.Min(
+                current.MaxWidth - currentWidth,
+                nextWidth - next.MinWidth);
+            move = Math.Clamp(move, minValue, maxValue);
+            current.RealWidth += move;
+            next.RealWidth -= move;
+        }
         else
-            moveWith = Math.Min(1000 - gap, moveWith);
-        column.Width += moveWith;
-        nextColumn.Width -= moveWith;
+        {
+            current.RealWidth += move;
+        }
 
-        await InvokeAsync(StateHasChanged);
+        await Master.SetDirtyAsync();
     }
 
     private async Task EndDragColumnHeader()

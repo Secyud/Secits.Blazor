@@ -1,0 +1,69 @@
+﻿@namespace Secyud.Secits.Blazor
+@inherits SIteratorBase<TValue>
+@typeparam TValue
+
+@{
+    base.BuildRenderTree(__builder);
+}
+
+@code
+{
+
+
+    protected override RenderFragment GenerateBody() => __builder =>
+    {
+        <div class="grid-container">
+            @GenerateGridHeader()
+            @base.GenerateBody()
+            @GenerateGridFooter()
+        </div>
+    };
+
+    protected virtual RenderFragment GenerateGridHeader() => __builder =>
+    {
+        if (DisableHeader) return;
+
+        <div class="grid-row header">
+            @for (var i = 0; i < TableColumns.Count; i++)
+            {
+                var column = TableColumns[i];
+                <div class="@column.GetColClass()">
+                    @column.GenerateHeader()
+                    @foreach (var header in TableHeaders)
+                    {
+                        @header.GenerateHeader(i)
+                    }
+                </div>
+            }
+        </div>
+    };
+    
+    protected virtual RenderFragment GenerateGridFooter() => __builder =>
+    {
+        if (DisableFooter) return;
+        <div class="grid-row footer">
+            @for (var i = 0; i < TableColumns.Count; i++)
+            {
+                var column = TableColumns[i];
+                <div class="@column.GetColClass()">
+                    @column.GenerateFooter()
+                    @foreach (var footer in TableFooters)
+                    {
+                        @footer.GenerateFooter(i)
+                    }
+                </div>
+            }
+        </div>
+    };
+
+
+    protected override RenderFragment GenerateCol(TValue value) => __builder =>
+    {
+        foreach (var column in TableColumns)
+        {
+            <div class="@column.GetColClass()">
+                @column.GenerateColumn(value)
+            </div>
+        }
+    };
+}

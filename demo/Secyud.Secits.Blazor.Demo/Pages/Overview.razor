@@ -1,5 +1,5 @@
-﻿
-@attribute [Route(Menu.Input)]
+﻿@attribute [Route(Menu.Overview)]
+
 <SCard Theme="Theme" Size="Size">
     <Body>
     <SFormLayout>
@@ -14,6 +14,29 @@
 </SCard>
 
 <SCard Theme="Theme" Size="Size">
+    <Header>
+        按钮
+    </Header>
+    <Body>
+    <SButton Class="inline-block">
+        <AddTemplate>Button</AddTemplate>
+    </SButton>
+    <SButton Class="inline-block outline">
+        <AddTemplate>Button</AddTemplate>
+    </SButton>
+    <SButton Class="inline-block plain">
+        <AddTemplate>Button</AddTemplate>
+    </SButton>
+    <SButton Class="inline-block shadow">
+        <AddTemplate>Button</AddTemplate>
+    </SButton>
+    </Body>
+</SCard>
+
+<SCard Theme="Theme" Size="Size">
+    <Header>
+        输入框
+    </Header>
     <Body>
     <SFormLayout>
         <FormLayoutItem Title="default">
@@ -31,6 +54,8 @@
     </SFormLayout>
     </Body>
 </SCard>
+
+
 
 @code
 {
