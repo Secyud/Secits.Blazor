@@ -3,8 +3,8 @@ using Secyud.Secits.Blazor.Settings;
 
 namespace Secyud.Secits.Blazor;
 
-public abstract class SSelectorPluginBase<TComponent, TContainer, TItem> : SPluginBase<TComponent>,
-    IIsSelector<TItem> where TComponent : class, IPluggable where TContainer : class
+public abstract class SSelectorPluginBase<TComponent, TContainer, TValue> : SPluginBase<TComponent>,
+    IIsSelector<TValue> where TComponent : class, IPluggable where TContainer : class
 {
     private TContainer? _selectable;
 
@@ -43,8 +43,8 @@ public abstract class SSelectorPluginBase<TComponent, TContainer, TItem> : SPlug
     {
     }
 
-    public abstract bool IsItemSelected(TItem value);
+    public abstract bool IsItemSelected(TValue value);
     public abstract Task ClearActiveItemAsync();
-    public abstract Task SetActiveItemAsync( TItem value);
-    public abstract TItem GetActiveItem();
+    public abstract Task SetActiveItemAsync( TValue value);
+    public abstract TValue GetActiveItem();
 }

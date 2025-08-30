@@ -1,6 +1,6 @@
 ﻿@namespace Secyud.Secits.Blazor
-@inherits SIteratorBase<TItem>
-@typeparam TItem
+@inherits SIteratorBase<TValue>
+@typeparam TValue
 
 @{
     base.BuildRenderTree(__builder);
@@ -76,12 +76,12 @@
         @base.GenerateFooter()
     };
 
-    protected override RenderFragment GenerateCol(TItem item) => __builder =>
+    protected override RenderFragment GenerateCol(TValue value) => __builder =>
     {
         @foreach (var column in TableColumns)
         {
             <td>
-                @column.GenerateColumn(item)
+                @column.GenerateColumn(value)
             </td>
         }
     };

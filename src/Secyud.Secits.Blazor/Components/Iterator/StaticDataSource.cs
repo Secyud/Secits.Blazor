@@ -3,10 +3,10 @@ using Secyud.Secits.Blazor.Settings;
 
 namespace Secyud.Secits.Blazor;
 
-public class StaticDataSource<TItem> : SPluginBase<SIteratorBase<TItem>>, IDataSourceProvider<TItem>
+public class StaticDataSource<TValue> : SPluginBase<SIteratorBase<TValue>>, IDataSourceProvider<TValue>
 {
     [Parameter]
-    public IReadOnlyList<TItem>? Items { get; set; }
+    public IReadOnlyList<TValue>? Items { get; set; }
 
     protected override void ApplySetting()
     {
@@ -18,14 +18,14 @@ public class StaticDataSource<TItem> : SPluginBase<SIteratorBase<TItem>>, IDataS
         Master.DataSource.Forgo(this);
     }
 
-    protected virtual Task<IEnumerable<TItem>> ApplyDataHandleAsync(IEnumerable<TItem> items, DataRequest request)
+    protected virtual Task<IEnumerable<TValue>> ApplyDataHandleAsync(IEnumerable<TValue> items, DataRequest request)
     {
         return Task.FromResult(items);
     }
 
-    public async Task<DataResult<TItem>> GetDataAsync(DataRequest request)
+    public async Task<DataResult<TValue>> GetDataAsync(DataRequest request)
     {
-        var res = new DataResult<TItem>();
+        var res = new DataResult<TValue>();
         if (Items is null) return res;
         var items = (await ApplyDataHandleAsync(Items, request)).ToList();
         res.TotalCount = items.Count;

@@ -1,10 +1,10 @@
 ﻿@namespace Secyud.Secits.Blazor
-@inherits SPluginBase<SIteratorBase<TItem>>
-@typeparam TItem
+@inherits SPluginBase<SIteratorBase<TValue>>
+@typeparam TValue
 
 @code
 {
-    public RenderFragment GenerateItems(RenderFragment<TItem> itemTemplate) => __builder =>
+    public RenderFragment GenerateItems(RenderFragment<TValue> itemTemplate) => __builder =>
     {
         if (!_items.Any()) return;
 
@@ -17,12 +17,48 @@
     public RenderFragment GenerateFooter() => __builder =>
     {
         var maxPageCount = _totalCount;
-        <div class="table-pager-container">
-            <SPager Class="table-pager" MaxPageCount="maxPageCount"
+        <div class="pager-container">
+            <SPager Class="pager" MaxPageCount="maxPageCount"
                     PageIndex="Master.DataRequest.PageIndex"
                     PageIndexChanged="PageIndexChangedAsync"/>
-            
-            @* TODO DropDown *@
+
+
+            @if (PageSizes is { Length: > 1 })
+            {
+                EnableDropDown? enableDropDown = null;
+
+                <SInput TValue="int" Class="pager-selector">
+                    <InputTextTemplate Class="w-100" Readonly
+                                       @onclick="OnDropDownClickAsync"/>
+                    <EnableValueInput Value="Master.DataRequest.PageSize"
+                                      ValueChanged="PageSizeChangedAsync"
+                                      ValueUpdated="OnCloseDropDownAsync"/>
+                    <EnableDropDown @ref="enableDropDown">
+                        <SList Class="outline" Style="max-height: calc(var(--s-s) * 16);">
+                            <StaticDataSource Items="PageSizes"/>
+                            <EnableIteratorVisualize/>
+                            <EnableIteratorSelect/>
+                            <ListColumn>
+                                <div class="page-selector-item">
+                                    @context
+                                </div>
+                            </ListColumn>
+                        </SList>
+                    </EnableDropDown>
+                </SInput>
+
+                async Task OnCloseDropDownAsync()
+                {
+                    if (enableDropDown is not null)
+                        await enableDropDown.OnCloseDropDownAsync();
+                }
+
+                async Task OnDropDownClickAsync()
+                {
+                    if (enableDropDown is not null)
+                        await enableDropDown.OnDropDownClickAsync();
+                }
+            }
         </div>
     };
 }

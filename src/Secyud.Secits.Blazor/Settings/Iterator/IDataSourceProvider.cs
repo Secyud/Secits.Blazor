@@ -3,8 +3,8 @@
 /// <summary>
 /// the provider for data source.
 /// </summary>
-/// <typeparam name="TItem"></typeparam>
-public interface IDataSourceProvider<TItem>: IIsPlugin
+/// <typeparam name="TValue"></typeparam>
+public interface IDataSourceProvider<TValue>: IIsPlugin
 {
-    Task<DataResult<TItem>> GetDataAsync(DataRequest request);
+    Task<DataResult<TValue>> GetDataAsync(DataRequest request);
 }

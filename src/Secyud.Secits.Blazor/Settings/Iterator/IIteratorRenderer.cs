@@ -4,9 +4,9 @@ namespace Secyud.Secits.Blazor.Settings;
 /// <summary>
 /// describe ways to present data.
 /// </summary>
-/// <typeparam name="TItem"></typeparam>
-public interface IIteratorRenderer<TItem>
+/// <typeparam name="TValue"></typeparam>
+public interface IIteratorRenderer<TValue>
 {
-    RenderFragment GenerateItems(RenderFragment<TItem> itemTemplate);
+    RenderFragment GenerateItems(RenderFragment<TValue> itemTemplate);
     Task RefreshAsync();
 }

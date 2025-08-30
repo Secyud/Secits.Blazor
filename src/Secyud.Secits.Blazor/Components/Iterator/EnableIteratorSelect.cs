@@ -4,13 +4,13 @@ using Secyud.Secits.Blazor.Settings;
 
 namespace Secyud.Secits.Blazor;
 
-[CascadingTypeParameter(nameof(TItem))]
-public class EnableIteratorSelect<TItem> : SSelectorPluginBase
-    <SIteratorBase<TItem>, SInput<TItem>, TItem>, IRowRenderer<TItem>
+[CascadingTypeParameter(nameof(TValue))]
+public class EnableIteratorSelect<TValue> : SSelectorPluginBase
+    <SIteratorBase<TValue>, SInput<TValue>, TValue>, IRowRenderer<TValue>
 {
-    protected IInputInvoker<TItem> Invoker => Selectable.InputInvoker.Get()!;
+    protected IInputInvoker<TValue> Invoker => Selectable.InputInvoker.Get()!;
 
-    public override bool IsItemSelected(TItem value)
+    public override bool IsItemSelected(TValue value)
     {
         return SelectableValid && Invoker.IsItemSelected(value);
     }
@@ -20,12 +20,12 @@ public class EnableIteratorSelect<TItem> : SSelectorPluginBase
         await Invoker.ClearActiveItemAsync(this);
     }
 
-    public override async Task SetActiveItemAsync(TItem value)
+    public override async Task SetActiveItemAsync(TValue value)
     {
         await Invoker.SetActiveItemAsync(this, value);
     }
 
-    public override TItem GetActiveItem()
+    public override TValue GetActiveItem()
     {
         return Invoker.GetActiveItem();
     }
@@ -40,17 +40,17 @@ public class EnableIteratorSelect<TItem> : SSelectorPluginBase
         Master.RowRenderer.Forgo(this);
     }
 
-    public virtual string? GetRowClass(TItem item)
+    public virtual string? GetRowClass(TValue item)
     {
         return IsItemSelected(item) ? "selected" : null;
     }
 
-    public virtual string? GetRowStyle(TItem item)
+    public virtual string? GetRowStyle(TValue item)
     {
         return null;
     }
 
-    public virtual void OnRowClick(MouseEventArgs args, TItem item)
+    public virtual void OnRowClick(MouseEventArgs args, TValue item)
     {
         SetActiveItemAsync(item).ConfigureAwait(false);
     }

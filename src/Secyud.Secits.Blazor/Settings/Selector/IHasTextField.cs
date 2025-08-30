@@ -3,8 +3,8 @@
 /// text field is need to get the
 /// text of the item.
 /// </summary>
-/// <typeparam name="TItem"></typeparam>
-public interface IHasTextField<TItem>
+/// <typeparam name="TValue"></typeparam>
+public interface IHasTextField<TValue>
 {
-    public Func<TItem, string?>? TextField { get; set; }
+    public Func<TValue, string?>? TextField { get; set; }
 }

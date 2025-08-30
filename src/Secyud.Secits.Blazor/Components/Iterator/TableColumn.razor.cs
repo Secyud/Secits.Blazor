@@ -5,8 +5,8 @@ using Secyud.Secits.Blazor.Settings;
 
 namespace Secyud.Secits.Blazor;
 
-public partial class GridColumn<TItem, TValue> :
-    ITableColumnRenderer<TItem>, IHasValueField<TItem, TValue>
+public partial class TableColumn<TValue, TField> :
+    ITableColumnRenderer<TValue>, IHasValueField<TValue, TField>
 {
     [Parameter]
     public string? Caption { get; set; }
@@ -23,10 +23,10 @@ public partial class GridColumn<TItem, TValue> :
     [Parameter]
     public string? Format { get; set; }
 
-    private Func<TItem, TValue>? _valueField;
+    private Func<TValue, TField>? _valueField;
 
     [Parameter]
-    public Expression<Func<TItem, TValue>>? ValueField { get; set; }
+    public Expression<Func<TValue, TField>>? ValueField { get; set; }
 
     [Parameter]
     public bool EnableFilter { get; set; }
@@ -66,7 +66,7 @@ public partial class GridColumn<TItem, TValue> :
     }
 
     [return: NotNullIfNotNull(nameof(item))]
-    protected TValue? GetField(TItem? item)
+    protected TField? GetField(TValue? item)
     {
         return _valueField is null || item is null ? default : _valueField(item);
     }

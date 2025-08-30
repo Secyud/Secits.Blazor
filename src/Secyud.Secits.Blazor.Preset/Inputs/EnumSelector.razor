@@ -1,0 +1,26 @@
+@namespace Secyud.Secits.Blazor.Preset
+@inherits SInput<TEnum>
+@typeparam TEnum
+
+@{
+    base.BuildRenderTree(__builder);
+}
+
+@code
+{
+    protected override RenderFragment GenerateSetting() => __builder =>
+    {
+        @base.GenerateSetting()
+        <InputTextTemplate TValue="TEnum" Class="w-100" Readonly @onclick="OnDropDownClickAsync"/>
+        <EnableValueInput TValue="TEnum" ValueUpdated="OnCloseDropDownAsync"
+                          Value="Value" ValueChanged="ValueChanged"/>
+        <EnableDropDown @ref="_enableDropDown">
+            <SList TValue="TEnum" Class="outline" Style="max-height: calc(var(--s-s) * 16);">
+                <StaticDataSource Items="@GetList()"/>
+                <EnableIteratorVisualize/>
+                <EnableIteratorSelect/>
+                <ListColumn ChildContent="ListItemTemplate"/>
+            </SList>
+        </EnableDropDown>
+    };
+}

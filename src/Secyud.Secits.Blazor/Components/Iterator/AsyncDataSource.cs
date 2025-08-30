@@ -3,10 +3,10 @@ using Secyud.Secits.Blazor.Settings;
 
 namespace Secyud.Secits.Blazor;
 
-public class AsyncDataSource<TItem> : SPluginBase<SIteratorBase<TItem>>, IDataSourceProvider<TItem>
+public class AsyncDataSource<TValue> : SPluginBase<SIteratorBase<TValue>>, IDataSourceProvider<TValue>
 {
     [Parameter]
-    public Func<DataRequest, Task<DataResult<TItem>>>? Items { get; set; }
+    public Func<DataRequest, Task<DataResult<TValue>>>? Items { get; set; }
 
     protected override void ApplySetting()
     {
@@ -18,8 +18,8 @@ public class AsyncDataSource<TItem> : SPluginBase<SIteratorBase<TItem>>, IDataSo
         Master.DataSource.Forgo(this);
     }
 
-    public Task<DataResult<TItem>> GetDataAsync(DataRequest request)
+    public Task<DataResult<TValue>> GetDataAsync(DataRequest request)
     {
-        return Items?.Invoke(request) ?? Task.FromResult(new DataResult<TItem>());
+        return Items?.Invoke(request) ?? Task.FromResult(new DataResult<TValue>());
     }
 }

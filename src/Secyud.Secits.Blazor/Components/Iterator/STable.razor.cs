@@ -6,9 +6,9 @@ namespace Secyud.Secits.Blazor;
 /// <summary>
 /// table组件,可以展示多行数据.
 /// </summary>
-/// <typeparam name="TItem"></typeparam>
-[CascadingTypeParameter(nameof(TItem))]
-public sealed partial class SGrid<TItem>
+/// <typeparam name="TValue"></typeparam>
+[CascadingTypeParameter(nameof(TValue))]
+public sealed partial class STable<TValue>
 {
     protected override string ComponentName => "table";
 
@@ -20,7 +20,7 @@ public sealed partial class SGrid<TItem>
 
     #region Settings
 
-    public SSettings<ITableColumnRenderer<TItem>> TableColumns { get; } = new();
+    public SSettings<ITableColumnRenderer<TValue>> TableColumns { get; } = new();
     public SSettings<ITableHeaderRenderer> TableHeaders { get; } = new();
     public SSettings<ITableFooterRenderer> TableFooters { get; } = new();
 

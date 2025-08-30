@@ -2,20 +2,31 @@
 
 @attribute [Route(Menu.Table)]
 
-<SGrid TItem="ListItem" Height="@("500px")">
-    <StaticDataSource Items="_list"/>
-    <EnableIteratorVisualize/>
-    <EnableColumnResize/>
-    <GridColumn Caption="@nameof(ListItem.Name)"
+<SCard>
+    <Body>
+    <SFormLayout>
+    </SFormLayout>
+    </Body>
+</SCard>
+
+<SCard>
+    <Body>
+    <STable TValue="ListItem">
+        <StaticDataSource Items="_list"/>
+        <EnableIteratorVisualize/>
+        <EnableColumnResize/>
+        <TableColumn Caption="@nameof(ListItem.Name)"
                      ValueField="@(item => item.Name)"/>
-    <GridColumn Caption="@nameof(ListItem.PhoneNumber)"
+        <TableColumn Caption="@nameof(ListItem.PhoneNumber)"
                      ValueField="@(item => item.PhoneNumber)"/>
-    <GridColumn Caption="@nameof(ListItem.Age)"
+        <TableColumn Caption="@nameof(ListItem.Age)"
                      ValueField="@(item => item.Age)"/>
-    <GridColumn Caption="@nameof(ListItem.BirthDate)"
+        <TableColumn Caption="@nameof(ListItem.BirthDate)"
                      ValueField="@(item => item.BirthDate)"
                      Format="yyyy MM dd hh mm ss"/>
-</SGrid>
+    </STable>
+    </Body>
+</SCard>
 
 @code {
     readonly List<ListItem> _list = ListItem.Generate(200);

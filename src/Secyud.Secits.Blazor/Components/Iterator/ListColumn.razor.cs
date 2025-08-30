@@ -3,10 +3,10 @@ using Secyud.Secits.Blazor.Settings;
 
 namespace Secyud.Secits.Blazor;
 
-public partial class ListColumn<TItem> : IListColumnRenderer<TItem>
+public partial class ListColumn<TValue> : IListColumnRenderer<TValue>
 {
     [Parameter]
-    public RenderFragment<TItem>? ChildContent { get; set; }
+    public RenderFragment<TValue>? ChildContent { get; set; }
 
     protected override void ApplySetting()
     {

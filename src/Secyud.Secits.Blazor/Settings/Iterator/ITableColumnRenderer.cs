@@ -5,8 +5,8 @@ namespace Secyud.Secits.Blazor.Settings;
 /// <summary>
 /// render settings for a table column.
 /// </summary>
-/// <typeparam name="TItem"></typeparam>
-public interface ITableColumnRenderer<in TItem> : IIsPlugin, IListColumnRenderer<TItem>
+/// <typeparam name="TValue"></typeparam>
+public interface ITableColumnRenderer<in TValue> : IIsPlugin, IListColumnRenderer<TValue>
 {
     RenderFragment GenerateHeader();
     RenderFragment GenerateFooter();

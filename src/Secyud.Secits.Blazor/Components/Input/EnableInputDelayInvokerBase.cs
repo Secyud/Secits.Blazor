@@ -5,10 +5,10 @@ using Timer = System.Timers.Timer;
 
 namespace Secyud.Secits.Blazor;
 
-public abstract class EnableInputDelayInvokerBase<TItem> : SPluginBase<SInput<TItem>>, IInputInvoker<TItem>
+public abstract class EnableInputDelayInvokerBase<TValue> : SPluginBase<SInput<TValue>>, IInputInvoker<TValue>
 {
     private Timer? _timer;
-    protected TItem LastActiveItem { get; set; } = default!;
+    protected TValue LastActiveItem { get; set; } = default!;
 
     [Parameter]
     public int DelayInterval { get; set; }
@@ -83,22 +83,22 @@ public abstract class EnableInputDelayInvokerBase<TItem> : SPluginBase<SInput<TI
         await base.DisposeAsync();
     }
 
-    public abstract bool IsItemSelected(TItem value);
+    public abstract bool IsItemSelected(TValue value);
 
     protected abstract Task OnClearActiveItemAsync(object sender);
-    protected abstract Task OnSetActiveItemAsync(object sender, TItem value);
+    protected abstract Task OnSetActiveItemAsync(object sender, TValue value);
 
     public Task ClearActiveItemAsync(object sender)
     {
         return Do(() => OnClearActiveItemAsync(sender));
     }
 
-    public Task SetActiveItemAsync(object sender, TItem value)
+    public Task SetActiveItemAsync(object sender, TValue value)
     {
         return Do(() => OnSetActiveItemAsync(sender, value));
     }
 
-    public virtual TItem GetActiveItem()
+    public virtual TValue GetActiveItem()
     {
         return LastActiveItem;
     }

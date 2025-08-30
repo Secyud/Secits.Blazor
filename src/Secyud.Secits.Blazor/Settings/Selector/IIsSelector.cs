@@ -1,9 +1,9 @@
 namespace Secyud.Secits.Blazor.Settings;
 
-public interface IIsSelector<TItem> : IIsPlugin
+public interface IIsSelector<TValue> : IIsPlugin
 {
-    bool IsItemSelected(TItem value);
+    bool IsItemSelected(TValue value);
     Task ClearActiveItemAsync();
-    Task SetActiveItemAsync(TItem value);
-    TItem GetActiveItem();
+    Task SetActiveItemAsync(TValue value);
+    TValue GetActiveItem();
 }

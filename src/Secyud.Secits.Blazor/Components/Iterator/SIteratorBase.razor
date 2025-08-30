@@ -1,6 +1,6 @@
 ﻿@namespace Secyud.Secits.Blazor
 @inherits SContentBase
-@typeparam TItem
+@typeparam TValue
 
 @{
     base.BuildRenderTree(__builder);
@@ -9,14 +9,17 @@
 @code
 {
 
-    protected override RenderFragment GenerateBody() => __builder => { @ItemsRenderer.Get()?.GenerateItems(GenerateRow) };
-
-    protected virtual RenderFragment GenerateRow(TItem item) => __builder =>
+    protected override RenderFragment GenerateBody() => __builder =>
     {
-        <div class="@GetRowClass(item)" style="@GetRowStyle(item)" @onclick="e => OnRowClick(e, item)">
-            @GenerateCol(item)
+        @ItemsRenderer.Get()?.GenerateItems(GenerateRow)
+    };
+
+    protected virtual RenderFragment GenerateRow(TValue value) => __builder =>
+    {
+        <div class="@GetRowClass(value)" style="@GetRowStyle(value)" @onclick="e => OnRowClick(e, value)">
+            @GenerateCol(value)
         </div>
     };
 
-    protected abstract RenderFragment GenerateCol(TItem item);
+    protected abstract RenderFragment GenerateCol(TValue value);
 }

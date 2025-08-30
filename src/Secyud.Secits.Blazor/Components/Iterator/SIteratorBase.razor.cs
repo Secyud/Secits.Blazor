@@ -3,7 +3,7 @@ using Secyud.Secits.Blazor.Settings;
 
 namespace Secyud.Secits.Blazor;
 
-public abstract partial class SIteratorBase<TItem>
+public abstract partial class SIteratorBase<TValue>
 {
     private bool _needRefresh = true;
     public DataRequest DataRequest { get; } = new();
@@ -20,10 +20,10 @@ public abstract partial class SIteratorBase<TItem>
         }
     }
 
-    protected string? GetRowClass(TItem item)
+    protected string? GetRowClass(TValue value)
     {
         var @class = "row";
-        if (RowRenderer.Get() is { } rowRenderer && rowRenderer.GetRowClass(item) is { } cls)
+        if (RowRenderer.Get() is { } rowRenderer && rowRenderer.GetRowClass(value) is { } cls)
         {
             @class += " " + cls;
         }
@@ -31,21 +31,21 @@ public abstract partial class SIteratorBase<TItem>
         return @class;
     }
 
-    protected string? GetRowStyle(TItem item)
+    protected string? GetRowStyle(TValue value)
     {
-        return RowRenderer.Get()?.GetRowStyle(item);
+        return RowRenderer.Get()?.GetRowStyle(value);
     }
 
-    protected void OnRowClick(MouseEventArgs args, TItem item)
+    protected void OnRowClick(MouseEventArgs args, TValue value)
     {
-        RowRenderer.Get()?.OnRowClick(args, item);
+        RowRenderer.Get()?.OnRowClick(args, value);
     }
 
     #region Settings
 
-    public SSetting<IRowRenderer<TItem>> RowRenderer { get; } = new();
-    public SSetting<IDataSourceProvider<TItem>> DataSource { get; } = new();
-    public SSetting<IIteratorRenderer<TItem>> ItemsRenderer { get; } = new();
+    public SSetting<IRowRenderer<TValue>> RowRenderer { get; } = new();
+    public SSetting<IDataSourceProvider<TValue>> DataSource { get; } = new();
+    public SSetting<IIteratorRenderer<TValue>> ItemsRenderer { get; } = new();
 
     public Task RefreshAsync()
     {

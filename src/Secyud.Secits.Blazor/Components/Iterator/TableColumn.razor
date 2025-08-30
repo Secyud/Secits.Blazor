@@ -1,7 +1,7 @@
 ﻿@namespace Secyud.Secits.Blazor
-@inherits SPluginBase<SGrid<TItem>>
-@typeparam TItem
+@inherits SPluginBase<STable<TValue>>
 @typeparam TValue
+@typeparam TField
 
 @code
 {
@@ -27,17 +27,17 @@
      
     };
 
-    public virtual RenderFragment GenerateColumn(TItem item) => __builder =>
+    public virtual RenderFragment GenerateColumn(TValue value) => __builder =>
     {
         if (ValueField is null) return;
-        var value = GetField(item);
+        var field = GetField(value);
         if (Format is null)
         {
-            @value
+            @field
         }
         else
         {
-            @string.Format($"{{0:{Format}}}", value)
+            @string.Format($"{{0:{Format}}}", field)
         }
     };
 

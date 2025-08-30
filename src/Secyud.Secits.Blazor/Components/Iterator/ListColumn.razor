@@ -1,18 +1,18 @@
 @namespace Secyud.Secits.Blazor
-@inherits SPluginBase<SList<TItem>>
-@typeparam TItem
+@inherits SPluginBase<SList<TValue>>
+@typeparam TValue
 
 @code
 {
-    public virtual RenderFragment GenerateColumn(TItem item) => __builder =>
+    public virtual RenderFragment GenerateColumn(TValue value) => __builder =>
     {
         if (ChildContent is null)
         {
-            @item
+            @value
         }
         else
         {
-            @ChildContent(item)
+            @ChildContent(value)
         }
     };
 }

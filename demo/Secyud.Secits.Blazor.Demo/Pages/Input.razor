@@ -1,43 +1,40 @@
 ﻿
 @attribute [Route(Menu.Input)]
-<style>
-    .group {
-        display: grid;
-        grid-template-columns: repeat(9, 1fr); /* 自适应列数 */
-        grid-gap: 0.5rem;
-    }
-</style>
+<SCard>
+    <Body>
+    <SFormLayout>
+        <FormLayoutItem Title="尺寸">
+            <EnumSelector @bind-Value="Size"/>
+        </FormLayoutItem>
+        <FormLayoutItem Title="颜色主题">
+            <EnumSelector @bind-Value="Theme"/>
+        </FormLayoutItem>
+    </SFormLayout>
+    </Body>
+</SCard>
 
 <SCard>
     <Body>
-        @foreach (var size in Sizes)
-        {
-            <label>@size</label>
-            foreach (var theme in Themes)
-            {
-                <TextBox  Value="@(theme.ToString())"
-                              Theme="theme" Size="size">
-                </TextBox>
-            }
-        }
+    <SFormLayout>
+        <FormLayoutItem Title="default">
+            <TextBox Theme="Theme" Size="Size" Value="@("default")" Class=""/>
+        </FormLayoutItem>
+        <FormLayoutItem Title="outline">
+            <TextBox Theme="Theme" Size="Size" Value="@("outline")" Class=" outline"/>
+        </FormLayoutItem>
+        <FormLayoutItem Title="plain">
+            <TextBox Theme="Theme" Size="Size" Value="@("plain")" Class=" plain"/>
+        </FormLayoutItem>
+        <FormLayoutItem Title="shadow">
+            <TextBox Theme="Theme" Size="Size" Value="@("shadow")" Class=" shadow"/>
+        </FormLayoutItem>
+    </SFormLayout>
     </Body>
 </SCard>
 
 @code
 {
-    Theme[] Themes { get; } =
-    [
-        Theme.Default, Theme.Primary, Theme.Secondary, Theme.Naive,
-        Theme.Success, Theme.Info, Theme.Warning, Theme.Danger
-    ];
+    private Theme Theme { get; set; }
 
-    Size[] Sizes { get; } =
-    [
-        Size.XSmall, Size.Small, Size.Default, Size.Large, Size.XLarge
-    ];
-
-    bool[] Bool { get; } =
-    [
-        false, true
-    ];
+    private Size Size { get; set; }
 }
