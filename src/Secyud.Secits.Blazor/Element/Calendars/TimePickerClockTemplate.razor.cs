@@ -2,9 +2,9 @@
 using Microsoft.AspNetCore.Components.Web;
 using Secyud.Secits.Blazor.JSInterop;
 
-namespace Secyud.Secits.Blazor;
+namespace Secyud.Secits.Blazor.Element;
 
-public partial class TimePickerClockTemplate 
+public partial class TimePickerClockTemplate
 {
     private TimePrecision _clockState = TimePrecision.Default;
 
@@ -51,21 +51,21 @@ public partial class TimePickerClockTemplate
                 var inner = GetMouseDistance(pointer);
                 var hour = (int)Math.Round(angle / 30) % 12;
                 if (hour == 0) hour = 12;
-                Hour = hour + (inner ? 0 : 12);
+                await SetHourAsync(hour + (inner ? 0 : 12));
             }
                 break;
             case DateTimePrecisionKind.Minute:
             {
                 var pointer = await GetPoint(e);
                 var angle = GetMouseAngle(pointer);
-                Minute = (int)Math.Round(angle / 6);
+                await SetMinuteAsync((int)Math.Round(angle / 6));
             }
                 break;
             case DateTimePrecisionKind.Second:
             {
                 var pointer = await GetPoint(e);
                 var angle = GetMouseAngle(pointer);
-                Second = (int)Math.Round(angle / 6);
+                await SetSecondAsync((int)Math.Round(angle / 6));
             }
                 break;
             default:
@@ -94,6 +94,5 @@ public partial class TimePickerClockTemplate
         StateHasChanged();
     }
 
-    private bool HoverInner => Hour is <= 12 and > 0;
-
+    private bool HoverInner => GetHour() is <= 12 and > 0;
 }

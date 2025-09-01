@@ -13,8 +13,7 @@ public abstract class SPluginBase<TComponent> : IComponent, IAsyncDisposable, II
     where TComponent : class, IPluggable
 {
     private TComponent? _master;
-    protected TComponent Master => _master!;
-
+    public TComponent Master => _master!;
     protected bool MasterValid => _master is not null;
 
     [CascadingParameter]
@@ -84,7 +83,7 @@ public abstract class SPluginBase<TComponent> : IComponent, IAsyncDisposable, II
     protected virtual void PreParametersSet(ParameterContainer parameters)
     {
     }
-    
+
     protected virtual void BuildRenderTree(RenderTreeBuilder builder)
     {
     }

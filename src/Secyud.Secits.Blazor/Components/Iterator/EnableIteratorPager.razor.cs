@@ -15,6 +15,8 @@ public partial class EnableIteratorPager<TValue> : IIteratorRenderer<TValue>, IC
 
         if (PageSizes is { Length: > 0 })
             Master.DataRequest.PageSize = PageSizes[0];
+        
+        RefreshAsync().ConfigureAwait(false);
     }
 
     protected override void ForgoSetting()

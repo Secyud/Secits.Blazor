@@ -13,4 +13,10 @@
         <None Update="**/*.razor.css" CssScope="s"/>
     </ItemGroup>
 
+    <ItemGroup>
+      <AdditionalFiles Include="Element\Calendars\TimePickerBoardTemplate.razor" />
+      <AdditionalFiles Include="Element\Calendars\TimePickerClockTemplate.razor" />
+      <AdditionalFiles Include="Element\Calendars\TimePickerTemplateBase.razor" />
+    </ItemGroup>
+
 </Project>

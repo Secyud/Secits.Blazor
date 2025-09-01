@@ -1,15 +1,20 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using System.Linq.Expressions;
 using Microsoft.AspNetCore.Components;
+using Secyud.Secits.Blazor.Icons;
 using Secyud.Secits.Blazor.Settings;
 
 namespace Secyud.Secits.Blazor;
 
 public partial class GridColumn<TValue, TField> :
-    ITableColumnRenderer<TValue>, IHasValueField<TValue, TField>
+    ITableColumnRenderer<TValue>, IHasField<TValue, TField>
 {
     private Func<TValue, TField>? _valueField;
     private int _columnWidth = 50;
+    private RenderFragment? _columnFilter;
+
+    [Inject]
+    private IIconProvider IconProvider { get; set; } = null!;
 
     [Parameter]
     public string? Caption { get; set; }
@@ -27,13 +32,16 @@ public partial class GridColumn<TValue, TField> :
     public string? Format { get; set; }
 
     [Parameter]
-    public Expression<Func<TValue, TField>>? ValueField { get; set; }
+    public Expression<Func<TValue, TField>>? Field { get; set; }
 
     [Parameter]
     public bool EnableFilter { get; set; }
 
     [Parameter]
     public bool EnableSorter { get; set; }
+
+    [Parameter]
+    public RenderFragment<DataFilter<TField>>? FilterTemplate { get; set; }
 
     public string GetColClass()
     {
@@ -61,9 +69,9 @@ public partial class GridColumn<TValue, TField> :
 
     protected override void PreParametersSet(ParameterContainer parameters)
     {
-        parameters.UseParameter(ValueField, nameof(ValueField), field =>
+        parameters.UseParameter(Field, nameof(Field), field =>
         {
-            var name = field?.GetBodyName();
+            var name = GetBodyName(field);
             _valueField = field?.Compile();
             Filter.Field = name;
             Sorter.Field = name;
@@ -72,21 +80,69 @@ public partial class GridColumn<TValue, TField> :
         parameters.UseParameter(Width, nameof(Width), width => RealWidth = width);
     }
 
+    private static string? GetBodyName(Expression<Func<TValue, TField>>? expr)
+    {
+        if (expr is null) return null;
+
+        var body = expr.Body;
+        if (body is UnaryExpression unary)
+            body = unary.Operand;
+
+        var name = body.ToString();
+        var index = name.IndexOf('.') + 1;
+        return index <= 0 ? null : name[index..];
+    }
+
+
     protected override void ApplySetting()
     {
         Master.TableColumns.Apply(this);
+        Master.DataRequest.Filters.Add(Filter);
+        Master.DataRequest.Sorters.Add(Sorter);
     }
 
     protected override void ForgoSetting()
     {
         Master.TableColumns.Forgo(this);
+        Master.DataRequest.Filters.Remove(Filter);
+        Master.DataRequest.Sorters.Remove(Sorter);
     }
 
     #endregion
 
-    protected async Task SetFilterValueAsync(object? filterValue)
+    protected async Task SetFilterValueAsync(TField filterValue)
     {
-        Filter.FilterValue = filterValue;
+        Filter.FilterField = filterValue;
+        await Master.RefreshAsync();
+    }
+
+    protected string GetSorterIconClass()
+    {
+        if (!Sorter.Enabled)
+            return IconProvider.GetIcon(IconType.None);
+
+        if (!Sorter.Desc)
+            return IconProvider.GetIcon(IconType.Asc);
+
+        return IconProvider.GetIcon(IconType.Desc);
+    }
+
+    protected async Task SetSorterValueAsync()
+    {
+        if (!Sorter.Enabled)
+        {
+            Sorter.Enabled = true;
+            Sorter.Desc = false;
+        }
+        else if (!Sorter.Desc)
+        {
+            Sorter.Desc = true;
+        }
+        else
+        {
+            Sorter.Enabled = false;
+        }
+
         await Master.RefreshAsync();
     }
 
@@ -96,6 +152,6 @@ public partial class GridColumn<TValue, TField> :
         return _valueField is null || item is null ? default : _valueField(item);
     }
 
-    public DataFilter Filter { get; } = new();
-    public DataSorter Sorter { get; } = new();
+    private DataFilter<TField> Filter { get; } = new();
+    private DataSorter Sorter { get; } = new();
 }

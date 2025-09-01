@@ -7,7 +7,7 @@ namespace Secyud.Secits.Blazor.Settings;
 /// the value of the item.
 /// the value field name is also useful.
 /// </summary>
-public interface IHasValueField<TItem, TValue>
+public interface IHasField<TValue, TField>
 {
-    Expression<Func<TItem, TValue>>? ValueField { get; set; }
+    Expression<Func<TValue, TField>>? Field { get; set; }
 }

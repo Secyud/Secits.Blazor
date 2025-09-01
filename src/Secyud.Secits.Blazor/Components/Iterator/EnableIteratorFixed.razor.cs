@@ -10,6 +10,7 @@ public partial class EnableIteratorFixed<TValue> : IIteratorRenderer<TValue>
     protected override void ApplySetting()
     {
         Master.ItemsRenderer.Apply(this);
+        RefreshAsync().ConfigureAwait(false);
     }
 
     protected override void ForgoSetting()

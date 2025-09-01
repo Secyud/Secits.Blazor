@@ -5,21 +5,7 @@ namespace Secyud.Secits.Blazor;
 
 public abstract partial class SIteratorBase<TValue>
 {
-    private bool _needRefresh = true;
     public DataRequest DataRequest { get; } = new();
-
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        await base.OnAfterRenderAsync(firstRender);
-
-        if (_needRefresh)
-        {
-            _needRefresh = false;
-            await ItemsRenderer.InvokeAsync(u => u.RefreshAsync());
-            await InvokeAsync(StateHasChanged);
-        }
-    }
-
 
     protected virtual string? GetRowClass(TValue value)
     {
@@ -50,7 +36,7 @@ public abstract partial class SIteratorBase<TValue>
 
     public Task RefreshAsync()
     {
-        return InvokeAsync(() => _needRefresh = true);
+        return ItemsRenderer.InvokeAsync(u => u.RefreshAsync());
     }
 
     #endregion

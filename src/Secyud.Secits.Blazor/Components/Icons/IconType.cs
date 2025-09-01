@@ -8,4 +8,7 @@ public enum IconType
     Search,
     Clear,
     DropDown,
+    None,
+    Asc,
+    Desc,
 }

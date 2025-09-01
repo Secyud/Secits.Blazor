@@ -22,21 +22,21 @@
         <EnableIteratorVisualize/>
         <EnableColumnResize/>
         <GridColumn Caption="@nameof(ListItem.Name)" Width="200"
-                     ValueField="@(item => item.Name)"/> 
+                    Field="@(item => item.Name)"/>
         <GridColumn Caption="@nameof(ListItem.PhoneNumber)" Width="200"
-                     ValueField="@(item => item.PhoneNumber)"/>
+                    Field="@(item => item.PhoneNumber)"/>
         <GridColumn Caption="@nameof(ListItem.Age)" Width="50"
-                     ValueField="@(item => item.Age)"/>
+                    Field="@(item => item.Age)"/>
         <GridColumn Caption="@nameof(ListItem.BirthDate)" Width="512"
-                     ValueField="@(item => item.BirthDate)"
-                     Format="yyyy MM dd hh mm ss"/>
+                    Field="@(item => item.BirthDate)"
+                    Format="yyyy MM dd hh mm ss"/>
     </SGrid>
     </Body>
 </SCard>
 
 @code {
     readonly List<ListItem> _list = ListItem.Generate(200);
-    
+
     private Theme Theme { get; set; }
 
     private Size Size { get; set; }
