@@ -6,5 +6,5 @@
 /// </summary>
 public interface IValueContainer : IIsPlugin
 {
-    Task OnValueUpdatedAsync(object sender);
+    Task OnValueUpdatedAsync(object? sender, bool applied);
 }

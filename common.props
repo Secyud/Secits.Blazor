@@ -1,7 +1,9 @@
 <Project>
     <Import Project="../../secyud.props"/>
+    <Import Project="../../version.props"/>
 
     <PropertyGroup>
+        <PackageOutputPath>../../../../$(PackageOutputPath)</PackageOutputPath>
         <RootNamespace>Secyud.Secits.Blazor</RootNamespace>
         <PackageReadmeFile>README.md</PackageReadmeFile>
         <Version>1.0.0-alpha.0</Version>
