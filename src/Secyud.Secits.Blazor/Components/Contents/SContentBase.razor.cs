@@ -2,7 +2,7 @@
 
 namespace Secyud.Secits.Blazor;
 
-public abstract partial class SContentBase
+public abstract partial class SContentBase : IHasContentRender
 {
     #region Settings
 

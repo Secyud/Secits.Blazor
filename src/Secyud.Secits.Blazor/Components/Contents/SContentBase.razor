@@ -22,6 +22,18 @@
         return GenerateContent(renders);
     }
 
+    protected virtual RenderFragment? GenerateBody()
+    {
+        var renders = GetRenders(RendererPosition.Body);
+        return GenerateContent(renders);
+    }
+
+    protected virtual RenderFragment? GenerateFooter()
+    {
+        var renders = GetRenders(RendererPosition.Footer);
+        return GenerateContent(renders);
+    }
+
     protected RenderFragment GenerateContent(List<IContentRenderer> renderers)
     {
         return __builder =>
@@ -31,13 +43,5 @@
                 @renderer.RenderTemplate()
             }
         };
-    }
-
-    protected abstract RenderFragment? GenerateBody();
-
-    protected virtual RenderFragment? GenerateFooter()
-    {
-        var renders = GetRenders(RendererPosition.Footer);
-        return GenerateContent(renders);
     }
 }

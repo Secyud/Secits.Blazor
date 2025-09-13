@@ -3,7 +3,7 @@ using Secyud.Secits.Blazor.Settings;
 
 namespace Secyud.Secits.Blazor;
 
-public abstract partial class SActivableBase : IHasLayoutTemplateSlot, ICanActive, ICanClick
+public abstract partial class SActivableBase : ICanActive, ICanClick
 {
     #region Parameters
 
@@ -18,12 +18,6 @@ public abstract partial class SActivableBase : IHasLayoutTemplateSlot, ICanActiv
 
     [Parameter]
     public string? RowTemplate { get; set; }
-
-    #endregion
-
-    #region Settings
-
-    public SSettings<IContentRenderer> SlotRenderer { get; } = new();
 
     #endregion
 

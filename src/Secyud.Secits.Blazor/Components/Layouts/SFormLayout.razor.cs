@@ -3,7 +3,7 @@ using Secyud.Secits.Blazor.Settings;
 
 namespace Secyud.Secits.Blazor;
 
-public partial class SFormLayout : IHasLayoutTemplateSlot
+public partial class SFormLayout
 {
     protected override string ComponentName => "form-layout";
 
@@ -14,9 +14,7 @@ public partial class SFormLayout : IHasLayoutTemplateSlot
     public int? TitleWidth { get; set; }
 
     [Parameter]
-    public bool EnableTitle { get; set; }
-
-    public SSettings<IContentRenderer> SlotRenderer { get; } = new();
+    public bool EnableLabel { get; set; }
 
     protected override void BuildClassStyle(ClassStyleContext context)
     {

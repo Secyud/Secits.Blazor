@@ -6,7 +6,7 @@
     public override RenderFragment RenderTemplate() => __builder =>
     {
         <div class="@GetClass()" style="@GetStyle()">
-            @if (Master.EnableTitle || !string.IsNullOrWhiteSpace(Title))
+            @if (Master.EnableLabel || !string.IsNullOrWhiteSpace(Title))
             {
                 <label class="form-item-title">@Title</label>
             }

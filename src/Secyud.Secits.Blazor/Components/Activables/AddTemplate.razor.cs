@@ -13,12 +13,12 @@ public partial class AddTemplate : IHasContent,IContentRenderer
 
     protected override void ApplySetting()
     {
-        Master.SlotRenderer.Apply(this);
+        Master.Content.Apply(this);
     }
 
     protected override void ForgoSetting()
     {
-        Master.SlotRenderer.Forgo(this);
+        Master.Content.Forgo(this);
     }
 
     public RendererPosition GetLayoutPosition()

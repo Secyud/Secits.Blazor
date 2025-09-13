@@ -1,5 +1,5 @@
 ﻿@namespace Secyud.Secits.Blazor
-@inherits SPluggableBase
+@inherits SContentBase
 
 @{
     base.BuildRenderTree(__builder);
@@ -7,17 +7,16 @@
 
 @code
 {
-    protected override RenderFragment GenerateChildContent() => __builder =>
-    {
-        foreach (var renderer in SlotRenderer)
-        {
-            @renderer.RenderTemplate()
-        }
-    };
+    protected override RenderFragment GenerateChildContent() => __builder => { @GenerateBody() };
 
     protected override RenderFragment GenerateContent() =>
-        @<div class="@GetClass()" style="@GetStyle()" @onclick="OnClick">
-            @GenerateChildContent()
-        </div>;
+        __builder =>
+        {
+            @GenerateHeader()
+            <div class="@GetClass()" style="@GetStyle()" @onclick="OnClick">
+                @GenerateChildContent()
+            </div>
+            @GenerateFooter()
+        };
 }
 
