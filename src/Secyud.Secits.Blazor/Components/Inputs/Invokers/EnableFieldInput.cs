@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations;
 using System.Linq.Expressions;
 using Microsoft.AspNetCore.Components;
 
@@ -21,6 +22,9 @@ public class EnableFieldInput<TValue, TField> : EnableValueInput<TValue>
 
     [Parameter]
     public Expression<Func<TField>>? FieldExpression { get; set; }
+
+    [Parameter]
+    public Func<TField, List<ValidationResult>>? FieldValidator { get; set; }
 
     protected override void PreParametersSet(ParameterContainer parameters)
     {
@@ -52,6 +56,7 @@ public class EnableFieldInput<TValue, TField> : EnableValueInput<TValue>
         if (FieldChanged.HasDelegate)
         {
             await FieldChanged.InvokeAsync(value);
+            await ChangeValidationAsync(value, FieldExpression, FieldValidator);
         }
     }
 

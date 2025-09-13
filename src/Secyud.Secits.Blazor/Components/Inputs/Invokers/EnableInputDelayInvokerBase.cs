@@ -1,5 +1,8 @@
-﻿using System.Timers;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Linq.Expressions;
+using System.Timers;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Forms;
 using Secyud.Secits.Blazor.Settings;
 using Timer = System.Timers.Timer;
 
@@ -15,6 +18,9 @@ public abstract class EnableInputDelayInvokerBase<TValue> : SPluginBase<SInput<T
 
     [Parameter]
     public EventCallback ValueUpdated { get; set; }
+
+    [Parameter]
+    public Validation? Validation { get; set; }
 
     protected override void ApplySetting()
     {
@@ -120,6 +126,29 @@ public abstract class EnableInputDelayInvokerBase<TValue> : SPluginBase<SInput<T
         Task OnValueUpdatedAsync(IValueContainer container)
         {
             return container.OnValueUpdatedAsync(sender, applied);
+        }
+    }
+
+    protected async Task ChangeValidationAsync<T>(
+        T value, Expression<Func<T>>? expression,
+        Func<T, List<ValidationResult>>? customValidator)
+    {
+        if (Validation is null) return;
+
+        if (customValidator is not null)
+        {
+            await Validation.OnValidationChangedAsync(customValidator(value));
+        }
+        else if (expression is not null)
+        {
+            var identifier = FieldIdentifier.Create(expression);
+            var validationContext = new ValidationContext(identifier.Model)
+            {
+                MemberName = identifier.FieldName
+            };
+            List<ValidationResult> validationResultList = [];
+            Validator.TryValidateProperty(value, validationContext, validationResultList);
+            await Validation.OnValidationChangedAsync(validationResultList);
         }
     }
 }

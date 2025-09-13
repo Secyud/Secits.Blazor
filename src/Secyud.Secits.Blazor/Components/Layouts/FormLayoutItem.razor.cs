@@ -4,7 +4,7 @@ using Secyud.Secits.Blazor.Settings;
 
 namespace Secyud.Secits.Blazor;
 
-public partial class FormLayoutItem : SLayoutPluginBase<SFormLayout>, IHasContent
+public partial class FormLayoutItem : SLayoutPluginBase<SFormLayout>, IHasContent<FormLayoutItem>, IValidationListener
 {
     [Parameter]
     public int ColSpanXs { get; set; } = 12;
@@ -22,11 +22,16 @@ public partial class FormLayoutItem : SLayoutPluginBase<SFormLayout>, IHasConten
     public int ColSpanXl { get; set; } = 2;
 
     [Parameter]
-    public RenderFragment? ChildContent { get; set; }
+    public RenderFragment<FormLayoutItem>? ChildContent { get; set; }
 
     [Parameter]
     public string? Title { get; set; }
-    
+
+    [Parameter]
+    public bool EnableValidationMessage { get; set; }
+
+    public Validation Validation { get; } = new();
+
     public override RendererPosition GetLayoutPosition()
     {
         return RendererPosition.Body;
@@ -50,5 +55,10 @@ public partial class FormLayoutItem : SLayoutPluginBase<SFormLayout>, IHasConten
         if (ColSpanXl != 2)
             sb.Append($" col-xl-{ColSpanXl}");
         return sb.ToString();
+    }
+
+    public Task OnValidationChangedAsync()
+    {
+        return InvokeAsync(StateHasChanged);
     }
 }

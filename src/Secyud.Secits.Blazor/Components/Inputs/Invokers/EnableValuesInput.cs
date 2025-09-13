@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations;
 using System.Linq.Expressions;
 using Microsoft.AspNetCore.Components;
 using Secyud.Secits.Blazor.Settings;
@@ -18,10 +19,16 @@ public class EnableValuesInput<TValue> : EnableInputDelayInvokerBase<TValue>, IH
     [Parameter]
     public Expression<Func<List<TValue>>>? ValuesExpression { get; set; }
 
+    [Parameter]
+    public Func<List<TValue>, List<ValidationResult>>? ValuesValidator { get; set; }
+
     protected override async Task OnValueChangedAsync()
     {
         if (ValuesChanged.HasDelegate)
+        {
             await ValuesChanged.InvokeAsync(CurrentValues);
+            await ChangeValidationAsync(CurrentValues, ValuesExpression, ValuesValidator);
+        }
     }
 
     protected override async Task OnClearActiveItemAsync()

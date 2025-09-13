@@ -12,7 +12,7 @@ public static class SecitsExtensions
     {
         #region Service
 
-        services.AddTransient<ILocalizationService, NullLocalizationService>();
+        services.AddTransient<ISecitsLocalizationService, NullSecitsLocalizationService>();
         services.AddSingleton<IDirtyParameterService, DirtyParameterService>();
 
         #endregion

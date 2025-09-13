@@ -3,14 +3,27 @@
 
 @code
 {
-    public override RenderFragment RenderTemplate() => __builder =>
-    {
-        <div class="@GetClass()" style="@GetStyle()">
-            @if (Master.EnableLabel || !string.IsNullOrWhiteSpace(Title))
-            {
-                <label class="form-item-title">@Title</label>
-            }
-            @ChildContent
-        </div>
-    };
+    public override RenderFragment RenderTemplate() =>
+        __builder =>
+        {
+            <div class="@GetClass()" style="@GetStyle()">
+                @if (Master.EnableLabel || !string.IsNullOrWhiteSpace(Title))
+                {
+                    <label class="form-item-title">@Title</label>
+                }
+                @if (ChildContent is not null)
+                {
+                    @ChildContent(this)
+                }
+                @if (EnableValidationMessage && Validation.Results is { Count: > 0 })
+                {
+                    foreach (var result in Validation.Results)
+                    {
+                        <div class="validation-message">
+                            @result.ErrorMessage
+                        </div>
+                    }
+                }
+            </div>
+        };
 }

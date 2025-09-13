@@ -9,3 +9,8 @@ public interface IHasContent
 {
     RenderFragment? ChildContent { get; set; }
 }
+
+public interface IHasContent<TContext>
+{
+    RenderFragment<TContext>? ChildContent { get; set; }
+}

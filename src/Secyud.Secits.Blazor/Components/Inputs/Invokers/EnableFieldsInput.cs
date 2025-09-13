@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations;
 using System.Linq.Expressions;
 using Microsoft.AspNetCore.Components;
 
@@ -21,6 +22,9 @@ public class EnableFieldsInput<TValue, TField> : EnableValuesInput<TValue>
 
     [Parameter]
     public Expression<Func<List<TField>>>? FieldsExpression { get; set; }
+
+    [Parameter]
+    public Func<List<TField>, List<ValidationResult>>? FieldsValidator { get; set; }
 
     protected override void PreParametersSet(ParameterContainer parameters)
     {
@@ -53,6 +57,7 @@ public class EnableFieldsInput<TValue, TField> : EnableValuesInput<TValue>
         {
             var values = CurrentValues.Select(GetValue).ToList();
             await FieldsChanged.InvokeAsync(values);
+            await ChangeValidationAsync(values, FieldsExpression, FieldsValidator);
         }
     }
 
