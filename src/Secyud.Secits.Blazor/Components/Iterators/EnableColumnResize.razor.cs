@@ -5,7 +5,7 @@ using Secyud.Secits.Blazor.Settings;
 
 namespace Secyud.Secits.Blazor;
 
-public partial class EnableColumnResize<TValue> : ITableHeaderRenderer
+public partial class EnableColumnResize<TValue> : IGridHeaderRenderer
 {
     [Inject]
     private IJsDocument JsDocument { get; set; } = null!;

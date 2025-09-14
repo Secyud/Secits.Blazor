@@ -12,6 +12,10 @@ public class FontAwesomeIconProvider : IIconProvider
         [IconType.Search] = "fas fa-magnifying-glass",
         [IconType.Clear] = "fas fa-circle-xmark",
         [IconType.DropDown] = "fas fa-caret-down",
+        [IconType.FirstPage] = "fas fa-angles-left",
+        [IconType.PreviewPage] = "fas fa-angle-left",
+        [IconType.NextPage] = "fas fa-angle-right",
+        [IconType.LastPage] = "fas fa-angles-right",
     };
 
     public string GetIcon(IconType type)

@@ -8,11 +8,16 @@
 
 @code
 {
-    protected override RenderFragment GenerateCol(TValue value) => __builder =>
-    {
-        foreach (var col in Columns)
+    protected override RenderFragment GenerateBody() => __builder => { @ItemsRenderer.Get()?.GenerateItems(GenerateRow) };
+
+    protected virtual RenderFragment GenerateRow(TValue value) =>
+        __builder =>
         {
-            @col.GenerateColumn(value)
-        }
-    };
+            <div class="@GetRowClass(value)" style="@GetRowStyle(value)" @onclick="e => OnRowClick(e, value)">
+                @foreach (var col in Columns)
+                {
+                    @col.GenerateColumn(value)
+                }
+            </div>
+        };
 }

@@ -1,5 +1,4 @@
-﻿using System.Drawing;
-using Microsoft.AspNetCore.Components;
+﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Secyud.Secits.Blazor.Element;
 using Secyud.Secits.Blazor.Icons;

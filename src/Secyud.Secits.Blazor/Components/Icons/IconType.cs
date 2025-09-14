@@ -11,4 +11,8 @@ public enum IconType
     None,
     Asc,
     Desc,
+    FirstPage,
+    NextPage,
+    PreviewPage,
+    LastPage,
 }

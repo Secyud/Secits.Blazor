@@ -4,10 +4,11 @@
 
 @code
 {
-    public RenderFragment GenerateItems(RenderFragment<TValue> itemTemplate) => __builder =>
-    {
-        <Virtualize @ref="_virtualize" ItemsProvider="RefreshRowsAsync" Context="item" >
-            @itemTemplate(item)
-        </Virtualize>
-    };
+    public RenderFragment GenerateItems(RenderFragment<TValue> itemTemplate) =>
+        __builder =>
+        {
+            <Virtualize @ref="_virtualize" ItemsProvider="RefreshRowsAsync" Context="item">
+                @itemTemplate(item)
+            </Virtualize>
+        };
 }

@@ -7,7 +7,7 @@ using Secyud.Secits.Blazor.Settings;
 namespace Secyud.Secits.Blazor;
 
 public partial class GridColumn<TValue, TField> :
-    ITableColumnRenderer<TValue>, IHasField<TValue, TField>
+    IGridColumnRenderer<TValue>, IHasField<TValue, TField>
 {
     private Func<TValue, TField>? _valueField;
     private int _columnWidth = 50;
@@ -24,6 +24,10 @@ public partial class GridColumn<TValue, TField> :
 
     [Parameter]
     public int MinWidth { get; set; } = 50;
+
+    [Parameter]
+
+    public ColumnPosition Position { get; set; } = ColumnPosition.Middle;
 
     [Parameter]
     public int Width { get; set; }
@@ -43,26 +47,12 @@ public partial class GridColumn<TValue, TField> :
     [Parameter]
     public RenderFragment<DataFilter<TField>>? FilterTemplate { get; set; }
 
-    public string GetColClass()
-    {
-        var cls = "grid-col";
-        if (Master.TableColumns.FirstOrDefault() == this)
-        {
-            if (Master.FixFirstColumn) cls += " fix-left";
-        }
-        else if (Master.TableColumns.LastOrDefault() == this)
-        {
-            if (Master.FixLastColumn) cls += " fix-right";
-        }
-
-        return cls;
-    }
-
     public int RealWidth
     {
         get => _columnWidth;
-        set => _columnWidth = Math.Clamp(value, MinWidth,
-            MaxWidth > MinWidth ? MaxWidth : int.MaxValue);
+        set =>
+            _columnWidth = Math.Clamp(value, MinWidth,
+                MaxWidth > MinWidth ? MaxWidth : int.MaxValue);
     }
 
     #region LifeCycle

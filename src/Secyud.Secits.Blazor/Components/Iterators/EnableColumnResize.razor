@@ -6,9 +6,14 @@
 {
     public RenderFragment GenerateHeader(int index)
     {
+        var cls = "resizer";
+        if (index == Master.TableColumns.Count - 1)
+        {
+            cls += " half";
+        }
         return __builder =>
         {
-            <div class="resizer" @onmousedown="OnResizerMouseDown"></div>
+            <div class="@cls" @onmousedown="OnResizerMouseDown"></div>
         };
 
         Task OnResizerMouseDown(MouseEventArgs args)

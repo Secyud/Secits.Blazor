@@ -13,9 +13,19 @@
         __builder =>
         {
             @GenerateHeader()
-            <div class="@GetClass()" style="@GetStyle()" @onclick="OnClick">
-                @GenerateChildContent()
-            </div>
+            @if (Disabled || Readonly)
+            {
+                <div class="@GetClass()" style="@GetStyle()">
+                    @GenerateChildContent()
+                </div>
+            }
+            else
+            {
+                <div class="@GetClass()" style="@GetStyle()" @onclick="OnClick">
+                    @GenerateChildContent()
+                </div>
+            }
+
             @GenerateFooter()
         };
 }

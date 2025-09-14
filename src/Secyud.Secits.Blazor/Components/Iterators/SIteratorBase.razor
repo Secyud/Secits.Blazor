@@ -5,21 +5,3 @@
 @{
     base.BuildRenderTree(__builder);
 }
-
-@code
-{
-
-    protected override RenderFragment GenerateBody() => __builder =>
-    {
-        @ItemsRenderer.Get()?.GenerateItems(GenerateRow)
-    };
-
-    protected virtual RenderFragment GenerateRow(TValue value) => __builder =>
-    {
-        <div class="@GetRowClass(value)" style="@GetRowStyle(value)" @onclick="e => OnRowClick(e, value)">
-            @GenerateCol(value)
-        </div>
-    };
-
-    protected abstract RenderFragment GenerateCol(TValue value);
-}

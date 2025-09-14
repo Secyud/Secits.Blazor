@@ -4,50 +4,51 @@
 
 @code
 {
-    public RenderFragment RenderTemplate() => __builder =>
-    {
-        var maxPageCount = Math.Max(1, (TotalCount - 1) / Master.DataRequest.PageSize + 1);
-        <div class="pager-container">
-            <SPager Class="pager" MaxPageCount="maxPageCount"
-                    PageIndex="Master.DataRequest.PageIndex"
-                    PageIndexChanged="PageIndexChangedAsync"/>
-            
-            @if (PageSizes is { Length: > 1 })
-            {
-                EnableDropDown? enableDropDown = null;
+    public RenderFragment RenderTemplate() =>
+        __builder =>
+        {
+            var maxPageCount = Math.Max(1, (TotalCount - 1) / Master.DataRequest.PageSize + 1);
+            <div class="pager-container">
+                <SPager MaxPageCount="maxPageCount"
+                        PageIndex="Master.DataRequest.PageIndex"
+                        PageIndexChanged="PageIndexChangedAsync"/>
 
-                <SInput TValue="int" Class="pager-selector">
-                    <InputTextTemplate Class="w-100" Readonly
-                                       @onclick="OnDropDownClickAsync"/>
-                    <EnableValueInput TValue="int" Value="Master.DataRequest.PageSize"
-                                      ValueChanged="PageSizeChangedAsync"
-                                      ValueUpdated="OnCloseDropDownAsync"/>
-                    <EnableDropDown @ref="enableDropDown">
-                        <SList Class="outline" Style="max-height: calc(var(--s-s) * 16);">
-                            <StaticDataSource Items="PageSizes"/>
-                            <EnableIteratorFixed/>
-                            <EnableIteratorSelect/>
-                            <ListColumn>
-                                <div class="page-selector-item">
-                                    @context
-                                </div>
-                            </ListColumn>
-                        </SList>
-                    </EnableDropDown>
-                </SInput>
-
-                async Task OnCloseDropDownAsync()
+                @if (PageSizes is { Length: > 1 })
                 {
-                    if (enableDropDown is not null)
-                        await enableDropDown.OnCloseDropDownAsync();
-                }
+                    EnableDropDown? enableDropDown = null;
 
-                async Task OnDropDownClickAsync()
-                {
-                    if (enableDropDown is not null)
-                        await enableDropDown.OnDropDownClickAsync();
+                    <SInput TValue="int" Class="pager-selector">
+                        <InputTextTemplate Class="w-100" Readonly
+                                           @onclick="OnDropDownClickAsync"/>
+                        <EnableValueInput TValue="int" Value="Master.DataRequest.PageSize"
+                                          ValueChanged="PageSizeChangedAsync"
+                                          ValueUpdated="OnCloseDropDownAsync"/>
+                        <EnableDropDown @ref="enableDropDown">
+                            <SList Class="outline" Style="max-height: calc(var(--s-s) * 16);">
+                                <StaticDataSource Items="PageSizes"/>
+                                <EnableIteratorFixed/>
+                                <EnableIteratorSelect/>
+                                <ListColumn>
+                                    <div class="page-selector-item">
+                                        @context
+                                    </div>
+                                </ListColumn>
+                            </SList>
+                        </EnableDropDown>
+                    </SInput>
+
+                    async Task OnCloseDropDownAsync()
+                    {
+                        if (enableDropDown is not null)
+                            await enableDropDown.OnCloseDropDownAsync();
+                    }
+
+                    async Task OnDropDownClickAsync()
+                    {
+                        if (enableDropDown is not null)
+                            await enableDropDown.OnDropDownClickAsync();
+                    }
                 }
-            }
-        </div>
-    };
+            </div>
+        };
 }

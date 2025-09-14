@@ -32,3 +32,12 @@ app.MapRazorComponents<App>()
     .AddAdditionalAssemblies(typeof(MainLayout).Assembly);
 
 app.Run();
+
+// void ConfigureServices(IServiceCollection services)
+// {
+//     services.AddMvc()
+//         .AddDataAnnotationsLocalization(options => {
+//             options.DataAnnotationLocalizerProvider = (type, factory) =>
+//                 factory.Create(typeof(Program));
+//         });
+// }

@@ -1,4 +1,5 @@
 ﻿@using Secyud.Secits.Blazor.Data
+@using Secyud.Secits.Blazor.Settings
 
 @attribute [Route(Menu.Table)]
 
@@ -17,18 +18,36 @@
 
 <SCard Theme="Theme" Size="Size">
     <Body>
-    <SGrid TValue="ListItem" Class="outline" FixFirstColumn FixLastColumn>
+    <SGrid TValue="ListItem" Class="outline">
         <StaticDataSource Items="_list"/>
         <EnableIteratorVisualize/>
         <EnableColumnResize/>
         <GridColumn Caption="@nameof(ListItem.Name)" Width="200"
-                    Field="@(item => item.Name)"/>
+                    Field="@(item => item.Name)" Position="ColumnPosition.Front"/>
         <GridColumn Caption="@nameof(ListItem.PhoneNumber)" Width="200"
                     Field="@(item => item.PhoneNumber)"/>
         <GridColumn Caption="@nameof(ListItem.Age)" Width="50"
                     Field="@(item => item.Age)"/>
         <GridColumn Caption="@nameof(ListItem.BirthDate)" Width="512"
-                    Field="@(item => item.BirthDate)"
+                    Field="@(item => item.BirthDate)" Position="ColumnPosition.Behind"
+                    Format="yyyy MM dd hh mm ss"/>
+    </SGrid>
+    </Body>
+</SCard>
+<SCard Theme="Theme" Size="Size">
+    <Body>
+    <SGrid TValue="ListItem" Class="outline">
+        <StaticDataSource Items="_list"/>
+        <EnableIteratorPager/>
+        <EnableColumnResize/>
+        <GridColumn Caption="@nameof(ListItem.Name)" Width="200"
+                    Field="@(item => item.Name)" Position="ColumnPosition.Front"/>
+        <GridColumn Caption="@nameof(ListItem.PhoneNumber)" Width="200"
+                    Field="@(item => item.PhoneNumber)"/>
+        <GridColumn Caption="@nameof(ListItem.Age)" Width="50"
+                    Field="@(item => item.Age)"/>
+        <GridColumn Caption="@nameof(ListItem.BirthDate)" Width="512"
+                    Field="@(item => item.BirthDate)" Position="ColumnPosition.Behind"
                     Format="yyyy MM dd hh mm ss"/>
     </SGrid>
     </Body>

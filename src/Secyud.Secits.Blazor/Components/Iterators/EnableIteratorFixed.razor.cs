@@ -25,6 +25,7 @@ public partial class EnableIteratorFixed<TValue> : IIteratorRenderer<TValue>
         var result = await source.GetDataAsync(Master.DataRequest);
         Items = result.Items.ToList();
         TotalCount = result.TotalCount;
+        await InvokeAsync(StateHasChanged);
     }
 
     protected virtual void PreRefresh()

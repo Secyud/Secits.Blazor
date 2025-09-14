@@ -1,7 +1,4 @@
-﻿using Microsoft.AspNetCore.Components;
-using Secyud.Secits.Blazor.Settings;
-
-namespace Secyud.Secits.Blazor;
+﻿namespace Secyud.Secits.Blazor;
 
 public partial class SButton 
 {

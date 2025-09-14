@@ -6,7 +6,7 @@ namespace Secyud.Secits.Blazor.Settings;
 /// setting for all column footer.
 /// etc. summary.
 /// </summary>
-public interface ITableFooterRenderer : IIsPlugin
+public interface IGridFooterRenderer : IIsPlugin
 {
     RenderFragment GenerateFooter(int index);
 }

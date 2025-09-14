@@ -18,26 +18,11 @@ public partial class SGrid<TValue>
     [Parameter]
     public bool DisableFooter { get; set; }
 
-    [Parameter]
-    public bool FixFirstColumn { get; set; }
-
-    [Parameter]
-    public bool FixLastColumn { get; set; }
-
     #region Settings
 
-    public SSettings<ITableColumnRenderer<TValue>> TableColumns { get; } = new();
-    public SSettings<ITableHeaderRenderer> TableHeaders { get; } = new();
-    public SSettings<ITableFooterRenderer> TableFooters { get; } = new();
-
-
-    protected override void BuildClassStyle(ClassStyleContext context)
-    {
-        base.BuildClassStyle(context);
-
-        context.AppendStyle("--column-template", string.Join(' ',
-            TableColumns.Select(u => u.RealWidth + "px")));
-    }
+    public SSettings<IGridColumnRenderer<TValue>> TableColumns { get; } = new();
+    public SSettings<IGridHeaderRenderer> TableHeaders { get; } = new();
+    public SSettings<IGridFooterRenderer> TableFooters { get; } = new();
 
     protected override string? GetRowClass(TValue value)
     {
