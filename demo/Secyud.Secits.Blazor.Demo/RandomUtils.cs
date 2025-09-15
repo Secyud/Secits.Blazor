@@ -58,7 +58,7 @@ public class RandomUtils
         foreach (var str in arr)
         {
             var random = Random.Next(str.Length);
-            Sb.Append(str[random]);
+            sb.Append(str[random]);
         }
     }
 

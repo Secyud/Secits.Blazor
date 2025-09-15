@@ -38,6 +38,7 @@
     <Body>
     <SGrid TValue="ListItem" Class="outline">
         <StaticDataSource Items="_list"/>
+        @* <DynamicDataSource Items="_list"/> *@
         <EnableIteratorPager/>
         <EnableColumnResize/>
         <GridColumn Caption="@nameof(ListItem.Name)" Width="200"

@@ -8,6 +8,9 @@ public class DynamicDataSource<TValue> : SPluginBase<SIteratorBase<TValue>>, IDa
     [Parameter]
     public Func<DataRequest, Task<DataResult<TValue>>>? Items { get; set; }
 
+    [Parameter]
+    public Func<Exception, Task>? ErrorHandler { get; set; }
+
     protected override void ApplySetting()
     {
         Master.DataSource.Apply(this);
@@ -18,8 +21,23 @@ public class DynamicDataSource<TValue> : SPluginBase<SIteratorBase<TValue>>, IDa
         Master.DataSource.Forgo(this);
     }
 
-    public Task<DataResult<TValue>> GetDataAsync(DataRequest request)
+    public async Task<DataResult<TValue>> GetDataAsync(DataRequest request)
     {
-        return Items?.Invoke(request) ?? Task.FromResult(new DataResult<TValue>());
+        DataResult<TValue> result;
+        try
+        {
+            result = Items is null
+                ? new DataResult<TValue>()
+                : await Items.Invoke(request);
+        }
+        catch (Exception e)
+        {
+            if (ErrorHandler is null)
+                throw;
+            await ErrorHandler.Invoke(e);
+            result = new DataResult<TValue>();
+        }
+
+        return result;
     }
 }

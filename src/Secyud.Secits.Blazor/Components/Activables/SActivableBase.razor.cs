@@ -34,7 +34,6 @@ public abstract partial class SActivableBase : ICanActive, ICanClick
 
     protected virtual void OnClick()
     {
-        if (Click.HasDelegate)
-            Click.InvokeAsync().ConfigureAwait(false);
+        Click.InvokeAsync().ConfigureAwait(false);
     }
 }

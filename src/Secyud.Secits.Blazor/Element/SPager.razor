@@ -12,12 +12,12 @@
     {
         <SButton Click="TurnToFirstPageAsync" Disabled="@(PageIndex <= 0)" Class="outline">
             <AddTemplate>
-                <SIcon IconName="@IconProvider.GetIcon(IconType.FirstPage)"/>
+                <SIcon IconName="@IconProvider.GetIcon(IconName.FirstPage)"/>
             </AddTemplate>
         </SButton>
         <SButton Click="TurnToPreviewPageAsync" Disabled="@(PageIndex <= 0)" Class="outline">
             <AddTemplate>
-                <SIcon IconName="@IconProvider.GetIcon(IconType.PreviewPage)"/>
+                <SIcon IconName="@IconProvider.GetIcon(IconName.PreviewPage)"/>
             </AddTemplate>
         </SButton>
 
@@ -28,12 +28,12 @@
 
         <SButton Click="TurnToNextPageAsync" Disabled="@(PageIndex >= MaxPageCount - 1)" Class="outline">
             <AddTemplate>
-                <SIcon IconName="@IconProvider.GetIcon(IconType.NextPage)"/>
+                <SIcon IconName="@IconProvider.GetIcon(IconName.NextPage)"/>
             </AddTemplate>
         </SButton>
         <SButton Click="TurnToLastPageAsync" Disabled="@(PageIndex >= MaxPageCount - 1)" Class="outline">
             <AddTemplate>
-                <SIcon IconName="@IconProvider.GetIcon(IconType.LastPage)"/>
+                <SIcon IconName="@IconProvider.GetIcon(IconName.LastPage)"/>
             </AddTemplate>
         </SButton>
     }

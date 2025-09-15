@@ -1,6 +1,6 @@
 namespace Secyud.Secits.Blazor.Element;
 
-public partial class Popup
+public partial class SPopup
 {
     protected bool Visible { get; set; }
 

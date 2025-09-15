@@ -10,7 +10,7 @@ public partial class EnableIteratorFixed<TValue> : IIteratorRenderer<TValue>
     protected override void ApplySetting()
     {
         Master.ItemsRenderer.Apply(this);
-        RefreshAsync().ConfigureAwait(false);
+        RefreshAsync(true).ConfigureAwait(false);
     }
 
     protected override void ForgoSetting()
@@ -18,17 +18,17 @@ public partial class EnableIteratorFixed<TValue> : IIteratorRenderer<TValue>
         Master.ItemsRenderer.Forgo(this);
     }
 
-    public virtual async Task RefreshAsync()
+    public virtual async Task RefreshAsync(bool resetState)
     {
         if (Master.DataSource.Get() is not { } source) return;
-        PreRefresh();
+        PreRefresh(resetState);
         var result = await source.GetDataAsync(Master.DataRequest);
         Items = result.Items.ToList();
         TotalCount = result.TotalCount;
         await InvokeAsync(StateHasChanged);
     }
 
-    protected virtual void PreRefresh()
+    protected virtual void PreRefresh(bool resetState)
     {
         Master.DataRequest.PageSize = TotalCount;
     }

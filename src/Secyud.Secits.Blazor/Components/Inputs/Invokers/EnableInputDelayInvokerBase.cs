@@ -3,6 +3,7 @@ using System.Linq.Expressions;
 using System.Timers;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
+using Secyud.Secits.Blazor.Element;
 using Secyud.Secits.Blazor.Settings;
 using Timer = System.Timers.Timer;
 
@@ -118,7 +119,7 @@ public abstract class EnableInputDelayInvokerBase<TValue> : SPluginBase<SInput<T
     protected async Task NotifyValueChangedAsync(object? sender, bool applied)
     {
         await Master.ValueContainer.InvokeAsync(OnValueUpdatedAsync);
-        if (ValueUpdated.HasDelegate) await ValueUpdated.InvokeAsync();
+        await ValueUpdated.InvokeAsync();
 
         await InvokeAsync(StateHasChanged);
         return;
@@ -137,7 +138,8 @@ public abstract class EnableInputDelayInvokerBase<TValue> : SPluginBase<SInput<T
 
         if (customValidator is not null)
         {
-            await Validation.OnValidationChangedAsync(customValidator(value));
+            var results = customValidator(value);
+            await Validation.OnValidationChangedAsync(results, results.Count == 0);
         }
         else if (expression is not null)
         {
@@ -147,8 +149,8 @@ public abstract class EnableInputDelayInvokerBase<TValue> : SPluginBase<SInput<T
                 MemberName = identifier.FieldName
             };
             List<ValidationResult> validationResultList = [];
-            Validator.TryValidateProperty(value, validationContext, validationResultList);
-            await Validation.OnValidationChangedAsync(validationResultList);
+            var result = Validator.TryValidateProperty(value, validationContext, validationResultList);
+            await Validation.OnValidationChangedAsync(validationResultList, result);
         }
     }
 }

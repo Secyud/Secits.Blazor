@@ -24,7 +24,7 @@ public partial class EnableIteratorPager<TValue> : IContentRenderer
         if (PageSizes is { Length: > 0 })
             Master.DataRequest.PageSize = PageSizes[0];
 
-        RefreshAsync().ConfigureAwait(false);
+        RefreshAsync(true).ConfigureAwait(false);
     }
 
     protected override void ForgoSetting()
@@ -33,19 +33,23 @@ public partial class EnableIteratorPager<TValue> : IContentRenderer
         Master.Content.Forgo(this);
     }
 
-    protected override void PreRefresh()
+    protected override void PreRefresh(bool resetState)
     {
+        if (resetState)
+        {
+            Master.DataRequest.PageIndex = 0;
+        }
     }
 
     private async Task PageSizeChangedAsync(int pageSize)
     {
         Master.DataRequest.PageSize = pageSize;
-        await Master.RefreshAsync();
+        await Master.RefreshAsync(false);
     }
 
     private async Task PageIndexChangedAsync(int pageIndex)
     {
         Master.DataRequest.PageIndex = pageIndex;
-        await Master.RefreshAsync();
+        await Master.RefreshAsync(false);
     }
 }

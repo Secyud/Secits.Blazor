@@ -1,6 +1,6 @@
 namespace Secyud.Secits.Blazor.Icons;
 
-public enum IconType
+public enum IconName
 {
     Create,
     Update,
@@ -15,4 +15,9 @@ public enum IconType
     NextPage,
     PreviewPage,
     LastPage,
+    Info,
+    Warning,
+    Error,
+    Success,
+    Confirmation,
 }

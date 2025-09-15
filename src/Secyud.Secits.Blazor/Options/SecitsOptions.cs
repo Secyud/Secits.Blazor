@@ -3,6 +3,9 @@
 public class SecitsOptions
 {
     public const string RootPath = "_content/Secyud.Secits.Blazor/";
+    public const string CookieColor = "secits-color";
+    public const string CookieStyle = "secits-style";
+    public const string CookieParam = "secits-param";
 
     public UiThemeColor ThemeColor { get; set; } = UiThemeColor.Default;
     public UiThemeStyle ThemeStyle { get; set; } = UiThemeStyle.Default;
@@ -50,5 +53,18 @@ public class SecitsOptions
         ];
 
         return res;
+    }
+
+    public void MapFrom(SecitsOptions options)
+    {
+        ThemeColor = options.ThemeColor;
+        ThemeParam = options.ThemeParam;
+        ThemeStyle = options.ThemeStyle;
+        CssPaths.Clear();
+        CssPaths.AddRange(options.CssPaths);
+        JsPaths.Clear();
+        JsPaths.AddRange(options.JsPaths);
+        Parameters.Clear();
+        Parameters.AddRange(options.Parameters);
     }
 }

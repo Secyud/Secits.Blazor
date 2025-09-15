@@ -9,5 +9,5 @@ namespace Secyud.Secits.Blazor.Settings;
 public interface IIteratorRenderer<TValue>
 {
     RenderFragment GenerateItems(RenderFragment<TValue> itemTemplate);
-    Task RefreshAsync();
+    Task RefreshAsync(bool resetState);
 }

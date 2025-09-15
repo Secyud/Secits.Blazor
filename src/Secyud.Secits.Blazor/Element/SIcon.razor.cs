@@ -20,7 +20,6 @@ public partial class SIcon : IHasCustomCss, ICanClick
 
     protected void OnClick(MouseEventArgs args)
     {
-        if (Click.HasDelegate)
             Click.InvokeAsync(args).ConfigureAwait(false);
     }
 

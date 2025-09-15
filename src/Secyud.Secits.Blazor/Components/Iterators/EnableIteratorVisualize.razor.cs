@@ -29,7 +29,7 @@ public partial class EnableIteratorVisualize<TValue> : IIteratorRenderer<TValue>
         return new ItemsProviderResult<TValue>(result.Items, result.TotalCount);
     }
 
-    public async Task RefreshAsync()
+    public async Task RefreshAsync(bool resetState)
     {
         if (_virtualize is not null)
         {

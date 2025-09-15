@@ -3,7 +3,7 @@ using Secyud.Secits.Blazor.Settings;
 
 namespace Secyud.Secits.Blazor.Element;
 
-public partial class Floater : IHasContent, IHasCustomCss
+public partial class SFloater : IHasContent, IHasCustomCss
 {
     [Parameter]
     public RenderFragment? ChildContent { get; set; }

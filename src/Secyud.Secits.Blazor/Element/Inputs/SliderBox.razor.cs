@@ -54,7 +54,6 @@ public partial class SliderBox : ICanActive, IHasRange<int>
     {
         Value = value;
 
-        if (ValueChanged.HasDelegate)
             await ValueChanged.InvokeAsync(value);
 
         await InvokeAsync(StateHasChanged);

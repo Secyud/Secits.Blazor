@@ -4,22 +4,22 @@ namespace Secyud.Secits.Blazor;
 
 public class FontAwesomeIconProvider : IIconProvider
 {
-    private readonly Dictionary<IconType, string> _fontAwesomeIcons = new Dictionary<IconType, string>()
+    private readonly Dictionary<IconName, string> _fontAwesomeIcons = new Dictionary<IconName, string>()
     {
-        [IconType.Create] = "fas fa-file",
-        [IconType.Update] = "fas fa-pen-to-square",
-        [IconType.Delete] = "fas fa-trash",
-        [IconType.Search] = "fas fa-magnifying-glass",
-        [IconType.Clear] = "fas fa-circle-xmark",
-        [IconType.DropDown] = "fas fa-caret-down",
-        [IconType.FirstPage] = "fas fa-angles-left",
-        [IconType.PreviewPage] = "fas fa-angle-left",
-        [IconType.NextPage] = "fas fa-angle-right",
-        [IconType.LastPage] = "fas fa-angles-right",
+        [IconName.Create] = "fas fa-file",
+        [IconName.Update] = "fas fa-pen-to-square",
+        [IconName.Delete] = "fas fa-trash",
+        [IconName.Search] = "fas fa-magnifying-glass",
+        [IconName.Clear] = "fas fa-circle-xmark",
+        [IconName.DropDown] = "fas fa-caret-down",
+        [IconName.FirstPage] = "fas fa-angles-left",
+        [IconName.PreviewPage] = "fas fa-angle-left",
+        [IconName.NextPage] = "fas fa-angle-right",
+        [IconName.LastPage] = "fas fa-angles-right",
     };
 
-    public string GetIcon(IconType type)
+    public string GetIcon(IconName name)
     {
-        return _fontAwesomeIcons[type];
+        return _fontAwesomeIcons[name];
     }
 }

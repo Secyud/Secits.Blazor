@@ -31,10 +31,8 @@ public partial class SPager : IHasCustomCss
         if (index < 0 || index >= MaxPageCount || PageIndex == index)
             return;
 
-        if (PageIndexChanged.HasDelegate)
-        {
-            await PageIndexChanged.InvokeAsync(index);
-        }
+        await PageIndexChanged.InvokeAsync(index);
+
 
         PageIndex = index;
         await InvokeAsync(StateHasChanged);

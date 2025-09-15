@@ -34,9 +34,9 @@ public abstract partial class SIteratorBase<TValue>
     public SSetting<IDataSourceProvider<TValue>> DataSource { get; } = new();
     public SSetting<IIteratorRenderer<TValue>> ItemsRenderer { get; } = new();
 
-    public Task RefreshAsync()
+    public Task RefreshAsync(bool resetState)
     {
-        return ItemsRenderer.InvokeAsync(u => u.RefreshAsync());
+        return ItemsRenderer.InvokeAsync(u => u.RefreshAsync(resetState));
     }
 
     #endregion

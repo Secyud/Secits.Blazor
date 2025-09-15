@@ -51,12 +51,12 @@ public abstract partial class TimePickerTemplateBase : IHasValue<TimeOnly>
 
     protected async Task SetValueAsync(int? hour = null, int? minute = null, int? second = null)
     {
-        var time = new TimeOnly(
-            hour ?? CurrentValue.Hour,
-            minute ?? CurrentValue.Minute,
-            second ?? CurrentValue.Second);
         if (ValueChanged.HasDelegate)
         {
+            var time = new TimeOnly(
+                hour ?? CurrentValue.Hour,
+                minute ?? CurrentValue.Minute,
+                second ?? CurrentValue.Second);
             await ValueChanged.InvokeAsync(time);
         }
     }

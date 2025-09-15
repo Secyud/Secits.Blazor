@@ -1,0 +1,10 @@
+@namespace Secyud.Secits.Blazor.Element
+@inherits SFloater
+@if (Visible)
+{
+    <div class="popup-back">
+        @{
+            base.BuildRenderTree(__builder);
+        }
+    </div>
+}

@@ -2,5 +2,5 @@ namespace Secyud.Secits.Blazor.Icons;
 
 public interface IIconProvider
 {
-    string GetIcon(IconType type);
+    string GetIcon(IconName name);
 }

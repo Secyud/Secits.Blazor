@@ -7,8 +7,10 @@
     public RenderFragment GenerateItems(RenderFragment<TValue> itemTemplate) =>
         __builder =>
         {
-            <Virtualize @ref="_virtualize" ItemsProvider="RefreshRowsAsync" Context="item">
-                @itemTemplate(item)
+            <Virtualize @ref="_virtualize" 
+                        ItemsProvider="RefreshRowsAsync" 
+                        SpacerElement="spacer">
+                @itemTemplate(context)
             </Virtualize>
         };
 }

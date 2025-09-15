@@ -103,18 +103,18 @@ public partial class GridColumn<TValue, TField> :
     protected async Task SetFilterValueAsync(TField filterValue)
     {
         Filter.FilterField = filterValue;
-        await Master.RefreshAsync();
+        await Master.RefreshAsync(true);
     }
 
     protected string GetSorterIconClass()
     {
         if (!Sorter.Enabled)
-            return IconProvider.GetIcon(IconType.None);
+            return IconProvider.GetIcon(IconName.None);
 
         if (!Sorter.Desc)
-            return IconProvider.GetIcon(IconType.Asc);
+            return IconProvider.GetIcon(IconName.Asc);
 
-        return IconProvider.GetIcon(IconType.Desc);
+        return IconProvider.GetIcon(IconName.Desc);
     }
 
     protected async Task SetSorterValueAsync()
@@ -133,7 +133,7 @@ public partial class GridColumn<TValue, TField> :
             Sorter.Enabled = false;
         }
 
-        await Master.RefreshAsync();
+        await Master.RefreshAsync(true);
     }
 
     [return: NotNullIfNotNull(nameof(item))]
