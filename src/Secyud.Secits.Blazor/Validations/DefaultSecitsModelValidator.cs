@@ -4,7 +4,7 @@ namespace Secyud.Secits.Blazor.Validations;
 
 public class DefaultSecitsModelValidator : ISecitsModelValidator
 {
-    public async Task<List<ValidationResult>> ValidateValueAsync(ValidationContext context, object? value)
+    public virtual async Task<List<ValidationResult>> ValidateValueAsync(ValidationContext context, object? value)
     {
         var results = new List<ValidationResult>();
 

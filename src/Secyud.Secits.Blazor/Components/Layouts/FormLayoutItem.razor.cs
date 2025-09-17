@@ -6,7 +6,7 @@ using Secyud.Secits.Blazor.Validations;
 
 namespace Secyud.Secits.Blazor;
 
-public partial class FormLayoutItem : SLayoutPluginBase<SFormLayout>, IHasContent<FormLayoutItem>, IValidationListener
+public partial class FormLayoutItem : SLayoutPluginBase<SFormLayout>, IHasContent<FormLayoutItem>
 {
     [Parameter]
     public int ColSpanXs { get; set; } = 12;
@@ -52,10 +52,5 @@ public partial class FormLayoutItem : SLayoutPluginBase<SFormLayout>, IHasConten
         if (ColSpanXl != 2)
             sb.Append($" col-xl-{ColSpanXl}");
         return sb.ToString();
-    }
-
-    public Task OnValidationChangedAsync()
-    {
-        return InvokeAsync(StateHasChanged);
     }
 }

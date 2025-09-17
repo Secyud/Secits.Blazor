@@ -20,9 +20,9 @@ public partial class ValidationField : IHasContent, IAsyncDisposable
         get => _validationForm;
         set
         {
-            _validationForm?.Fields.Apply(this);
-            _validationForm = value;
             _validationForm?.Fields.Forgo(this);
+            _validationForm = value;
+            _validationForm?.Fields.Apply(this);
         }
     }
 
