@@ -1,4 +1,4 @@
-namespace Secyud.Secits.Blazor.Element;
+namespace Secyud.Secits.Blazor.Validations;
 
 public interface IValidationListener
 {

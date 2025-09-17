@@ -3,8 +3,8 @@ using System.Linq.Expressions;
 using System.Timers;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
-using Secyud.Secits.Blazor.Element;
 using Secyud.Secits.Blazor.Settings;
+using Secyud.Secits.Blazor.Validations;
 using Timer = System.Timers.Timer;
 
 namespace Secyud.Secits.Blazor;
@@ -14,14 +14,14 @@ public abstract class EnableInputDelayInvokerBase<TValue> : SPluginBase<SInput<T
     private Timer? _timer;
     protected TValue LastActiveItem { get; set; } = default!;
 
+    [CascadingParameter]
+    public ValidationField? ValidationField { get; set; }
+
     [Parameter]
     public int DelayInterval { get; set; }
 
     [Parameter]
     public EventCallback ValueUpdated { get; set; }
-
-    [Parameter]
-    public Validation? Validation { get; set; }
 
     protected override void ApplySetting()
     {
@@ -130,27 +130,14 @@ public abstract class EnableInputDelayInvokerBase<TValue> : SPluginBase<SInput<T
         }
     }
 
-    protected async Task ChangeValidationAsync<T>(
-        T value, Expression<Func<T>>? expression,
-        Func<T, List<ValidationResult>>? customValidator)
+    protected async Task NotifyValidationChangedAsync<T>(Expression<Func<T>>? expression, object? value)
     {
-        if (Validation is null) return;
-
-        if (customValidator is not null)
+        if (ValidationField is null || expression is null) return;
+        var id = FieldIdentifier.Create(expression);
+        var context = new ValidationContext(id.Model)
         {
-            var results = customValidator(value);
-            await Validation.OnValidationChangedAsync(results, results.Count == 0);
-        }
-        else if (expression is not null)
-        {
-            var identifier = FieldIdentifier.Create(expression);
-            var validationContext = new ValidationContext(identifier.Model)
-            {
-                MemberName = identifier.FieldName
-            };
-            List<ValidationResult> validationResultList = [];
-            var result = Validator.TryValidateProperty(value, validationContext, validationResultList);
-            await Validation.OnValidationChangedAsync(validationResultList, result);
-        }
+            MemberName = id.FieldName
+        };
+        await ValidationField.OnValidationChangedAsync(context, value);
     }
 }

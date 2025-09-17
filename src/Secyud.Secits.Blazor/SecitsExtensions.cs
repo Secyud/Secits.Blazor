@@ -2,6 +2,7 @@
 using Secyud.Secits.Blazor.JSInterop;
 using Secyud.Secits.Blazor.Options;
 using Secyud.Secits.Blazor.Services;
+using Secyud.Secits.Blazor.Validations;
 
 namespace Secyud.Secits.Blazor;
 
@@ -12,8 +13,8 @@ public static class SecitsExtensions
     {
         #region Service
 
-        services.AddTransient<ISecitsLocalizationService, NullSecitsLocalizationService>();
         services.AddSingleton<IDirtyParameterService, DirtyParameterService>();
+        services.AddTransient<ISecitsModelValidator, DefaultSecitsModelValidator>();
 
         #endregion
 

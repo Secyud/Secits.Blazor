@@ -1,6 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Linq.Expressions;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Forms;
 
 namespace Secyud.Secits.Blazor;
 
@@ -56,7 +57,7 @@ public class EnableFieldInput<TValue, TField> : EnableValueInput<TValue>
         if (FieldChanged.HasDelegate)
         {
             await FieldChanged.InvokeAsync(value);
-            await ChangeValidationAsync(value, FieldExpression, FieldValidator);
+            await NotifyValidationChangedAsync(FieldExpression, value);
         }
     }
 

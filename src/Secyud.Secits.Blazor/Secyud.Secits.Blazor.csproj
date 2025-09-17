@@ -12,5 +12,5 @@
     <ItemGroup>
         <None Update="**/*.razor.css" CssScope="s"/>
     </ItemGroup>
-
+    
 </Project>

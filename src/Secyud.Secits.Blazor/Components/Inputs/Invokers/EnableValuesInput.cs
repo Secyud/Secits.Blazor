@@ -1,6 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Linq.Expressions;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Forms;
 using Secyud.Secits.Blazor.Settings;
 
 namespace Secyud.Secits.Blazor;
@@ -27,7 +28,7 @@ public class EnableValuesInput<TValue> : EnableInputDelayInvokerBase<TValue>, IH
         if (ValuesChanged.HasDelegate)
         {
             await ValuesChanged.InvokeAsync(CurrentValues);
-            await ChangeValidationAsync(CurrentValues, ValuesExpression, ValuesValidator);
+            await NotifyValidationChangedAsync(ValuesExpression, CurrentValues);
         }
     }
 

@@ -1,7 +1,10 @@
 using System.ComponentModel.DataAnnotations;
 using System.Linq.Expressions;
+using System.Reflection;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Forms;
 using Secyud.Secits.Blazor.Settings;
+using Secyud.Secits.Blazor.Validations;
 
 namespace Secyud.Secits.Blazor;
 
@@ -22,15 +25,12 @@ public class EnableValueInput<TValue> : EnableInputDelayInvokerBase<TValue>, IHa
     [Parameter]
     public Expression<Func<TValue>>? ValueExpression { get; set; }
 
-    [Parameter]
-    public Func<TValue, List<ValidationResult>>? ValueValidator { get; set; }
-
     protected override async Task OnValueChangedAsync()
     {
         if (ValueChanged.HasDelegate)
         {
             await ValueChanged.InvokeAsync(CurrentValue);
-            await ChangeValidationAsync(CurrentValue, ValueExpression, ValueValidator);
+            await NotifyValidationChangedAsync(ValueExpression, CurrentValue);
         }
     }
 

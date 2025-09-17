@@ -2,6 +2,7 @@ using System.Text;
 using Microsoft.AspNetCore.Components;
 using Secyud.Secits.Blazor.Element;
 using Secyud.Secits.Blazor.Settings;
+using Secyud.Secits.Blazor.Validations;
 
 namespace Secyud.Secits.Blazor;
 
@@ -27,11 +28,6 @@ public partial class FormLayoutItem : SLayoutPluginBase<SFormLayout>, IHasConten
 
     [Parameter]
     public string? Title { get; set; }
-
-    [Parameter]
-    public bool EnableValidationMessage { get; set; }
-
-    public Validation Validation { get; } = new();
 
     public override RendererPosition GetLayoutPosition()
     {
