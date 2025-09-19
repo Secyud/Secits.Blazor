@@ -1,9 +1,10 @@
 <Project Sdk="Microsoft.NET.Sdk.Razor">
-    <Import Project="../../common.props"/>
 
     <PropertyGroup>
-        <TargetFrameworks>net8.0;net9.0</TargetFrameworks>
+        <TargetFramework>net9.0</TargetFramework>
     </PropertyGroup>
+    
+    <Import Project="../../common.props"/>
 
     <ItemGroup>
         <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="$(DotnetVersion)"/>

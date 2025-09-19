@@ -15,6 +15,6 @@ public class DataFilter<TField> : DataFilter
     public override object? FilterValue
     {
         get => FilterField;
-        set => FilterField = value is TField field ? field : default!;
+        set => FilterField = value is TField f ? f : default!;
     }
 }

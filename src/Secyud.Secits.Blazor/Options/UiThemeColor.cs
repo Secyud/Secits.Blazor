@@ -2,5 +2,6 @@
 
 public enum UiThemeColor
 {
-    Default
+    Unset = -1,
+    Default = 0,
 }

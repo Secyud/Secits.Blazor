@@ -1,0 +1,25 @@
+﻿@using Secyud.Secits.Blazor.Options
+@inject IOptionsSnapshot<SecitsStylesOptions> Options
+
+@foreach (var path in _paths)
+{
+    <link rel="stylesheet" href="@path.Path" id="@path.Id"/>
+}
+
+@code
+{
+    [Parameter]
+    public bool IsWebAssemblyOnly { get; set; }
+
+    private readonly List<HtmlPathResource> _paths = [];
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+        var option = Options.Value;
+        foreach (var path in option.Get())
+        {
+            _paths.Add(IsWebAssemblyOnly ? path : new HtmlPathResource(Assets[path.Path], path.Id));
+        }
+    }
+}

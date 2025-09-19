@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using Secyud.Secits.Blazor.Icons;
 using Secyud.Secits.Blazor.JSInterop;
 using Secyud.Secits.Blazor.Options;
 using Secyud.Secits.Blazor.Services;
@@ -15,6 +16,7 @@ public static class SecitsExtensions
 
         services.AddSingleton<IDirtyParameterService, DirtyParameterService>();
         services.AddTransient<ISecitsModelValidator, DefaultSecitsModelValidator>();
+        services.AddTransient<IIconProvider, NullIconProvider>();
 
         #endregion
 

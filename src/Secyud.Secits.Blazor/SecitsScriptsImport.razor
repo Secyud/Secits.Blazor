@@ -1,0 +1,23 @@
+﻿@using Secyud.Secits.Blazor.Options
+@inject IOptionsSnapshot<SecitsScriptsOptions> Options
+
+@foreach (var path in _paths)
+{
+    <script src="@path.Path" id="@path.Id"></script>
+}
+
+@code
+{
+
+    private readonly List<HtmlPathResource> _paths = [];
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+        var option = Options.Value;
+        foreach (var path in option.Get())
+        {
+            _paths.Add(path);
+        }
+    }
+}

@@ -2,5 +2,6 @@
 
 public enum UiThemeParam
 {
-    Default
+    Unset = -1,
+    Default = 0,
 }
