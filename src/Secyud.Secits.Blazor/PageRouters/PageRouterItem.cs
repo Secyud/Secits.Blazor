@@ -4,6 +4,7 @@ namespace Secyud.Secits.Blazor.PageRouters;
 
 public class PageRouterItem(Uri uri, Type pageType, Dictionary<string, object?> routeValues)
 {
+    public string Id { get; } = Guid.NewGuid().ToString("N");
     public Uri Uri { get; set; } = uri;
     public Type PageType { get; } = pageType;
     public Dictionary<string, object?> RouteValues { get; } = routeValues;

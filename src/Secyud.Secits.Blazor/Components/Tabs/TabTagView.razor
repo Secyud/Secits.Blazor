@@ -1,0 +1,13 @@
+@namespace Secyud.Secits.Blazor
+
+<div class="@GetClass()" style="@GetStyle()">
+    @if (TabContainer is not null)
+    {
+        foreach (var tab in TabContainer.Tabs)
+        {
+            <div class="s-tab-tag" id="@tab.Key">
+                @tab.RenderTab()
+            </div>
+        }
+    }
+</div>

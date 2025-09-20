@@ -45,7 +45,7 @@ public partial class GridColumn<TValue, TField> :
     public bool EnableSorter { get; set; }
 
     [Parameter]
-    public RenderFragment<DataFilter<TField>>? FilterTemplate { get; set; }
+    public RenderFragment<DataFilter>? FilterTemplate { get; set; }
 
     public int RealWidth
     {
@@ -100,9 +100,9 @@ public partial class GridColumn<TValue, TField> :
 
     #endregion
 
-    protected async Task SetFilterValueAsync(TField filterValue)
+    protected async Task SetFilterValueAsync(object? filterValue)
     {
-        Filter.FilterField = filterValue;
+        Filter.FilterValue = filterValue;
         await Master.RefreshAsync(true);
     }
 
@@ -142,6 +142,6 @@ public partial class GridColumn<TValue, TField> :
         return _valueField is null || item is null ? default : _valueField(item);
     }
 
-    private DataFilter<TField> Filter { get; } = new();
+    private DataFilter Filter { get; } = new();
     private DataSorter Sorter { get; } = new();
 }
