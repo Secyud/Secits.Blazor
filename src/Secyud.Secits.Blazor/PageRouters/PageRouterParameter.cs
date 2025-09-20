@@ -1,4 +1,4 @@
-namespace Secyud.Secits.Blazor.PageRouter;
+namespace Secyud.Secits.Blazor.PageRouters;
 
 public struct PageRouterParameter
 {

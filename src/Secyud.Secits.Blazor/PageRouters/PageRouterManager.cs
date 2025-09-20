@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
 using Microsoft.AspNetCore.Components;
 
-namespace Secyud.Secits.Blazor.PageRouter;
+namespace Secyud.Secits.Blazor.PageRouters;
 
 public class PageRouterManager
 {
@@ -15,7 +15,7 @@ public class PageRouterManager
     public void ActivatePageRouteItem(RouteData routeData, string uriString)
     {
         if (!Uri.TryCreate(uriString, UriKind.Absolute, out var uri)) return;
-        _currentItem = _items.FirstOrDefault(u => u.Url == uri);
+        _currentItem = _items.FirstOrDefault(u => u.Uri == uri);
         if (_currentItem is null)
         {
             _currentItem = CreatePageRouterItem(routeData, uri);

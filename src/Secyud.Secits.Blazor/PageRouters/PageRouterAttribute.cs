@@ -1,4 +1,4 @@
-﻿namespace Secyud.Secits.Blazor.PageRouter;
+﻿namespace Secyud.Secits.Blazor.PageRouters;
 
 [AttributeUsage(AttributeTargets.Class)]
 public class PageRouterAttribute : Attribute
