@@ -2,6 +2,7 @@
 using Secyud.Secits.Blazor.Icons;
 using Secyud.Secits.Blazor.JSInterop;
 using Secyud.Secits.Blazor.Options;
+using Secyud.Secits.Blazor.PageRouter;
 using Secyud.Secits.Blazor.Services;
 using Secyud.Secits.Blazor.Validations;
 
@@ -17,6 +18,7 @@ public static class SecitsExtensions
         services.AddSingleton<IDirtyParameterService, DirtyParameterService>();
         services.AddTransient<ISecitsModelValidator, DefaultSecitsModelValidator>();
         services.AddTransient<IIconProvider, NullIconProvider>();
+        services.AddScoped<PageRouterManager>();
 
         #endregion
 
