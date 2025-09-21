@@ -10,9 +10,9 @@ public partial class TabContainer
     public SSettings<ITab> Tabs { get; } = new();
     public SSettings<ITabListener> TabListeners { get; } = new();
 
-    public async Task SelectTabAsync(ITab tab)
+    public async Task SelectTabAsync(string? tabKey)
     {
-        CurrentKey = tab.Key;
+        CurrentKey = tabKey;
         await TabListeners.InvokeAsync(u => u.TabChangedAsync());
     }
 }
