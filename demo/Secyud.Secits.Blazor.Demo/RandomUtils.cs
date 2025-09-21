@@ -13,7 +13,6 @@ public class RandomUtils
     public const string UpIChars = "AEIOU";
     public const string UpUChars = "BCDFGHJKLMNPQRSTVWXYZ";
     private static readonly Random Random = new();
-    private static readonly StringBuilder Sb = new();
 
     public static int Rand(int max)
     {
@@ -27,30 +26,34 @@ public class RandomUtils
 
     public static string GetString(params string[] arr)
     {
-        Sb.Clear();
-        RandomString(Sb, arr);
-        return Sb.ToString();
+        var sb = new StringBuilder();
+        sb.Clear();
+        RandomString(sb, arr);
+        return sb.ToString();
     }
 
     public static string GetWord(bool firstUpper = true)
     {
-        Sb.Clear();
-        RandomWord(Sb, firstUpper);
-        return Sb.ToString();
+        var sb = new StringBuilder();
+        sb.Clear();
+        RandomWord(sb, firstUpper);
+        return sb.ToString();
     }
 
     public static string GetSentence()
     {
-        Sb.Clear();
-        RandomSentence(Sb);
-        return Sb.ToString();
+        var sb = new StringBuilder();
+        sb.Clear();
+        RandomSentence(sb);
+        return sb.ToString();
     }
 
     public static string GetSentences(int count = 10)
     {
-        Sb.Clear();
-        RandomSentences(Sb, count);
-        return Sb.ToString();
+        var sb = new StringBuilder();
+        sb.Clear();
+        RandomSentences(sb, count);
+        return sb.ToString();
     }
 
     private static void RandomString(StringBuilder sb, params string[] arr)

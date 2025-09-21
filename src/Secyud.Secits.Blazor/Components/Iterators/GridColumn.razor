@@ -1,7 +1,6 @@
 ﻿@namespace Secyud.Secits.Blazor
 @inherits SPluginBase<SGrid<TValue>>
 @typeparam TValue
-@using System.Numerics
 @typeparam TField
 
 @code
@@ -47,8 +46,6 @@
 
     protected RenderFragment GenerateDefaultFilter()
     {
-        
-        
         @* var fieldType = typeof(TField); *@
         @* if (fieldType == typeof(string)) *@
         @* { *@
@@ -102,5 +99,10 @@
             }
         };
 
-    public RenderFragment GenerateFooter() => __builder => { };
+    public RenderFragment GenerateFooter() =>
+        __builder =>
+        {
+            if (FooterTemplate is null) return;
+            @FooterTemplate(this)
+        };
 }

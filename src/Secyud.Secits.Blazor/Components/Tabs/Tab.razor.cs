@@ -12,20 +12,20 @@ public partial class Tab : ITab
     public RenderFragment? Content { get; set; }
 
     [Parameter]
-    public string Key { get; set; } = null!;
+    public string Key { get; set; } = Guid.NewGuid().ToString("N");
 
     public int Index { get; set; }
     public bool IsRendered { get; set; }
 
     public RenderFragment? RenderTab() => Tag;
-    
+
     public RenderFragment? RenderTabContent() => Content;
 
     protected override void ApplySetting()
     {
-        var maxIndex = Master.Tabs.Max(u => u.Index);
-        Index = maxIndex + 1;
-        Master.Tabs.Apply(this);
+        var tabs = Master.Tabs;
+        Index = tabs.Count > 0 ? tabs.Max(u => u.Index) + 1 : 0;
+        tabs.Apply(this);
     }
 
     protected override void ForgoSetting()
