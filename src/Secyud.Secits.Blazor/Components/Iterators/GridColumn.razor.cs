@@ -115,9 +115,9 @@ public partial class GridColumn<TValue, TField> :
             return IconProvider.GetIcon(IconName.None);
 
         if (!Sorter.Desc)
-            return IconProvider.GetIcon(IconName.Asc);
+            return IconProvider.GetIcon(IconName.DownAngle);
 
-        return IconProvider.GetIcon(IconName.Desc);
+        return IconProvider.GetIcon(IconName.UpAngle);
     }
 
     protected async Task SetSorterValueAsync()
