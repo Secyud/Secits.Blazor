@@ -27,7 +27,6 @@ public class SecitsScriptsOptions
         return
         [
             new HtmlPathResource(RootPath + "js/components.js", "secits-component-js"),
-            new HtmlPathResource(RootPath + "js/event-handler.js", "secits-event-handler-js"),
         ];
     }
 }

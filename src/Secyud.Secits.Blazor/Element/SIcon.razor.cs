@@ -20,7 +20,7 @@ public partial class SIcon : IHasCustomCss, ICanClick
 
     protected void OnClick(MouseEventArgs args)
     {
-            Click.InvokeAsync(args).ConfigureAwait(false);
+        Click.InvokeAsync(args);
     }
 
     protected string? GetClass()

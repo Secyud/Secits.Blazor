@@ -14,6 +14,12 @@ public partial class Tab : ITab
     [Parameter]
     public string Key { get; set; } = Guid.NewGuid().ToString("N");
 
+    [Parameter]
+    public EventCallback Click { get; set; }
+
+    [Parameter]
+    public bool PreventDefaultClick { get; set; }
+
     public int Index { get; set; }
     public bool IsRendered { get; set; }
 

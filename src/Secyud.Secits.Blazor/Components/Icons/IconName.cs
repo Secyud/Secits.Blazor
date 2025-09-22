@@ -19,8 +19,11 @@ public enum IconName
     RightAngle,
     LeftAngle,
     RightAngles,
+    Laptop,
     Pin,
     Bars,
     Question,
     Exclamation,
+    Palette,
+    Globe,
 }

@@ -5,7 +5,8 @@ namespace Secyud.Secits.Blazor.PageRouters;
 
 public class PageRouterManager
 {
-    public EventHandler? StateChanged;
+    public EventHandler? RouterItemActivated;
+    public EventHandler? RouterItemRemoved;
     private readonly List<PageRouterItem> _items = [];
     private PageRouterItem? _currentItem;
 
@@ -22,7 +23,7 @@ public class PageRouterManager
             _items.Add(_currentItem);
         }
 
-        StateChanged?.Invoke(this, EventArgs.Empty);
+        RouterItemActivated?.Invoke(this, EventArgs.Empty);
     }
 
     public void RemovePageRouteItem(PageRouterItem item)
@@ -35,7 +36,7 @@ public class PageRouterManager
             _currentItem = _items.Count > 0 ? _items[Math.Max(0, index - 1)] : null;
         }
 
-        StateChanged?.Invoke(this, EventArgs.Empty);
+        RouterItemRemoved?.Invoke(this, EventArgs.Empty);
     }
 
     private PageRouterItem CreatePageRouterItem(RouteData routeData, Uri uri)

@@ -29,7 +29,6 @@ public abstract partial class SPluggableBase : IHasTheme, IHasSize, IHasCustomCs
             .GetDirtyParameters(this));
     }
 
-
     #region Parameters
 
     public override async Task SetParametersAsync(ParameterView parameters)

@@ -2,11 +2,12 @@ using Microsoft.AspNetCore.Components;
 
 namespace Secyud.Secits.Blazor.Settings.Tabs;
 
-public interface ITab
+public interface ITab : ICanClick
 {
-    string Key { get; set; }
-    int Index { get; set; }
+    string Key { get; }
+    int Index { get; }
     bool IsRendered { get; set; }
+    bool PreventDefaultClick { get; }
     RenderFragment? RenderTab();
     RenderFragment? RenderTabContent();
 }

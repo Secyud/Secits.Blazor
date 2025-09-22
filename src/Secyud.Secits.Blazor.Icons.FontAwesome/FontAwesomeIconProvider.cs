@@ -22,6 +22,13 @@ public class FontAwesomeIconProvider : IIconProvider
         [IconName.DownAngles] = "fas fa-angles-down",
         [IconName.Pin] = "fas fa-thumbtack",
         [IconName.Bars] = "fas fa-bars",
+        [IconName.Exclamation] = "fas fa-exclamation",
+        [IconName.Laptop] = "fas fa-laptop",
+        [IconName.Question] = "fas fa-question",
+        [IconName.Check] = "fas fa-check",
+        [IconName.Refresh] = "fas fa-rotate-right",
+        [IconName.Palette] = "fas fa-palette",
+        [IconName.Globe] = "fas fa-globe",
     };
 
     public string GetIcon(IconName name)

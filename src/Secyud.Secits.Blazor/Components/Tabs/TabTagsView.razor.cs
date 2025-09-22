@@ -42,7 +42,12 @@ public partial class TabTagsView : IHasCustomCss, ITabListener
 
     protected async Task SelectTabAsync(ITab tab)
     {
-        if (TabContainer is null || TabContainer.CurrentKey == tab.Key) return;
-        await TabContainer.SelectTabAsync(tab.Key);
+        if (!tab.PreventDefaultClick)
+        {
+            if (TabContainer is null || TabContainer.CurrentKey == tab.Key) return;
+            await TabContainer.SelectTabAsync(tab.Key);
+        }
+
+        await tab.Click.InvokeAsync();
     }
 }
