@@ -1,21 +1,23 @@
 ﻿@namespace Secyud.Secits.Blazor
-@using Secyud.Secits.Blazor.Icons
 @inherits SLayoutPluginBase<SActivableBase>
 
 
 @code
 {
-    public override RenderFragment RenderTemplate() => __builder =>
-    {
-        <SIcon @ref="_icon" IconName="@IconProvider.GetIcon(IconName.DropDown)"
-               Click="@OnDropDownClickAsync"
-               Class="@GetClass()" Style="@GetStyle()"></SIcon>
+    public override RenderFragment RenderTemplate() =>
+        __builder =>
+        {   
+            var iconName = ContextVisible ? _upIcon : _downIcon;
+            <SIcon @ref="_icon" IconName="@iconName" @key="iconName"
+                   Click="@ClickDropDownAsync"
+                   Class="@GetClass()" Style="@GetStyle()"/>
 
-        @if (_isDropDownVisible)
-        {
-            <div @ref="_dropDownContent" class="dropdown-content">
+            <SContextMenu 
+                          @bind-Visible="ContextVisible"
+                          Class="@GetContentClass()"
+                          Style="@GetContentStyle()"
+                          ExtendElement="@(() => _icon?.ElementRef)">
                 @ChildContent
-            </div>
-        }
-    };
+            </SContextMenu>
+        };
 }

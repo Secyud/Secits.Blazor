@@ -7,8 +7,9 @@ public abstract class SElementBase : IComponent
 {
     private RenderHandle _renderHandle;
     private bool _hasPendingQueuedRender;
-    protected ElementReference? Ref;
+    protected ElementReference? Ref { get; set; }
     public ElementReference? ElementRef => Ref;
+
     private void RenderFragment(RenderTreeBuilder builder)
     {
         _hasPendingQueuedRender = false;

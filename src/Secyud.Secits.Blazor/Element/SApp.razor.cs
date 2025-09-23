@@ -1,10 +1,16 @@
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
+using Secyud.Secits.Blazor.JSInterop;
+using Secyud.Secits.Blazor.Services;
 using Secyud.Secits.Blazor.Settings;
 
 namespace Secyud.Secits.Blazor.Element;
 
-public partial class SFloater : IHasContent, IHasCustomCss
+public partial class SApp : IHasCustomCss,IHasContent
 {
+    [Inject]
+    private SecitsApp App { get; set; } = null!;
+
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
@@ -16,11 +22,16 @@ public partial class SFloater : IHasContent, IHasCustomCss
 
     protected string? GetClass()
     {
-        return ClassStyleBuilder.GenerateClass("s-floater", Class);
+        return ClassStyleBuilder.GenerateClass("s-app", Class);
     }
 
     protected string? GetStyle()
     {
         return Style;
+    }
+
+    protected void OnClick(MouseEventArgs args)
+    {
+        App.Click(this, args);
     }
 }

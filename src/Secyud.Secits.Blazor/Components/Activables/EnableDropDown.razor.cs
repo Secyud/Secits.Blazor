@@ -9,65 +9,70 @@ namespace Secyud.Secits.Blazor;
 
 public partial class EnableDropDown : IHasContent
 {
-    private bool _isDropDownVisible;
-
     [Inject]
     private IIconProvider IconProvider { get; set; } = null!;
 
-    [Inject]
-    private IJsDocument JsDocument { get; set; } = null!;
-
-    [Inject]
-    private IJsElement JsElement { get; set; } = null!;
-
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
+
+    [Parameter]
+    public string? ContentClass { get; set; }
+
+    [Parameter]
+    public string? ContentStyle { get; set; }
+
+    private SIcon? _icon;
+    private string? _upIcon;
+    private string? _downIcon;
+    private bool _contextVisible;
+
+    private bool ContextVisible
+    {
+        get => _contextVisible;
+        set
+        {
+            _contextVisible = value;
+            StateHasChanged();
+        }
+    }
+
+    protected override void ApplySetting()
+    {
+        base.ApplySetting();
+        _upIcon ??= IconProvider.GetIcon(IconName.CaretUp);
+        _downIcon ??= IconProvider.GetIcon(IconName.CaretDown);
+    }
 
     public override RendererPosition GetLayoutPosition()
     {
         return RendererPosition.Body;
     }
-
-    public async Task OnDropDownClickAsync()
+    protected string? GetContentStyle()
     {
-        if (_isDropDownVisible)
-            await OnCloseDropDownAsync();
-        else
-            await OnOpenDropDownAsync();
+        return ContentStyle;
     }
 
-    private long? _openDropDownId;
-    private ElementReference? _dropDownContent;
-    private SIcon? _icon;
-
-    public async Task OnCloseDropDownAsync()
+    protected string? GetContentClass()
     {
-        _openDropDownId = await JsDocument.RemoveEventListener(_openDropDownId);
-        _isDropDownVisible = false;
-        await InvokeAsync(StateHasChanged);
+        return ClassStyleBuilder.GenerateClass("s-dropdown-content", ContentClass);
     }
 
-    public async Task OnOpenDropDownAsync()
+
+    public Task ClickDropDownAsync()
     {
-        _openDropDownId = await JsDocument.RemoveEventListener(_openDropDownId);
-        _openDropDownId = await JsDocument.AddEventListener<MouseEventArgs>(OnDocumentClickAsync, "click");
-        _isDropDownVisible = true;
-        await InvokeAsync(StateHasChanged);
+        ContextVisible = !ContextVisible;
+        return Task.CompletedTask;
     }
 
-    protected async Task OnDocumentClickAsync(MouseEventArgs args)
+    public Task CloseDropDownAsync()
     {
-        if (!_dropDownContent.HasValue || _icon is not { ElementRef: not null }) return;
-        var rc = await JsElement.GetBoundingClientRect(_dropDownContent.Value);
-        var ri = await JsElement.GetBoundingClientRect(_icon.ElementRef.Value);
-        var rect = new DomRect()
-        {
-            Top = Math.Min(rc.Top, ri.Top),
-            Bottom = Math.Max(rc.Bottom, ri.Bottom),
-            Left = Math.Min(rc.Left, ri.Left),
-            Right = Math.Max(rc.Right, ri.Right),
-        };
-        if (rect.ContainsPoint(args.ClientX, args.ClientY)) return;
-        await OnCloseDropDownAsync();
+        ContextVisible = false;
+        return Task.CompletedTask;
+    }
+
+    public Task OpenDropDownAsync()
+    {
+        ContextVisible = true;
+        return Task.CompletedTask;
     }
 }

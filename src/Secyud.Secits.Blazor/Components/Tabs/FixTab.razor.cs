@@ -3,8 +3,10 @@ using Secyud.Secits.Blazor.Settings.Tabs;
 
 namespace Secyud.Secits.Blazor;
 
-public partial class Tab : ITab
+public partial class FixTab : ITab, ITabsProvider
 {
+    private ITab[]? _tabs;
+
     [Parameter]
     public RenderFragment? Tag { get; set; }
 
@@ -15,12 +17,14 @@ public partial class Tab : ITab
     public string Key { get; set; } = Guid.NewGuid().ToString("N");
 
     [Parameter]
-    public EventCallback Click { get; set; }
+    public Func<Task>? Click { get; set; }
 
     [Parameter]
     public bool PreventDefaultClick { get; set; }
 
+    [Parameter]
     public int Index { get; set; }
+
     public bool IsRendered { get; set; }
 
     public RenderFragment? RenderTab() => Tag;
@@ -29,13 +33,17 @@ public partial class Tab : ITab
 
     protected override void ApplySetting()
     {
-        var tabs = Master.Tabs;
-        Index = tabs.Count > 0 ? tabs.Max(u => u.Index) + 1 : 0;
-        tabs.Apply(this);
+        Master.TabProviders.Apply(this);
     }
 
     protected override void ForgoSetting()
     {
-        Master.Tabs.Forgo(this);
+        Master.TabProviders.Forgo(this);
+    }
+
+    public IEnumerable<ITab> GetTabs()
+    {
+        _tabs ??= [this];
+        return _tabs;
     }
 }

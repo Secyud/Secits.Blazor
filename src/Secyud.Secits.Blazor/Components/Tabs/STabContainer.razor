@@ -1,0 +1,7 @@
+@namespace Secyud.Secits.Blazor
+@inherits SPluggableBase
+<div class="@GetClass()" style="@GetStyle()">
+    <CascadingValue Value="this" IsFixed>
+        @GenerateSettingContent()
+    </CascadingValue>
+</div>

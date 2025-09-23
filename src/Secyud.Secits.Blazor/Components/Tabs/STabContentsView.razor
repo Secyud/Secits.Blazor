@@ -2,15 +2,23 @@
 @namespace Secyud.Secits.Blazor
 
 <div class="@GetClass()" style="@GetStyle()">
-    @if (TabContainer is {} container)
+    @if (TabContainer is { } container)
     {
-        @RenderTabContentsByMode(container.Tabs,container.CurrentKey)
+        var tabs = new List<ITab>();
+        foreach (var tabProvider in container.TabProviders)
+        {
+            tabs.AddRange(tabProvider.GetTabs());
+        }
+
+        @RenderTabContentsByMode(tabs, container.CurrentKey)
     }
 </div>
 
 @code {
+
     protected RenderFragment RenderTabContent(ITab tab, string? key) =>
         @<div class="s-tab-content" style="@(key == tab.Key ? "" : "display:none")" id="tc-@tab.Key">
             @tab.RenderTabContent()
         </div>;
+
 }

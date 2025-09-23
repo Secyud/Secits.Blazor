@@ -1,13 +1,16 @@
-using Microsoft.AspNetCore.Components;
 using Secyud.Secits.Blazor.Settings;
 using Secyud.Secits.Blazor.Settings.Tabs;
 
 namespace Secyud.Secits.Blazor;
 
-public partial class TabContainer
+public partial class STabContainer
 {
+    protected override string ComponentName => "tab-container";
+
     public string? CurrentKey { get; set; }
-    public SSettings<ITab> Tabs { get; } = new();
+
+    public SSettings<ITabsProvider> TabProviders { get; } = [];
+
     public SSettings<ITabListener> TabListeners { get; } = new();
 
     public async Task SelectTabAsync(string? tabKey)

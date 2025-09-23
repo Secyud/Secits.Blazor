@@ -18,7 +18,9 @@ public static class SecitsExtensions
         services.AddSingleton<IDirtyParameterService, DirtyParameterService>();
         services.AddTransient<ISecitsModelValidator, DefaultSecitsModelValidator>();
         services.AddTransient<IIconProvider, NullIconProvider>();
+        services.AddTransient<ISecitsService, SecitsService>();
         services.AddScoped<PageRouterManager>();
+        services.AddScoped<SecitsApp>();
 
         #endregion
 

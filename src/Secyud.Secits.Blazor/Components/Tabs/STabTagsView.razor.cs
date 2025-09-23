@@ -3,12 +3,12 @@ using Secyud.Secits.Blazor.Settings.Tabs;
 
 namespace Secyud.Secits.Blazor;
 
-public partial class TabTagsView : IHasCustomCss, ITabListener
+public partial class STabTagsView : IHasCustomCss, ITabListener
 {
-    private TabContainer? _tabContainer;
+    private STabContainer? _tabContainer;
 
     [CascadingParameter]
-    public TabContainer? TabContainer
+    public STabContainer? TabContainer
     {
         get => _tabContainer;
         set
@@ -48,6 +48,9 @@ public partial class TabTagsView : IHasCustomCss, ITabListener
             await TabContainer.SelectTabAsync(tab.Key);
         }
 
-        await tab.Click.InvokeAsync();
+        if (tab.Click is not null)
+        {
+            await tab.Click();
+        }
     }
 }

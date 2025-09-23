@@ -3,13 +3,12 @@
 
 @if (Item is { } item)
 {
-    item.Body ??= CreateRouterTabsItemBody(item);
     @item.Body
 }
 
 @code {
 
-    private static RenderFragment CreateRouterTabsItemBody(PageRouterItem item) =>
-        @<DynamicComponent Type="item.PageType" Parameters="item.RouteValues"/>;
+    @* private static RenderFragment CreateRouterTabsItemBody(PageRouterItem item) => *@
+    @*     @<DynamicComponent Type="item.PageType" Parameters="item.RouteValues"/>; *@
 
 }

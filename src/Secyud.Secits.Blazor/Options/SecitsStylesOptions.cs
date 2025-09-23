@@ -2,40 +2,39 @@ namespace Secyud.Secits.Blazor.Options;
 
 public class SecitsStylesOptions
 {
+    public const string CookieName = "secits-theme";
     public const string RootPath = "_content/Secyud.Secits.Blazor/";
+    public const string Color = "secits-theme-color";
+    public const string Param = "secits-theme-param";
+    public const string Style = "secits-theme-style";
 
-    public List<Func<SecitsThemeParam, IEnumerable<HtmlPathResource>>> Styles { get; } = [];
+    public List<Func<SecitsThemeParam, IEnumerable<SecitsStyleFile>>> Styles { get; } = [];
 
-    public List<HtmlPathResource> Get(SecitsThemeParam? param = null)
+    public List<SecitsStyleFile> Get(SecitsThemeParam? param = null)
     {
         param ??= new SecitsThemeParam();
-        List<HtmlPathResource> res = [];
+        List<SecitsStyleFile> res = [];
         switch (param.ThemeColor)
         {
             case UiThemeColor.Default:
-                res.Add(new HtmlPathResource(RootPath + "css/color/default.min.css", "secits-theme-color"));
+                res.Add(new SecitsStyleFile(RootPath + "css/color/default.min.css", Color));
                 break;
-            case UiThemeColor.Unset:
-            default:
+            case UiThemeColor.Dark:
+                res.Add(new SecitsStyleFile(RootPath + "css/color/dark.min.css", Color));
                 break;
         }
 
         switch (param.ThemeParam)
         {
             case UiThemeParam.Default:
-                res.Add(new HtmlPathResource(RootPath + "css/param/default.min.css", "secits-theme-param"));
-                break;
-            case UiThemeParam.Unset:
-            default:
+                res.Add(new SecitsStyleFile(RootPath + "css/param/default.min.css", Param));
                 break;
         }
+
         switch (param.ThemeStyle)
         {
             case UiThemeStyle.Default:
-                res.Add(new HtmlPathResource(RootPath + "css/style/default.min.css", "secits-theme-style"));
-                break;
-            case UiThemeStyle.Unset:
-            default:
+                res.Add(new SecitsStyleFile(RootPath + "css/style/default.min.css", Style));
                 break;
         }
 

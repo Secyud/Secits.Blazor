@@ -8,19 +8,20 @@
 
 @code
 {
-    protected override RenderFragment GenerateSetting() => __builder =>
-    {
-        @base.GenerateSetting()
-        <InputTextTemplate TValue="TEnum" Class="w-100" Readonly @onclick="OnDropDownClickAsync"/>
-        <EnableValueInput TValue="TEnum" ValueUpdated="OnCloseDropDownAsync"
-                          Value="Value" ValueChanged="ValueChanged"/>
-        <EnableDropDown @ref="_enableDropDown">
-            <SList TValue="TEnum" Class="outline" Style="max-height: calc(var(--s-s) * 16);">
-                <StaticDataSource Items="@GetList()"/>
-                <EnableIteratorFixed/>
-                <EnableIteratorSelect/>
-                <ListColumn ChildContent="ListItemTemplate"/>
-            </SList>
-        </EnableDropDown>
-    };
+    protected override RenderFragment GenerateSetting() =>
+        __builder =>
+        {
+            @base.GenerateSetting()
+            <InputTextTemplate TValue="TEnum" Class="w-100" Readonly @onclick="ClickDropDownAsync"/>
+            <EnableValueInput TValue="TEnum" ValueUpdated="CloseDropDownAsync"
+                              Value="Value" ValueChanged="ValueChanged"/>
+            <EnableDropDown @ref="_enableDropDown" ContentClass="outline">
+                <SList TValue="TEnum" Style="max-height: calc(var(--s-s) * 16);">
+                    <StaticDataSource Items="@GetList()"/>
+                    <EnableIteratorFixed/>
+                    <EnableIteratorSelect/>
+                    <ListColumn ChildContent="ListItemTemplate"/>
+                </SList>
+            </EnableDropDown>
+        };
 }

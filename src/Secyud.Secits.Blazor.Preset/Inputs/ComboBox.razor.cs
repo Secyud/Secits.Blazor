@@ -33,14 +33,13 @@ public partial class ComboBox<TItem, TValue> : IHasValue<TValue>
 
     private EnableDropDown? _enableDropDown;
 
-    protected async Task OnCloseDropDownAsync()
+    protected Task CloseDropDownAsync()
     {
-        if (_enableDropDown is not null)
-            await _enableDropDown.OnCloseDropDownAsync();
+        return _enableDropDown?.CloseDropDownAsync() ?? Task.CompletedTask;
     }
-    protected async Task OnDropDownClickAsync()
+
+    protected Task ClickDropDownAsync()
     {
-        if (_enableDropDown is not null)
-            await _enableDropDown.OnDropDownClickAsync();
+        return _enableDropDown?.ClickDropDownAsync() ?? Task.CompletedTask;
     }
 }

@@ -4,9 +4,12 @@
 <div class="@GetClass()" style="@GetStyle()">
     @if (TabContainer is {} container)
     {
-        foreach (var tab in container.Tabs)
-        { 
-            @RenderTabTag(tab, container.CurrentKey)
+        foreach (var tabProvider in container.TabProviders)
+        {
+            foreach (var tab in tabProvider.GetTabs())
+            {
+                @RenderTabTag(tab, container.CurrentKey)
+            }
         }
     }
 </div>

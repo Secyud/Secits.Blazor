@@ -19,10 +19,10 @@
 
                     <SInput TValue="int" Class="pager-selector">
                         <InputTextTemplate Class="w-100" Readonly
-                                           @onclick="OnDropDownClickAsync"/>
+                                           @onclick="ClickDropDownAsync"/>
                         <EnableValueInput TValue="int" Value="Master.DataRequest.PageSize"
                                           ValueChanged="PageSizeChangedAsync"
-                                          ValueUpdated="OnCloseDropDownAsync"/>
+                                          ValueUpdated="CloseDropDownAsync"/>
                         <EnableDropDown @ref="enableDropDown">
                             <SList Class="outline" Style="max-height: calc(var(--s-s) * 16);">
                                 <StaticDataSource Items="PageSizes"/>
@@ -37,16 +37,16 @@
                         </EnableDropDown>
                     </SInput>
 
-                    async Task OnCloseDropDownAsync()
+                    async Task CloseDropDownAsync()
                     {
                         if (enableDropDown is not null)
-                            await enableDropDown.OnCloseDropDownAsync();
+                            await enableDropDown.CloseDropDownAsync();
                     }
 
-                    async Task OnDropDownClickAsync()
+                    async Task ClickDropDownAsync()
                     {
                         if (enableDropDown is not null)
-                            await enableDropDown.OnDropDownClickAsync();
+                            await enableDropDown.ClickDropDownAsync();
                     }
                 }
             </div>

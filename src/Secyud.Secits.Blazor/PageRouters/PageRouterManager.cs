@@ -1,5 +1,6 @@
 ﻿using System.Reflection;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Rendering;
 
 namespace Secyud.Secits.Blazor.PageRouters;
 
@@ -41,10 +42,13 @@ public class PageRouterManager
 
     private PageRouterItem CreatePageRouterItem(RouteData routeData, Uri uri)
     {
+        var sequence = _items.Count == 0 ? 0 : (_items.Max(u => u.Sequence) + 1) % 65536;
         var pageType = routeData.PageType;
         var routeValues = routeData.RouteValues;
-        var result = new PageRouterItem(uri, pageType, routeValues
-            .ToDictionary(u => u.Key, u => u.Value));
+        var result = new PageRouterItem(uri, pageType, RenderBody)
+        {
+            Sequence = sequence
+        };
         var attribute = pageType.GetCustomAttribute<PageRouterAttribute>();
         if (attribute is null) return result;
         if (attribute.Name is not null)
@@ -69,5 +73,13 @@ public class PageRouterManager
 
         result.Parameters = parameters;
         return result;
+
+        void RenderBody(RenderTreeBuilder builder)
+        {
+            builder.OpenComponent<DynamicComponent>(0);
+            builder.AddComponentParameter(1, "Type", routeData.PageType);
+            builder.AddComponentParameter(2, "Parameters", routeData.RouteValues);
+            builder.CloseComponent();
+        }
     }
 }

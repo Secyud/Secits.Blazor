@@ -25,7 +25,7 @@ public partial class SIcon : IHasCustomCss, ICanClick
 
     protected string? GetClass()
     {
-        return ClassStyleBuilder.GenerateClass("icon", Class);
+        return ClassStyleBuilder.GenerateClass("s-icon", Class);
     }
 
     protected string? GetStyle()

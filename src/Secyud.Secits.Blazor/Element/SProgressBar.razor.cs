@@ -12,7 +12,7 @@ public partial class SProgressBar : IHasCustomCss
 
     protected string? GetClass()
     {
-        return ClassStyleBuilder.GenerateClass("progress-bar", Class);
+        return ClassStyleBuilder.GenerateClass("s-progress-bar", Class);
     }
 
     protected string GetStyle()

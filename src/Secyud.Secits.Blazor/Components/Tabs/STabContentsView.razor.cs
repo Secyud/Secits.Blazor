@@ -3,12 +3,12 @@ using Secyud.Secits.Blazor.Settings.Tabs;
 
 namespace Secyud.Secits.Blazor;
 
-public partial class TabContentsView : IHasCustomCss,ITabListener,IDisposable
+public partial class STabContentsView : IHasCustomCss, ITabListener, IDisposable
 {
-    private TabContainer? _tabContainer;
+    private STabContainer? _tabContainer;
 
     [CascadingParameter]
-    public TabContainer? TabContainer
+    public STabContainer? TabContainer
     {
         get => _tabContainer;
         set
@@ -53,8 +53,9 @@ public partial class TabContentsView : IHasCustomCss,ITabListener,IDisposable
                 tabs.Add(tab);
                 continue;
             }
-            if (RenderMode != TabRenderMode.LazyLoad)continue;
-            if (tab.IsRendered)tabs.Add(tab);
+
+            if (RenderMode != TabRenderMode.LazyLoad) continue;
+            if (tab.IsRendered) tabs.Add(tab);
         }
 
         return RenderTabContents(tabs, key);

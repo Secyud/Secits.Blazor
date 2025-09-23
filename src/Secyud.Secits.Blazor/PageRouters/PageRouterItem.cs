@@ -4,21 +4,22 @@ namespace Secyud.Secits.Blazor.PageRouters;
 
 public class PageRouterItem
 {
-    public PageRouterItem(Uri uri, Type pageType, Dictionary<string, object?> routeValues)
+    public PageRouterItem(Uri uri, Type pageType, RenderFragment body)
     {
         Uri = uri;
         PageType = pageType;
-        RouteValues = routeValues;
+        Body = body;
     }
 
     public string Id { get; } = Guid.NewGuid().ToString("N");
     public Uri Uri { get; set; }
     public Type PageType { get; }
-    public Dictionary<string, object?> RouteValues { get; }
     public Type? ResourceType { get; set; }
     public string? Name { get; set; }
     public string[] Parameters { get; set; } = [];
     public Func<string>? DisplayNameGetter { get; set; }
+
+    public int Sequence { get; set; }
 
     public string DisplayName
     {
@@ -30,15 +31,10 @@ public class PageRouterItem
         }
     }
 
-    public RenderFragment? Body { get; set; }
+    public RenderFragment Body { get; }
 
     /// <summary>
     /// for other using
     /// </summary>
     public string? Key { get; set; }
-
-    public void Refresh()
-    {
-        Body = null;
-    }
 }

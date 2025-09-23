@@ -10,16 +10,12 @@ public static class SecitsFontAwesomeIconsExtensions
     {
         services.AddSingleton<IIconProvider, FontAwesomeIconProvider>();
 
-        services.Configure<SecitsScriptsOptions>(options =>
+        services.Configure<SecitsOptions>(options =>
         {
-            options.Scripts.Add(opt =>
-                [new HtmlPathResource("_content/Secyud.Secits.Blazor.Icons.FontAwesome/js/all.min.js", "secits-icon-font-awesome")]);
+            options.ExtendScripts.Add("_content/Secyud.Secits.Blazor.Icons.FontAwesome/js/all.min.js");
+            options.ExtendStyles.Add("_content/Secyud.Secits.Blazor.Icons.FontAwesome/css/all.min.css");
         });
-        services.Configure<SecitsStylesOptions>(options =>
-        {
-            options.Styles.Add(opt =>
-                [new HtmlPathResource("_content/Secyud.Secits.Blazor.Icons.FontAwesome/css/all.min.css", "secits-icon-font-awesome-js")]);
-        });
+
         return services;
     }
 }

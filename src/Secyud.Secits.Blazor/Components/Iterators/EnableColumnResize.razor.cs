@@ -85,4 +85,10 @@ public partial class EnableColumnResize<TValue> : IGridHeaderRenderer
     {
         await SetDragAsync(false);
     }
+
+    public override async ValueTask DisposeAsync()
+    {
+        await base.DisposeAsync();
+        await SetDragAsync(false);
+    }
 }

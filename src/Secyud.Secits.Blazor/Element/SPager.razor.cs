@@ -60,7 +60,7 @@ public partial class SPager : IHasCustomCss
 
     protected string? GetClass()
     {
-        return ClassStyleBuilder.GenerateClass("pager", Class);
+        return ClassStyleBuilder.GenerateClass("s-pager", Class);
     }
 
     protected string? GetStyle()

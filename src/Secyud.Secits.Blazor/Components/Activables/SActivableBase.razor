@@ -15,13 +15,15 @@
             @GenerateHeader()
             @if (Disabled || Readonly)
             {
-                <div class="@GetClass()" style="@GetStyle()">
+                <div class="@GetClass()" style="@GetStyle()"
+                     @onclick:preventDefault @onclick:stopPropagation>
                     @GenerateChildContent()
                 </div>
             }
             else
             {
-                <div class="@GetClass()" style="@GetStyle()" @onclick="OnClick">
+                <div class="@GetClass()" style="@GetStyle()" @onclick="OnClick"
+                     @onclick:preventDefault @onclick:stopPropagation>
                     @GenerateChildContent()
                 </div>
             }
