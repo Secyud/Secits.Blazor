@@ -1,6 +1,4 @@
-﻿using Secyud.Secits.Blazor.Validations;
-
-namespace Secyud.Secits.Blazor.Settings;
+﻿namespace Secyud.Secits.Blazor.Settings;
 
 /// <summary>
 /// input may have different invoker.

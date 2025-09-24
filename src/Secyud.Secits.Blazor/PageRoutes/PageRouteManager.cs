@@ -1,18 +1,17 @@
 ﻿using System.Reflection;
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Rendering;
 
-namespace Secyud.Secits.Blazor.PageRouters;
+namespace Secyud.Secits.Blazor.PageRoutes;
 
-public class PageRouterManager
+public class PageRouteManager
 {
     public EventHandler? RouterItemActivated;
     public EventHandler? RouterItemRemoved;
-    private readonly List<PageRouterItem> _items = [];
-    private PageRouterItem? _currentItem;
+    private readonly List<PageRouteItem> _items = [];
+    private PageRouteItem? _currentItem;
 
-    public PageRouterItem? CurrentItem => _currentItem;
-    public IReadOnlyList<PageRouterItem> Items => _items.AsReadOnly();
+    public PageRouteItem? CurrentItem => _currentItem;
+    public IReadOnlyList<PageRouteItem> Items => _items.AsReadOnly();
 
     public void ActivatePageRouteItem(RouteData routeData, string uriString)
     {
@@ -27,7 +26,7 @@ public class PageRouterManager
         RouterItemActivated?.Invoke(this, EventArgs.Empty);
     }
 
-    public void RemovePageRouteItem(PageRouterItem item)
+    public void RemovePageRouteItem(PageRouteItem item)
     {
         var index = _items.IndexOf(item);
         if (index < 0) return;
@@ -40,16 +39,19 @@ public class PageRouterManager
         RouterItemRemoved?.Invoke(this, EventArgs.Empty);
     }
 
-    private PageRouterItem CreatePageRouterItem(RouteData routeData, Uri uri)
+    private PageRouteItem CreatePageRouterItem(RouteData routeData, Uri uri)
     {
         var sequence = _items.Count == 0 ? 0 : (_items.Max(u => u.Sequence) + 1) % 65536;
         var pageType = routeData.PageType;
         var routeValues = routeData.RouteValues;
-        var result = new PageRouterItem(uri, pageType, RenderBody)
+        var pageParameters = routeData.RouteValues
+            .Where(u => u.Value is not null)
+            .Select(u => new KeyValuePair<string, object>(u.Key, u.Value!)).ToList();
+        var result = new PageRouteItem(uri, pageType, pageParameters)
         {
             Sequence = sequence
         };
-        var attribute = pageType.GetCustomAttribute<PageRouterAttribute>();
+        var attribute = pageType.GetCustomAttribute<PageRouteAttribute>();
         if (attribute is null) return result;
         if (attribute.Name is not null)
             result.Name = attribute.Name;
@@ -73,13 +75,5 @@ public class PageRouterManager
 
         result.Parameters = parameters;
         return result;
-
-        void RenderBody(RenderTreeBuilder builder)
-        {
-            builder.OpenComponent<DynamicComponent>(0);
-            builder.AddComponentParameter(1, "Type", routeData.PageType);
-            builder.AddComponentParameter(2, "Parameters", routeData.RouteValues);
-            builder.CloseComponent();
-        }
     }
 }

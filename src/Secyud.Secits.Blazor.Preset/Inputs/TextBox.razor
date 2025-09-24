@@ -2,9 +2,8 @@
 @inherits SInput<TValue>
 @typeparam TValue
 
-@{
-    base.BuildRenderTree(__builder);
-}
+
+@((RenderFragment)base.BuildRenderTree)
 
 @code
 {

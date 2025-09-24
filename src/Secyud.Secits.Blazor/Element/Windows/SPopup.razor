@@ -2,9 +2,7 @@
 @inherits SFloater
 @if (Visible)
 {
-    <div class="s-popup-back">
-        @{
-            base.BuildRenderTree(__builder);
-        }
+    <div class="s-popup-back" @onclick:stopPropagation>
+        @((RenderFragment)base.BuildRenderTree)
     </div>
 }

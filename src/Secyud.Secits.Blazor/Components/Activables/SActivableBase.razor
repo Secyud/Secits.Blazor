@@ -1,9 +1,8 @@
 ﻿@namespace Secyud.Secits.Blazor
 @inherits SContentBase
 
-@{
-    base.BuildRenderTree(__builder);
-}
+
+@((RenderFragment)base.BuildRenderTree)
 
 @code
 {
@@ -15,15 +14,13 @@
             @GenerateHeader()
             @if (Disabled || Readonly)
             {
-                <div class="@GetClass()" style="@GetStyle()"
-                     @onclick:preventDefault @onclick:stopPropagation>
+                <div class="@GetClass()" style="@GetStyle()" @onclick:stopPropagation>
                     @GenerateChildContent()
                 </div>
             }
             else
             {
-                <div class="@GetClass()" style="@GetStyle()" @onclick="OnClick"
-                     @onclick:preventDefault @onclick:stopPropagation>
+                <div class="@GetClass()" style="@GetStyle()" @onclick="OnClick" @onclick:stopPropagation>
                     @GenerateChildContent()
                 </div>
             }

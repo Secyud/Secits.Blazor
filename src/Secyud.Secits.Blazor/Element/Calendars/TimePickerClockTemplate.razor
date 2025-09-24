@@ -20,19 +20,22 @@
          class="hand hour@((State == DateTimePrecisionKind.Hour ? " active" : "") + (HoverInner ? " inner" : ""))">
         <div class="handle"
              @onmousedown="@OnMouseDownHour"
-             @onmousedown:preventDefault></div>
+             @onmousedown:preventDefault
+             @onmousedown:stopPropagation></div>
     </div>
     <div class="hand minute@(State == DateTimePrecisionKind.Minute ? " active" : "")"
          style="--position: @minute">
         <div class="handle"
              @onmousedown="@OnMouseDownMinute"
-             @onmousedown:preventDefault></div>
+             @onmousedown:preventDefault
+             @onmousedown:stopPropagation></div>
     </div>
     <div class="hand second@(State == DateTimePrecisionKind.Second ? " active" : "")"
          style="--position: @second">
         <div class="handle"
              @onmousedown="@OnMouseDownSecond"
-             @onmousedown:preventDefault></div>
+             @onmousedown:preventDefault
+             @onmousedown:stopPropagation></div>
     </div>
     @switch (_clockState.PrecisionKind)
     {

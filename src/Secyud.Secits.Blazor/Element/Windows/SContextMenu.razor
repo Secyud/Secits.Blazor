@@ -3,7 +3,7 @@
 
 @if (HideMode || Visible)
 {
-    <div @ref="Ref" class="@GetClass()" style="@GetStyle()" @onclick:stopPropagation @onclick:preventDefault>
+    <div @ref="Ref" class="@GetClass()" style="@GetStyle()" @onclick:stopPropagation>
         @ChildContent
     </div>
 }

@@ -2,9 +2,8 @@
 @inherits SInput<TEnum>
 @typeparam TEnum
 
-@{
-    base.BuildRenderTree(__builder);
-}
+
+@((RenderFragment)base.BuildRenderTree)
 
 @code
 {
@@ -16,7 +15,7 @@
             <EnableValueInput TValue="TEnum" ValueUpdated="CloseDropDownAsync"
                               Value="Value" ValueChanged="ValueChanged"/>
             <EnableDropDown @ref="_enableDropDown" ContentClass="outline">
-                <SList TValue="TEnum" Style="max-height: calc(var(--s-s) * 16);">
+                <SList TValue="TEnum" Class="ipd" Style="max-height: calc(var(--s-s) * 16);">
                     <StaticDataSource Items="@GetList()"/>
                     <EnableIteratorFixed/>
                     <EnableIteratorSelect/>

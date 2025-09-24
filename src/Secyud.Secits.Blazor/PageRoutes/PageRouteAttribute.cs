@@ -1,7 +1,7 @@
-﻿namespace Secyud.Secits.Blazor.PageRouters;
+﻿namespace Secyud.Secits.Blazor.PageRoutes;
 
 [AttributeUsage(AttributeTargets.Class)]
-public class PageRouterAttribute : Attribute
+public class PageRouteAttribute : Attribute
 {
     public string? Name { get; set; }
     public Type? ResourceType { get; set; }

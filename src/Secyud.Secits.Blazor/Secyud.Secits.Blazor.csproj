@@ -13,5 +13,9 @@
     <ItemGroup>
         <None Update="**/*.razor.css" CssScope="s"/>
     </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Components\PageRouters\" />
+    </ItemGroup>
     
 </Project>

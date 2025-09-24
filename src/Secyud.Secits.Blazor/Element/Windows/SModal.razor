@@ -2,7 +2,5 @@
 @using Secyud.Secits.Blazor.Validations
 @inherits SPopup
 <ValidationForm @ref="_validationForm">
-    @{
-        base.BuildRenderTree(__builder);
-    }
+    @((RenderFragment)base.BuildRenderTree)
 </ValidationForm>

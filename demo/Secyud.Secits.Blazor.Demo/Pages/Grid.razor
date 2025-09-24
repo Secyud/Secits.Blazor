@@ -1,12 +1,58 @@
 ﻿@using Secyud.Secits.Blazor.Settings
-@using Secyud.Secits.Blazor.Settings.Tabs
 
 @attribute [Route(Menu.Table)]
 
 
 <ThemeSizeSelector @bind-Size="Size" @bind-Theme="Theme"/>
 
-<STabContainer Theme="Theme" Size="Size" Tabs="Tabs">
+<STabContainer Theme="Theme" Size="Size">
+    <FixTab>
+        <Tag>Visualize</Tag>
+        <Content>
+            <SCard>
+                <Body>
+                <SGrid TValue="ListDemoItem" Class="outline" DisableFooter>
+                    <StaticDataSource Items="_list"/>
+                    <EnableIteratorVisualize/>
+                    <EnableColumnResize/>
+                    <GridColumn Caption="@nameof(ListDemoItem.Name)" Width="200"
+                                Field="@(item => item.Name)" Position="ColumnPosition.Front"/>
+                    <GridColumn Caption="@nameof(ListDemoItem.PhoneNumber)" Width="200"
+                                Field="@(item => item.PhoneNumber)"/>
+                    <GridColumn Caption="@nameof(ListDemoItem.Age)" Width="50"
+                                Field="@(item => item.Age)"/>
+                    <GridColumn Caption="@nameof(ListDemoItem.BirthDate)" Width="512"
+                                Field="@(item => item.BirthDate)" Position="ColumnPosition.Behind"
+                                Format="yyyy MM dd hh mm ss"/>
+                </SGrid>
+                </Body>
+            </SCard>
+        </Content>
+    </FixTab>
+    <FixTab>
+        <Tag>Paged</Tag>
+        <Content>
+            <SCard>
+                <Body>
+                <SGrid TValue="ListDemoItem" Class="outline" DisableFooter>
+                    <StaticDataSource Items="_list"/>
+                    @* <DynamicDataSource Items="_list"/> *@
+                    <EnableIteratorPager/>
+                    <EnableColumnResize/>
+                    <GridColumn Caption="@nameof(ListDemoItem.Name)" Width="200"
+                                Field="@(item => item.Name)" Position="ColumnPosition.Front"/>
+                    <GridColumn Caption="@nameof(ListDemoItem.PhoneNumber)" Width="200"
+                                Field="@(item => item.PhoneNumber)"/>
+                    <GridColumn Caption="@nameof(ListDemoItem.Age)" Width="50"
+                                Field="@(item => item.Age)"/>
+                    <GridColumn Caption="@nameof(ListDemoItem.BirthDate)" Width="512"
+                                Field="@(item => item.BirthDate)" Position="ColumnPosition.Behind"
+                                Format="yyyy MM dd hh mm ss"/>
+                </SGrid>
+                </Body>
+            </SCard>
+        </Content>
+    </FixTab>
     <STabTagsView/>
     <STabContentsView RenderMode="TabRenderMode.LazyLoad"/>
 </STabContainer>
@@ -14,60 +60,6 @@
 
 @code {
     readonly List<ListDemoItem> _list = ListDemoItem.Generate(200);
-
-    List<ITab>? _tabs;
-
-    List<ITab> Tabs =>
-        _tabs ??=
-        [
-            new FixTab
-            {
-                Tag = @<div>Visualize</div>,
-                Content =
-                    @<SCard>
-                        <Body>
-                        <SGrid TValue="ListDemoItem" Class="outline" DisableFooter>
-                            <StaticDataSource Items="_list"/>
-                            <EnableIteratorVisualize/>
-                            <EnableColumnResize/>
-                            <GridColumn Caption="@nameof(ListDemoItem.Name)" Width="200"
-                                        Field="@(item => item.Name)" Position="ColumnPosition.Front"/>
-                            <GridColumn Caption="@nameof(ListDemoItem.PhoneNumber)" Width="200"
-                                        Field="@(item => item.PhoneNumber)"/>
-                            <GridColumn Caption="@nameof(ListDemoItem.Age)" Width="50"
-                                        Field="@(item => item.Age)"/>
-                            <GridColumn Caption="@nameof(ListDemoItem.BirthDate)" Width="512"
-                                        Field="@(item => item.BirthDate)" Position="ColumnPosition.Behind"
-                                        Format="yyyy MM dd hh mm ss"/>
-                        </SGrid>
-                        </Body>
-                    </SCard>
-            },
-            new FixTab
-            {
-                Tag = @<div>Paged</div>,
-                Content =
-                    @<SCard>
-                        <Body>
-                        <SGrid TValue="ListDemoItem" Class="outline" DisableFooter>
-                            <StaticDataSource Items="_list"/>
-                            @* <DynamicDataSource Items="_list"/> *@
-                            <EnableIteratorPager/>
-                            <EnableColumnResize/>
-                            <GridColumn Caption="@nameof(ListDemoItem.Name)" Width="200"
-                                        Field="@(item => item.Name)" Position="ColumnPosition.Front"/>
-                            <GridColumn Caption="@nameof(ListDemoItem.PhoneNumber)" Width="200"
-                                        Field="@(item => item.PhoneNumber)"/>
-                            <GridColumn Caption="@nameof(ListDemoItem.Age)" Width="50"
-                                        Field="@(item => item.Age)"/>
-                            <GridColumn Caption="@nameof(ListDemoItem.BirthDate)" Width="512"
-                                        Field="@(item => item.BirthDate)" Position="ColumnPosition.Behind"
-                                        Format="yyyy MM dd hh mm ss"/>
-                        </SGrid>
-                        </Body>
-                    </SCard>
-            }
-        ];
 
     private Theme Theme { get; set; }
 

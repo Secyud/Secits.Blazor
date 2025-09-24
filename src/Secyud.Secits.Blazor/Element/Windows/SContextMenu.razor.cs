@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
-using Secyud.Secits.Blazor.JSInterop;
 using Secyud.Secits.Blazor.Services;
 using Secyud.Secits.Blazor.Settings;
 

@@ -3,26 +3,25 @@
 @typeparam TItem
 @typeparam TValue
 
-@{
-    base.BuildRenderTree(__builder);
-}
+@((RenderFragment)base.BuildRenderTree)
 
 @code
 {
-    protected override RenderFragment GenerateSetting() => __builder =>
-    {
-        @base.GenerateSetting()
-        <InputTextTemplate TValue="TItem" Class="w-100" Readonly @onclick="ClickDropDownAsync"/>
-        <EnableFieldInput TValue="TItem" TField="TValue" Field="Value"
-                          ValueField="ValueField" ItemFinder="ItemFinder"
-                          FieldChanged="ValueChanged" ValueUpdated="CloseDropDownAsync"/>
-        <EnableDropDown @ref="_enableDropDown" ContentClass="outline">
-            <SList TValue="TItem" Style="max-height: calc(var(--s-s) * 16);">
-                <StaticDataSource Items="Items"/>
-                <EnableIteratorFixed/>
-                <EnableIteratorSelect/>
-                <ListColumn ChildContent="ListItemTemplate"/>
-            </SList>
-        </EnableDropDown>
-    };
+    protected override RenderFragment GenerateSetting() =>
+        __builder =>
+        {
+            @base.GenerateSetting()
+            <InputTextTemplate TValue="TItem" Class="w-100" Readonly @onclick="ClickDropDownAsync"/>
+            <EnableFieldInput TValue="TItem" TField="TValue" Field="Value"
+                              ValueField="ValueField" ItemFinder="ItemFinder"
+                              FieldChanged="ValueChanged" ValueUpdated="CloseDropDownAsync"/>
+            <EnableDropDown @ref="_enableDropDown" ContentClass="outline">
+                <SList TValue="TItem" Class="ipd" Style="max-height: calc(var(--s-s) * 16);">
+                    <StaticDataSource Items="Items"/>
+                    <EnableIteratorFixed/>
+                    <EnableIteratorSelect/>
+                    <ListColumn ChildContent="ListItemTemplate"/>
+                </SList>
+            </EnableDropDown>
+        };
 }

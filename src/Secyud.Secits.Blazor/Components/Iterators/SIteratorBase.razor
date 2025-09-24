@@ -2,6 +2,5 @@
 @inherits SContentBase
 @typeparam TValue
 
-@{
-    base.BuildRenderTree(__builder);
-}
+
+@((RenderFragment)base.BuildRenderTree)

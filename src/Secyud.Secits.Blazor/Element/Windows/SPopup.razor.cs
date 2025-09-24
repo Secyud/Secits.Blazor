@@ -6,11 +6,19 @@ public partial class SPopup
 
     public Task HideAsync()
     {
-        return InvokeAsync(() => Visible = false);
+        return InvokeAsync(() =>
+        {
+            Visible = false;
+            StateHasChanged();
+        });
     }
 
     public Task ShowAsync()
     {
-        return InvokeAsync(() => Visible = true);
+        return InvokeAsync(() =>
+        {
+            Visible = true;
+            StateHasChanged();
+        });
     }
 }

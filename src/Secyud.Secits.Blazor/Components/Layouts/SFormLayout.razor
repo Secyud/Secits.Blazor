@@ -1,6 +1,4 @@
 @namespace Secyud.Secits.Blazor
 @inherits SContentBase
 
-@{
-    base.BuildRenderTree(__builder);
-}
+@((RenderFragment)base.BuildRenderTree)

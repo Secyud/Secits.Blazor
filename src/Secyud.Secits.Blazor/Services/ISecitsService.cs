@@ -1,5 +1,3 @@
-using Secyud.Secits.Blazor.Options;
-
 namespace Secyud.Secits.Blazor.Services;
 
 public interface ISecitsService

@@ -1,24 +1,26 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using System.Reflection;
+using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Rendering;
 
-namespace Secyud.Secits.Blazor.PageRouters;
+namespace Secyud.Secits.Blazor.PageRoutes;
 
-public class PageRouterItem
+public class PageRouteItem
 {
-    public PageRouterItem(Uri uri, Type pageType, RenderFragment body)
+    public PageRouteItem(Uri uri, Type pageType, IReadOnlyList<KeyValuePair<string, object>> pageParameters)
     {
         Uri = uri;
         PageType = pageType;
-        Body = body;
+        PageParameters = pageParameters;
     }
 
     public string Id { get; } = Guid.NewGuid().ToString("N");
     public Uri Uri { get; set; }
     public Type PageType { get; }
+    public IReadOnlyList<KeyValuePair<string, object>> PageParameters { get; }
     public Type? ResourceType { get; set; }
     public string? Name { get; set; }
     public string[] Parameters { get; set; } = [];
     public Func<string>? DisplayNameGetter { get; set; }
-
     public int Sequence { get; set; }
 
     public string DisplayName
@@ -31,10 +33,16 @@ public class PageRouterItem
         }
     }
 
-    public RenderFragment Body { get; }
-
     /// <summary>
     /// for other using
     /// </summary>
     public string? Key { get; set; }
+
+    public void GenerateBody(RenderTreeBuilder builder)
+    {
+        builder.OpenComponent(0, PageType);
+        foreach (var routeValue in PageParameters)
+            builder.AddComponentParameter(1, routeValue.Key, routeValue.Value);
+        builder.CloseComponent();
+    }
 }
