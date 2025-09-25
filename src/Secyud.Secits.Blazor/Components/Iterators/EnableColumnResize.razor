@@ -6,13 +6,16 @@
 {
     public RenderFragment GenerateHeader(int index)
     {
-        var cls = "resizer";
-        if (index == Master.TableColumns.Count - 1)
-        {
-            cls += " half";
-        }
         return __builder =>
         {
+            var column = Master.TableColumns[index];
+            if (column.MaxWidth <= column.MinWidth) return;
+            var cls = "resizer";
+            if (index == Master.TableColumns.Count - 1)
+            {
+                cls += " half";
+            }
+
             <div class="@cls" @onmousedown="OnResizerMouseDown"></div>
         };
 

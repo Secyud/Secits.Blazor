@@ -9,5 +9,10 @@ namespace Secyud.Secits.Blazor.Settings;
 public interface IIteratorRenderer<TValue>
 {
     RenderFragment GenerateItems(RenderFragment<TValue> itemTemplate);
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="resetState">true if the state is initialized</param>
+    /// <returns></returns>
     Task RefreshAsync(bool resetState);
 }

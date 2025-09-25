@@ -3,7 +3,7 @@ using Secyud.Secits.Blazor.Icons;
 
 namespace Secyud.Secits.Blazor.Element;
 
-public partial class SPager : IHasCustomCss
+public partial class SPager : IHasCustomStyle
 {
     [Inject]
     private IIconProvider IconProvider { get; set; } = null!;

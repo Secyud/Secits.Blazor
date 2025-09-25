@@ -33,12 +33,14 @@ public partial class EnableIteratorPager<TValue> : IContentRenderer
         Master.Content.Forgo(this);
     }
 
-    protected override void PreRefresh(bool resetState)
+    protected override Task PreRefreshAsync(bool resetState)
     {
         if (resetState)
         {
             Master.DataRequest.PageIndex = 0;
         }
+
+        return Task.CompletedTask;
     }
 
     private async Task PageSizeChangedAsync(int pageSize)

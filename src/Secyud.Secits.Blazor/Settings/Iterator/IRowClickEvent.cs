@@ -7,9 +7,7 @@ namespace Secyud.Secits.Blazor.Settings;
 /// click action is useful for selection.
 /// </summary>
 /// <typeparam name="TItem"></typeparam>
-public interface IRowRenderer<in TItem> : IIsPlugin
+public interface IRowClickEvent<in TItem> : IIsPlugin
 {
-    string? GetRowClass(TItem item);
-    string? GetRowStyle(TItem item);
-    void OnRowClick(MouseEventArgs args, TItem item);
+    Task OnRowClick(MouseEventArgs args, TItem item);
 }

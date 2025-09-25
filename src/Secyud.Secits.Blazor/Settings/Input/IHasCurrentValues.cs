@@ -1,6 +1,6 @@
 namespace Secyud.Secits.Blazor.Settings;
 
-public interface IHasCurrentValues<TValue>
+public interface IHasCurrentValues<out TValue>
 {
-    List<TValue> CurrentValues { get; set; }
+    IEnumerable<TValue> CurrentValues { get;  }
 }

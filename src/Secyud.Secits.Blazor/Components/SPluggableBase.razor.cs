@@ -4,7 +4,7 @@ using Secyud.Secits.Blazor.Settings;
 
 namespace Secyud.Secits.Blazor;
 
-public abstract partial class SPluggableBase : IHasTheme, IHasSize, IHasCustomCss, IPluggable
+public abstract partial class SPluggableBase : IHasTheme, IHasSize, IHasCustomStyle, IPluggable
 {
     private readonly ClassStyleBuilder _classStyleBuilder;
     private readonly List<DirtyParameter> _dirtyParameters = [];

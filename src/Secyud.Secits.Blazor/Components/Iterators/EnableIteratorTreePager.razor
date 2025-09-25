@@ -1,0 +1,24 @@
+@namespace Secyud.Secits.Blazor
+@inherits EnableIteratorPager<TValue>
+@typeparam TValue
+
+
+@code{
+
+    public RenderFragment GenerateColumn(TValue item) =>
+        __builder =>
+        {
+            <SIcon IconName="@(item.IsExpended ? _openIcon : _closeIcon)"
+                   Style="@(item.Depth > 0 ? $"--tree-level:{item.Depth};" : null)"
+                   Click="@(() => OnToggleTreeItem(item))"/>
+        };
+
+    public override RenderFragment GenerateItems(RenderFragment<TValue> itemTemplate) =>
+        __builder =>
+        {
+            if (Items.Count == 0) return;
+            @GenerateItems(itemTemplate, Items, 0)
+        };
+
+
+}

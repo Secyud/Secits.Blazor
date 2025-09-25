@@ -1,5 +1,7 @@
 @inherits SElementBase
 
-<span @ref="Ref" class="@GetClass()" style="@GetStyle()" @onclick="OnClick">
+<span @ref="Ref" class="@GetClass()" style="@GetStyle()"
+      @onclick="OnClick"
+      @onclick:stopPropagation="@(Click.HasDelegate)">
     <i class="@IconName"></i>
 </span>

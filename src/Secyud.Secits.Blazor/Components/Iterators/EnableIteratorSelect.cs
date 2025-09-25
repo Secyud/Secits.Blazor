@@ -3,8 +3,8 @@ using Secyud.Secits.Blazor.Settings;
 
 namespace Secyud.Secits.Blazor;
 
-public class EnableIteratorSelect<TValue> : SSelectorPluginBase
-    <SIteratorBase<TValue>, SInput<TValue>, TValue>, IRowRenderer<TValue>
+public class EnableIteratorSelect<TValue> : SSelectorPluginBase<SIteratorBase<TValue>, SInput<TValue>, TValue>,
+    IRowClickEvent<TValue>, IRowClassProvider<TValue>
 {
     protected IInputInvoker<TValue> Invoker => Selectable.InputInvoker.Get()!;
 
@@ -30,12 +30,12 @@ public class EnableIteratorSelect<TValue> : SSelectorPluginBase
 
     protected override void ApplySetting()
     {
-        Master.RowRenderer.Apply(this);
+        Master.RowClickEvents.Apply(this);
     }
 
     protected override void ForgoSetting()
     {
-        Master.RowRenderer.Forgo(this);
+        Master.RowClickEvents.Forgo(this);
     }
 
     public virtual string? GetRowClass(TValue item)
@@ -43,13 +43,8 @@ public class EnableIteratorSelect<TValue> : SSelectorPluginBase
         return IsItemSelected(item) ? "selected" : null;
     }
 
-    public virtual string? GetRowStyle(TValue item)
+    public virtual async Task OnRowClick(MouseEventArgs args, TValue item)
     {
-        return null;
-    }
-
-    public virtual void OnRowClick(MouseEventArgs args, TValue item)
-    {
-        SetActiveItemAsync(item).ConfigureAwait(false);
+        await SetActiveItemAsync(item);
     }
 }

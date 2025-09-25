@@ -5,7 +5,7 @@ using Secyud.Secits.Blazor.Settings;
 
 namespace Secyud.Secits.Blazor.Element;
 
-public partial class SContextMenu : IHasContent, IHasCustomCss, IAsyncDisposable
+public partial class SContextMenu : IHasContent, IHasCustomStyle, IAsyncDisposable
 {
     [Inject]
     private SecitsApp App { get; set; } = null!;

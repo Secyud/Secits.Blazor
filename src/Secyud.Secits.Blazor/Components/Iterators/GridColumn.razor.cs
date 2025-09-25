@@ -20,7 +20,7 @@ public partial class GridColumn<TValue, TField> :
     public string? Caption { get; set; }
 
     [Parameter]
-    public int MaxWidth { get; set; }
+    public int MaxWidth { get; set; } = int.MaxValue;
 
     [Parameter]
     public int MinWidth { get; set; } = 50;

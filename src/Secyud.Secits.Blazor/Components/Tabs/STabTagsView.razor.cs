@@ -3,7 +3,7 @@ using Secyud.Secits.Blazor.Settings.Tabs;
 
 namespace Secyud.Secits.Blazor;
 
-public partial class STabTagsView : IHasCustomCss, ITabListener
+public partial class STabTagsView : IHasCustomStyle, ITabListener
 {
     private STabContainer? _tabContainer;
 

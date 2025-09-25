@@ -9,30 +9,37 @@ public abstract partial class SIteratorBase<TValue>
 
     protected virtual string? GetRowClass(TValue value)
     {
-        var @class = ComponentName + "-row";
-        if (RowRenderer.Get() is { } rowRenderer && rowRenderer.GetRowClass(value) is { } cls)
-        {
-            @class += " " + cls;
-        }
-
-        return @class;
+        var @class = ComponentName + "-row ";
+        var styles = RowClassProviders.Select(u => u.GetRowClass(value))
+            .Where(u => !string.IsNullOrEmpty(u))
+            .Cast<string>()
+            .ToList();
+        return @class + string.Join(" ", styles);
     }
 
-    protected virtual string? GetRowStyle(TValue value)
+    protected string GetRowStyle(TValue value)
     {
-        return RowRenderer.Get()?.GetRowStyle(value);
+        var styles = RowStyleProviders.Select(u => u.GetRowStyle(value))
+            .Where(u => !string.IsNullOrEmpty(u))
+            .Cast<string>()
+            .ToList();
+        return string.Join(null, styles);
     }
 
     protected void OnRowClick(MouseEventArgs args, TValue value)
     {
-        RowRenderer.Get()?.OnRowClick(args, value);
+        RowClickEvents.InvokeAsync(u => u.OnRowClick(args, value))
+            .ConfigureAwait(false);
     }
 
     #region Settings
 
-    public SSetting<IRowRenderer<TValue>> RowRenderer { get; } = new();
+    public SSettings<IRowClickEvent<TValue>> RowClickEvents { get; } = new();
+    public SSettings<IRowStyleProvider<TValue>> RowStyleProviders { get; } = new();
+    public SSettings<IRowClassProvider<TValue>> RowClassProviders { get; } = new();
     public SSetting<IDataSourceProvider<TValue>> DataSource { get; } = new();
     public SSetting<IIteratorRenderer<TValue>> ItemsRenderer { get; } = new();
+
 
     public Task RefreshAsync(bool resetState)
     {

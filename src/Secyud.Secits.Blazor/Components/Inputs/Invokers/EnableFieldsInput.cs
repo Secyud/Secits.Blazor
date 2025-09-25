@@ -39,12 +39,24 @@ public class EnableFieldsInput<TValue, TField> : EnableValuesInput<TValue>
         if (ItemFinder is not null)
         {
             var items = await ItemFinder.Invoke(values);
-            CurrentValues = items.ToList();
+            CurrentValuesHash.Clear();
+            foreach (var item in items)
+            {
+                CurrentValuesHash.Add(item);
+            }
+
             return;
         }
 
         if (typeof(TValue).IsAssignableFrom(typeof(TField)))
-            CurrentValues = values.Cast<TValue>().ToList();
+        {
+            CurrentValuesHash.Clear();
+            foreach (var value in values)
+            {
+                if (value is TValue item)
+                    CurrentValuesHash.Add(item);
+            }
+        }
         else
             throw new InvalidOperationException(
                 $"Please set {nameof(ItemFinder)} in {nameof(EnableFieldInput<TValue, TField>)}.");

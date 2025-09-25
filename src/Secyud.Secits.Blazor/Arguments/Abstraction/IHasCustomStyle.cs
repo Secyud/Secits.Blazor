@@ -1,6 +1,6 @@
 namespace Secyud.Secits.Blazor;
 
-public interface IHasCustomCss
+public interface IHasCustomStyle
 {
     string? Class { get; set; }
 

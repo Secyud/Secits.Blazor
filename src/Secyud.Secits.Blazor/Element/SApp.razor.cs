@@ -5,7 +5,7 @@ using Secyud.Secits.Blazor.Settings;
 
 namespace Secyud.Secits.Blazor.Element;
 
-public partial class SApp : IHasCustomCss,IHasContent
+public partial class SApp : IHasCustomStyle,IHasContent
 {
     [Inject]
     private SecitsApp App { get; set; } = null!;

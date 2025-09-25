@@ -8,7 +8,9 @@ namespace Secyud.Secits.Blazor;
 public class EnableValuesInput<TValue> : EnableInputDelayInvokerBase<TValue>, IHasCurrentValues<TValue>,
     IHasValues<TValue>
 {
-    public List<TValue> CurrentValues { get; set; } = [];
+    protected readonly HashSet<TValue> CurrentValuesHash = [];
+
+    public IEnumerable<TValue> CurrentValues => CurrentValuesHash;
 
     [Parameter]
     public List<TValue> Values { get; set; } = [];
@@ -26,14 +28,14 @@ public class EnableValuesInput<TValue> : EnableInputDelayInvokerBase<TValue>, IH
     {
         if (ValuesChanged.HasDelegate)
         {
-            await ValuesChanged.InvokeAsync(CurrentValues);
+            await ValuesChanged.InvokeAsync(CurrentValues.ToList());
             await NotifyValidationChangedAsync(ValuesExpression, CurrentValues);
         }
     }
 
     protected override async Task OnClearActiveItemAsync()
     {
-        CurrentValues = [];
+        CurrentValuesHash.Clear();
         await Task.CompletedTask;
     }
 
@@ -45,9 +47,8 @@ public class EnableValuesInput<TValue> : EnableInputDelayInvokerBase<TValue>, IH
     protected override async Task OnSetActiveItemAsync(TValue value)
     {
         LastActiveItem = value;
-        var list = CurrentValues;
-        if (!list.Remove(value)) list.Add(value);
-        CurrentValues = list;
+        if (!CurrentValuesHash.Remove(value))
+            CurrentValuesHash.Add(value);
         await Task.CompletedTask;
     }
 }
