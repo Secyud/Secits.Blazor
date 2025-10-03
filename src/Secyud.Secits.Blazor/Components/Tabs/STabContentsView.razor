@@ -10,6 +10,14 @@
             tabs.AddRange(tabProvider.GetTabs());
         }
 
+        var key = container.CurrentKey;
+
+        if (key is null && !AllowEmptyContent && tabs.Any())
+        {
+            key = tabs.First().Key;
+            container.SelectTabAsync(this, key).ConfigureAwait(false);
+        }
+
         @RenderTabContentsByMode(tabs, container.CurrentKey)
     }
 </div>

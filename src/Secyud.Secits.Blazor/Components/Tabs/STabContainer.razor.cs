@@ -13,9 +13,9 @@ public partial class STabContainer
 
     public SSettings<ITabListener> TabListeners { get; } = new();
 
-    public async Task SelectTabAsync(string? tabKey)
+    public async Task SelectTabAsync(object? sender,string? tabKey)
     {
         CurrentKey = tabKey;
-        await TabListeners.InvokeAsync(u => u.TabChangedAsync());
+        await TabListeners.InvokeAsync(u => u.TabChangedAsync(sender));
     }
 }

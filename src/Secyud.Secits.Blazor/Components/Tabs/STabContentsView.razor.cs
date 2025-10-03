@@ -28,6 +28,9 @@ public partial class STabContentsView : IHasCustomStyle, ITabListener, IDisposab
     [Parameter]
     public string? Style { get; set; }
 
+    [Parameter]
+    public bool AllowEmptyContent { get; set; }
+
     protected string? GetClass()
     {
         return ClassStyleBuilder.GenerateClass("s-tab-contents", Class);
@@ -37,7 +40,6 @@ public partial class STabContentsView : IHasCustomStyle, ITabListener, IDisposab
     {
         return Style;
     }
-
 
     protected RenderFragment RenderTabContentsByMode(IReadOnlyList<ITab> allTabs, string? key)
     {
@@ -72,9 +74,9 @@ public partial class STabContentsView : IHasCustomStyle, ITabListener, IDisposab
         };
     }
 
-    public Task TabChangedAsync()
+    public Task TabChangedAsync(object? sender)
     {
-        return InvokeAsync(StateHasChanged);
+        return sender == this ? Task.CompletedTask : InvokeAsync(StateHasChanged);
     }
 
     public void Dispose()

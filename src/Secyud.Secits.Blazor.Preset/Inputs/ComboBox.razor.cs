@@ -1,29 +1,29 @@
 using System.Linq.Expressions;
 using Microsoft.AspNetCore.Components;
-using Secyud.Secits.Blazor.Settings;
 
 namespace Secyud.Secits.Blazor.Preset;
 
-public partial class ComboBox<TItem, TValue> : IHasValue<TValue>
+[CascadingTypeParameter(nameof(TValue))]
+[CascadingTypeParameter(nameof(TField))]
+public partial class ComboBox<TValue, TField>
 {
     [Parameter]
-    public IReadOnlyList<TItem> Items { get; set; } = [];
-
-
-    [Parameter]
-    public Expression<Func<TItem, TValue>>? ValueField { get; set; }
+    public IReadOnlyList<TValue> Items { get; set; } = [];
 
     [Parameter]
-    public Func<TValue, Task<TItem>>? ItemFinder { get; set; }
+    public Expression<Func<TValue, TField>>? ValueField { get; set; }
 
     [Parameter]
-    public RenderFragment<TItem>? ListItemTemplate { get; set; }
+    public Func<TField, Task<TValue>>? ItemFinder { get; set; }
 
     [Parameter]
-    public TValue Value { get; set; } = default!;
+    public RenderFragment<TValue>? ListItemTemplate { get; set; }
 
     [Parameter]
-    public EventCallback<TValue> ValueChanged { get; set; }
+    public TField Field { get; set; } = default!;
+
+    [Parameter]
+    public EventCallback<TField> FieldChanged { get; set; }
 
     protected override void BuildClassStyle(ClassStyleContext context)
     {

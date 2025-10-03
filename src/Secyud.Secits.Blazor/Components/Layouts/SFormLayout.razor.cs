@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Components;
+using Secyud.Secits.Blazor.Validations;
 
 namespace Secyud.Secits.Blazor;
 
@@ -14,6 +15,12 @@ public partial class SFormLayout
 
     [Parameter]
     public bool EnableLabel { get; set; }
+
+    [Parameter]
+    public bool EnableValidation { get; set; }
+
+    [Parameter]
+    public bool ParentValidationForm { get; set; }
 
     protected override void BuildClassStyle(ClassStyleContext context)
     {

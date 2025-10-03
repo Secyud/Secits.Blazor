@@ -4,7 +4,7 @@ using Secyud.Secits.Blazor.Settings;
 
 namespace Secyud.Secits.Blazor;
 
-public partial class InputSliderBoxTemplate : IHasRange<int>, IContentRenderer
+public partial class InputSliderBoxTemplate : IHasRange<int>
 {
     [Parameter, Range(1, 4)]
     public int NumberCount { get; set; } = 1;

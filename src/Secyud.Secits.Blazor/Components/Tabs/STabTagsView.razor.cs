@@ -35,9 +35,9 @@ public partial class STabTagsView : IHasCustomStyle, ITabListener
         return Style;
     }
 
-    public Task TabChangedAsync()
+    public Task TabChangedAsync(object? sender)
     {
-        return InvokeAsync(StateHasChanged);
+        return sender == this ? Task.CompletedTask : InvokeAsync(StateHasChanged);
     }
 
     protected async Task SelectTabAsync(ITab tab)
@@ -45,7 +45,7 @@ public partial class STabTagsView : IHasCustomStyle, ITabListener
         if (!tab.PreventDefaultClick)
         {
             if (TabContainer is null || TabContainer.CurrentKey == tab.Key) return;
-            await TabContainer.SelectTabAsync(tab.Key);
+            await TabContainer.SelectTabAsync(this, tab.Key);
         }
 
         if (tab.Click is not null)

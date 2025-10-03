@@ -9,8 +9,7 @@ public partial class SModal
 
     public bool Validate()
     {
-        return _validationForm is null ||
-               _validationForm.Fields.All(field => field.ValidationResults.Count <= 0);
+        return _validationForm is null || _validationForm.Validate();
     }
 
     public List<ValidationResult> GetValidationResults()

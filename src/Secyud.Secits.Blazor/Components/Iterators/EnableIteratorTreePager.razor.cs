@@ -51,7 +51,7 @@ public partial class EnableIteratorTreePager<TValue> : IGridColumnRenderer<TValu
     public RenderFragment GenerateHeader() => builder => { };
     public RenderFragment GenerateFooter() => builder => { };
 
-    private RenderFragment GenerateItems(RenderFragment<TValue> itemTemplate, List<TValue> values, int depth) =>
+    protected RenderFragment GenerateItems(RenderFragment<TValue> itemTemplate, List<TValue> values, int depth) =>
         builder =>
         {
             for (var i = 0; i < values.Count; i++)

@@ -84,8 +84,12 @@
     }
 
 
-    public virtual RenderFragment GenerateColumn(TValue value) =>
-        __builder =>
+    public virtual RenderFragment GenerateColumn(TValue value)
+    {
+        if (ColumnTemplate is not null)
+            return ColumnTemplate(value);
+
+        return __builder =>
         {
             if (Field is null) return;
             var field = GetField(value);
@@ -98,11 +102,12 @@
                 @string.Format($"{{0:{Format}}}", field)
             }
         };
+    }
 
     public RenderFragment GenerateFooter() =>
         __builder =>
         {
             if (FooterTemplate is null) return;
-            @FooterTemplate(this)
+            @FooterTemplate
         };
 }

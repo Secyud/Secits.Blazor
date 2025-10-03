@@ -50,11 +50,12 @@ public partial class PageRouteTabsLayout : IDisposable
             OnActivatedRouteItem().ConfigureAwait(false);
         }
     }
+
     protected virtual async Task OnActivatedRouteItem()
     {
         if (TabContainer is not null)
         {
-            await TabContainer.SelectTabAsync(PageRouteManager.CurrentItem?.Id);
+            await TabContainer.SelectTabAsync(this, PageRouteManager.CurrentItem?.Id);
             await InvokeAsync(StateHasChanged);
         }
     }

@@ -1,4 +1,5 @@
 @namespace Secyud.Secits.Blazor
+@using Secyud.Secits.Blazor.Validations
 @inherits SLayoutPluginBase<SFormLayout>
 
 @code
@@ -7,14 +8,34 @@
         __builder =>
         {
             <div class="@GetClass()" style="@GetStyle()">
-                @if (Master.EnableLabel || !string.IsNullOrWhiteSpace(Title))
+                @if (Master.EnableValidation && EnableValidation)
                 {
-                    <label class="form-item-title">@Title</label>
+                    <ValidationField>
+                        @GenerateFieldContent()
+                        @if (ShowValidationMessage)
+                        {
+                            <SValidationMessage/>
+                        }
+                    </ValidationField>
                 }
-                @if (ChildContent is not null)
+                else
                 {
-                    @ChildContent(this)
+                    @GenerateFieldContent()
                 }
             </div>
+        };
+
+    protected virtual RenderFragment GenerateFieldContent() =>
+        __builder =>
+        {
+            @if (Master.EnableLabel || !string.IsNullOrWhiteSpace(Title))
+            {
+                <label class="form-item-title">@Title</label>
+            }
+
+            @if (ChildContent is not null)
+            {
+                @ChildContent
+            }
         };
 }

@@ -3,8 +3,7 @@ using Secyud.Secits.Blazor.Settings;
 
 namespace Secyud.Secits.Blazor;
 
-public abstract class SLayoutPluginBase<TComponent> : SPluginBase<TComponent>,
-    IContentRenderer
+public abstract class SLayoutPluginBase<TComponent> : SPluginBase<TComponent>, IContentRenderer
     where TComponent : SPluggableBase, IHasContentRender
 {
     [Parameter]
@@ -12,6 +11,12 @@ public abstract class SLayoutPluginBase<TComponent> : SPluginBase<TComponent>,
 
     [Parameter]
     public string? Class { get; set; }
+
+    [Parameter]
+    public bool Readonly { get; set; }
+
+    [Parameter]
+    public bool Disabled { get; set; }
 
     public abstract RendererPosition GetLayoutPosition();
 
@@ -24,7 +29,10 @@ public abstract class SLayoutPluginBase<TComponent> : SPluginBase<TComponent>,
 
     protected virtual string? GetClass()
     {
-        return ClassStyleBuilder.GenerateClass("anim", Class);
+        return ClassStyleBuilder.GenerateClass("anim",
+            Readonly ? "readonly" : null,
+            Disabled ? "disabled" : null,
+            Class);
     }
 
     protected override void ApplySetting()

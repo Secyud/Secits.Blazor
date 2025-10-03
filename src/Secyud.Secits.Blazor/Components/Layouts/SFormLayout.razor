@@ -1,4 +1,14 @@
 @namespace Secyud.Secits.Blazor
+@using Secyud.Secits.Blazor.Validations
 @inherits SContentBase
 
-@((RenderFragment)base.BuildRenderTree)
+@if (EnableValidation && !ParentValidationForm)
+{
+    <ValidationForm>
+        @((RenderFragment)base.BuildRenderTree)
+    </ValidationForm>
+}
+else
+{
+    @((RenderFragment)base.BuildRenderTree)
+}

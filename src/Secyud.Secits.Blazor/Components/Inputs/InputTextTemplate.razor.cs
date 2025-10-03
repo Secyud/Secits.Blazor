@@ -3,7 +3,7 @@ using Secyud.Secits.Blazor.Settings;
 
 namespace Secyud.Secits.Blazor;
 
-public partial class InputTextTemplate<TValue> : ICanActive, IValueContainer
+public partial class InputTextTemplate<TValue> : IValueContainer
 {
     protected virtual string? InputString => ParsingFailed ? ValueString : CurrentString;
     protected string? CurrentString { get; set; }
@@ -13,12 +13,6 @@ public partial class InputTextTemplate<TValue> : ICanActive, IValueContainer
 
     [Parameter]
     public bool SubmitOnInput { get; set; }
-
-    [Parameter]
-    public bool Readonly { get; set; }
-
-    [Parameter]
-    public bool Disabled { get; set; }
 
     [Parameter(CaptureUnmatchedValues = true)]
     public IDictionary<string, object>? Attributes { get; set; }

@@ -48,7 +48,10 @@ public partial class GridColumn<TValue, TField> :
     public RenderFragment<DataFilter>? FilterTemplate { get; set; }
 
     [Parameter]
-    public RenderFragment<GridColumn<TValue, TField>>? FooterTemplate { get; set; }
+    public RenderFragment? FooterTemplate { get; set; }
+
+    [Parameter]
+    public RenderFragment<TValue>? ColumnTemplate { get; set; }
 
     public int RealWidth
     {
