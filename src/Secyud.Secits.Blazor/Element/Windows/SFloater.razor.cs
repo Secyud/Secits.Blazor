@@ -14,7 +14,7 @@ public partial class SFloater : IHasContent, IHasCustomStyle
     [Parameter]
     public string? Style { get; set; }
 
-    protected string? GetClass()
+    protected virtual string? GetClass()
     {
         return ClassStyleBuilder.GenerateClass("s-floater", Class);
     }

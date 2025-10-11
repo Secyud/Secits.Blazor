@@ -112,7 +112,7 @@ public partial class GridColumn<TValue, TField> :
         await Master.RefreshAsync(true);
     }
 
-    protected string GetSorterIconClass()
+    protected string? GetSorterIconClass()
     {
         if (!Sorter.Enabled)
             return IconProvider.GetIcon(IconName.None);

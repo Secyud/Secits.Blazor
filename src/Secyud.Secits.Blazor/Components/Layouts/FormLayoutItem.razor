@@ -30,7 +30,9 @@
         {
             @if (Master.EnableLabel || !string.IsNullOrWhiteSpace(Title))
             {
-                <label class="form-item-title">@Title</label>
+                <label class="form-item-title">
+                    @Title
+                </label>
             }
 
             @if (ChildContent is not null)

@@ -25,4 +25,9 @@ public partial class SModal
 
         return results;
     }
+
+    protected override string? GetClass()
+    {
+        return ClassStyleBuilder.GenerateClass("s-modal", "middle", "center", Class);
+    }
 }

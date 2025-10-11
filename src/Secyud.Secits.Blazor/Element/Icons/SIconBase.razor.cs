@@ -14,7 +14,7 @@ public abstract partial class SIconBase : IHasCustomStyle, ICanClick
 
     [Parameter]
     public EventCallback Click { get; set; }
-
+    
     protected abstract string? Icon { get; }
 
     protected void OnClick(MouseEventArgs args)

@@ -6,11 +6,12 @@ public class FontAwesomeIconProvider : IIconProvider
 {
     private readonly Dictionary<IconName, string> _fontAwesomeIcons = new()
     {
+        [IconName.None] = "",
         [IconName.Create] = "fas fa-file",
         [IconName.Update] = "fas fa-pen-to-square",
         [IconName.Delete] = "fas fa-trash",
         [IconName.Search] = "fas fa-magnifying-glass",
-        [IconName.Cross] = "fas fa-circle-xmark",
+        [IconName.Cross] = "fas fa-xmark",
         [IconName.CaretDown] = "fas fa-caret-down",
         [IconName.CaretUp] = "fas fa-caret-up",
         [IconName.LeftAngles] = "fas fa-angles-left",
@@ -32,8 +33,8 @@ public class FontAwesomeIconProvider : IIconProvider
         [IconName.Globe] = "fas fa-globe",
     };
 
-    public string GetIcon(IconName name)
+    public string? GetIcon(IconName name)
     {
-        return _fontAwesomeIcons[name];
+        return _fontAwesomeIcons.GetValueOrDefault(name) ;
     }
 }
