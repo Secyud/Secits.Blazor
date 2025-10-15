@@ -7,13 +7,14 @@
     <base href="/"/>
     <link rel="stylesheet" href="@Assets["app.css"]"/>
     <link rel="stylesheet" href="@Assets["Secyud.Secits.Blazor.Server.Demo.styles.css"]"/>
+    <link rel="stylesheet" href="@Assets["_content/Secyud.Secits.Blazor.Demo/secits-theme.css"]"/>
 
     <ImportMap/>
     <HeadOutlet @rendermode="InteractiveServer"/>
     <title>demo</title>
 </head>
 
-<body>
+<body class="application-layout">
 <Routes @rendermode="InteractiveServer"/>
 <script src="_framework/blazor.web.js"></script>
 </body>

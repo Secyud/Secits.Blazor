@@ -1,15 +1,15 @@
 ﻿@namespace Secyud.Secits.Blazor.Element
 @inherits Secyud.Secits.Blazor.Element.TimePickerTemplateBase
 <div class="pkr-t board">
-    <SliderBox Cycle Format="00" Max="23" Style="@SliderStyle"
-               Disabled="@Pression.Disable(DateTimePrecisionKind.Hour)"
-               Value="@GetHour()" ValueChanged="SetHourAsync"/>
-    <SliderBox Cycle Format="00" Max="59" Style="@SliderStyle"
-               Disabled="@Pression.Disable(DateTimePrecisionKind.Minute)"
-               Value="@GetMinute()" ValueChanged="SetMinuteAsync"/>
-    <SliderBox Cycle Format="00" Max="59" Style="@SliderStyle"
-               Disabled="@Pression.Disable(DateTimePrecisionKind.Second)"
-               Value="@GetSecond()" ValueChanged="SetSecondAsync"/>
+    <SRoller TValue="int" Cycle Style="@SliderStyle" Items="Numbers24" TextField="Format"
+             Disabled="@Pression.Disable(DateTimePrecisionKind.Hour)"
+             Value="@GetHour()" ValueChanged="SetHourAsync"/>
+    <SRoller TValue="int" Cycle Style="@SliderStyle" Items="Numbers60" TextField="Format"
+             Disabled="@Pression.Disable(DateTimePrecisionKind.Minute)"
+             Value="@GetMinute()" ValueChanged="SetMinuteAsync"/>
+    <SRoller TValue="int" Cycle Style="@SliderStyle" Items="Numbers60" TextField="Format"
+             Disabled="@Pression.Disable(DateTimePrecisionKind.Second)"
+             Value="@GetSecond()" ValueChanged="SetSecondAsync"/>
 </div>
 
 @code

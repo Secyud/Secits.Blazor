@@ -74,7 +74,6 @@ public partial class PageRouteTabsLayout : IDisposable
     protected virtual void OnTabOptioned(Tab<PageRouteItem> tab)
     {
         tab.Key = tab.Item.Id;
-        tab.Index = tab.Item.Sequence;
         tab.PreventDefaultClick = true;
     }
 

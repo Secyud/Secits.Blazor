@@ -5,7 +5,6 @@ namespace Secyud.Secits.Blazor.Settings.Tabs;
 public interface ITab
 {
     string Key { get; }
-    int Index { get; }
     bool IsRendered { get; set; }
     bool PreventDefaultClick { get; }
     Func<Task>? Click { get; }

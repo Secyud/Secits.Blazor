@@ -4,24 +4,17 @@ using Microsoft.AspNetCore.Components.Rendering;
 
 namespace Secyud.Secits.Blazor.PageRoutes;
 
-public class PageRouteItem
+public class PageRouteItem(Uri uri, Type pageType, 
+    IReadOnlyList<KeyValuePair<string, object>> pageParameters)
 {
-    public PageRouteItem(Uri uri, Type pageType, IReadOnlyList<KeyValuePair<string, object>> pageParameters)
-    {
-        Uri = uri;
-        PageType = pageType;
-        PageParameters = pageParameters;
-    }
-
     public string Id { get; } = Guid.NewGuid().ToString("N");
-    public Uri Uri { get; set; }
-    public Type PageType { get; }
-    public IReadOnlyList<KeyValuePair<string, object>> PageParameters { get; }
+    public Uri Uri { get; set; } = uri;
+    public Type PageType { get; } = pageType;
+    public IReadOnlyList<KeyValuePair<string, object>> PageParameters { get; } = pageParameters;
     public Type? ResourceType { get; set; }
     public string? Name { get; set; }
     public string[] Parameters { get; set; } = [];
     public Func<string>? DisplayNameGetter { get; set; }
-    public int Sequence { get; set; }
 
     public string DisplayName
     {

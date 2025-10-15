@@ -41,16 +41,12 @@ public class PageRouteManager
 
     private PageRouteItem CreatePageRouterItem(RouteData routeData, Uri uri)
     {
-        var sequence = _items.Count == 0 ? 0 : (_items.Max(u => u.Sequence) + 1) % 65536;
         var pageType = routeData.PageType;
         var routeValues = routeData.RouteValues;
         var pageParameters = routeData.RouteValues
             .Where(u => u.Value is not null)
             .Select(u => new KeyValuePair<string, object>(u.Key, u.Value!)).ToList();
-        var result = new PageRouteItem(uri, pageType, pageParameters)
-        {
-            Sequence = sequence
-        };
+        var result = new PageRouteItem(uri, pageType, pageParameters);
         var attribute = pageType.GetCustomAttribute<PageRouteAttribute>();
         if (attribute is null) return result;
         if (attribute.Name is not null)

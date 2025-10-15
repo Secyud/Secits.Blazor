@@ -16,7 +16,7 @@ public class SCheck : SIconBase
     public override async Task SetParametersAsync(ParameterView parameters)
     {
         await base.SetParametersAsync(parameters);
-        _checkedIcon = IconProvider.GetIcon(IconName.Check);
+        _checkedIcon ??= IconProvider.GetIcon(IconName.Check);
     }
 
     protected override string? GetClass()

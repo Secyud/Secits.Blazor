@@ -1,9 +1,0 @@
-﻿@namespace Secyud.Secits.Blazor
-@inherits SLayoutPluginBase<SInput<bool>>
-
-@code
-{
-    public override RenderFragment RenderTemplate() =>
-        @<SCheck Class="@GetClass()" Style="@GetStyle()"
-                 Checked="GetValue()" Click="OnClickAsync"></SCheck>;
-}

@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Components;
+using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
+using Microsoft.AspNetCore.Components;
 using Secyud.Secits.Blazor.Settings;
 
 namespace Secyud.Secits.Blazor;
 
-public partial class InputTextTemplate<TValue> : IValueContainer
+public abstract class InputTemplateBase<TValue> : SLayoutPluginBase<SInput<TValue>>, IValueContainer
 {
     protected virtual string? InputString => ParsingFailed ? ValueString : CurrentString;
     protected string? CurrentString { get; set; }
@@ -14,8 +16,27 @@ public partial class InputTextTemplate<TValue> : IValueContainer
     [Parameter]
     public bool SubmitOnInput { get; set; }
 
+    [Parameter]
+    public string? Format { get; set; }
+
     [Parameter(CaptureUnmatchedValues = true)]
-    public IDictionary<string, object>? Attributes { get; set; }
+    public IDictionary<string, object>? AdditionalAttributes { get; set; }
+
+    /// <summary>
+    /// Gets the value to be used for the input's "name" attribute.
+    /// </summary>
+    protected string? NameAttributeValue
+    {
+        get
+        {
+            if (AdditionalAttributes?.TryGetValue("name", out var nameAttributeValue) ?? false)
+            {
+                return Convert.ToString(nameAttributeValue, CultureInfo.InvariantCulture);
+            }
+
+            return null;
+        }
+    }
 
     public override RendererPosition GetLayoutPosition()
     {
@@ -29,20 +50,20 @@ public partial class InputTextTemplate<TValue> : IValueContainer
             CachedValue = invoker.GetActiveItem();
         else
             CachedValue = default!;
-        ValueString = CachedValue?.ToString();
+        ValueString = FormatValueAsString(CachedValue);
         CurrentString = ValueString;
         ParsingFailed = false;
         await Task.CompletedTask;
     }
 
-    private async Task OnInputAsync(ChangeEventArgs args)
+    protected async Task OnInputAsync(string? args)
     {
-        await OnInputInvokeAsync(args.Value?.ToString(), SubmitOnInput);
+        await OnInputInvokeAsync(args, SubmitOnInput);
     }
 
-    private async Task OnChangeAsync(ChangeEventArgs args)
+    protected async Task OnChangeAsync(string? args)
     {
-        await OnInputInvokeAsync(args.Value?.ToString());
+        await OnInputInvokeAsync(args);
     }
 
     protected virtual Task OnInputStringHandleAsync(string? str)
@@ -68,18 +89,11 @@ public partial class InputTextTemplate<TValue> : IValueContainer
                 {
                     ParsingFailed = !converter.TryParse(CurrentString, out var value);
                     if (!ParsingFailed) CachedValue = value;
-                    break;
                 }
-
-                try
+                else
                 {
-                    CachedValue = (TValue)Convert.ChangeType(CurrentString, typeof(TValue));
-                    ParsingFailed = false;
-                }
-                catch (Exception)
-                {
-                    // ignored
-                    ParsingFailed = true;
+                    ParsingFailed = !TryParseValueFromString(CurrentString, out var value);
+                    CachedValue = value ?? default!;
                 }
 
                 break;
@@ -123,13 +137,21 @@ public partial class InputTextTemplate<TValue> : IValueContainer
         Master.ValueContainer.Forgo(this);
     }
 
-    private string? GetReadOnly()
+    protected string? GetReadOnly()
     {
         return Master.Readonly || Readonly ? "readonly" : null;
     }
 
-    private string? GetDisabled()
+    protected string? GetDisabled()
     {
         return Master.Disabled || Disabled ? "disabled" : null;
     }
+
+    protected virtual string? FormatValueAsString(TValue? value)
+    {
+        return value?.ToString();
+    }
+
+    protected abstract bool TryParseValueFromString(string? value,
+        [MaybeNullWhen(false)] out TValue result);
 }

@@ -18,18 +18,18 @@
         按钮
     </Header>
     <Body>
-    <SButton Class="inline-block">
-        <AddTemplate>Button</AddTemplate>
-    </SButton>
-    <SButton Class="inline-block outline">
-        <AddTemplate>Button</AddTemplate>
-    </SButton>
-    <SButton Class="inline-block plain">
-        <AddTemplate>Button</AddTemplate>
-    </SButton>
-    <SButton Class="inline-block shadow">
-        <AddTemplate>Button</AddTemplate>
-    </SButton>
+    <Button Class="inline-block">
+        Button
+    </Button>
+    <Button Class="inline-block outline">
+        Button
+    </Button>
+    <Button Class="inline-block plain">
+        Button
+    </Button>
+    <Button Class="inline-block shadow">
+        Button
+    </Button>
     </Body>
 </SCard>
 
@@ -42,14 +42,17 @@
         <FormLayoutItem Title="default">
             <TextBox Value="@("default")" Class=""/>
         </FormLayoutItem>
-        <FormLayoutItem Title="outline">
-            <TextBox Value="@("outline")" Class=" outline"/>
-        </FormLayoutItem>
-        <FormLayoutItem Title="plain">
-            <TextBox Value="@("plain")" Class=" plain"/>
+        <FormLayoutItem Title="shadow">
+            <TextBox Value="@("shadow")" Class="shadow"/>
         </FormLayoutItem>
         <FormLayoutItem Title="shadow">
-            <TextBox Value="@("shadow")" Class=" shadow"/>
+            <InputNumber @bind-Value="IntValue" TValue="int"/>
+        </FormLayoutItem>
+        <FormLayoutItem Title="default">
+            <CheckBox @bind-Checked="BoolValue"/>
+        </FormLayoutItem>
+        <FormLayoutItem Title="shadow" >
+            <CheckBox @bind-Checked="BoolValue" Class="shadow"/>
         </FormLayoutItem>
     </SFormLayout>
     </Body>
@@ -62,4 +65,8 @@
     private Theme Theme { get; set; }
 
     private Size Size { get; set; }
+
+    private int IntValue { get; set; }
+
+    private bool BoolValue { get; set; }
 }

@@ -9,7 +9,6 @@ public class ActiveParameter : DirtyParameter<ICanActive>
         return c is ICanActive;
     }
 
-
     protected override void BuildClassStyle(ICanActive c, ClassStyleContext context)
     {
         if (c.Disabled) context.AppendClass("disabled");

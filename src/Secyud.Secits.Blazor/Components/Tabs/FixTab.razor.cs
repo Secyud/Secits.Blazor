@@ -22,9 +22,6 @@ public partial class FixTab : ITab, ITabsProvider
     [Parameter]
     public bool PreventDefaultClick { get; set; }
 
-    [Parameter]
-    public int Index { get; set; }
-
     public bool IsRendered { get; set; }
 
     public RenderFragment? RenderTab() => Tag;

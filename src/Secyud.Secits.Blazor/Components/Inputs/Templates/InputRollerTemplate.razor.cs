@@ -4,34 +4,28 @@ using Secyud.Secits.Blazor.Settings;
 
 namespace Secyud.Secits.Blazor;
 
-public partial class InputSliderBoxTemplate : IHasRange<int>
+public partial class InputRollerTemplate<TValue>
 {
     [Parameter, Range(1, 4)]
     public int NumberCount { get; set; } = 1;
 
     [Parameter]
-    public int Max { get; set; } = 100;
-
-    [Parameter]
-    public int Min { get; set; }
+    public List<TValue>? Items { get; set; }
 
     [Parameter]
     public bool Cycle { get; set; }
 
-    [Parameter]
-    public string? Format { get; set; }
-
-    protected int GetValue()
+    protected TValue GetValue()
     {
         if (Master.InputInvoker.Get() is { } invoker)
         {
             return invoker.GetActiveItem();
         }
 
-        return 0;
+        return default!;
     }
 
-    protected async Task SetValueAsync(int value)
+    protected async Task SetValueAsync(TValue value)
     {
         if (Master.InputInvoker.Get() is { } invoker)
         {
@@ -42,5 +36,19 @@ public partial class InputSliderBoxTemplate : IHasRange<int>
     public override RendererPosition GetLayoutPosition()
     {
         return RendererPosition.Body;
+    }
+
+
+    public Func<TValue, string?>? TextField
+    {
+        get
+        {
+            if (Master.TextField.Get() is { } textField)
+            {
+                return u => textField.ToString(u);
+            }
+
+            return null;
+        }
     }
 }

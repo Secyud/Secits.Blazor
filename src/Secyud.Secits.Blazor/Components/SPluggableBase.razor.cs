@@ -13,7 +13,7 @@ public abstract partial class SPluggableBase : IHasTheme, IHasSize, IHasCustomSt
     protected SPluggableBase()
     {
         PluggableContainer = new SPluggableContainer(this);
-        _classStyleBuilder = new ClassStyleBuilder(BuildClassStyle);
+        _classStyleBuilder = new ClassStyleBuilder(BuildClassStyleInner);
     }
 
     protected virtual string ComponentName => "s";
@@ -78,11 +78,15 @@ public abstract partial class SPluggableBase : IHasTheme, IHasSize, IHasCustomSt
 
     #region ClassStyle
 
-    protected virtual void BuildClassStyle(ClassStyleContext context)
+    private void BuildClassStyleInner(ClassStyleContext context)
     {
         if (!string.IsNullOrEmpty(ComponentName))
             context.Class.Append("s-" + ComponentName);
+        BuildClassStyle(context);
+    }
 
+    protected virtual void BuildClassStyle(ClassStyleContext context)
+    {
         foreach (var extendClassStyleBuilder in ClassStyleBuilders)
         {
             extendClassStyleBuilder.BuildExtendClassStyle(context);
