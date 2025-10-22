@@ -1,4 +1,4 @@
-﻿@namespace Secyud.Secits.Blazor.Preset
+@namespace Secyud.Secits.Blazor.Preset
 @inherits InputBase<TValue>
 @typeparam TValue where TValue : IComparable, IEnumerable, IConvertible, IEnumerable<char>, IComparable<string?>, IEquatable<string?>, ICloneable, ISpanParsable<string>, IParsable<string>
 
@@ -10,7 +10,7 @@
         __builder =>
         {
             @base.GenerateSetting()
-            <AddTextBox SubmitOnInput="SubmitOnInput"/>
+            <AddTextArea SubmitOnInput="SubmitOnInput"/>
             <EnableValueInput TValue="TValue" Value="Value" ValueChanged="ValueChanged"/>
         };
 

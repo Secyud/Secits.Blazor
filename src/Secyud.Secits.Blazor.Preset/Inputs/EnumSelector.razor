@@ -11,12 +11,12 @@
         __builder =>
         {
             @base.GenerateSetting()
-            <InputTextTemplate TValue="TEnum" Class="w-100" Readonly @onclick="ClickDropDownAsync"/>
+            <AddShowBox TValue="TEnum" Class="w-100" Readonly @onclick="ClickDropDownAsync"/>
             <EnableValueInput TValue="TEnum" ValueUpdated="CloseDropDownAsync"
                               Value="Value" ValueChanged="ValueChanged"/>
             <EnableDropDown @ref="_enableDropDown" ContentClass="outline">
                 <SList TValue="TEnum" Class="ipd" Style="max-height: calc(var(--s-s) * 16);">
-                    <StaticDataSource Items="@GetList()"/>
+                    <EnableStaticSource Items="@GetList()"/>
                     <EnableIteratorFixed/>
                     <EnableIteratorSelect/>
                     <ListColumn ChildContent="ListItemTemplate"/>

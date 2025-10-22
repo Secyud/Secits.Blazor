@@ -39,20 +39,35 @@
     </Header>
     <Body>
     <SFormLayout>
-        <FormLayoutItem Title="default">
-            <TextBox Value="@("default")" Class=""/>
+        <FormLayoutItem Title="default text">
+            <TextBox Value="@("default")"/>
         </FormLayoutItem>
-        <FormLayoutItem Title="shadow">
+        <FormLayoutItem Title="shadow text">
             <TextBox Value="@("shadow")" Class="shadow"/>
         </FormLayoutItem>
-        <FormLayoutItem Title="shadow">
-            <InputNumber @bind-Value="IntValue" TValue="int"/>
+        <FormLayoutItem Title="default area">
+            <TextArea Value="@("default")"></TextArea>
         </FormLayoutItem>
-        <FormLayoutItem Title="default">
-            <CheckBox @bind-Checked="BoolValue"/>
+        <FormLayoutItem Title="shadow area">
+            <TextArea Value="@("shadow")" Class="shadow"></TextArea>
         </FormLayoutItem>
-        <FormLayoutItem Title="shadow" >
-            <CheckBox @bind-Checked="BoolValue" Class="shadow"/>
+        <FormLayoutItem Title="default date">
+            <DateBox Value="@(DateTime.Now)"/>
+        </FormLayoutItem>
+        <FormLayoutItem Title="shadow date">
+            <DateBox Value="@(DateTime.Now)" Class="shadow"/>
+        </FormLayoutItem>
+        <FormLayoutItem Title="default bool">
+            <CheckBox Value="@(false)"/>
+        </FormLayoutItem>
+        <FormLayoutItem Title="shadow bool">
+            <CheckBox Value="@(false)" Class="shadow"/>
+        </FormLayoutItem>
+        <FormLayoutItem Title="default number">
+            <NumberBox Value="@(1)"/>
+        </FormLayoutItem>
+        <FormLayoutItem Title="shadow number">
+            <NumberBox Value="@(1)" Class="shadow"/>
         </FormLayoutItem>
     </SFormLayout>
     </Body>
@@ -65,8 +80,4 @@
     private Theme Theme { get; set; }
 
     private Size Size { get; set; }
-
-    private int IntValue { get; set; }
-
-    private bool BoolValue { get; set; }
 }

@@ -18,14 +18,14 @@
                     EnableDropDown? enableDropDown = null;
 
                     <SInput TValue="int" Class="pager-selector">
-                        <InputTextTemplate Class="w-100" Readonly
+                        <AddTextBox Class="w-100" Readonly
                                            @onclick="ClickDropDownAsync"/>
                         <EnableValueInput TValue="int" Value="Master.DataRequest.PageSize"
                                           ValueChanged="PageSizeChangedAsync"
                                           ValueUpdated="CloseDropDownAsync"/>
                         <EnableDropDown @ref="enableDropDown">
                             <SList Class="outline" Style="max-height: calc(var(--s-s) * 16);">
-                                <StaticDataSource Items="PageSizes"/>
+                                <EnableStaticSource Items="PageSizes"/>
                                 <EnableIteratorFixed/>
                                 <EnableIteratorSelect/>
                                 <ListColumn>

@@ -1,10 +1,11 @@
 using System.Globalization;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Rendering;
 using Secyud.Secits.Blazor.Settings;
 
 namespace Secyud.Secits.Blazor;
 
-public class InputCheckTemplate : SLayoutPluginBase<SInput<bool>>, IValueContainer
+public class AddCheckBox : SLayoutPluginBase<SInput<bool>>, IValueContainer
 {
     [Parameter(CaptureUnmatchedValues = true)]
     public IDictionary<string, object>? AdditionalAttributes { get; set; }
@@ -30,24 +31,22 @@ public class InputCheckTemplate : SLayoutPluginBase<SInput<bool>>, IValueContain
         return RendererPosition.Body;
     }
 
-    public override RenderFragment RenderTemplate()
+    protected override void BuildRenderTree(RenderTreeBuilder builder)
     {
-        return builder =>
-        {
-            builder.OpenElement(0, "input");
-            builder.AddMultipleAttributes(1, AdditionalAttributes);
-            builder.AddAttribute(2, "type", "checkbox");
-            builder.AddAttributeIf(!string.IsNullOrEmpty(NameAttributeValue),
-                3, "name", NameAttributeValue);
-            builder.AddAttribute(4, "class", GetClass());
-            builder.AddAttribute(5, "style", GetStyle());
-            builder.AddAttribute(6, "value", bool.TrueString);
-            builder.AddAttribute(7, "onchange",
-                EventCallback.Factory.CreateBinder<bool>(this, OnCheckedChangedAsync,
-                    Master.InputInvoker.Get()?.GetActiveItem() ?? false));
-            builder.SetUpdatesAttributeName("checked");
-            builder.CloseElement();
-        };
+        builder.OpenElement(0, "input");
+        builder.AddMultipleAttributes(1, AdditionalAttributes);
+        builder.AddAttribute(2, "type", "checkbox");
+        builder.AddAttributeIf(!string.IsNullOrEmpty(NameAttributeValue),
+            3, "name", NameAttributeValue);
+        builder.AddAttribute(4, "class", GetClass());
+        builder.AddAttribute(5, "style", GetStyle());
+        builder.AddAttribute(6, "value", bool.TrueString);
+        var currentValue = Master.InputInvoker.Get()?.GetActiveItem() ?? false;
+        builder.AddAttribute(7, "checked", BindConverter.FormatValue(currentValue));
+        builder.AddAttribute(8, "onchange",
+            EventCallback.Factory.CreateBinder<bool>(this, OnCheckedChangedAsync, currentValue));
+        builder.SetUpdatesAttributeName("checked");
+        builder.CloseElement();
     }
 
     protected async Task OnCheckedChangedAsync(bool value)

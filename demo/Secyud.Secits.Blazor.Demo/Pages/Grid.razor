@@ -12,7 +12,7 @@
             <SCard>
                 <Body>
                 <SGrid TValue="ListDemoItem" Class="outline" DisableFooter>
-                    <StaticDataSource Items="_list"/>
+                    <EnableStaticSource Items="_list"/>
                     <EnableIteratorVisualize/>
                     <EnableColumnResize/>
                     <GridColumn Caption="@nameof(ListDemoItem.Name)" Width="200"
@@ -35,7 +35,7 @@
             <SCard>
                 <Body>
                 <SGrid TValue="ListDemoItem" Class="outline" DisableFooter>
-                    <StaticDataSource Items="_list"/>
+                    <EnableStaticSource Items="_list"/>
                     @* <DynamicDataSource Items="_list"/> *@
                     <EnableIteratorPager/>
                     <EnableColumnResize/>

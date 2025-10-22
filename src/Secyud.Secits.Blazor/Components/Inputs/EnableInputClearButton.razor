@@ -3,10 +3,6 @@
 @using Secyud.Secits.Blazor.Icons
 @typeparam TValue
 
-@code
-{
-    public override RenderFragment RenderTemplate() => 
-        @<SIcon IconName="@IconProvider.GetIcon(IconName.Cross)"
-                Style="@GetStyle()" Class="@GetClass()"
-                Click="ClearInputAsync"/>;
-}
+<SIcon IconName="@IconProvider.GetIcon(IconName.Cross)"
+       Style="@GetStyle()" Class="@GetClass()"
+       Click="ClearInputAsync"/>

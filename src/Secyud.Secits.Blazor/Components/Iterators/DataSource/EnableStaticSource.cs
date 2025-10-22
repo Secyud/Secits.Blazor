@@ -3,7 +3,7 @@ using Secyud.Secits.Blazor.Settings;
 
 namespace Secyud.Secits.Blazor;
 
-public class StaticDataSource<TValue> : SPluginBase<SIteratorBase<TValue>>, IDataSourceProvider<TValue>
+public class EnableStaticSource<TValue> : SPluginBase<SIteratorBase<TValue>>, IDataSourceProvider<TValue>
 {
     [Parameter]
     public IReadOnlyList<TValue>? Items { get; set; }

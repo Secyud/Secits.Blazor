@@ -38,8 +38,6 @@ public class GridContext<TValue>
                     BehindColumns.AddColumn(context);
                     break;
                 }
-                default:
-                    throw new ArgumentOutOfRangeException();
             }
 
             if (FrontColumns.MaxSequence > MiddleColumns.MinSequence)

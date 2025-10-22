@@ -5,7 +5,7 @@ using Secyud.Secits.Blazor.Settings;
 
 namespace Secyud.Secits.Blazor;
 
-public abstract class InputTemplateBase<TValue> : SLayoutPluginBase<SInput<TValue>>, IValueContainer
+public abstract class AddTemplateBase<TValue> : SLayoutPluginBase<SInput<TValue>>, IValueContainer
 {
     protected virtual string? InputString => ParsingFailed ? ValueString : CurrentString;
     protected string? CurrentString { get; set; }

@@ -11,13 +11,13 @@
         __builder =>
         {
             @base.GenerateSetting()
-            <InputTextTemplate TValue="TValue" Class="w-100" Readonly @onclick="ClickDropDownAsync"/>
+            <AddShowBox TValue="TValue" Class="w-100" Readonly @onclick="ClickDropDownAsync"/>
             <EnableFieldInput TValue="TValue" TField="TField" Field="Field"
                               ValueField="ValueField" ItemFinder="ItemFinder"
                               FieldChanged="FieldChanged" ValueUpdated="CloseDropDownAsync"/>
             <EnableDropDown @ref="_enableDropDown" ContentClass="outline">
                 <SList TValue="TValue" Class="ipd" Style="max-height: calc(var(--s-s) * 16);">
-                    <StaticDataSource Items="Items"/>
+                    <EnableStaticSource Items="Items"/>
                     <EnableIteratorFixed/>
                     <EnableIteratorSelect/>
                     <ListColumn ChildContent="ListItemTemplate"/>

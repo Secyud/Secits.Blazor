@@ -1,7 +1,15 @@
-﻿@using Secyud.Secits.Blazor.Element
-@namespace Secyud.Secits.Blazor.Preset
-@inherits SCheck
+﻿@namespace Secyud.Secits.Blazor.Preset
+@inherits InputBase<bool>
 
-<div class="check-box">
-    @((RenderFragment)base.BuildRenderTree)
-</div>
+@((RenderFragment)base.BuildRenderTree)
+
+@code
+{
+    protected override RenderFragment GenerateSetting() =>
+        __builder =>
+        {
+            @base.GenerateSetting()
+            <AddCheckBox/>
+            <EnableValueInput TValue="bool" Value="Value" ValueChanged="ValueChanged"/>
+        };
+}

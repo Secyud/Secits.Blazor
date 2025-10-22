@@ -4,7 +4,7 @@ using Secyud.Secits.Blazor.Settings;
 
 namespace Secyud.Secits.Blazor;
 
-public partial class InputRollerTemplate<TValue>
+public partial class AddRollerBox<TValue>
 {
     [Parameter, Range(1, 4)]
     public int NumberCount { get; set; } = 1;

@@ -20,7 +20,7 @@ public abstract class SLayoutPluginBase<TComponent> : SPluginBase<TComponent>, I
 
     public abstract RendererPosition GetLayoutPosition();
 
-    public abstract RenderFragment RenderTemplate();
+    public RenderFragment RenderTemplate() => BuildRenderTree;
 
     protected virtual string? GetStyle()
     {
