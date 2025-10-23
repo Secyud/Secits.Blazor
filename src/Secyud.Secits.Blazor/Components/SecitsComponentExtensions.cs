@@ -15,6 +15,15 @@ internal static class SecitsComponentExtensions
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static void AddAttributeIfNotEmpty(this RenderTreeBuilder builder, int sequence, string name, string? value)
+    {
+        if (!string.IsNullOrEmpty(value))
+        {
+            builder.AddAttribute(sequence, name, value);
+        }
+    }
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static void AddActiveAttribute<TComponent>(this RenderTreeBuilder builder, int sequence, SPluginBase<TComponent> component)
         where TComponent : class, IPluggable, ICanActive
     {

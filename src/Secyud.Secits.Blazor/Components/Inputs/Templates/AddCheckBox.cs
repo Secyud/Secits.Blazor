@@ -36,8 +36,7 @@ public class AddCheckBox : SLayoutPluginBase<SInput<bool>>, IValueContainer
         builder.OpenElement(0, "input");
         builder.AddMultipleAttributes(1, AdditionalAttributes);
         builder.AddAttribute(2, "type", "checkbox");
-        builder.AddAttributeIf(!string.IsNullOrEmpty(NameAttributeValue),
-            3, "name", NameAttributeValue);
+        builder.AddAttributeIfNotEmpty(3, "name", Master.Name);
         builder.AddAttribute(4, "class", GetClass());
         builder.AddAttribute(5, "style", GetStyle());
         builder.AddAttribute(6, "value", bool.TrueString);

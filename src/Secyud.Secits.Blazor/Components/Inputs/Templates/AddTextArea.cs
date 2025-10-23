@@ -9,8 +9,7 @@ public class AddTextArea : AddTemplateBase<string?>
     {
         builder.OpenElement(0, "textarea");
         builder.AddMultipleAttributes(1, AdditionalAttributes);
-        builder.AddAttributeIf(!string.IsNullOrEmpty(NameAttributeValue),
-            2, "name", NameAttributeValue);
+        builder.AddAttributeIfNotEmpty(2, "name", Master.Name);
         builder.AddAttribute(3, "class", GetClass());
         builder.AddAttribute(4, "style", GetStyle());
         builder.AddAttribute(5, "value", InputString);

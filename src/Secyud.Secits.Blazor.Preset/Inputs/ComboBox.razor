@@ -13,6 +13,7 @@
             @base.GenerateSetting()
             <AddShowBox TValue="TValue" Class="w-100" Readonly @onclick="ClickDropDownAsync"/>
             <EnableFieldInput TValue="TValue" TField="TField" Field="Field"
+                              EnableNullable="EnableNullable"
                               ValueField="ValueField" ItemFinder="ItemFinder"
                               FieldChanged="FieldChanged" ValueUpdated="CloseDropDownAsync"/>
             <EnableDropDown @ref="_enableDropDown" ContentClass="outline">

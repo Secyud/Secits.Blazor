@@ -6,10 +6,9 @@ namespace Secyud.Secits.Blazor;
 
 public class EnableFieldsInput<TValue, TField> : EnableValuesInput<TValue>
 {
-    private Func<TValue, TField>? _valueField;
 
     [Parameter]
-    public Expression<Func<TValue, TField>>? ValueField { get; set; }
+    public Func<TValue, TField>? ValueField { get; set; }
 
     [Parameter]
     public Func<IEnumerable<TField>, Task<IEnumerable<TValue>>>? ItemFinder { get; set; }
@@ -29,8 +28,6 @@ public class EnableFieldsInput<TValue, TField> : EnableValuesInput<TValue>
     protected override void PreParametersSet(ParameterContainer parameters)
     {
         base.PreParametersSet(parameters);
-        parameters.UseParameter(ValueField, nameof(ValueField),
-            value => _valueField = value!.Compile());
         parameters.UseParameter(Fields, nameof(Fields), TrySetSelectionFromParameter);
     }
 
@@ -76,14 +73,14 @@ public class EnableFieldsInput<TValue, TField> : EnableValuesInput<TValue>
 
     protected TField GetValue(TValue item)
     {
-        if (_valueField is null)
+        if (ValueField is null)
         {
             if (item is TField value)
                 return value;
         }
         else
         {
-            return _valueField(item);
+            return ValueField(item);
         }
 
         throw new InvalidOperationException("Please set ValueField in EnableValuesInput.");

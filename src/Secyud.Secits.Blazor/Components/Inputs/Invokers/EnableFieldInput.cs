@@ -6,10 +6,8 @@ namespace Secyud.Secits.Blazor;
 
 public class EnableFieldInput<TValue, TField> : EnableValueInput<TValue>
 {
-    private Func<TValue, TField>? _valueField;
-
     [Parameter]
-    public Expression<Func<TValue, TField>>? ValueField { get; set; }
+    public Func<TValue, TField>? ValueField { get; set; }
 
     [Parameter]
     public Func<TField, Task<TValue>>? ItemFinder { get; set; }
@@ -29,8 +27,6 @@ public class EnableFieldInput<TValue, TField> : EnableValueInput<TValue>
     protected override void PreParametersSet(ParameterContainer parameters)
     {
         base.PreParametersSet(parameters);
-        parameters.UseParameter(ValueField, nameof(ValueField),
-            value => _valueField = value?.Compile());
         parameters.UseParameter(Field, nameof(Field), SetSelectionFromParameter);
     }
 
@@ -62,8 +58,8 @@ public class EnableFieldInput<TValue, TField> : EnableValueInput<TValue>
 
     protected TField GetValue(TValue item)
     {
-        if (_valueField is not null)
-            return _valueField(item);
+        if (ValueField is not null)
+            return ValueField(item);
 
         if (item is TField value) return value;
 

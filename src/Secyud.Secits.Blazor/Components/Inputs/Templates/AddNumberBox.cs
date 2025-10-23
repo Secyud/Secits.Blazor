@@ -51,7 +51,7 @@ public class AddNumberBox<TValue> : AddTemplateBase<TValue>
         builder.AddAttribute(1, "step", StepAttributeValue);
         builder.AddAttribute(2, "type", "number");
         builder.AddMultipleAttributes(3, AdditionalAttributes);
-        builder.AddAttributeIf(!string.IsNullOrEmpty(NameAttributeValue), 4, "name", NameAttributeValue);
+        builder.AddAttributeIfNotEmpty(4, "name", Master.Name);
         builder.AddAttribute(5, "class", GetClass());
         builder.AddAttribute(6, "style", GetStyle());
         builder.AddAttribute(7, "value", InputString);

@@ -1,6 +1,7 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Rendering;
 using Secyud.Secits.Blazor.Settings;
 
 namespace Secyud.Secits.Blazor;
@@ -21,22 +22,6 @@ public abstract class AddTemplateBase<TValue> : SLayoutPluginBase<SInput<TValue>
 
     [Parameter(CaptureUnmatchedValues = true)]
     public IDictionary<string, object>? AdditionalAttributes { get; set; }
-
-    /// <summary>
-    /// Gets the value to be used for the input's "name" attribute.
-    /// </summary>
-    protected string? NameAttributeValue
-    {
-        get
-        {
-            if (AdditionalAttributes?.TryGetValue("name", out var nameAttributeValue) ?? false)
-            {
-                return Convert.ToString(nameAttributeValue, CultureInfo.InvariantCulture);
-            }
-
-            return null;
-        }
-    }
 
     public override RendererPosition GetLayoutPosition()
     {
@@ -154,4 +139,9 @@ public abstract class AddTemplateBase<TValue> : SLayoutPluginBase<SInput<TValue>
 
     protected abstract bool TryParseValueFromString(string? value,
         [MaybeNullWhen(false)] out TValue result);
+
+    protected override void BuildRenderTree(RenderTreeBuilder builder)
+    {
+        base.BuildRenderTree(builder);
+    }
 }

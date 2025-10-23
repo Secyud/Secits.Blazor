@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Components.Rendering;
 
 namespace Secyud.Secits.Blazor;
 
-public class AddDateBox<TValue> : AddTemplateBase<TValue>
+public class AddDateTimeBox<TValue> : AddTemplateBase<TValue>
 {
     private const string DateFormat = "yyyy-MM-dd"; // Compatible with HTML 'date' inputs
     private const string DateTimeLocalFormat = "yyyy-MM-ddTHH:mm:ss"; // Compatible with HTML 'datetime-local' inputs
@@ -26,7 +26,7 @@ public class AddDateBox<TValue> : AddTemplateBase<TValue>
     /// <summary>
     /// Constructs an instance of <see cref="InputDate{TValue}"/>
     /// </summary>
-    public AddDateBox()
+    public AddDateTimeBox()
     {
         var type = Nullable.GetUnderlyingType(typeof(TValue)) ?? typeof(TValue);
 
@@ -57,7 +57,7 @@ public class AddDateBox<TValue> : AddTemplateBase<TValue>
         builder.OpenElement(0, "input");
         builder.AddMultipleAttributes(1, AdditionalAttributes);
         builder.AddAttribute(2, "type", _typeAttributeValue);
-        builder.AddAttributeIf(!string.IsNullOrEmpty(NameAttributeValue), 3, "name", NameAttributeValue);
+        builder.AddAttributeIfNotEmpty(3, "name", Master.Name);
         builder.AddAttribute(3, "class", GetClass());
         builder.AddAttribute(4, "style", GetStyle());
         builder.AddAttribute(5, "value", InputString);

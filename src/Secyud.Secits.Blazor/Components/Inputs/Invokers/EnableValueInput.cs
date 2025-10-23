@@ -13,6 +13,9 @@ public class EnableValueInput<TValue> : EnableInputDelayInvokerBase<TValue>, IHa
     }
 
     [Parameter]
+    public bool EnableNullable { get; set; }
+
+    [Parameter]
     public TValue Value { get; set; } = default!;
 
     [Parameter]
@@ -43,7 +46,18 @@ public class EnableValueInput<TValue> : EnableInputDelayInvokerBase<TValue>, IHa
 
     protected override async Task OnSetActiveItemAsync(TValue value)
     {
-        CurrentValue = value;
+        if (Equals(CurrentValue, value))
+        {
+            if (EnableNullable)
+            {
+                CurrentValue = default!;
+            }
+        }
+        else
+        {
+            CurrentValue = value;
+        }
+
         await Task.CompletedTask;
     }
 }
