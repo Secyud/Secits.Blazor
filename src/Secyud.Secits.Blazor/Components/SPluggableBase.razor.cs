@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Rendering;
 using Secyud.Secits.Blazor.Services;
 using Secyud.Secits.Blazor.Settings;
 
@@ -56,8 +57,13 @@ public abstract partial class SPluggableBase : IHasTheme, IHasSize, IHasCustomSt
 
     #endregion
 
-
     #region Internal
+
+    protected override void OnBuildRenderTree(RenderTreeBuilder builder)
+    {
+        builder.AddContent(-1, GenerateSettingContent());
+        base.OnBuildRenderTree(builder);
+    }
 
     public new void StateHasChanged()
     {

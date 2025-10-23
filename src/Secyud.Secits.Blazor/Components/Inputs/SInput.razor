@@ -2,13 +2,6 @@
 @inherits SActivableBase
 @typeparam TValue
 
-
-@((RenderFragment)base.BuildRenderTree)
-
-@code
-{
-    protected override RenderFragment GenerateContent() =>
-        @<CascadingValue Value="SelectableContainer" IsFixed>
-            @base.GenerateContent()
-        </CascadingValue>;
-}
+<CascadingValue Value="SelectableContainer" IsFixed>
+    @((RenderFragment)base.BuildRenderTree)
+</CascadingValue>

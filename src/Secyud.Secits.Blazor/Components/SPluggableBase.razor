@@ -1,15 +1,11 @@
 ﻿@namespace Secyud.Secits.Blazor
-
-@GenerateSettingContent()
-@GenerateContent()
+@inherits SComponentBase
+<div class="@GetClass()" style="@GetStyle()">
+    @GenerateChildContent()
+</div>
 
 @code
 {
-    protected virtual RenderFragment GenerateContent() =>
-        @<div class="@GetClass()" style="@GetStyle()">
-            @GenerateChildContent()
-        </div>;
-
     protected virtual RenderFragment? GenerateChildContent() => null;
 
     protected virtual RenderFragment? GenerateSetting() => ChildContent;
