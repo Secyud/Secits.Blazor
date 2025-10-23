@@ -7,15 +7,14 @@ namespace Secyud.Secits.Blazor;
 public class AddRadio<TValue> : SLayoutPluginBase<SInput<TValue>>, IValueContainer
 {
     [Parameter]
+    public string? Text { get; set; }
+
+    [Parameter]
     public TValue Value { get; set; } = default!;
 
     [Parameter(CaptureUnmatchedValues = true)]
     public IDictionary<string, object>? AdditionalAttributes { get; set; }
 
-    public override RendererPosition GetLayoutPosition()
-    {
-        return RendererPosition.Body;
-    }
 
     public Task OnValueUpdatedAsync(object? sender, bool applied)
     {
@@ -37,6 +36,12 @@ public class AddRadio<TValue> : SLayoutPluginBase<SInput<TValue>>, IValueContain
             this, OnChangeAsync, GetTextField(currentValue)));
         builder.SetUpdatesAttributeName("checked");
         builder.CloseElement();
+        if (!string.IsNullOrEmpty(Text))
+        {
+            builder.OpenElement(9, "label");
+            builder.AddContent(10, Text);
+            builder.CloseElement();
+        }
     }
 
     protected string? GetTextField(TValue value)

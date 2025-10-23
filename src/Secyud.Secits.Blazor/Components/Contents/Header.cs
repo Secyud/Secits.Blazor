@@ -1,28 +1,13 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Rendering;
 using Secyud.Secits.Blazor.Settings;
 
 namespace Secyud.Secits.Blazor;
 
-public class Header : SPluginBase<SCard>, IContentRenderer, IHasContent
+public class Header : SLayoutPluginBase<SContentBase>, IHasContent
 {
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
+    
 
-    protected override void ApplySetting()
-    {
-        Master.Content.Apply(this);
-    }
-
-    protected override void ForgoSetting()
-    {
-        Master.Content.Forgo(this);
-    }
-
-
-    public RenderFragment? RenderTemplate() => ChildContent;
-
-    public RendererPosition GetLayoutPosition()
-    {
-        return RendererPosition.Header;
-    }
 }

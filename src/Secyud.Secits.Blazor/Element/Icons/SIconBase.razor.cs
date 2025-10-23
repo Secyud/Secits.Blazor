@@ -4,7 +4,7 @@ using Secyud.Secits.Blazor.Settings;
 
 namespace Secyud.Secits.Blazor.Element;
 
-public abstract partial class SIconBase : IHasCustomStyle, ICanClick
+public abstract partial class SIconBase : ICanClick
 {
     [Parameter]
     public string? Class { get; set; }

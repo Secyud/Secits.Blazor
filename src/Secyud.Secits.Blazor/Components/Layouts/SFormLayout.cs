@@ -4,7 +4,7 @@ using Secyud.Secits.Blazor.Validations;
 
 namespace Secyud.Secits.Blazor;
 
-public class SFormLayout:SContentBase
+public class SFormLayout : SContentBase
 {
     protected override string ComponentName => "form-layout";
 

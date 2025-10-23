@@ -3,7 +3,7 @@ using Secyud.Secits.Blazor.Icons;
 
 namespace Secyud.Secits.Blazor.Element;
 
-public partial class SPager : IHasCustomStyle
+public partial class SPager
 {
     [Inject]
     private IIconProvider IconProvider { get; set; } = null!;
@@ -19,12 +19,6 @@ public partial class SPager : IHasCustomStyle
 
     [Parameter]
     public EventCallback<int> PageIndexChanged { get; set; }
-
-    [Parameter]
-    public string? Class { get; set; }
-
-    [Parameter]
-    public string? Style { get; set; }
 
     protected async Task ChangePageIndexAsync(int index)
     {
@@ -58,14 +52,9 @@ public partial class SPager : IHasCustomStyle
         if (PageIndex != MaxPageCount - 1) await ChangePageIndexAsync(MaxPageCount - 1);
     }
 
-    protected string? GetClass()
+    protected override string? GetClass()
     {
         return ClassStyleBuilder.GenerateClass("s-pager", Class);
-    }
-
-    protected string? GetStyle()
-    {
-        return Style;
     }
 
     protected RenderFragment GeneratePageButtons(int min, int max) =>

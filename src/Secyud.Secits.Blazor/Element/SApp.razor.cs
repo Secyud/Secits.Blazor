@@ -13,20 +13,9 @@ public partial class SApp : IHasCustomStyle,IHasContent
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
-    [Parameter]
-    public string? Class { get; set; }
-
-    [Parameter]
-    public string? Style { get; set; }
-
-    protected string? GetClass()
+    protected override string? GetClass()
     {
         return ClassStyleBuilder.GenerateClass("s-app", Class);
-    }
-
-    protected string? GetStyle()
-    {
-        return Style;
     }
 
     protected void OnClick(MouseEventArgs args)

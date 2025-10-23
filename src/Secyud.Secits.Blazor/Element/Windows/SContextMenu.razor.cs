@@ -5,7 +5,7 @@ using Secyud.Secits.Blazor.Settings;
 
 namespace Secyud.Secits.Blazor.Element;
 
-public partial class SContextMenu : IHasContent, IHasCustomStyle, IAsyncDisposable
+public partial class SContextMenu : IHasContent, IAsyncDisposable
 {
     [Inject]
     private SecitsApp App { get; set; } = null!;
@@ -15,12 +15,6 @@ public partial class SContextMenu : IHasContent, IHasCustomStyle, IAsyncDisposab
 
     [Parameter]
     public bool HideMode { get; set; }
-
-    [Parameter]
-    public string? Class { get; set; }
-
-    [Parameter]
-    public string? Style { get; set; }
 
     [Parameter]
     public Func<ElementReference?>? ExtendElement { get; set; }
@@ -40,12 +34,12 @@ public partial class SContextMenu : IHasContent, IHasCustomStyle, IAsyncDisposab
         else await HideAsync();
     }
 
-    protected string? GetClass()
+    protected override string? GetClass()
     {
         return ClassStyleBuilder.GenerateClass("s-context-menu", Class);
     }
 
-    protected string GetStyle()
+    protected override string GetStyle()
     {
         return $"display:{(_visible ? "static" : "none")};{Style}";
     }

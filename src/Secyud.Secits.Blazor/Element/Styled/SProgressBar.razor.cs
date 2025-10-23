@@ -2,20 +2,17 @@ using Microsoft.AspNetCore.Components;
 
 namespace Secyud.Secits.Blazor.Element;
 
-public partial class SProgressBar : IHasCustomStyle
+public partial class SProgressBar
 {
     [Parameter]
     public int Percentage { get; set; }
 
-    public string? Class { get; set; }
-    public string? Style { get; set; }
-
-    protected string? GetClass()
+    protected override string? GetClass()
     {
         return ClassStyleBuilder.GenerateClass("s-progress-bar", Class);
     }
 
-    protected string GetStyle()
+    protected override string GetStyle()
     {
         return $"--percentage:{Percentage};{Style}";
     }

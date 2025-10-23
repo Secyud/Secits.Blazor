@@ -1,12 +1,10 @@
 using System.Diagnostics.CodeAnalysis;
-using System.Globalization;
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Rendering;
 using Secyud.Secits.Blazor.Settings;
 
 namespace Secyud.Secits.Blazor;
 
-public abstract class AddTemplateBase<TValue> : SLayoutPluginBase<SInput<TValue>>, IValueContainer
+public abstract class AddTemplateBase<TValue> : SActivablePluginBase<SInput<TValue>>, IValueContainer
 {
     protected virtual string? InputString => ParsingFailed ? ValueString : CurrentString;
     protected string? CurrentString { get; set; }
@@ -22,11 +20,6 @@ public abstract class AddTemplateBase<TValue> : SLayoutPluginBase<SInput<TValue>
 
     [Parameter(CaptureUnmatchedValues = true)]
     public IDictionary<string, object>? AdditionalAttributes { get; set; }
-
-    public override RendererPosition GetLayoutPosition()
-    {
-        return RendererPosition.Body;
-    }
 
     public async Task OnValueUpdatedAsync(object? sender, bool applied)
     {
@@ -139,9 +132,4 @@ public abstract class AddTemplateBase<TValue> : SLayoutPluginBase<SInput<TValue>
 
     protected abstract bool TryParseValueFromString(string? value,
         [MaybeNullWhen(false)] out TValue result);
-
-    protected override void BuildRenderTree(RenderTreeBuilder builder)
-    {
-        base.BuildRenderTree(builder);
-    }
 }

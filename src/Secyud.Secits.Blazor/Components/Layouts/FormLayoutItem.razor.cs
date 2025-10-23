@@ -33,11 +33,6 @@ public partial class FormLayoutItem : SLayoutPluginBase<SFormLayout>, IHasConten
     [Parameter]
     public bool ShowValidationMessage { get; set; }
 
-    public override RendererPosition GetLayoutPosition()
-    {
-        return RendererPosition.Body;
-    }
-
     protected override string GetClass()
     {
         var sb = new StringBuilder();

@@ -41,10 +41,6 @@ public partial class EnableDropDown : IHasContent
         _downIcon ??= IconProvider.GetIcon(IconName.CaretDown);
     }
 
-    public override RendererPosition GetLayoutPosition()
-    {
-        return RendererPosition.Body;
-    }
     protected string? GetContentStyle()
     {
         return ContentStyle;
@@ -54,8 +50,7 @@ public partial class EnableDropDown : IHasContent
     {
         return ClassStyleBuilder.GenerateClass("s-dropdown-content", ContentClass);
     }
-
-
+    
     public Task ClickDropDownAsync()
     {
         ContextVisible = !ContextVisible;

@@ -7,18 +7,15 @@ public abstract class SLayoutPluginBase<TComponent> : SPluginBase<TComponent>, I
     where TComponent : SPluggableBase, IHasContentRender
 {
     [Parameter]
+    public RendererPosition Position { get; set; } = RendererPosition.Body;
+
+    [Parameter]
     public string? Style { get; set; }
 
     [Parameter]
     public string? Class { get; set; }
 
-    [Parameter]
-    public bool Readonly { get; set; }
-
-    [Parameter]
-    public bool Disabled { get; set; }
-
-    public abstract RendererPosition GetLayoutPosition();
+    public RendererPosition GetLayoutPosition() => Position;
 
     public RenderFragment RenderTemplate() => BuildRenderTree;
 
@@ -29,10 +26,7 @@ public abstract class SLayoutPluginBase<TComponent> : SPluginBase<TComponent>, I
 
     protected virtual string? GetClass()
     {
-        return ClassStyleBuilder.GenerateClass("anim",
-            Readonly ? "readonly" : null,
-            Disabled ? "disabled" : null,
-            Class);
+        return Class;
     }
 
     protected override void ApplySetting()

@@ -1,27 +1,9 @@
-﻿using Microsoft.AspNetCore.Components;
-using Secyud.Secits.Blazor.Settings;
+﻿namespace Secyud.Secits.Blazor;
 
-namespace Secyud.Secits.Blazor;
-
-public class Body : SPluginBase<SCard>, IContentRenderer, IHasContent
+public class Body : AddContentBase
 {
-    [Parameter]
-    public RenderFragment? ChildContent { get; set; }
-
-    protected override void ApplySetting()
+    protected override string? GetClass()
     {
-        Master.Content.Apply(this);
-    }
-
-    protected override void ForgoSetting()
-    {
-        Master.Content.Forgo(this);
-    }
-
-    public RenderFragment? RenderTemplate() => ChildContent;
-
-    public RendererPosition GetLayoutPosition()
-    {
-        return RendererPosition.Body;
+        return ClassStyleBuilder.GenerateClass("body", Class);
     }
 }

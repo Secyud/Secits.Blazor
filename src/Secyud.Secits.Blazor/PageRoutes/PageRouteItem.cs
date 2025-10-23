@@ -1,6 +1,4 @@
-﻿using System.Reflection;
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Rendering;
+﻿using Microsoft.AspNetCore.Components.Rendering;
 
 namespace Secyud.Secits.Blazor.PageRoutes;
 

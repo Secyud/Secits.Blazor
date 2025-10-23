@@ -33,11 +33,6 @@ public partial class AddRollerBox<TValue>
         }
     }
 
-    public override RendererPosition GetLayoutPosition()
-    {
-        return RendererPosition.Body;
-    }
-
 
     public Func<TValue, string?>? TextField
     {

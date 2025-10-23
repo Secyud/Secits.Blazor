@@ -1,14 +1,10 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
-using Secyud.Secits.Blazor.Settings;
 
-namespace Secyud.Secits.Blazor;
+namespace Secyud.Secits.Blazor.Element;
 
-public class AddLabel : SLayoutPluginBase<SActivableBase>
+public class SLabel : SLayoutPluginBase<SContentBase>
 {
-    [Parameter]
-    public RendererPosition RendererPosition { get; set; } = RendererPosition.Body;
-
     [Parameter]
     public string? For { get; set; }
 
@@ -18,17 +14,19 @@ public class AddLabel : SLayoutPluginBase<SActivableBase>
     [Parameter]
     public string? Text { get; set; }
 
-    public override RendererPosition GetLayoutPosition()
-    {
-        return RendererPosition;
-    }
-
     protected override void BuildRenderTree(RenderTreeBuilder builder)
     {
         builder.OpenElement(0, "label");
         builder.AddAttributeIfNotEmpty(1, "for", For);
         builder.AddAttributeIfNotEmpty(2, "name", Name);
+        builder.AddAttributeIfNotEmpty(3, "class", GetClass());
+        builder.AddAttributeIfNotEmpty(4, "style", GetStyle());
         builder.AddContent(5, Text);
         builder.CloseElement();
+    }
+
+    protected override string? GetClass()
+    {
+        return ClassStyleBuilder.GenerateClass("s-label", Class);
     }
 }

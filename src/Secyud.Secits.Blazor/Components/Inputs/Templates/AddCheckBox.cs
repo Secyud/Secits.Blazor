@@ -26,11 +26,6 @@ public class AddCheckBox : SLayoutPluginBase<SInput<bool>>, IValueContainer
         }
     }
 
-    public override RendererPosition GetLayoutPosition()
-    {
-        return RendererPosition.Body;
-    }
-
     protected override void BuildRenderTree(RenderTreeBuilder builder)
     {
         builder.OpenElement(0, "input");
