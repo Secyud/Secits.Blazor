@@ -24,6 +24,11 @@ public class EnableValueInput<TValue> : EnableInputDelayInvokerBase<TValue>, IHa
     [Parameter]
     public Expression<Func<TValue>>? ValueExpression { get; set; }
 
+    protected override void SetSelectionFromParameter(ParameterContainer parameters)
+    {
+        parameters.UseParameter(Value, nameof(Value), value => { CurrentValue = value; });
+    }
+
     protected override async Task OnValueChangedAsync()
     {
         if (ValueChanged.HasDelegate)

@@ -27,4 +27,6 @@ public enum IconName
     Exclamation,
     Palette,
     Globe,
+    Lock,
+    Random,
 }

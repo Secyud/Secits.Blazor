@@ -3,17 +3,10 @@ using Microsoft.AspNetCore.Components;
 namespace Secyud.Secits.Blazor.Preset;
 
 [CascadingTypeParameter(nameof(TValue))]
-[CascadingTypeParameter(nameof(TField))]
-public partial class ComboBox<TValue, TField>
+public partial class SelectBox<TValue>
 {
     [Parameter]
     public IReadOnlyList<TValue> Items { get; set; } = [];
-
-    [Parameter]
-    public Func<TValue, TField>? ValueField { get; set; }
-
-    [Parameter]
-    public Func<TField, Task<TValue>>? ItemFinder { get; set; }
 
     [Parameter]
     public RenderFragment<TValue>? ListItemTemplate { get; set; }
@@ -22,10 +15,10 @@ public partial class ComboBox<TValue, TField>
     public bool EnableNullable { get; set; }
 
     [Parameter]
-    public TField Field { get; set; } = default!;
+    public TValue Value { get; set; } = default!;
 
     [Parameter]
-    public EventCallback<TField> FieldChanged { get; set; }
+    public EventCallback<TValue> ValueChanged { get; set; }
 
     protected override void BuildClassStyle(ClassStyleContext context)
     {

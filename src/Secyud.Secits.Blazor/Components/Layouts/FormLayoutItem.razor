@@ -23,10 +23,11 @@
     protected virtual RenderFragment GenerateFieldContent() =>
         __builder =>
         {
-            @if (Master.EnableLabel || !string.IsNullOrWhiteSpace(Title))
+            @if (Master.EnableLabel || !string.IsNullOrWhiteSpace(Title) ||
+                 TitleTemplate is not null)
             {
                 <label class="form-item-title">
-                    @Title
+                    @Title @TitleTemplate
                 </label>
             }
 

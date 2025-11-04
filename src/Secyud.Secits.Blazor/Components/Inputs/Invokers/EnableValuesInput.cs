@@ -24,6 +24,18 @@ public class EnableValuesInput<TValue> : EnableInputDelayInvokerBase<TValue>, IH
     [Parameter]
     public Func<List<TValue>, List<ValidationResult>>? ValuesValidator { get; set; }
 
+    protected override void SetSelectionFromParameter(ParameterContainer parameters)
+    {
+        parameters.UseParameter(Values, nameof(Values), value =>
+        {
+            CurrentValuesHash.Clear();
+            foreach (var v in value)
+            {
+                CurrentValuesHash.Add(v);
+            }
+        });
+    }
+
     protected override async Task OnValueChangedAsync()
     {
         if (ValuesChanged.HasDelegate)

@@ -24,25 +24,24 @@ public class EnableFieldInput<TValue, TField> : EnableValueInput<TValue>
     [Parameter]
     public Func<TField, List<ValidationResult>>? FieldValidator { get; set; }
 
-    protected override void PreParametersSet(ParameterContainer parameters)
-    {
-        base.PreParametersSet(parameters);
-        parameters.UseParameter(Field, nameof(Field), SetSelectionFromParameter);
-    }
 
-    protected async Task SetSelectionFromParameter(TField value)
+    protected override void SetSelectionFromParameter(ParameterContainer parameters)
     {
-        if (ItemFinder is not null)
+        base.SetSelectionFromParameter(parameters);
+        parameters.UseParameter(Field, nameof(Field), async field =>
         {
-            CurrentValue = await ItemFinder.Invoke(value);
-            return;
-        }
+            if (ItemFinder is not null)
+            {
+                CurrentValue = await ItemFinder.Invoke(field);
+                return;
+            }
 
-        if (value is TValue item)
-            CurrentValue = item;
-        else
-            throw new InvalidOperationException(
-                $"Please set {nameof(ItemFinder)} in {nameof(EnableFieldInput<TValue, TField>)}.");
+            if (field is TValue item)
+                CurrentValue = item;
+            else
+                throw new InvalidOperationException(
+                    $"Please set {nameof(ItemFinder)} in {nameof(EnableFieldInput<TValue, TField>)}.");
+        });
     }
 
     protected override async Task OnValueChangedAsync()

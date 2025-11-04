@@ -28,6 +28,9 @@ public partial class FormLayoutItem : SLayoutPluginBase<SFormLayout>, IHasConten
     public string? Title { get; set; }
 
     [Parameter]
+    public RenderFragment? TitleTemplate { get; set; }
+
+    [Parameter]
     public bool EnableValidation { get; set; } = true;
 
     [Parameter]

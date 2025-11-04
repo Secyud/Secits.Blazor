@@ -7,7 +7,7 @@ namespace Secyud.Secits.Blazor.Element;
 public class STitle : SStyledBase
 {
     [Parameter, Range(1, 6)]
-    public int Level { get; set; }
+    public int Level { get; set; } = 3;
 
     [Parameter]
     public string? Text { get; set; }

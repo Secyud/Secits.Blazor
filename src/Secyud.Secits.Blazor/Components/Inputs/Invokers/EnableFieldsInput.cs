@@ -6,7 +6,6 @@ namespace Secyud.Secits.Blazor;
 
 public class EnableFieldsInput<TValue, TField> : EnableValuesInput<TValue>
 {
-
     [Parameter]
     public Func<TValue, TField>? ValueField { get; set; }
 
@@ -25,38 +24,36 @@ public class EnableFieldsInput<TValue, TField> : EnableValuesInput<TValue>
     [Parameter]
     public Func<List<TField>, List<ValidationResult>>? FieldsValidator { get; set; }
 
-    protected override void PreParametersSet(ParameterContainer parameters)
+    protected override void SetSelectionFromParameter(ParameterContainer parameters)
     {
-        base.PreParametersSet(parameters);
-        parameters.UseParameter(Fields, nameof(Fields), TrySetSelectionFromParameter);
-    }
-
-    protected async Task TrySetSelectionFromParameter(List<TField> values)
-    {
-        if (ItemFinder is not null)
+        base.SetSelectionFromParameter(parameters);
+        parameters.UseParameter(Fields, nameof(Fields), async values =>
         {
-            var items = await ItemFinder.Invoke(values);
-            CurrentValuesHash.Clear();
-            foreach (var item in items)
+            if (ItemFinder is not null)
             {
-                CurrentValuesHash.Add(item);
-            }
-
-            return;
-        }
-
-        if (typeof(TValue).IsAssignableFrom(typeof(TField)))
-        {
-            CurrentValuesHash.Clear();
-            foreach (var value in values)
-            {
-                if (value is TValue item)
+                var items = await ItemFinder.Invoke(values);
+                CurrentValuesHash.Clear();
+                foreach (var item in items)
+                {
                     CurrentValuesHash.Add(item);
+                }
+
+                return;
             }
-        }
-        else
-            throw new InvalidOperationException(
-                $"Please set {nameof(ItemFinder)} in {nameof(EnableFieldInput<TValue, TField>)}.");
+
+            if (typeof(TValue).IsAssignableFrom(typeof(TField)))
+            {
+                CurrentValuesHash.Clear();
+                foreach (var value in values)
+                {
+                    if (value is TValue item)
+                        CurrentValuesHash.Add(item);
+                }
+            }
+            else
+                throw new InvalidOperationException(
+                    $"Please set {nameof(ItemFinder)} in {nameof(EnableFieldInput<TValue, TField>)}.");
+        });
     }
 
     protected override async Task OnValueChangedAsync()

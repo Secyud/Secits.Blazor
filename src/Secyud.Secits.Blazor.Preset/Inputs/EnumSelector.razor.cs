@@ -15,7 +15,7 @@ public partial class EnumSelector<TEnum> where TEnum : struct, Enum
     public RenderFragment<TEnum>? ListItemTemplate { get; set; }
 
     [Parameter]
-    public TEnum Value { get; set; } = default!;
+    public TEnum Value { get; set; }
 
     [Parameter]
     public EventCallback<TEnum> ValueChanged { get; set; }

@@ -1,7 +1,6 @@
 @namespace Secyud.Secits.Blazor.Preset
 @inherits SInput<TValue>
 @typeparam TValue
-@typeparam TField
 
 @((RenderFragment)base.BuildRenderTree)
 
@@ -12,10 +11,9 @@
         {
             @base.GenerateSetting()
             <AddShowBox TValue="TValue" Class="w-100" Readonly @onclick="ClickDropDownAsync"/>
-            <EnableFieldInput TValue="TValue" TField="TField"
+            <EnableValueInput TValue="TValue" 
                               EnableNullable="EnableNullable"
-                              Field="Field" FieldChanged="FieldChanged"
-                              ValueField="ValueField" ItemFinder="ItemFinder"
+                              Value="Value" ValueChanged="ValueChanged"
                               ValueUpdated="CloseDropDownAsync"/>
             <EnableDropDown @ref="_enableDropDown" ContentClass="outline">
                 <SList TValue="TValue" Class="ipd" Style="max-height: calc(var(--s-s) * 16);">

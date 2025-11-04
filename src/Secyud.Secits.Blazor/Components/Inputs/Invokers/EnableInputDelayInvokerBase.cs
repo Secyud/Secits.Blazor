@@ -54,6 +54,11 @@ public abstract class EnableInputDelayInvokerBase<TValue> : SPluginBase<SInput<T
                 _timer = null;
             }
         });
+        SetSelectionFromParameter(parameters);
+    }
+
+    protected virtual void SetSelectionFromParameter(ParameterContainer parameters)
+    {
     }
 
     protected async Task Do(object sender, Func<Task> task)

@@ -31,6 +31,8 @@ public class FontAwesomeIconProvider : IIconProvider
         [IconName.Refresh] = "fas fa-rotate-right",
         [IconName.Palette] = "fas fa-palette",
         [IconName.Globe] = "fas fa-globe",
+        [IconName.Lock] = "fas fa-lock",
+        [IconName.Random] = "fas fa-dice",
     };
 
     public string? GetIcon(IconName name)
