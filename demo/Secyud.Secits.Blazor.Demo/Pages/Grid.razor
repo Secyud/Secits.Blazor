@@ -5,11 +5,11 @@
 
 <ThemeSizeSelector @bind-Size="Size" @bind-Theme="Theme"/>
 
-<STabContainer Theme="Theme" Size="Size">
+<STabContainer>
     <FixTab>
         <Tag>Visualize</Tag>
         <Content>
-            <SCard>
+            <SCard Theme="Theme" Size="Size">
                 <Body>
                 <SGrid TValue="ListDemoItem" Class="outline" DisableFooter>
                     <EnableStaticSource Items="_list"/>
@@ -32,7 +32,7 @@
     <FixTab>
         <Tag>Paged</Tag>
         <Content>
-            <SCard>
+            <SCard Theme="Theme" Size="Size">
                 <Body>
                 <SGrid TValue="ListDemoItem" Class="outline" DisableFooter>
                     <EnableStaticSource Items="_list"/>

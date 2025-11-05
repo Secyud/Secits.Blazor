@@ -4,10 +4,10 @@ using Secyud.Secits.Blazor.Settings;
 
 namespace Secyud.Secits.Blazor;
 
-public class Header : SLayoutPluginBase<SContentBase>, IHasContent
+public class Header : AddContentBase
 {
-    [Parameter]
-    public RenderFragment? ChildContent { get; set; }
-    
-
+    protected override string? GetClass()
+    {
+        return ClassStyleBuilder.GenerateClass("header", Class);
+    }
 }

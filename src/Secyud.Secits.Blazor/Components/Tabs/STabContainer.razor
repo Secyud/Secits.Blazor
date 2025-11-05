@@ -1,5 +1,8 @@
 @namespace Secyud.Secits.Blazor
-@inherits SPluggableBase
+@inherits SComponentBase
+
 <CascadingValue Value="this" IsFixed>
-    @GenerateSettingContent()
+    <CascadingValue Value="PluggableContainer" IsFixed>
+        @ChildContent
+    </CascadingValue>
 </CascadingValue>

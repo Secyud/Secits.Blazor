@@ -1,18 +1,20 @@
 ﻿@using Secyud.Secits.Blazor.Icons
 @inherits LayoutComponentBase
-<STabContainer @ref="TabContainer" Class="@GetClass()" Style="@GetStyle()">
-    <TabProvider Items="PageRouteManager.Items" Options="OnTabOptioned">
-        <TagTemplate>
-            @GenerateTag(context)
-        </TagTemplate>
-        <ContentTemplate>
-            @GenerateContent(context)
-        </ContentTemplate>
-    </TabProvider>
+<div class="@GetClass()" style="@GetStyle()">
+    <STabContainer @ref="TabContainer">
+        <TabProvider Items="PageRouteManager.Items" Options="OnTabOptioned">
+            <TagTemplate>
+                @GenerateTag(context)
+            </TagTemplate>
+            <ContentTemplate>
+                @GenerateContent(context)
+            </ContentTemplate>
+        </TabProvider>
 
-    @GenerateChildContent()
+        @GenerateChildContent()
 
-</STabContainer>
+    </STabContainer>
+</div>
 
 @code
 {

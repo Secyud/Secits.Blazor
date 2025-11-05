@@ -3,8 +3,10 @@ using Secyud.Secits.Blazor.Settings;
 
 namespace Secyud.Secits.Blazor;
 
-public class Footer : SLayoutPluginBase<SContentBase>, IHasContent
+public class Footer : AddContentBase
 {
-    [Parameter]
-    public RenderFragment? ChildContent { get; set; }
+    protected override string? GetClass()
+    {
+        return ClassStyleBuilder.GenerateClass("footer", Class);
+    }
 }

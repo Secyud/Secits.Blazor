@@ -82,7 +82,7 @@ public partial class PageRouteTabsLayout : IDisposable
 
     protected virtual string? GetClass()
     {
-        return ClassStyleBuilder.GenerateClass("s-page-router", Class);
+        return ClassStyleBuilder.GenerateClass("s-tab-container", "s-page-router", Class);
     }
 
     protected string? GetStyle()
