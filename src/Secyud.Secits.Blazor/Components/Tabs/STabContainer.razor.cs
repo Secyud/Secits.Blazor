@@ -14,6 +14,7 @@ public partial class STabContainer : SPluggableBase
 
     public SSettings<ITabListener> TabListeners { get; } = new();
 
+
     public async Task SelectTabAsync(object? sender, string? tabKey)
     {
         CurrentKey = tabKey;
@@ -22,6 +23,6 @@ public partial class STabContainer : SPluggableBase
 
     protected override void OnBuildRenderTree(RenderTreeBuilder builder)
     {
-        base.BuildRenderTree(builder);
+        BuildRenderTree(builder);
     }
 }

@@ -34,7 +34,7 @@
         if (key is null && !AllowEmptyContent && firstTab is not null)
         {
             key = firstTab.Key;
-            container.SelectTabAsync(this, key).ConfigureAwait(false);
+            container.SelectTabAsync(null, key).ConfigureAwait(false);
         }
 
         return __builder =>
