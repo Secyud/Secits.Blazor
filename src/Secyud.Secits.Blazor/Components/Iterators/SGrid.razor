@@ -73,7 +73,7 @@
                 <div class="grid-col-front">
                     @foreach (var t in context.FrontColumns.Columns)
                     {
-                        <div class="grid-col">
+                        <div class="grid-col @t.Renderer.Class" style="@t.Renderer.Style">
                             @renderer(t)
                         </div>
                     }

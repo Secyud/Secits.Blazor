@@ -115,7 +115,7 @@ public abstract class AddTemplateBase<TValue> : SActivablePluginBase<SInput<TVal
         Master.ValueContainer.Forgo(this);
     }
 
-    protected string? GetReadOnly()
+    protected string? GetReadonly()
     {
         return Master.Readonly || Readonly ? "readonly" : null;
     }

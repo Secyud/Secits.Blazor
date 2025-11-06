@@ -9,8 +9,10 @@ namespace Secyud.Secits.Blazor;
 public partial class GridColumn<TValue, TField> :
     IGridColumnRenderer<TValue>, IHasField<TValue, TField>
 {
-    private Func<TValue, TField>? _valueField;
-    private int _columnWidth = 50;
+    private const int DefaultWidth = 100;
+
+    private ValueFieldOperator<TValue, TField>? _valueField;
+    private int _columnWidth = DefaultWidth;
     private RenderFragment? _columnFilter;
 
     [Inject]
@@ -26,11 +28,10 @@ public partial class GridColumn<TValue, TField> :
     public int MinWidth { get; set; } = 50;
 
     [Parameter]
-
     public ColumnPosition Position { get; set; } = ColumnPosition.Middle;
 
     [Parameter]
-    public int Width { get; set; }
+    public int Width { get; set; } = DefaultWidth;
 
     [Parameter]
     public string? Format { get; set; }
@@ -53,6 +54,12 @@ public partial class GridColumn<TValue, TField> :
     [Parameter]
     public RenderFragment<TValue>? ColumnTemplate { get; set; }
 
+    [Parameter]
+    public string? Class { get; set; }
+
+    [Parameter]
+    public string? Style { get; set; }
+
     public int RealWidth
     {
         get => _columnWidth;
@@ -68,7 +75,9 @@ public partial class GridColumn<TValue, TField> :
         parameters.UseParameter(Field, nameof(Field), field =>
         {
             var name = GetBodyName(field);
-            _valueField = field?.Compile();
+            _valueField = field is not null
+                ? new ValueFieldOperator<TValue, TField>(field)
+                : null;
             Filter.Field = name;
             Sorter.Field = name;
         });
@@ -142,10 +151,9 @@ public partial class GridColumn<TValue, TField> :
         await Master.RefreshAsync(true);
     }
 
-    [return: NotNullIfNotNull(nameof(item))]
     protected TField? GetField(TValue? item)
     {
-        return _valueField is null || item is null ? default : _valueField(item);
+        return _valueField is null || item is null ? default : _valueField.GetField(item);
     }
 
     private DataFilter Filter { get; } = new();

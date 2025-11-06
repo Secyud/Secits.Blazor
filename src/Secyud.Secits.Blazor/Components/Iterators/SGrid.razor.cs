@@ -18,6 +18,9 @@ public partial class SGrid<TValue>
     [Parameter]
     public bool DisableFooter { get; set; }
 
+    [Parameter]
+    public bool AutoWidth { get; set; }
+
     #region Settings
 
     public SSettings<IGridColumnRenderer<TValue>> TableColumns { get; } = new();

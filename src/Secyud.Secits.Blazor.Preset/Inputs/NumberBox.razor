@@ -9,9 +9,9 @@
     protected override RenderFragment GenerateSetting() =>
         __builder =>
         {
-            @base.GenerateSetting()
-            <AddNumberBox TValue="TValue" SubmitOnInput="SubmitOnInput"/>
             <EnableValueInput TValue="TValue" Value="Value" ValueChanged="ValueChanged"/>
+            <AddNumberBox TValue="TValue" SubmitOnInput="SubmitOnInput"/>
+            @base.GenerateSetting()
         };
 
     [Parameter]

@@ -60,10 +60,12 @@ public class AddDateTimeBox<TValue> : AddTemplateBase<TValue>
         builder.AddAttributeIfNotEmpty(3, "name", Master.Name);
         builder.AddAttribute(3, "class", GetClass());
         builder.AddAttribute(4, "style", GetStyle());
-        builder.AddAttribute(5, "value", InputString);
-        builder.AddAttribute(6, "onchange",
+        builder.AddAttributeIfNotEmpty(5, "readonly", GetReadonly());
+        builder.AddAttributeIfNotEmpty(6, "disabled", GetDisabled());
+        builder.AddAttribute(7, "value", InputString);
+        builder.AddAttribute(8, "onchange",
             EventCallback.Factory.CreateBinder<string?>(this, OnChangeAsync, InputString));
-        builder.AddAttribute(7, "oninput",
+        builder.AddAttribute(9, "oninput",
             EventCallback.Factory.CreateBinder<string?>(this, OnInputAsync, InputString));
         builder.CloseElement();
     }

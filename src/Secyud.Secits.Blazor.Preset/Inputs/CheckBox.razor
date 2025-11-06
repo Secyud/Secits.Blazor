@@ -8,8 +8,8 @@
     protected override RenderFragment GenerateSetting() =>
         __builder =>
         {
-            @base.GenerateSetting()
-            <AddCheckBox/>
             <EnableValueInput TValue="bool" Value="Value" ValueChanged="ValueChanged"/>
+            <AddCheckBox/>
+            @base.GenerateSetting()
         };
 }

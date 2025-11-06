@@ -13,7 +13,7 @@
                 @ChildContent
             </AddTemplate>
             <EnableDropDown @ref="_enableDropDown" ContentClass="outline">
-                <div @onclick="CloseDropDownAsync" @onclick:stopPropagation>
+                <div class="dropdown-box-content" @onclick="CloseDropDownAsync" @onclick:stopPropagation>
                     @DropdownContentTemplate
                 </div>
             </EnableDropDown>

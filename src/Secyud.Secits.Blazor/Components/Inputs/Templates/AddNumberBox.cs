@@ -53,10 +53,12 @@ public class AddNumberBox<TValue> : AddTemplateBase<TValue>
         builder.AddAttributeIfNotEmpty(4, "name", Master.Name);
         builder.AddAttribute(5, "class", GetClass());
         builder.AddAttribute(6, "style", GetStyle());
-        builder.AddAttribute(7, "value", InputString);
-        builder.AddAttribute(8, "onchange",
+        builder.AddAttributeIfNotEmpty(7, "readonly", GetReadonly());
+        builder.AddAttributeIfNotEmpty(8, "disabled", GetDisabled());
+        builder.AddAttribute(9, "value", InputString);
+        builder.AddAttribute(10, "onchange",
             EventCallback.Factory.CreateBinder<string?>(this, OnChangeAsync, InputString));
-        builder.AddAttribute(9, "oninput",
+        builder.AddAttribute(11, "oninput",
             EventCallback.Factory.CreateBinder<string?>(this, OnInputAsync, InputString));
         builder.CloseElement();
     }

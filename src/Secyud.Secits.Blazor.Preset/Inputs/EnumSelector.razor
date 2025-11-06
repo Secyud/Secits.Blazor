@@ -10,10 +10,9 @@
     protected override RenderFragment GenerateSetting() =>
         __builder =>
         {
-            @base.GenerateSetting()
-            <AddShowBox TValue="TEnum" Class="w-100" Readonly @onclick="ClickDropDownAsync"/>
             <EnableValueInput TValue="TEnum" ValueUpdated="CloseDropDownAsync"
                               Value="Value" ValueChanged="ValueChanged"/>
+            <AddShowBox TValue="TEnum" Class="w-100" Readonly @onclick="ClickDropDownAsync"/>
             <EnableDropDown @ref="_enableDropDown" ContentClass="outline">
                 <SList TValue="TEnum" Class="ipd" Style="max-height: calc(var(--s-s) * 16);">
                     <EnableStaticSource Items="@GetList()"/>
@@ -22,5 +21,6 @@
                     <ListColumn ChildContent="ListItemTemplate"/>
                 </SList>
             </EnableDropDown>
+            @base.GenerateSetting()
         };
 }

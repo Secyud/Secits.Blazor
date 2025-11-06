@@ -12,7 +12,7 @@ public partial class SPager
     public int MaxPageCount { get; set; }
 
     [Parameter]
-    public int NeighbourCount { get; set; } = 1;
+    public int NeighbourCount { get; set; } 
 
     [Parameter]
     public int PageIndex { get; set; }

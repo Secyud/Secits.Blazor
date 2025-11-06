@@ -15,9 +15,6 @@ public class SFormLayout : SContentBase
     public int? TitleWidth { get; set; }
 
     [Parameter]
-    public bool EnableLabel { get; set; }
-
-    [Parameter]
     public bool EnableValidation { get; set; }
 
     [Parameter]

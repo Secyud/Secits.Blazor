@@ -16,12 +16,20 @@ public partial class EnableIteratorTreePager<TValue> : IGridColumnRenderer<TValu
     [Parameter]
     public ColumnPosition Position { get; set; }
 
+    [Parameter]
+    public string? Class { get; set; }
+
+    [Parameter]
+    public string? Style { get; set; }
+
     private string? _closeIcon;
     private string? _openIcon;
 
-    public int RealWidth { get; set; } = 50;
+    public int RealWidth { get; set; } = 100;
+    public int Width => 100;
     public int MaxWidth => 50;
     public int MinWidth => 50;
+    public bool AutoWidth => false;
 
     public void BuildExtendClassStyle(ClassStyleContext context)
     {

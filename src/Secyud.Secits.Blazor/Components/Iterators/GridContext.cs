@@ -56,14 +56,20 @@ public class GridContext<TValue>
     {
         var sb = new StringBuilder();
 
-        sb.Append($" {FrontColumns.Width}px");
+        if (FrontColumns.Width > 0)
+        {
+            sb.Append($" {FrontColumns.Width}px");
+        }
 
         foreach (var column in MiddleColumns.Columns)
         {
             sb.Append($" {column.Renderer.RealWidth}px");
         }
 
-        sb.Append($" {BehindColumns.Width}px");
+        if (BehindColumns.Width > 0)
+        {
+            sb.Append($" {BehindColumns.Width}px");
+        }
 
         return sb.ToString();
     }
