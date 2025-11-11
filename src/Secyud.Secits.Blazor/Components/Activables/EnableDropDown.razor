@@ -5,7 +5,7 @@
     var iconName = ContextVisible ? _upIcon : _downIcon;
 }
 <SIcon @ref="_icon" IconName="@iconName" @key="iconName"
-       Click="@ClickDropDownAsync"
+       Click="@OpenDropDownAsync"
        Class="@GetClass()" Style="@GetStyle()"/>
 
 <SContextMenu

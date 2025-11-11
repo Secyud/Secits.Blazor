@@ -40,8 +40,8 @@ public partial class ComboBox<TValue, TField>
         return _enableDropDown?.CloseDropDownAsync() ?? Task.CompletedTask;
     }
 
-    protected Task ClickDropDownAsync()
+    protected Task OpenDropDownAsync()
     {
-        return _enableDropDown?.ClickDropDownAsync() ?? Task.CompletedTask;
+        return _enableDropDown?.OpenDropDownAsync() ?? Task.CompletedTask;
     }
 }

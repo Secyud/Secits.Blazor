@@ -33,9 +33,9 @@ public partial class EnumSelector<TEnum> where TEnum : struct, Enum
         return _enableDropDown?.CloseDropDownAsync() ?? Task.CompletedTask;
     }
 
-    protected Task ClickDropDownAsync()
+    protected Task OpenDropDownAsync()
     {
-        return _enableDropDown?.ClickDropDownAsync() ?? Task.CompletedTask;
+        return _enableDropDown?.OpenDropDownAsync() ?? Task.CompletedTask;
     }
 
     public IReadOnlyList<TEnum> GetList()

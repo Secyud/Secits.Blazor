@@ -50,12 +50,6 @@ public partial class EnableDropDown : IHasContent
     {
         return ClassStyleBuilder.GenerateClass("s-dropdown-content", ContentClass);
     }
-    
-    public Task ClickDropDownAsync()
-    {
-        ContextVisible = !ContextVisible;
-        return Task.CompletedTask;
-    }
 
     public Task CloseDropDownAsync()
     {

@@ -19,7 +19,7 @@
 
                     <SInput TValue="int" Class="pager-selector">
                         <AddTextBox Class="w-100" Readonly
-                                           @onclick="ClickDropDownAsync"/>
+                                    @onclick="OpenDropDownAsync"/>
                         <EnableValueInput TValue="int" Value="Master.DataRequest.PageSize"
                                           ValueChanged="PageSizeChangedAsync"
                                           ValueUpdated="CloseDropDownAsync"/>
@@ -43,10 +43,10 @@
                             await enableDropDown.CloseDropDownAsync();
                     }
 
-                    async Task ClickDropDownAsync()
+                    async Task OpenDropDownAsync()
                     {
                         if (enableDropDown is not null)
-                            await enableDropDown.ClickDropDownAsync();
+                            await enableDropDown.OpenDropDownAsync();
                     }
                 }
             </div>

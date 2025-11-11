@@ -12,7 +12,7 @@ public partial class DropdownBox
     protected override void OnClick()
     {
         base.OnClick();
-        ClickDropDownAsync();
+        OpenDropDownAsync().ConfigureAwait(false);
     }
 
     protected Task CloseDropDownAsync()
@@ -20,8 +20,8 @@ public partial class DropdownBox
         return _enableDropDown?.CloseDropDownAsync() ?? Task.CompletedTask;
     }
 
-    protected Task ClickDropDownAsync()
+    protected Task OpenDropDownAsync()
     {
-        return _enableDropDown?.ClickDropDownAsync() ?? Task.CompletedTask;
+        return _enableDropDown?.OpenDropDownAsync() ?? Task.CompletedTask;
     }
 }

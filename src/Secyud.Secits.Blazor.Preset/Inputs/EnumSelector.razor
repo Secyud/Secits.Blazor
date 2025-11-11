@@ -12,7 +12,7 @@
         {
             <EnableValueInput TValue="TEnum" ValueUpdated="CloseDropDownAsync"
                               Value="Value" ValueChanged="ValueChanged"/>
-            <AddShowBox TValue="TEnum" Class="w-100" Readonly @onclick="ClickDropDownAsync"/>
+            <AddShowBox TValue="TEnum" Class="w-100" Readonly @onclick="OpenDropDownAsync"/>
             <EnableDropDown @ref="_enableDropDown" ContentClass="outline">
                 <SList TValue="TEnum" Class="ipd" Style="max-height: calc(var(--s-s) * 16);">
                     <EnableStaticSource Items="@GetList()"/>

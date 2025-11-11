@@ -3,10 +3,23 @@ using Microsoft.AspNetCore.Components;
 namespace Secyud.Secits.Blazor.Preset;
 
 [CascadingTypeParameter(nameof(TValue))]
-public partial class SelectBox<TValue>
+[CascadingTypeParameter(nameof(TField))]
+public partial class AutoComplete<TValue, TField>
 {
     [Parameter]
-    public IReadOnlyList<TValue> Items { get; set; } = [];
+    public Func<DataRequest, Task<DataResult<TValue>>>? Items { get; set; }
+
+    [Parameter]
+    public Func<TValue, TField>? ValueField { get; set; }
+
+    [Parameter]
+    public string? SearchValue { get; set; }
+
+    [Parameter]
+    public EventCallback<string?> SearchValueChanged { get; set; }
+
+    [Parameter]
+    public Func<TField, Task<TValue>>? ItemFinder { get; set; }
 
     [Parameter]
     public RenderFragment<TValue>? ListItemTemplate { get; set; }
@@ -15,10 +28,10 @@ public partial class SelectBox<TValue>
     public bool EnableNullable { get; set; }
 
     [Parameter]
-    public TValue Value { get; set; } = default!;
+    public TField Field { get; set; } = default!;
 
     [Parameter]
-    public EventCallback<TValue> ValueChanged { get; set; }
+    public EventCallback<TField> FieldChanged { get; set; }
 
     protected override void BuildClassStyle(ClassStyleContext context)
     {
@@ -27,6 +40,11 @@ public partial class SelectBox<TValue>
     }
 
     private EnableDropDown? _enableDropDown;
+
+    protected void OnSearchValueChanged(object? searchValue)
+    {
+        SearchValueChanged.InvokeAsync(searchValue?.ToString()).ConfigureAwait(false);
+    }
 
     protected Task CloseDropDownAsync()
     {
