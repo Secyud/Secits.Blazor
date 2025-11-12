@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
+using Secyud.Secits.Blazor.JSInterop;
 using Secyud.Secits.Blazor.Services;
 using Secyud.Secits.Blazor.Settings;
 
@@ -7,9 +8,6 @@ namespace Secyud.Secits.Blazor.Element;
 
 public partial class SContextMenu : IHasContent, IAsyncDisposable
 {
-    [Inject]
-    private SecitsApp App { get; set; } = null!;
-
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
@@ -25,7 +23,11 @@ public partial class SContextMenu : IHasContent, IAsyncDisposable
     [Parameter]
     public EventCallback<bool> VisibleChanged { get; set; }
 
+    [Inject]
+    public IJsDocument Document { get; set; } = null!;
+
     private bool _visible;
+    private long? _eventId;
 
     public override async Task SetParametersAsync(ParameterView parameters)
     {
@@ -48,7 +50,8 @@ public partial class SContextMenu : IHasContent, IAsyncDisposable
     {
         if (!_visible) return;
         _visible = false;
-        App.OnClick -= OnDocumentClickAsync;
+        _eventId = await Document.AddEventListenerAsync<MouseEventArgs>(
+            OnDocumentClickAsync, "onclick");
         await VisibleChanged.InvokeAsync(_visible);
         await InvokeAsync(StateHasChanged);
     }
@@ -57,14 +60,14 @@ public partial class SContextMenu : IHasContent, IAsyncDisposable
     {
         if (_visible) return;
         _visible = true;
-        App.OnClick += OnDocumentClickAsync;
+        _eventId = await Document.RemoveEventListenerAsync(_eventId);
         await VisibleChanged.InvokeAsync(_visible);
         await InvokeAsync(StateHasChanged);
     }
 
-    protected void OnDocumentClickAsync(object? sender, MouseEventArgs args)
+    protected Task OnDocumentClickAsync(MouseEventArgs args)
     {
-        HideAsync().ConfigureAwait(false);
+        return HideAsync();
     }
 
     public async ValueTask DisposeAsync()

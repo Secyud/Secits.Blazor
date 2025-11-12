@@ -34,13 +34,13 @@ public partial class EnableColumnResize<TValue> : IGridHeaderRenderer
         _isDrag = isDrag;
         if (_isDrag)
         {
-            _dragEventId = await JsDocument.AddEventListener<MouseEventArgs>(OnDragColumnHeader, "mousemove");
-            _endEventId = await JsDocument.AddEventListener(EndDragColumnHeader, "mouseup", "mouseleave");
+            _dragEventId = await JsDocument.AddEventListenerAsync<MouseEventArgs>(OnDragColumnHeader, "mousemove");
+            _endEventId = await JsDocument.AddEventListenerAsync(EndDragColumnHeader, "mouseup", "mouseleave");
         }
         else
         {
-            _dragEventId = await JsDocument.RemoveEventListener(_dragEventId);
-            _endEventId = await JsDocument.RemoveEventListener(_endEventId);
+            _dragEventId = await JsDocument.RemoveEventListenerAsync(_dragEventId);
+            _endEventId = await JsDocument.RemoveEventListenerAsync(_endEventId);
         }
     }
 

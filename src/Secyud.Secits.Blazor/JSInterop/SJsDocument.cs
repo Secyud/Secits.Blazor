@@ -7,12 +7,12 @@ public class SJsDocument(JsEventHandler eventHandler) : IJsDocument
     private readonly Lazy<Task<IJSObjectReference>> _documentEventHandler =
         new(() => eventHandler.InvokeAsync<IJSObjectReference>("getDocumentEventHandler").AsTask()!);
 
-    public Task<long> AddEventListener<TEventArgs>(Func<TEventArgs, Task> func, params string[] types)
+    public Task<long> AddEventListenerAsync<TEventArgs>(Func<TEventArgs, Task> func, params string[] types)
     {
         return AddEventListenerAsync(new Invoker<TEventArgs>(func), types);
     }
 
-    public Task<long> AddEventListener(Func<Task> func, params string[] types)
+    public Task<long> AddEventListenerAsync(Func<Task> func, params string[] types)
     {
         return AddEventListenerAsync(new Invoker(func), types);
     }
@@ -24,7 +24,7 @@ public class SJsDocument(JsEventHandler eventHandler) : IJsDocument
             DotNetObjectReference.Create(invoker), types);
     }
 
-    public async Task<long?> RemoveEventListener(long? id)
+    public async Task<long?> RemoveEventListenerAsync(long? id)
     {
         if (id.HasValue)
         {

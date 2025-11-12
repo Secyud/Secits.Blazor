@@ -20,7 +20,6 @@ public static class SecitsExtensions
         services.AddTransient<IIconProvider, NullIconProvider>();
         services.AddTransient<ISecitsService, SecitsService>();
         services.AddScoped<PageRouteManager>();
-        services.AddScoped<SecitsApp>();
 
         #endregion
 
